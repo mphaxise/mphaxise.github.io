@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Praneet Koppula — UX Researcher & Civic Technologist</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #21262d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #c9a96e;
+      --accent-dim: #7d6540;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity 0.15s; }
+    a:hover { opacity: 0.75; }
+
+    /* ── Layout ── */
+    .container { max-width: 760px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 0;
+    }
+    nav .inner {
+      max-width: 760px; margin: 0 auto; padding: 0 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav .logo {
+      font-family: 'EB Garamond', serif;
+      font-size: 17px; letter-spacing: 0.01em; color: var(--text);
+    }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul li a { font-size: 13px; color: var(--muted); letter-spacing: 0.03em; text-transform: uppercase; }
+    nav ul li a:hover { color: var(--text); opacity: 1; }
+
+    /* ── Hero ── */
+    .hero { padding: 96px 0 72px; }
+    .hero-eyebrow {
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(42px, 8vw, 64px);
+      font-weight: 500; line-height: 1.12;
+      color: var(--text); margin-bottom: 24px;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-desc {
+      font-size: 17px; color: var(--muted);
+      max-width: 520px; line-height: 1.75; margin-bottom: 36px;
+    }
+    .hero-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .hero-links a {
+      font-size: 13px; letter-spacing: 0.04em;
+      text-transform: uppercase; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 8px 16px; transition: border-color 0.15s, color 0.15s;
+    }
+    .hero-links a:hover { border-color: var(--accent-dim); color: var(--accent); opacity: 1; }
+
+    /* ── Sections ── */
+    section { padding: 64px 0; border-top: 1px solid var(--border); }
+    .section-label {
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 40px;
+    }
+
+    /* ── Experience ── */
+    .exp-item { margin-bottom: 44px; }
+    .exp-item:last-child { margin-bottom: 0; }
+    .exp-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 16px; margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .exp-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 19px; font-weight: 500; color: var(--text);
+    }
+    .exp-period {
+      font-size: 12px; letter-spacing: 0.04em; color: var(--muted);
+      white-space: nowrap; padding-top: 3px;
+    }
+    .exp-org {
+      font-size: 13px; color: var(--accent); margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .exp-body { color: var(--muted); font-size: 14.5px; line-height: 1.75; }
+    .exp-body ul { padding-left: 18px; }
+    .exp-body ul li { margin-bottom: 5px; }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px;
+      transition: border-color 0.15s;
+    }
+    .project-card:hover { border-color: var(--accent-dim); }
+    .project-card h3 {
+      font-family: 'EB Garamond', serif;
+      font-size: 17px; font-weight: 500;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .project-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
+    .project-link {
+      font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ── Skills ── */
+    .skills-grid {
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+    .skill-tag {
+      font-size: 12.5px; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 6px 14px; letter-spacing: 0.02em;
+    }
+
+    /* ── Contact ── */
+    .contact-block {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 40px;
+      text-align: center;
+    }
+    .contact-block h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 28px; font-weight: 500; margin-bottom: 12px;
+    }
+    .contact-block p { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+    .contact-email {
+      font-family: 'EB Garamond', serif;
+      font-size: 20px; color: var(--accent);
+    }
+    .contact-links { display: flex; justify-content: center; gap: 24px; margin-top: 24px; }
+    .contact-links a { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ── Footer ── */
+    footer {
+      padding: 32px 0; border-top: 1px solid var(--border);
+      text-align: center; color: var(--muted); font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      nav ul { display: none; }
+      .hero { padding: 64px 0 48px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-block { padding: 28px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="inner">
+      <span class="logo">PK</span>
+      <ul>
+        <li><a href="#experience">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero" style="border-top: none; padding-top: 96px;">
+      <p class="hero-eyebrow">San Francisco, CA</p>
+      <h1>Praneet<br><em>Koppula</em></h1>
+      <p class="hero-desc">
+        UX researcher and civic technologist with 18+ years designing
+        participant-first services at the intersection of government, community,
+        and technology. I build things that lower barriers to access.
+      </p>
+      <div class="hero-links">
+        <a href="mailto:praneet.koppula@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/praneetkoppula" target="_blank">LinkedIn</a>
+        <a href="https://github.com/mphaxise" target="_blank">GitHub</a>
+        <a href="#contact">Get in touch</a>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <p class="section-label">Selected Experience</p>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Intern, Office of Supervisor Rafael Mandelman</span>
+          <span class="exp-period">Nov 2025 – Present</span>
+        </div>
+        <p class="exp-org">City and County of San Francisco — District 8</p>
+        <div class="exp-body">
+          <ul>
+            <li>Delivered constituent casework and referrals to housing, social services, and legal aid providers.</li>
+            <li>Mapped constituent service journeys and incorporated resident feedback into legislative research.</li>
+            <li>Supported policy analysis on housing, homelessness, and community services.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Senior Manager, Design Automation UX</span>
+          <span class="exp-period">Jun 2014 – Aug 2024</span>
+        </div>
+        <p class="exp-org">MathWorks — Natick, MA</p>
+        <div class="exp-body">
+          <ul>
+            <li>Led multidisciplinary teams of 10+ across research, product, and accessibility over a decade.</li>
+            <li>Built participant research frameworks to deeply understand user needs and translate them into product direction.</li>
+            <li>Managed program budgets, cross-functional timelines, and mentorship pipelines for emerging practitioners.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Head of UX &amp; Product Management</span>
+          <span class="exp-period">Apr 2013 – May 2014</span>
+        </div>
+        <p class="exp-org">Bang the Table (Granicus ANZ) — Bengaluru, India</p>
+        <div class="exp-body">
+          <ul>
+            <li>Led civic engagement product strategy for platforms used by local governments to increase community participation.</li>
+            <li>Ran mixed-methods research — usability sessions, diary studies, behavioral analytics — to identify participation barriers.</li>
+            <li>Co-designed tools that lowered access barriers for underrepresented populations engaging with public decision-making.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Project Lead, Past/Fwd Narratives</span>
+          <span class="exp-period">2024 – Present</span>
+        </div>
+        <p class="exp-org">Multicultural Arts Center (MAC) — San Francisco, CA</p>
+        <div class="exp-body">
+          <ul>
+            <li>Designed and led community storytelling programs centering participant voices and long-term organizational sustainability.</li>
+            <li>Built volunteer coordination workflows, digital archives, and participant engagement pipelines from scratch.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span class="exp-title">Customer Experience Manager</span>
+          <span class="exp-period">Dec 2010 – Mar 2012</span>
+        </div>
+        <p class="exp-org">Grameenphone (Telenor Group) — Dhaka, Bangladesh</p>
+        <div class="exp-body">
+          <ul>
+            <li>Created GP Expo, connecting underserved communities with digital services and civic education programs.</li>
+            <li>Managed large-scale community events coordinated across government and private-sector partners.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <p class="section-label">Projects</p>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <h3>Shiv Visvanathan Archive</h3>
+          <p>74-article cross-publication bibliography with full-text search for one of India's foremost public intellectuals.</p>
+          <a class="project-link" href="https://shiv-archive.praneet-koppula.workers.dev" target="_blank">View →</a>
+        </div>
+
+        <div class="project-card">
+          <h3>PersonArchive CLI</h3>
+          <p>Generalizable open-source tool to scrape any public intellectual's byline across publications and generate a deployable static archive.</p>
+          <a class="project-link" href="https://github.com/mphaxise/person-archive" target="_blank">GitHub →</a>
+        </div>
+
+        <div class="project-card">
+          <h3>Sandeep Bhardwaj Archive</h3>
+          <p>Verified academic publication archive for a History doctoral candidate at Ashoka University, deployed on Cloudflare Pages.</p>
+          <a class="project-link" href="https://sandeep-bharadwaj.pages.dev" target="_blank">View →</a>
+        </div>
+
+        <div class="project-card">
+          <h3>iNat App</h3>
+          <p>iNaturalist nature observation viewer with global species pulse and real-time data, built on Cloudflare Workers.</p>
+          <a class="project-link" href="https://github.com/mphaxise/inat-app" target="_blank">GitHub →</a>
+        </div>
+
+        <div class="project-card">
+          <h3>GH PR Map</h3>
+          <p>Interactive world map geocoding GitHub pull request authors — visualizing the geographic distribution of open-source contributions.</p>
+          <a class="project-link" href="https://github.com/mphaxise/gh-pr-map" target="_blank">GitHub →</a>
+        </div>
+
+        <div class="project-card">
+          <h3>Conference Curation</h3>
+          <p>Designed inclusive, accessible conference programs connecting practitioners across India, the US, and Singapore — 2,500+ participants cumulatively.</p>
+          <a class="project-link" href="https://linkedin.com/in/praneetkoppula" target="_blank">LinkedIn →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <p class="section-label">Areas of Practice</p>
+      <div class="skills-grid">
+        <span class="skill-tag">User Research</span>
+        <span class="skill-tag">Civic Technology</span>
+        <span class="skill-tag">Service Design</span>
+        <span class="skill-tag">Usability Testing</span>
+        <span class="skill-tag">Community Engagement</span>
+        <span class="skill-tag">Participatory Design</span>
+        <span class="skill-tag">Accessibility</span>
+        <span class="skill-tag">Product Strategy</span>
+        <span class="skill-tag">Cross-sector Partnerships</span>
+        <span class="skill-tag">Equity-centered Design</span>
+        <span class="skill-tag">Workshop Facilitation</span>
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Mixed Methods</span>
+        <span class="skill-tag">Cloudflare Workers</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Node.js</span>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <p class="section-label">Contact</p>
+      <div class="contact-block">
+        <h2>Let's work together.</h2>
+        <p>Open to civic tech, public sector UX, and mission-driven design roles in the Bay Area.</p>
+        <a class="contact-email" href="mailto:praneet.koppula@gmail.com">praneet.koppula@gmail.com</a>
+        <div class="contact-links">
+          <a href="https://linkedin.com/in/praneetkoppula" target="_blank">LinkedIn</a>
+          <a href="https://github.com/mphaxise" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Praneet Koppula · San Francisco, CA</p>
+  </footer>
+
+</body>
+</html>

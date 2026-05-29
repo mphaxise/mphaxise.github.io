@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Myra and Dad's July National Parks Idea</title>
+  <style>
+    :root {
+      --ink: #12201a;
+      --muted: #5e6d64;
+      --paper: #fcfbf4;
+      --surface: #ffffff;
+      --green: #1d5b3d;
+      --green-2: #2d7a5a;
+      --lake: #0b78a1;
+      --sky: #dff3fb;
+      --rust: #c95524;
+      --gold: #f2b84b;
+      --mist: #edf5ef;
+      --line: #d8e0d7;
+      --shadow: 0 18px 42px rgba(24, 42, 31, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(223, 243, 251, 0.92), rgba(252, 251, 244, 0.95) 24rem),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 82vh;
+      display: grid;
+      align-items: end;
+      color: #fff;
+      isolation: isolate;
+      background-image:
+        linear-gradient(90deg, rgba(8, 30, 25, 0.74), rgba(8, 30, 25, 0.32) 48%, rgba(8, 30, 25, 0.64)),
+        url("https://www.nps.gov/lavo/planyourvisit/images/LAVO_DAL_1550.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 12rem;
+      background: linear-gradient(180deg, transparent, var(--paper));
+      z-index: -1;
+    }
+
+    .hero-inner {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 72px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(330px, 0.72fr);
+      gap: 28px;
+      align-items: end;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(3.1rem, 7.2vw, 6.25rem);
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 24px 0 0;
+      font-size: clamp(1.08rem, 2vw, 1.45rem);
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .hero-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 11px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.13);
+      color: #fff;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+    }
+
+    .route-board {
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .route-board h2 {
+      margin: 0 0 18px;
+      font-size: 1.25rem;
+    }
+
+    .route-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .route-stop {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .route-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--green);
+      font-weight: 800;
+    }
+
+    .route-dot.home {
+      background: #20342a;
+    }
+
+    .route-dot.blue {
+      background: var(--lake);
+    }
+
+    .route-dot.rust {
+      background: var(--rust);
+    }
+
+    .route-stop strong {
+      display: block;
+      font-size: 0.98rem;
+    }
+
+    .route-stop span {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .route-nights {
+      color: var(--rust);
+      font-weight: 800;
+      font-size: 0.86rem;
+      white-space: nowrap;
+    }
+
+    .main {
+      width: min(1180px, calc(100% - 40px));
+      margin: -38px auto 72px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .snapshot {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .snapshot-item {
+      min-height: 96px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.74);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 10px 24px rgba(18, 32, 26, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .snapshot-item b {
+      display: block;
+      font-size: 1.38rem;
+      line-height: 1.1;
+    }
+
+    .snapshot-item span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .section {
+      margin-top: 42px;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      margin: 8px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .source-link {
+      min-height: 40px;
+      padding: 9px 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      text-decoration: none;
+      font-weight: 750;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .camp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .camp-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 18px 42px rgba(18, 32, 26, 0.08);
+    }
+
+    .camp-photo {
+      position: relative;
+      min-height: 248px;
+      background: #dbe8df;
+      overflow: hidden;
+    }
+
+    .camp-photo img {
+      width: 100%;
+      height: 100%;
+      min-height: 248px;
+      object-fit: cover;
+      display: block;
+      transition: transform 500ms ease;
+    }
+
+    .camp-card:hover .camp-photo img {
+      transform: scale(1.035);
+    }
+
+    .camp-number {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--rust);
+      font-size: 1.35rem;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .camp-number.green {
+      background: var(--green-2);
+    }
+
+    .camp-number.blue {
+      background: var(--lake);
+    }
+
+    .camp-body {
+      padding: 18px;
+    }
+
+    .camp-body h3 {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.12;
+    }
+
+    .camp-subtitle {
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .camp-notes {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin: 16px 0;
+    }
+
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: #f8fbf8;
+    }
+
+    .note strong {
+      display: block;
+      color: var(--green);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .camp-copy {
+      margin: 0 0 16px;
+      color: var(--muted);
+    }
+
+    .book-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 10px 13px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .day {
+      min-height: 176px;
+      padding: 16px;
+      border-right: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff, #f9fbf7);
+    }
+
+    .day:last-child {
+      border-right: 0;
+    }
+
+    .day time {
+      display: block;
+      color: var(--rust);
+      font-weight: 900;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .day h3 {
+      margin: 10px 0 8px;
+      font-size: 1.06rem;
+      line-height: 1.18;
+    }
+
+    .day p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .hike-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .hike-card {
+      display: grid;
+      grid-template-rows: 210px auto;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: 0 18px 42px rgba(18, 32, 26, 0.08);
+    }
+
+    .hike-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hike-body {
+      padding: 18px;
+    }
+
+    .hike-body h3 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+      line-height: 1.15;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-radius: 8px;
+      background: var(--mist);
+      color: var(--green);
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .hike-body p {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .notice {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      color: var(--ink);
+    }
+
+    .notice strong {
+      color: var(--rust);
+    }
+
+    .wonder-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .wonder-photo {
+      min-height: 420px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .wonder-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .wonder-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .wonder-item {
+      display: grid;
+      grid-template-columns: 82px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .wonder-mark {
+      width: 82px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--sky);
+      color: var(--lake);
+      font-size: 2.3rem;
+      font-weight: 900;
+    }
+
+    .wonder-item h3 {
+      margin: 0 0 6px;
+      font-size: 1.18rem;
+    }
+
+    .wonder-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .comfort {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f5faf7, #ffffff 54%, #eff8fc);
+    }
+
+    .comfort-item {
+      min-height: 106px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.68);
+    }
+
+    .comfort-icon {
+      width: 34px;
+      height: 34px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      position: relative;
+    }
+
+    .comfort-icon.circle {
+      border-radius: 50%;
+    }
+
+    .comfort-icon::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border-radius: 4px;
+      background: var(--gold);
+      opacity: 0.8;
+    }
+
+    .comfort-item strong {
+      display: block;
+      line-height: 1.12;
+    }
+
+    .comfort-item span {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .choice-button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      text-align: left;
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: 0 18px 42px rgba(18, 32, 26, 0.08);
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .choice-button:hover,
+    .choice-button[aria-pressed="true"] {
+      transform: translateY(-3px);
+      border-color: var(--green);
+      box-shadow: 0 22px 46px rgba(18, 32, 26, 0.16);
+    }
+
+    .choice-button img {
+      width: 100%;
+      height: 168px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .choice-body {
+      padding: 16px;
+    }
+
+    .choice-body strong {
+      display: block;
+      font-size: 1.2rem;
+    }
+
+    .choice-body span {
+      color: var(--muted);
+    }
+
+    .vote-result {
+      min-height: 52px;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border: 1px solid rgba(11, 120, 161, 0.28);
+      border-radius: 8px;
+      background: #f0f9fc;
+      color: #0d4f68;
+      font-weight: 750;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding: 28px 0 0;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: 0.92rem;
+    }
+
+    .footer a {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        padding-top: 96px;
+      }
+
+      .snapshot,
+      .camp-grid,
+      .hike-grid,
+      .choice-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .timeline,
+      .comfort {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .wonder-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-inner,
+      .main {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero-inner {
+        padding: 88px 0 82px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 16vw, 4.9rem);
+      }
+
+      .route-stop {
+        grid-template-columns: 34px 1fr;
+      }
+
+      .route-nights {
+        grid-column: 2;
+      }
+
+      .snapshot,
+      .camp-grid,
+      .hike-grid,
+      .timeline,
+      .comfort,
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .day {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .day:last-child {
+        border-bottom: 0;
+      }
+
+      .section-heading {
+        grid-template-columns: 1fr;
+      }
+
+      .source-link {
+        justify-self: start;
+      }
+
+      .wonder-item {
+        grid-template-columns: 1fr;
+      }
+
+      .wonder-mark {
+        width: 58px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>Volcano Lakes, Redwood Halls, Blue Water</h1>
+          <p class="hero-copy">A gentle six-day camping idea for Myra and Dad: roomy tent sites, short beautiful hikes, cool forests, snacks, lake views, and enough wonder for the drive home.</p>
+          <div class="hero-actions" aria-label="Page shortcuts">
+            <a href="#campsites">See campsites</a>
+            <a href="#hikes">Pick hikes</a>
+            <a href="#vote">Choose the most fun stop</a>
+          </div>
+        </div>
+
+        <aside class="route-board" aria-label="Route summary">
+          <h2>Route Idea</h2>
+          <div class="route-list">
+            <div class="route-stop">
+              <div class="route-dot home">H</div>
+              <div><strong>Home</strong><span>San Francisco</span></div>
+              <div class="route-nights">start</div>
+            </div>
+            <div class="route-stop">
+              <div class="route-dot rust">1</div>
+              <div><strong>Lassen Volcanic NP</strong><span>Manzanita Lake Campground</span></div>
+              <div class="route-nights">2 nights</div>
+            </div>
+            <div class="route-stop">
+              <div class="route-dot">2</div>
+              <div><strong>Redwood parks</strong><span>Del Norte Coast Redwoods / Mill Creek</span></div>
+              <div class="route-nights">2 nights</div>
+            </div>
+            <div class="route-stop">
+              <div class="route-dot blue">3</div>
+              <div><strong>Crater Lake NP</strong><span>Mazama Village Campground</span></div>
+              <div class="route-nights">1 night</div>
+            </div>
+            <div class="route-stop">
+              <div class="route-dot home">H</div>
+              <div><strong>Home</strong><span>Back with stories</span></div>
+              <div class="route-nights">Jul 20</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="snapshot" aria-label="Trip quick facts">
+        <div class="snapshot-item"><b>Jul 15-20</b><span>Fits the likely Myra-with-Dad window with a buffer before Jul 21.</span></div>
+        <div class="snapshot-item"><b>5 nights</b><span>Two nights at Lassen, two in the redwoods, one by Crater Lake.</span></div>
+        <div class="snapshot-item"><b>Short hikes</b><span>Mostly easy loops, with optional bigger adventures only if energy is high.</span></div>
+        <div class="snapshot-item"><b>Calm nature</b><span>Rocks, trees, water, flowers, stars, and quiet camp routines.</span></div>
+      </section>
+
+      <section class="section" id="campsites">
+        <div class="section-heading">
+          <div>
+            <h2>Where We Would Sleep</h2>
+            <p>These are the campsite anchors that make the trip feel realistic: car camping, bathrooms, shade or cooler air, and enough space to make the tent feel like a little home base.</p>
+          </div>
+          <a class="source-link" href="#sources">Sources</a>
+        </div>
+
+        <div class="camp-grid">
+          <article class="camp-card">
+            <div class="camp-photo">
+              <img src="https://cdn.recreation.gov/public/2018/09/17/13/37/234039_929e2ff8-9952-458e-8299-c76e692b3be8_700.webp" alt="Manzanita Lake Campground at Lassen Volcanic National Park">
+              <div class="camp-number">1</div>
+            </div>
+            <div class="camp-body">
+              <h3>Manzanita Lake</h3>
+              <div class="camp-subtitle">Lassen Volcanic National Park</div>
+              <div class="camp-notes">
+                <div class="note"><strong>Why it fits</strong>Flat tent sites, trees, lake, visitor services nearby.</div>
+                <div class="note"><strong>Comfort</strong>Flush toilets, water, showers, camp store.</div>
+                <div class="note"><strong>Kid vibe</strong>Easy lake wandering and volcano detective work.</div>
+                <div class="note"><strong>Availability seen</strong>7 two-night options for Jul 15-17.</div>
+              </div>
+              <p class="camp-copy">This is the best first stop because it is scenic without being hard. We can arrive, set up, eat something simple, and still have lake time before bedtime.</p>
+              <a class="book-link" href="https://www.recreation.gov/camping/campgrounds/234039">Open campground</a>
+            </div>
+          </article>
+
+          <article class="camp-card">
+            <div class="camp-photo">
+              <img src="https://www.parks.ca.gov/pages/414/images/Giants-in-the-sun.jpg" alt="Sunlight through redwood trees at Del Norte Coast Redwoods State Park">
+              <div class="camp-number green">2</div>
+            </div>
+            <div class="camp-body">
+              <h3>Mill Creek Area</h3>
+              <div class="camp-subtitle">Del Norte Coast Redwoods</div>
+              <div class="camp-notes">
+                <div class="note"><strong>Why it fits</strong>Cool, shaded, spacious redwood camping.</div>
+                <div class="note"><strong>Comfort</strong>Developed car camping with water and restrooms.</div>
+                <div class="note"><strong>Kid vibe</strong>A forest that feels like a giant quiet hallway.</div>
+                <div class="note"><strong>Availability seen</strong>Many Jul 17-19 sites listed.</div>
+              </div>
+              <p class="camp-copy">This is the practical redwood stop. Jedediah Smith is prettier on paper but tight; Mill Creek gives us a better chance at space, shade, and an easier booking.</p>
+              <a class="book-link" href="https://reservecalifornia.com/park/638?date=2026-07-17&amp;night=2">Open booking page</a>
+            </div>
+          </article>
+
+          <article class="camp-card">
+            <div class="camp-photo">
+              <img src="https://cdn.recreation.gov/public/2024/12/15/21/55/10337002_f62d264d-c389-473d-ad54-f2c40e3c62a4_1440.webp" alt="Crater Lake view near Mazama Village Campground">
+              <div class="camp-number blue">3</div>
+            </div>
+            <div class="camp-body">
+              <h3>Mazama Village</h3>
+              <div class="camp-subtitle">Crater Lake National Park</div>
+              <div class="camp-notes">
+                <div class="note"><strong>Why it fits</strong>In-park base with quick access to the rim.</div>
+                <div class="note"><strong>Comfort</strong>Bathrooms, showers, store, food, and fuel nearby.</div>
+                <div class="note"><strong>Kid vibe</strong>The deepest-blue lake reveal of the trip.</div>
+                <div class="note"><strong>Availability seen</strong>11 two-night options for Jul 19-21.</div>
+              </div>
+              <p class="camp-copy">This can be one night if we need to be home before Jul 21, or two nights if the schedule opens up. Either way, it is a strong finish.</p>
+              <a class="book-link" href="https://www.recreation.gov/camping/campgrounds/10337002">Open campground</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="plan">
+        <div class="section-heading">
+          <div>
+            <h2>The Easy Version of the Plan</h2>
+            <p>This keeps the moving days reasonable and gives us two real rest/explore days before the final lake stop.</p>
+          </div>
+        </div>
+
+        <div class="timeline">
+          <article class="day">
+            <time>Wed Jul 15</time>
+            <h3>Drive to Lassen</h3>
+            <p>Set up at Manzanita Lake, eat a low-effort camp dinner, walk near the lake if we still have energy.</p>
+          </article>
+          <article class="day">
+            <time>Thu Jul 16</time>
+            <h3>Volcano day</h3>
+            <p>Choose Manzanita Lake Loop or Devastated Area. If a ranger program is open, that becomes the evening bonus.</p>
+          </article>
+          <article class="day">
+            <time>Fri Jul 17</time>
+            <h3>Drive to redwoods</h3>
+            <p>Leave after breakfast, take snack stops, arrive in the cooler forest, and keep the evening simple.</p>
+          </article>
+          <article class="day">
+            <time>Sat Jul 18</time>
+            <h3>Redwood explorer day</h3>
+            <p>Pick one gentle grove walk, then add beach, visitor center, picnic, or hot chocolate depending on mood.</p>
+          </article>
+          <article class="day">
+            <time>Sun Jul 19</time>
+            <h3>Drive to Crater Lake</h3>
+            <p>Arrive at Mazama, set up, then go see the rim. This is the big blue lake moment.</p>
+          </article>
+          <article class="day">
+            <time>Mon Jul 20</time>
+            <h3>Morning lake walk, then home</h3>
+            <p>Do one short rim walk or waterfall trail, then start the long drive home before the trip gets too stretched.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="hikes">
+        <div class="section-heading">
+          <div>
+            <h2>Hike Ideas for a 9-Year-Old</h2>
+            <p>None of these are meant to be a forced march. The goal is one good walk each day, plenty of snack pauses, and a few things to notice that make the place feel magical.</p>
+          </div>
+        </div>
+
+        <div class="hike-grid">
+          <article class="hike-card">
+            <img src="https://cdn.recreation.gov/public/images/71617_700.webp" alt="Manzanita Lake and forest at Lassen">
+            <div class="hike-body">
+              <h3>Manzanita Lake Loop</h3>
+              <div class="meta"><span class="chip">Easy</span><span class="chip">About 1.8 miles</span><span class="chip">Lake views</span></div>
+              <p>A relaxed loop right from the campground area. Good for a first evening or a slow morning.</p>
+              <p class="notice"><strong>What we will notice:</strong> Lassen Peak reflected in the water, old volcanic rock around the lake, and how mountain forests stay cooler than the valley.</p>
+            </div>
+          </article>
+
+          <article class="hike-card">
+            <img src="https://www.nps.gov/common/uploads/grid_builder/lavo/crop1_1/C0DD6A36-CBF5-49EE-C6DD76836F325086.jpg" alt="Volcanic landscape at Lassen">
+            <div class="hike-body">
+              <h3>Devastated Area Trail</h3>
+              <div class="meta"><span class="chip">Very easy</span><span class="chip">About 0.5 miles</span><span class="chip">Volcano story</span></div>
+              <p>A short interpretive walk where the landscape explains the 1915 Lassen eruption in a kid-sized way.</p>
+              <p class="notice"><strong>What we will notice:</strong> Big rocks moved by the eruption, forest slowly growing back, and how a mountain can change a place without making it scary.</p>
+            </div>
+          </article>
+
+          <article class="hike-card">
+            <img src="https://www.parks.ca.gov/pages/414/images/Sea-of-green.jpg" alt="Green redwood forest at Del Norte Coast Redwoods">
+            <div class="hike-body">
+              <h3>Stout Grove or Simpson-Reed</h3>
+              <div class="meta"><span class="chip">Easy</span><span class="chip">Under 1 mile</span><span class="chip">Giant trees</span></div>
+              <p>A short grove walk for the classic redwood feeling. Pick whichever is easier from camp that day.</p>
+              <p class="notice"><strong>What we will notice:</strong> Bark that protects trees like armor, sunlight high above us, soft forest floor, and tree rings that count time.</p>
+            </div>
+          </article>
+
+          <article class="hike-card">
+            <img src="https://www.parks.ca.gov/pages/414/images/Rays.jpg" alt="Light rays in a redwood forest">
+            <div class="hike-body">
+              <h3>Lady Bird Johnson Grove</h3>
+              <div class="meta"><span class="chip">Easy</span><span class="chip">About 1.5 miles</span><span class="chip">Fog forest</span></div>
+              <p>A beautiful loop if we want a little more walking without making the day too hard.</p>
+              <p class="notice"><strong>What we will notice:</strong> Coast fog helping redwoods drink, tiny plants living on fallen logs, and the forest making its own cool air.</p>
+            </div>
+          </article>
+
+          <article class="hike-card">
+            <img src="https://cdn.recreation.gov/public/2024/12/27/04/06/10337002_b95fbee2-ae41-48dd-bfe8-abc0774f46a7_1440.webp" alt="Crater Lake rim and blue water">
+            <div class="hike-body">
+              <h3>Discovery Point</h3>
+              <div class="meta"><span class="chip">Easy-moderate</span><span class="chip">Choose 1-2 miles</span><span class="chip">Blue lake</span></div>
+              <p>A rim walk where we can go as far as we feel like going and turn around whenever the view feels complete.</p>
+              <p class="notice"><strong>What we will notice:</strong> A collapsed volcano filled by rain and snow, Wizard Island, and why the lake looks so intensely blue.</p>
+            </div>
+          </article>
+
+          <article class="hike-card">
+            <img src="https://cdn.recreation.gov/public/2025/01/01/03/24/10337002_7259c55f-3dec-4e37-bfe1-78e7c44fa0b8_1440.webp" alt="Forest and water scenery near Crater Lake">
+            <div class="hike-body">
+              <h3>Plaikni Falls</h3>
+              <div class="meta"><span class="chip">Easy</span><span class="chip">About 2 miles</span><span class="chip">Waterfall</span></div>
+              <p>A gentle forest trail to a waterfall, especially good if we want movement without cliff-edge drama.</p>
+              <p class="notice"><strong>What we will notice:</strong> Snowmelt becoming a stream, summer wildflowers, and how water shapes the mountain slowly.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div>
+            <h2>Small Wonders to Look For</h2>
+            <p>Instead of focusing on bugs or animals, we can turn the trip into a quiet treasure hunt for rocks, water, trees, colors, and night sky moments.</p>
+          </div>
+        </div>
+
+        <div class="wonder-grid">
+          <div class="wonder-photo">
+            <img src="https://www.parks.ca.gov/pages/414/images/Wonder.jpg" alt="A child-sized view into a redwood forest">
+          </div>
+          <div class="wonder-list">
+            <article class="wonder-item">
+              <div class="wonder-mark">V</div>
+              <div>
+                <h3>Volcano clues</h3>
+                <p>At Lassen, we can look for rocks that tell stories: lava, ash, big eruption boulders, and mountains that changed shape.</p>
+              </div>
+            </article>
+            <article class="wonder-item">
+              <div class="wonder-mark">T</div>
+              <div>
+                <h3>Trees that make weather</h3>
+                <p>In the redwoods, fog, shade, and huge trunks make a cooler little world. We can compare it to the sunny drive.</p>
+              </div>
+            </article>
+            <article class="wonder-item">
+              <div class="wonder-mark">B</div>
+              <div>
+                <h3>Blue-water science</h3>
+                <p>At Crater Lake, the water is deep, clear, and mostly filled by rain and snow. That is why the blue feels unreal.</p>
+              </div>
+            </article>
+            <article class="wonder-item">
+              <div class="wonder-mark">S</div>
+              <div>
+                <h3>Stars and quiet</h3>
+                <p>The simplest plan may be the best one: warm layers, one headlamp walk near camp, and looking for the first bright star.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div>
+            <h2>Comfort Plan</h2>
+            <p>This is the difference between a beautiful idea and an actually happy kid trip.</p>
+          </div>
+        </div>
+
+        <div class="comfort" aria-label="Comfort packing ideas">
+          <div class="comfort-item"><span class="comfort-icon"></span><strong>Layers</strong><span>Forest mornings and Crater Lake evenings can be cool.</span></div>
+          <div class="comfort-item"><span class="comfort-icon circle"></span><strong>Snack box</strong><span>One road snack and one trail snack each day.</span></div>
+          <div class="comfort-item"><span class="comfort-icon"></span><strong>Comfy shoes</strong><span>Short hikes feel better with grippy soles.</span></div>
+          <div class="comfort-item"><span class="comfort-icon circle"></span><strong>Headlamps</strong><span>Make camp chores and star time fun.</span></div>
+          <div class="comfort-item"><span class="comfort-icon"></span><strong>Camp cozy</strong><span>Pillow, blanket, warm socks, favorite bedtime thing.</span></div>
+          <div class="comfort-item"><span class="comfort-icon circle"></span><strong>Choice power</strong><span>Let Myra pick one hike, snack, or camp dinner.</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="vote">
+        <div class="section-heading">
+          <div>
+            <h2>Which Stop Sounds Most Fun?</h2>
+            <p>Tap one. This is not a contract. It is a way to see what kind of adventure she is most excited by tonight.</p>
+          </div>
+        </div>
+
+        <div class="choice-grid" role="group" aria-label="Choose favorite trip stop">
+          <button class="choice-button" type="button" data-choice="volcano" aria-pressed="false">
+            <img src="https://www.nps.gov/common/uploads/banner_image/pwr/secondary/4092E028-988D-C75D-56E62D51A83D26C7.jpg" alt="Lassen volcanic landscape">
+            <span class="choice-body"><strong>Volcano Detective</strong><span>Rocks, lakes, steamy-earth clues, and mountain views.</span></span>
+          </button>
+          <button class="choice-button" type="button" data-choice="redwoods" aria-pressed="false">
+            <img src="https://www.parks.ca.gov/pages/414/images/Magic.jpg" alt="Magical redwood forest scene">
+            <span class="choice-body"><strong>Redwood Explorer</strong><span>Giant tree halls, soft trails, and cool green air.</span></span>
+          </button>
+          <button class="choice-button" type="button" data-choice="crater" aria-pressed="false">
+            <img src="https://cdn.recreation.gov/public/2025/01/01/03/30/10337002_a4d568cc-8024-4eca-b06d-9c45604af4d8_1440.webp" alt="Crater Lake and rim landscape">
+            <span class="choice-body"><strong>Blue Lake Scientist</strong><span>A huge volcano bowl, clear water, and sky-colored views.</span></span>
+          </button>
+        </div>
+        <div class="vote-result" id="vote-result">No pick yet. Myra gets first vote.</div>
+      </section>
+
+      <footer class="footer" id="sources">
+        <p><strong>Booking check:</strong> campsite counts are from a live planning pass and should be rechecked before booking. The plan uses Manzanita Lake for Jul 15-17, Del Norte Coast Redwoods / Mill Creek for Jul 17-19, and Mazama Village for Jul 19-20 or Jul 19-21 if the calendar allows.</p>
+        <p><strong>Sources:</strong> <a href="https://www.recreation.gov/camping/campgrounds/234039">Manzanita Lake Campground</a>, <a href="https://www.parks.ca.gov/?page_id=414">Del Norte Coast Redwoods SP</a>, <a href="https://reservecalifornia.com/park/638?date=2026-07-17&amp;night=2">ReserveCalifornia Del Norte booking</a>, <a href="https://www.recreation.gov/camping/campgrounds/10337002">Mazama Village Campground</a>, <a href="https://www.nps.gov/lavo/planyourvisit/hiking_lassen_park.htm">Lassen hiking</a>, <a href="https://www.nps.gov/redw/planyourvisit/hiking-trails-south.htm">Redwood hikes</a>, <a href="https://www.nps.gov/crla/planyourvisit/hiking.htm">Crater Lake hikes</a>.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const messages = {
+      volcano: "Volcano Detective wins for tonight: start with Manzanita Lake and Devastated Area, then save a steamy-earth walk as a bonus if conditions are right.",
+      redwoods: "Redwood Explorer wins for tonight: make the redwood day the slowest, shadiest day, with a grove walk and a cozy camp evening.",
+      crater: "Blue Lake Scientist wins for tonight: keep Crater Lake in the plan, even if it is only one night, because the lake reveal is the grand finale."
+    };
+
+    const buttons = document.querySelectorAll(".choice-button");
+    const result = document.querySelector("#vote-result");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        buttons.forEach((item) => item.setAttribute("aria-pressed", "false"));
+        button.setAttribute("aria-pressed", "true");
+        result.textContent = messages[button.dataset.choice];
+      });
+    });
+  </script>
+</body>
+</html>

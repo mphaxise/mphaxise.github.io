@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Selected UX research and research leadership work by Praneet Koppula.">
+  <title>Praneet Koppula | UX Research Leadership</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+
+    :root {
+      --ink: #17231f;
+      --muted: #58645f;
+      --paper: #f4efe4;
+      --card: #fffdf8;
+      --line: #ccd5cd;
+      --forest: #155d4d;
+      --forest-dark: #103c34;
+      --amber: #f2b84b;
+      --mint: #a9d8c4;
+      --sky: #b9d9e8;
+      --rose: #ef9b83;
+      --shadow: 0 24px 70px rgba(23, 35, 31, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 90% 7%, rgba(242, 184, 75, 0.34), transparent 25rem),
+        radial-gradient(circle at 0 35%, rgba(169, 216, 196, 0.52), transparent 30rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.58;
+    }
+
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--forest);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+    }
+    header a { text-decoration: none; }
+    .wordmark { font-weight: 700; letter-spacing: -0.02em; }
+    .contact { display: flex; gap: 20px; color: var(--muted); font-size: 0.9rem; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 58px;
+      min-height: 680px;
+      align-items: center;
+      padding: 54px 0 96px;
+    }
+    .hero-copy, .case > *, .section-head > *, .leadership > * { min-width: 0; }
+    h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -0.035em; }
+    h1 {
+      max-width: 760px;
+      margin: 16px 0 24px;
+      font-size: clamp(3.3rem, 6.8vw, 6.7rem);
+      line-height: 0.94;
+    }
+    h1 em { color: var(--forest); font-style: normal; }
+    .hero-copy > p {
+      max-width: 680px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+    .button.primary { border-color: var(--forest); background: var(--forest); color: white; }
+
+    .signal-card {
+      position: relative;
+      min-height: 500px;
+      overflow: hidden;
+      border: 1px solid rgba(16, 60, 52, 0.35);
+      border-radius: 34px;
+      background: var(--forest-dark);
+      box-shadow: var(--shadow);
+      color: white;
+      transform: rotate(1.5deg);
+    }
+    .signal-card::before {
+      position: absolute;
+      inset: -13% -12% auto auto;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      background: var(--amber);
+      content: "";
+    }
+    .signal-card::after {
+      position: absolute;
+      right: 42px;
+      bottom: 40px;
+      width: 170px;
+      height: 170px;
+      border: 2px solid rgba(255,255,255,0.54);
+      border-radius: 50%;
+      content: "";
+    }
+    .signal-content { position: relative; z-index: 1; padding: 42px; }
+    .signal-content p { max-width: 330px; color: rgba(255,255,255,0.78); }
+    .signal-number {
+      margin: 138px 0 0;
+      font-family: "Fraunces", serif;
+      font-size: 5.6rem;
+      line-height: 0.8;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 110px;
+    }
+    .principle {
+      padding: 26px;
+      border-top: 3px solid var(--forest);
+      background: rgba(255,255,255,0.54);
+    }
+    .principle strong { display: block; margin-bottom: 8px; font-size: 1.05rem; }
+    .principle p { margin: 0; color: var(--muted); }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 40px;
+      align-items: end;
+      padding: 78px 0 32px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.98;
+    }
+    .section-head p { margin: 0; color: var(--muted); font-size: 1.1rem; }
+
+    .case {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 44px;
+      margin: 20px 0 100px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255,253,248,0.86);
+      box-shadow: 0 12px 40px rgba(23, 35, 31, 0.07);
+    }
+    .case:nth-child(even) .visual { order: 2; }
+    .case h3 { margin: 8px 0 14px; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1; }
+    .case p { color: var(--muted); }
+    .role-label {
+      display: inline-flex;
+      margin: 0 0 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--forest-dark);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+    .meta span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #edf1eb;
+      color: var(--forest-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .case ul { padding-left: 20px; }
+    .case li { margin: 10px 0; }
+    .public-link { font-weight: 700; color: var(--forest); }
+
+    .visual {
+      position: relative;
+      min-height: 430px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #e6eee8;
+    }
+    .field-map { padding: 34px; background: var(--forest-dark); color: white; }
+    .field-map .path { display: grid; gap: 13px; margin-top: 28px; }
+    .field-map .step {
+      padding: 16px 18px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+    }
+    .field-map .step:nth-child(2) { margin-left: 9%; background: rgba(169,216,196,0.16); }
+    .field-map .step:nth-child(3) { margin-left: 18%; background: rgba(242,184,75,0.16); }
+    .field-map .step:nth-child(4) { margin-left: 27%; background: rgba(185,217,232,0.16); }
+
+    .api-study { display: grid; gap: 14px; padding: 34px; }
+    .command-pieces { display: flex; flex-wrap: wrap; gap: 10px; }
+    .command-pieces span {
+      padding: 10px 12px;
+      border: 1px solid rgba(23,35,31,0.2);
+      border-radius: 10px;
+      background: var(--card);
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.8rem;
+    }
+    .api-arrow { color: var(--forest); font-size: 2.5rem; text-align: center; }
+    .assembled {
+      padding: 20px;
+      border-radius: 14px;
+      background: var(--forest-dark);
+      color: white;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    .study-questions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .study-questions div {
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--sky);
+      font-weight: 700;
+    }
+
+    .evidence-system { padding: 34px; }
+    .evidence-system .layers { display: grid; gap: 12px; margin-top: 24px; }
+    .layer {
+      padding: 18px;
+      border: 1px solid rgba(23,35,31,0.18);
+      border-radius: 14px;
+      background: var(--card);
+    }
+    .layer:nth-child(2) { margin-left: 8%; background: var(--mint); }
+    .layer:nth-child(3) { margin-left: 16%; background: var(--sky); }
+    .layer:nth-child(4) { margin-left: 24%; background: #f8d99c; }
+
+    .archive-map { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 34px; }
+    .archive-map .source {
+      min-height: 126px;
+      padding: 18px;
+      border: 1px solid rgba(23,35,31,0.18);
+      border-radius: 16px;
+      background: var(--card);
+    }
+    .archive-map .source:nth-child(2) { background: var(--mint); }
+    .archive-map .source:nth-child(3) { background: var(--sky); }
+    .archive-map .source:nth-child(4) { background: #f8d99c; }
+    .archive-map strong { display: block; margin-bottom: 8px; }
+
+    .leadership {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 40px 0 100px;
+      padding: 52px;
+      border-radius: 30px;
+      background: var(--ink);
+      color: white;
+    }
+    .leadership h2 { margin: 0; font-size: clamp(2.5rem, 4vw, 4.2rem); line-height: 1; }
+    .leadership p { color: rgba(255,255,255,0.72); }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric { padding: 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; }
+    .metric strong { display: block; font-family: "Fraunces", serif; font-size: 2.2rem; color: var(--amber); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 34px 0 50px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    [data-reveal] { animation: rise 0.7s ease both; }
+    [data-reveal="2"] { animation-delay: 0.12s; }
+    [data-reveal="3"] { animation-delay: 0.24s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 840px) {
+      .hero, .section-head, .case, .leadership { grid-template-columns: minmax(0, 1fr); }
+      .hero { gap: 24px; min-height: auto; padding-top: 36px; }
+      .signal-card { min-height: 360px; transform: none; }
+      .principles { grid-template-columns: 1fr; margin-top: 36px; }
+      .case:nth-child(even) .visual { order: 0; }
+      .contact { display: none; }
+      .field-map .step:nth-child(n), .evidence-system .layer:nth-child(n) { margin-left: 0; }
+      footer { flex-direction: column; }
+    }
+
+    @media (max-width: 560px) {
+      .shell { width: calc(100% - 28px); }
+      header { padding: 20px 0; }
+      .hero { padding: 44px 0 68px; }
+      .hero-copy { width: 100%; max-width: 100%; overflow: hidden; }
+      h1 { width: 100%; max-width: 100%; font-size: 2.75rem; overflow-wrap: anywhere; }
+      .hero-copy > p { width: 100%; max-width: 100%; font-size: 1rem; overflow-wrap: anywhere; }
+      .hero-links { display: grid; grid-template-columns: minmax(0, 1fr); }
+      .button { justify-content: center; width: 100%; padding: 11px 14px; font-size: 0.9rem; }
+      .signal-card { min-height: 390px; border-radius: 26px; }
+      .signal-content { padding: 30px; }
+      .signal-number { margin-top: 120px; font-size: 5rem; }
+      .principle, .case, .leadership { padding: 22px; }
+      .visual { min-height: 360px; }
+      .study-questions, .archive-map, .metrics { grid-template-columns: 1fr; }
+      .archive-map { padding: 22px; }
+      .section-head { padding-top: 58px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="wordmark" href="#">Praneet Koppula</a>
+      <nav class="contact" aria-label="Contact">
+        <a href="mailto:praneet.koppula@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a>
+        <span>San Francisco</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy" data-reveal="1">
+          <div class="eyebrow">UX research leadership</div>
+          <h1>Evidence should change <em>what gets built.</em></h1>
+          <p>I conduct qualitative research, develop researchers and design leaders, and build the systems that keep customer evidence close to product strategy. My work spans field research, usability study design, complex technical workflows, and research operations across large product ecosystems.</p>
+          <div class="hero-links">
+            <a class="button primary" href="#work">Selected research</a>
+            <a class="button" href="mailto:praneet.koppula@gmail.com">praneet.koppula@gmail.com</a>
+          </div>
+        </div>
+        <aside class="signal-card" data-reveal="2" aria-label="Experience summary">
+          <div class="signal-content">
+            <div class="eyebrow" style="color:var(--amber)">Craft and practice building</div>
+            <div class="signal-number">18+</div>
+            <p>years across UX research, product strategy, research leadership, technical workflows, and distributed team development.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="principles" data-reveal="3" aria-label="Research principles">
+        <div class="principle">
+          <strong>Start with the decision</strong>
+          <p>A useful study is clear about what the team needs to learn and what could change.</p>
+        </div>
+        <div class="principle">
+          <strong>Preserve context</strong>
+          <p>Behavior makes sense when research includes people's goals, constraints, language, and environment.</p>
+        </div>
+        <div class="principle">
+          <strong>Make evidence durable</strong>
+          <p>Insight should remain findable, comparable, and actionable after the presentation ends.</p>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Selected research</div>
+            <h2>Direct work and leadership, clearly attributed.</h2>
+          </div>
+          <p>Each case states my role directly. Some examples are research I personally conducted or co-designed. Others show systems I helped create and lead through researchers, designers, and cross-functional teams.</p>
+        </div>
+
+        <article class="case">
+          <div class="visual field-map" aria-label="Ethnographic research process">
+            <div class="eyebrow" style="color:var(--amber)">Field research</div>
+            <div class="path">
+              <div class="step">Build community and participant relationships</div>
+              <div class="step">Observe goals, constraints, and workarounds</div>
+              <div class="step">Synthesize patterns without losing context</div>
+              <div class="step">Translate evidence into service recommendations</div>
+            </div>
+          </div>
+          <div>
+            <div class="role-label">Direct research</div>
+            <div class="eyebrow">Human Factors International</div>
+            <h3>Understanding technology in the context of daily life</h3>
+            <p>As a Senior Design Researcher, I conducted ethnographic and design research across banking, telecom, and emerging-market digital services. The work required field relationships, careful recruitment, and attention to how income, mobility, trust, gender, and local service conditions shaped technology use.</p>
+            <div class="meta">
+              <span>Ethnography</span>
+              <span>Field recruitment</span>
+              <span>Stakeholder interviews</span>
+              <span>Qualitative synthesis</span>
+            </div>
+            <ul>
+              <li>Recruited participants and built local relationships for fieldwork, including research with low-income urban residents.</li>
+              <li>Connected observed behavior and lived constraints to experience and service recommendations.</li>
+              <li>Contributed to published work on mobile banking for women in Indian urban centers.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="visual api-study" aria-label="API usability study model">
+            <div class="eyebrow">Study task</div>
+            <div class="command-pieces">
+              <span>codegen</span>
+              <span>-args</span>
+              <span>typed input</span>
+              <span>-config</span>
+              <span>function</span>
+              <span>cfg</span>
+            </div>
+            <div class="api-arrow" aria-hidden="true">&darr;</div>
+            <div class="assembled">assemble a valid command, then explain what it will do</div>
+            <div class="study-questions">
+              <div>Can users find it?</div>
+              <div>Can users explain it?</div>
+              <div>Can users assemble it?</div>
+              <div>Can users recover?</div>
+            </div>
+          </div>
+          <div>
+            <div class="role-label">Direct study-design contribution</div>
+            <div class="eyebrow">MATLAB Coder</div>
+            <h3>Testing comprehension in a programmatic interface</h3>
+            <p>Programmatic workflows create a distinct research problem: users must understand names, command structure, typed inputs, generated artifacts, and error recovery. I worked directly with a team member to design a LEGO-style API usability task for MATLAB Coder.</p>
+            <div class="meta">
+              <span>Usability study design</span>
+              <span>API research</span>
+              <span>Task construction</span>
+              <span>Technical workflows</span>
+            </div>
+            <ul>
+              <li>Used meaningful command pieces to test conceptual understanding without requiring syntax memorization.</li>
+              <li>Focused the task on whether participants could construct and reason about a command, not merely complete a scripted path.</li>
+              <li>Supported a broader team research context covering GUI and command-line workflows. I do not claim authorship of studies conducted by team members.</li>
+            </ul>
+            <a class="public-link" href="https://www.mathworks.com/help/coder/generating-code.html">View public product context</a>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="visual evidence-system" aria-label="Research evidence operating system">
+            <div class="eyebrow">Evidence to decision</div>
+            <div class="layers">
+              <div class="layer"><strong>Customer evidence</strong><br>Research, requests, support signals, and observed friction</div>
+              <div class="layer"><strong>Workflow model</strong><br>Shared stages, variants, ownership, and evidence layers</div>
+              <div class="layer"><strong>Portfolio priorities</strong><br>High-frequency and strategically important workflows</div>
+              <div class="layer"><strong>Product decisions</strong><br>Planning, staffing, release priorities, and improvement work</div>
+            </div>
+          </div>
+          <div>
+            <div class="role-label">Led through teams</div>
+            <div class="eyebrow">MathWorks research and workflow system</div>
+            <h3>Making customer evidence usable across a product ecosystem</h3>
+            <p>I helped build a portfolio-level operating system that connected research and customer evidence with workflow strategy and product planning. The work spanned roughly 120 products and involved researchers, designers, product managers, engineers, quality teams, documentation, marketing, and senior stakeholders.</p>
+            <div class="meta">
+              <span>Research strategy</span>
+              <span>Workflow research</span>
+              <span>Governance</span>
+              <span>Executive synthesis</span>
+            </div>
+            <ul>
+              <li>Helped define shared workflow language so teams could compare customer journeys across products and releases.</li>
+              <li>Helped establish Top-N workflow priorities, ownership mechanisms, and advisory communication.</li>
+              <li>Guided teams in connecting qualitative findings, customer requests, product defects, and support signals to planning.</li>
+              <li>Led the system and developed people around it; individual studies remained attributable to the researchers who conducted them.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="visual archive-map" aria-label="Public history research sources">
+            <div class="source"><strong>Public archives</strong>Historical records, reports, images, and local sources</div>
+            <div class="source"><strong>Institutional memory</strong>Organizational records and former employees</div>
+            <div class="source"><strong>Expert interviews</strong>Historians, leaders, and archival practitioners</div>
+            <div class="source"><strong>Narrative synthesis</strong>Timelines, research memos, interviews, and story assets</div>
+          </div>
+          <div>
+            <div class="role-label">Direct research</div>
+            <div class="eyebrow">Past/Fwd Narratives</div>
+            <h3>Turning scattered history into usable evidence</h3>
+            <p>For the Multicultural Arts Center, I initiated and led a public-history research project that brought together archives, institutional records, expert interviews, and community memory. The work supported 50th-anniversary planning and a clearer account of the center's place in East Cambridge.</p>
+            <div class="meta">
+              <span>Archival research</span>
+              <span>Stakeholder interviews</span>
+              <span>Source synthesis</span>
+              <span>Public storytelling</span>
+            </div>
+            <ul>
+              <li>Personally researched public archives, organizational records, building history, and Cambridge cultural history.</li>
+              <li>Interviewed historians, institutional leaders, former employees, and archival practitioners.</li>
+              <li>Produced research memos, interview summaries, timeline materials, and narrative assets.</li>
+              <li>Kept source material, interpretation, and public-facing claims distinct.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="leadership">
+        <div>
+          <div class="eyebrow" style="color:var(--amber)">Research leadership</div>
+          <h2>Strong practice requires strong people and clear decisions.</h2>
+          <p>I have led distributed UX leadership, coached researchers and designers, shaped hiring and evaluation systems, and built cross-functional mechanisms for turning evidence into action. My role as a leader is to improve research quality, make authorship clear, and help teams focus on the decisions where customer understanding matters most.</p>
+        </div>
+        <div class="metrics">
+          <div class="metric"><strong>4</strong>countries in the distributed leadership context</div>
+          <div class="metric"><strong>120</strong>products in the broader governance ecosystem</div>
+          <div class="metric"><strong>Direct + led</strong>clear provenance for research contributions</div>
+          <div class="metric"><strong>Qualitative</strong>depth across field, product, and archival contexts</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>Praneet Koppula | UX research and research leadership</div>
+      <div>San Francisco | <a href="mailto:praneet.koppula@gmail.com">Email</a> | <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a></div>
+    </footer>
+  </div>
+</body>
+</html>

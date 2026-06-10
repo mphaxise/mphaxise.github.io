@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Selected product design and design leadership work by Praneet Koppula.">
+  <title>Praneet Koppula | Product Design Leadership</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+
+    :root {
+      --ink: #132521;
+      --muted: #53645f;
+      --paper: #f7f2e8;
+      --card: #fffdf7;
+      --line: #cfd9d1;
+      --teal: #087f73;
+      --teal-dark: #07564f;
+      --coral: #ee6b4d;
+      --lime: #dbe969;
+      --blue: #b8dbea;
+      --shadow: 0 24px 70px rgba(26, 53, 46, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 88% 8%, rgba(219, 233, 105, 0.56), transparent 24rem),
+        radial-gradient(circle at 0 38%, rgba(184, 219, 234, 0.58), transparent 28rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
+    .eyebrow {
+      color: var(--teal-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+    }
+    header a { text-decoration: none; }
+    .wordmark { font-weight: 700; letter-spacing: -0.02em; }
+    .contact { display: flex; gap: 20px; color: var(--muted); font-size: 0.9rem; }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 56px;
+      min-height: 680px;
+      align-items: center;
+      padding: 54px 0 96px;
+    }
+    h1, h2, h3 { font-family: "Fraunces", serif; letter-spacing: -0.035em; }
+    h1 {
+      max-width: 780px;
+      margin: 16px 0 24px;
+      font-size: clamp(3.4rem, 7vw, 6.9rem);
+      line-height: 0.94;
+    }
+    h1 em { color: var(--teal); font-style: normal; }
+    .hero-copy > p {
+      max-width: 680px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .button.primary { border-color: var(--teal); background: var(--teal); color: white; }
+
+    .signal-card {
+      position: relative;
+      min-height: 480px;
+      overflow: hidden;
+      border: 1px solid rgba(7, 86, 79, 0.35);
+      border-radius: 34px;
+      background: var(--teal-dark);
+      box-shadow: var(--shadow);
+      color: white;
+      transform: rotate(2deg);
+    }
+    .signal-card::before {
+      position: absolute;
+      inset: -15% -15% auto auto;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: var(--lime);
+      content: "";
+      opacity: 0.94;
+    }
+    .signal-card::after {
+      position: absolute;
+      right: 42px;
+      bottom: 40px;
+      width: 156px;
+      height: 156px;
+      border: 2px solid rgba(255,255,255,0.6);
+      border-radius: 50%;
+      content: "";
+    }
+    .signal-content { position: relative; z-index: 1; padding: 42px; }
+    .signal-content p { max-width: 320px; color: rgba(255,255,255,0.78); }
+    .signal-number {
+      margin: 122px 0 0;
+      font-family: "Fraunces", serif;
+      font-size: 5.6rem;
+      line-height: 0.8;
+    }
+
+    .principles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 110px;
+    }
+    .principle {
+      padding: 26px;
+      border-top: 3px solid var(--teal);
+      background: rgba(255,255,255,0.52);
+    }
+    .principle strong { display: block; margin-bottom: 8px; font-size: 1.05rem; }
+    .principle p { margin: 0; color: var(--muted); }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 40px;
+      align-items: end;
+      padding: 78px 0 32px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.98;
+    }
+    .section-head p { margin: 0; color: var(--muted); font-size: 1.1rem; }
+
+    .case {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 44px;
+      margin: 20px 0 100px;
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255,253,247,0.84);
+      box-shadow: 0 12px 40px rgba(26, 53, 46, 0.07);
+    }
+    .case:nth-child(even) .visual { order: 2; }
+    .case h3 { margin: 8px 0 14px; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1; }
+    .case p { color: var(--muted); }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
+    .meta span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #eef2ec;
+      color: var(--teal-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .case ul { padding-left: 20px; }
+    .case li { margin: 10px 0; }
+    .public-link { font-weight: 700; color: var(--teal-dark); }
+
+    .visual {
+      position: relative;
+      min-height: 430px;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #e6efe9;
+    }
+    .workflow {
+      display: grid;
+      gap: 14px;
+      padding: 34px;
+    }
+    .workflow .node {
+      position: relative;
+      padding: 17px 18px;
+      border: 1px solid rgba(19,37,33,0.22);
+      border-radius: 14px;
+      background: var(--card);
+      font-weight: 700;
+    }
+    .workflow .node:not(:last-child)::after {
+      position: absolute;
+      left: 28px;
+      bottom: -15px;
+      color: var(--teal);
+      content: "↓";
+      font-size: 1.15rem;
+    }
+    .workflow .node:nth-child(2) { margin-left: 12%; background: var(--blue); }
+    .workflow .node:nth-child(3) { margin-left: 23%; background: var(--lime); }
+    .workflow .node:nth-child(4) { margin-left: 34%; background: #ffd7cb; }
+    .workflow .node:nth-child(5) { margin-left: 45%; background: var(--card); }
+
+    .state-map { padding: 34px; background: #172b27; color: white; }
+    .state-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .state {
+      min-height: 102px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+    }
+    .state:nth-child(2), .state:nth-child(5) { background: rgba(219,233,105,0.16); }
+    .state small { display: block; color: rgba(255,255,255,0.6); }
+
+    .quality-map { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 34px; }
+    .quality-map .tile {
+      min-height: 146px;
+      padding: 20px;
+      border: 1px solid rgba(19,37,33,0.18);
+      border-radius: 18px;
+      background: var(--card);
+    }
+    .quality-map .tile:nth-child(2) { background: var(--lime); }
+    .quality-map .tile:nth-child(3) { background: var(--blue); }
+    .quality-map .tile:nth-child(4) { background: #ffd7cb; }
+    .quality-map strong { display: block; margin-bottom: 10px; font-size: 1.1rem; }
+
+    .leadership {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin: 40px 0 100px;
+      padding: 52px;
+      border-radius: 30px;
+      background: var(--ink);
+      color: white;
+    }
+    .leadership h2 { margin: 0; font-size: clamp(2.5rem, 4vw, 4.2rem); line-height: 1; }
+    .leadership p { color: rgba(255,255,255,0.7); }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .metric { padding: 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; }
+    .metric strong { display: block; font-family: "Fraunces", serif; font-size: 2.2rem; color: var(--lime); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 34px 0 50px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    [data-reveal] { animation: rise 0.7s ease both; }
+    [data-reveal="2"] { animation-delay: 0.12s; }
+    [data-reveal="3"] { animation-delay: 0.24s; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 840px) {
+      .hero, .section-head, .case, .leadership { grid-template-columns: 1fr; }
+      .hero { gap: 24px; min-height: auto; padding-top: 36px; }
+      .signal-card { min-height: 360px; transform: none; }
+      .principles { grid-template-columns: 1fr; margin-top: 36px; }
+      .case:nth-child(even) .visual { order: 0; }
+      .contact { display: none; }
+      .workflow .node:nth-child(n) { margin-left: 0; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="wordmark" href="#">Praneet Koppula</a>
+      <nav class="contact" aria-label="Contact">
+        <a href="mailto:praneet.koppula@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a>
+        <span>San Francisco</span>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy" data-reveal="1">
+          <div class="eyebrow">Product design leadership</div>
+          <h1>Complex software should feel <em>clear enough to trust.</em></h1>
+          <p>I lead design teams and stay close to the work: interaction models, technical workflows, AI product behavior, critique systems, and the operating structures that help quality scale.</p>
+          <div class="hero-links">
+            <a class="button primary" href="#work">Selected work</a>
+            <a class="button" href="mailto:praneet.koppula@gmail.com">praneet.koppula@gmail.com</a>
+          </div>
+        </div>
+        <aside class="signal-card" data-reveal="2" aria-label="Experience summary">
+          <div class="signal-content">
+            <div class="eyebrow" style="color:var(--lime)">Designing with the system in view</div>
+            <div class="signal-number">18+</div>
+            <p>years across technical product design, research, design leadership, product systems, and AI-assisted workflows.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="principles" data-reveal="3" aria-label="Design principles">
+        <div class="principle">
+          <strong>Make state visible</strong>
+          <p>Users should understand what the system knows, changed, and needs from them.</p>
+        </div>
+        <div class="principle">
+          <strong>Earn trust through control</strong>
+          <p>Preview, confirmation, correction, and recovery matter more than artificial certainty.</p>
+        </div>
+        <div class="principle">
+          <strong>Scale judgment, not sameness</strong>
+          <p>Standards should raise quality while preserving room for the problem to shape the solution.</p>
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Selected work</div>
+            <h2>Systems, workflows, and teams.</h2>
+          </div>
+          <p>These cases show the range of my practice: defining an AI interaction model, designing state-heavy engineering workflows, and building mechanisms that improve product quality across teams. Proprietary details are represented with redrawn diagrams.</p>
+        </div>
+
+        <article class="case">
+          <div class="visual workflow" aria-label="AI workflow diagram">
+            <div class="node">Understand requirements</div>
+            <div class="node">Propose traceable actions</div>
+            <div class="node">Preview architecture changes</div>
+            <div class="node">Confirm and execute</div>
+            <div class="node">Simulate, inspect, explain</div>
+          </div>
+          <div>
+            <div class="eyebrow">AI product vision</div>
+            <h3>An AI partner inside the engineering workflow</h3>
+            <p>I led the UX vision with an engineering lead for an AI assistant in model-based design. The concept went beyond chat: it connected requirements, architecture, implementation, simulation, and explanation while keeping changes visible and reviewable.</p>
+            <div class="meta">
+              <span>AI interaction model</span>
+              <span>Prompt exploration</span>
+              <span>Trust and control</span>
+              <span>Cross-functional vision</span>
+            </div>
+            <ul>
+              <li>Mapped an end-to-end workflow from intent to structured engineering artifacts.</li>
+              <li>Designed confirmation, traceability, navigation, and explanation into the core interaction.</li>
+              <li>Explored how natural language, requirements, equations, and code could express user intent.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="visual state-map" aria-label="Model Slicer interaction states">
+            <div class="eyebrow" style="color:var(--lime); margin-bottom:20px">State model</div>
+            <div class="state-grid">
+              <div class="state"><small>Input</small>Select a signal or block</div>
+              <div class="state"><small>Scope</small>Add start, exclusion, or constraint</div>
+              <div class="state"><small>Data</small>Load simulation or coverage</div>
+              <div class="state"><small>Time</small>Set a valid inspection window</div>
+              <div class="state"><small>Result</small>Refine the highlighted slice</div>
+              <div class="state"><small>Recovery</small>Resolve stale data or invalid state</div>
+            </div>
+          </div>
+          <div>
+            <div class="eyebrow">Technical workflow design</div>
+            <h3>Making complex model behavior inspectable</h3>
+            <p>Model Slicer helps engineers isolate the part of a large model relevant to a behavior, signal, test objective, or coverage gap. I helped improve its early productization and designed later workflows involving dynamic slicing, simulation data, constraints, time windows, and cross-product debugging.</p>
+            <div class="meta">
+              <span>Detailed interaction design</span>
+              <span>Usability research</span>
+              <span>Error states</span>
+              <span>Workflow architecture</span>
+            </div>
+            <ul>
+              <li>Designed interaction rules for starting points, exclusions, conflicts, and conditional constraints.</li>
+              <li>Made data provenance, recalculation, time-window validity, and failure states legible.</li>
+              <li>Helped connect testing and verification results to focused model inspection.</li>
+            </ul>
+            <a class="public-link" href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html">View public product context</a>
+          </div>
+        </article>
+
+        <article class="case">
+          <div class="visual quality-map" aria-label="Design quality system">
+            <div class="tile">
+              <strong>Shared principles</strong>
+              A common language for discussing product quality.
+            </div>
+            <div class="tile">
+              <strong>Structured critique</strong>
+              Ratings and discussion that expose disagreement.
+            </div>
+            <div class="tile">
+              <strong>Reusable guidance</strong>
+              Templates, job aids, examples, and coaching.
+            </div>
+            <div class="tile">
+              <strong>Continuous improvement</strong>
+              Compare releases and focus the next iteration.
+            </div>
+          </div>
+          <div>
+            <div class="eyebrow">Quality at scale</div>
+            <h3>Turning design judgment into a team capability</h3>
+            <p>Across a large technical product ecosystem, I helped create shared workflow language, reusable review practices, and coaching systems that made quality easier to discuss and improve across product, engineering, research, documentation, and quality teams.</p>
+            <div class="meta">
+              <span>Design governance</span>
+              <span>Critique systems</span>
+              <span>Coaching</span>
+              <span>Product operations</span>
+            </div>
+            <ul>
+              <li>Helped guide design-principles reviews across complex product areas.</li>
+              <li>Used independent ratings and facilitated discussion to reduce opinion-driven critique.</li>
+              <li>Built lightweight enablement so specialists could focus on harder strategic work.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="leadership">
+        <div>
+          <div class="eyebrow" style="color:var(--lime)">Leadership</div>
+          <h2>Grow the people and improve the system around them.</h2>
+          <p>I have managed distributed UX leadership, developed team leads, shaped hiring and coaching systems, and partnered across product and engineering organizations. The aim is consistent: make expectations clear, give precise feedback, and create conditions where designers can take on harder problems.</p>
+        </div>
+        <div class="metrics">
+          <div class="metric"><strong>4</strong>countries in the distributed leadership context</div>
+          <div class="metric"><strong>120</strong>products in the broader governance ecosystem</div>
+          <div class="metric"><strong>UXD + UXR</strong>team and leadership development</div>
+          <div class="metric"><strong>Hands-on</strong>workflow and interaction direction</div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>Praneet Koppula · Product design and UX leadership</div>
+      <div>San Francisco · <a href="mailto:praneet.koppula@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a></div>
+    </footer>
+  </div>
+</body>
+</html>

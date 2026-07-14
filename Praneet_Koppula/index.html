@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Selected product design and design leadership work by Praneet Koppula.">
-  <title>Praneet Koppula | Product Design Leadership</title>
+  <meta name="description" content="Selected product design leadership work and AI design experiments by Praneet Koppula.">
+  <title>Praneet Koppula | Product Design Leadership &amp; AI Experiments</title>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
 
@@ -36,6 +36,25 @@
     }
 
     a { color: inherit; }
+    a:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 12px;
+      left: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--ink);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
     .shell { width: min(1180px, calc(100% - 36px)); margin: 0 auto; }
     .eyebrow {
       color: var(--teal-dark);
@@ -54,6 +73,7 @@
     header a { text-decoration: none; }
     .wordmark { font-weight: 700; letter-spacing: -0.02em; }
     .contact { display: flex; gap: 20px; color: var(--muted); font-size: 0.9rem; }
+    .contact a { display: inline-flex; min-height: 44px; align-items: center; }
 
     .hero {
       display: grid;
@@ -76,6 +96,13 @@
       margin: 0;
       color: var(--muted);
       font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+    }
+    .hero-copy .current-focus {
+      max-width: 650px;
+      margin-top: 16px;
+      color: var(--teal-dark);
+      font-size: 1rem;
+      font-weight: 700;
     }
     .hero-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
     .button {
@@ -121,7 +148,15 @@
       content: "";
     }
     .signal-content { position: relative; z-index: 1; padding: 42px; }
-    .signal-content p { max-width: 320px; color: rgba(255,255,255,0.78); }
+    .signal-content .eyebrow {
+      display: inline-block;
+      max-width: 240px;
+      padding: 7px 10px;
+      border-radius: 9px;
+      background: rgba(7, 86, 79, 0.96);
+      line-height: 1.4;
+    }
+    .signal-content p { max-width: 320px; color: #f4f7f4; }
     .signal-number {
       margin: 122px 0 0;
       font-family: "Fraunces", serif;
@@ -169,7 +204,7 @@
       background: rgba(255,253,247,0.84);
       box-shadow: 0 12px 40px rgba(26, 53, 46, 0.07);
     }
-    .case:nth-child(even) .visual { order: 2; }
+    .case:nth-child(odd) .visual { order: -1; }
     .case h3 { margin: 8px 0 14px; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1; }
     .case p { color: var(--muted); }
     .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0; }
@@ -276,38 +311,55 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      [data-reveal] { animation: none; }
+    }
+
     @media (max-width: 840px) {
       .hero, .section-head, .case, .leadership { grid-template-columns: 1fr; }
       .hero { gap: 24px; min-height: auto; padding-top: 36px; }
       .signal-card { min-height: 360px; transform: none; }
       .principles { grid-template-columns: 1fr; margin-top: 36px; }
-      .case:nth-child(even) .visual { order: 0; }
-      .contact { display: none; }
+      .case:nth-child(odd) .visual { order: 0; }
+      .visual { min-height: 0; }
+      .contact { display: flex; gap: 14px; }
+      .contact .desktop-only { display: none; }
       .workflow .node:nth-child(n) { margin-left: 0; }
       footer { flex-direction: column; }
+    }
+
+    @media (max-width: 430px) {
+      header { align-items: flex-start; gap: 18px; }
+      .contact { flex-wrap: wrap; justify-content: flex-end; }
     }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <div class="shell">
     <header>
       <a class="wordmark" href="#">Praneet Koppula</a>
       <nav class="contact" aria-label="Contact">
-        <a href="mailto:praneet.koppula@gmail.com">Email</a>
-        <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a>
-        <span>San Francisco</span>
+        <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a>
+        <a href="https://github.com/mphaxise">GitHub</a>
+        <a class="desktop-only" href="mailto:praneet.koppula@gmail.com">Email</a>
+        <a class="desktop-only" href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a>
+        <span class="desktop-only">San Francisco</span>
       </nav>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
       <section class="hero">
         <div class="hero-copy" data-reveal="1">
-          <div class="eyebrow">Product design leadership</div>
+          <div class="eyebrow">Product design leadership · AI design experiments</div>
           <h1>Complex software should feel <em>clear enough to trust.</em></h1>
           <p>I lead design teams and stay close to the work: interaction models, technical workflows, AI product behavior, critique systems, and the operating structures that help quality scale.</p>
+          <p class="current-focus">Current focus: AI design experiments across agent workflows, UX validation, and complex systems.</p>
           <div class="hero-links">
             <a class="button primary" href="#work">Selected work</a>
-            <a class="button" href="mailto:praneet.koppula@gmail.com">praneet.koppula@gmail.com</a>
+            <a class="button" href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a>
+            <a class="button" href="https://github.com/mphaxise">GitHub</a>
           </div>
         </div>
         <aside class="signal-card" data-reveal="2" aria-label="Experience summary">
@@ -344,13 +396,6 @@
         </div>
 
         <article class="case">
-          <div class="visual workflow" aria-label="AI workflow diagram">
-            <div class="node">Understand requirements</div>
-            <div class="node">Propose traceable actions</div>
-            <div class="node">Preview architecture changes</div>
-            <div class="node">Confirm and execute</div>
-            <div class="node">Simulate, inspect, explain</div>
-          </div>
           <div>
             <div class="eyebrow">AI product vision</div>
             <h3>An AI partner inside the engineering workflow</h3>
@@ -367,20 +412,16 @@
               <li>Explored how natural language, requirements, equations, and code could express user intent.</li>
             </ul>
           </div>
+          <div class="visual workflow" role="img" aria-label="AI workflow from requirements through traceable actions, preview, confirmation, execution, simulation, inspection, and explanation">
+            <div class="node">Understand requirements</div>
+            <div class="node">Propose traceable actions</div>
+            <div class="node">Preview architecture changes</div>
+            <div class="node">Confirm and execute</div>
+            <div class="node">Simulate, inspect, explain</div>
+          </div>
         </article>
 
         <article class="case">
-          <div class="visual state-map" aria-label="Model Slicer interaction states">
-            <div class="eyebrow" style="color:var(--lime); margin-bottom:20px">State model</div>
-            <div class="state-grid">
-              <div class="state"><small>Input</small>Select a signal or block</div>
-              <div class="state"><small>Scope</small>Add start, exclusion, or constraint</div>
-              <div class="state"><small>Data</small>Load simulation or coverage</div>
-              <div class="state"><small>Time</small>Set a valid inspection window</div>
-              <div class="state"><small>Result</small>Refine the highlighted slice</div>
-              <div class="state"><small>Recovery</small>Resolve stale data or invalid state</div>
-            </div>
-          </div>
           <div>
             <div class="eyebrow">Technical workflow design</div>
             <h3>Making complex model behavior inspectable</h3>
@@ -398,10 +439,37 @@
             </ul>
             <a class="public-link" href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html">View public product context</a>
           </div>
+          <div class="visual state-map" role="img" aria-label="Model Slicer state model covering input, scope, data, time, result, and recovery">
+            <div class="eyebrow" style="color:var(--lime); margin-bottom:20px">State model</div>
+            <div class="state-grid">
+              <div class="state"><small>Input</small>Select a signal or block</div>
+              <div class="state"><small>Scope</small>Add start, exclusion, or constraint</div>
+              <div class="state"><small>Data</small>Load simulation or coverage</div>
+              <div class="state"><small>Time</small>Set a valid inspection window</div>
+              <div class="state"><small>Result</small>Refine the highlighted slice</div>
+              <div class="state"><small>Recovery</small>Resolve stale data or invalid state</div>
+            </div>
+          </div>
         </article>
 
         <article class="case">
-          <div class="visual quality-map" aria-label="Design quality system">
+          <div>
+            <div class="eyebrow">Quality at scale</div>
+            <h3>Turning design judgment into a team capability</h3>
+            <p>Across a large technical product ecosystem, I helped create shared workflow language, reusable review practices, and coaching systems that made quality easier to discuss and improve across product, engineering, research, documentation, and quality teams.</p>
+            <div class="meta">
+              <span>Design governance</span>
+              <span>Critique systems</span>
+              <span>Coaching</span>
+              <span>Product operations</span>
+            </div>
+            <ul>
+              <li>Helped guide design-principles reviews across complex product areas.</li>
+              <li>Used independent ratings and facilitated discussion to reduce opinion-driven critique.</li>
+              <li>Built lightweight enablement so specialists could focus on harder strategic work.</li>
+            </ul>
+          </div>
+          <div class="visual quality-map" role="img" aria-label="Design quality system connecting shared principles, structured critique, reusable guidance, and continuous improvement">
             <div class="tile">
               <strong>Shared principles</strong>
               A common language for discussing product quality.
@@ -418,22 +486,6 @@
               <strong>Continuous improvement</strong>
               Compare releases and focus the next iteration.
             </div>
-          </div>
-          <div>
-            <div class="eyebrow">Quality at scale</div>
-            <h3>Turning design judgment into a team capability</h3>
-            <p>Across a large technical product ecosystem, I helped create shared workflow language, reusable review practices, and coaching systems that made quality easier to discuss and improve across product, engineering, research, documentation, and quality teams.</p>
-            <div class="meta">
-              <span>Design governance</span>
-              <span>Critique systems</span>
-              <span>Coaching</span>
-              <span>Product operations</span>
-            </div>
-            <ul>
-              <li>Helped guide design-principles reviews across complex product areas.</li>
-              <li>Used independent ratings and facilitated discussion to reduce opinion-driven critique.</li>
-              <li>Built lightweight enablement so specialists could focus on harder strategic work.</li>
-            </ul>
           </div>
         </article>
       </section>
@@ -455,7 +507,7 @@
 
     <footer>
       <div>Praneet Koppula · Product design and UX leadership</div>
-      <div>San Francisco · <a href="mailto:praneet.koppula@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a></div>
+      <div>San Francisco · <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a> · <a href="mailto:praneet.koppula@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a> · <a href="https://github.com/mphaxise">GitHub</a></div>
     </footer>
   </div>
 </body>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI-assisted model-based engineering workflow</title>
+  <desc id="desc">A public-safe redraw showing system intent moving through requirements, architecture, implementation, simulation, and explanation, with review and confirmation before action.</desc>
+  <rect width="1600" height="900" fill="#0b1a17"/>
+  <path d="M0 0H1600V14H0Z" fill="#d8ff3e"/>
+  <text x="78" y="92" fill="#d8ff3e" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="4">MODEL-BASED ENGINEERING / CONCEPT SEQUENCE</text>
+  <text x="78" y="156" fill="#f4f1e8" font-family="Georgia, serif" font-size="56">One assistant. A connected chain of artifacts.</text>
+  <text x="78" y="202" fill="#aebbb5" font-family="Arial, sans-serif" font-size="23">Every action remains visible, attributable, and open to review.</text>
+
+  <line x1="85" y1="302" x2="1515" y2="302" stroke="#38504a" stroke-width="2"/>
+  <line x1="85" y1="700" x2="1515" y2="700" stroke="#38504a" stroke-width="2"/>
+
+  <g font-family="Arial, sans-serif">
+    <text x="86" y="276" fill="#aebbb5" font-size="17" letter-spacing="2">01 / INTENT</text>
+    <text x="392" y="276" fill="#aebbb5" font-size="17" letter-spacing="2">02 / STRUCTURE</text>
+    <text x="770" y="276" fill="#aebbb5" font-size="17" letter-spacing="2">03 / ACTION</text>
+    <text x="1132" y="276" fill="#aebbb5" font-size="17" letter-spacing="2">04 / EVIDENCE</text>
+
+    <rect x="85" y="338" width="254" height="286" fill="#f4f1e8"/>
+    <text x="112" y="386" fill="#0b1a17" font-size="17" font-weight="700" letter-spacing="2">REQUIREMENTS</text>
+    <line x1="112" y1="421" x2="310" y2="421" stroke="#899791"/>
+    <text x="112" y="466" fill="#0b1a17" font-size="25" font-weight="700">Understand intent</text>
+    <text x="112" y="505" fill="#3d5049" font-size="19">Read the current set</text>
+    <text x="112" y="536" fill="#3d5049" font-size="19">Find missing context</text>
+    <text x="112" y="567" fill="#3d5049" font-size="19">Ask before assuming</text>
+    <rect x="112" y="590" width="112" height="8" fill="#2f6bff"/>
+
+    <rect x="391" y="338" width="320" height="286" fill="#142a25" stroke="#6f837a" stroke-width="2"/>
+    <text x="419" y="386" fill="#d8ff3e" font-size="17" font-weight="700" letter-spacing="2">TRACEABILITY</text>
+    <circle cx="444" cy="472" r="18" fill="#d8ff3e"/>
+    <circle cx="572" cy="440" r="18" fill="#2f6bff"/>
+    <circle cx="650" cy="535" r="18" fill="#ff6b35"/>
+    <line x1="462" y1="467" x2="554" y2="445" stroke="#f4f1e8" stroke-width="3"/>
+    <line x1="582" y1="456" x2="639" y2="521" stroke="#f4f1e8" stroke-width="3"/>
+    <line x1="457" y1="486" x2="635" y2="527" stroke="#6f837a" stroke-width="2" stroke-dasharray="8 8"/>
+    <text x="419" y="585" fill="#f4f1e8" font-size="24" font-weight="700">Link intent to structure</text>
+
+    <rect x="763" y="338" width="315" height="286" fill="#d8ff3e"/>
+    <text x="792" y="386" fill="#0b1a17" font-size="17" font-weight="700" letter-spacing="2">REVIEWABLE ACTION</text>
+    <text x="792" y="449" fill="#0b1a17" font-size="29" font-weight="700">Propose</text>
+    <text x="792" y="493" fill="#0b1a17" font-size="29" font-weight="700">Review</text>
+    <text x="792" y="537" fill="#0b1a17" font-size="29" font-weight="700">Confirm</text>
+    <path d="M965 438H1038V553H965" fill="none" stroke="#0b1a17" stroke-width="4"/>
+    <path d="M990 566L1010 585L1046 545" fill="none" stroke="#0b1a17" stroke-width="8"/>
+
+    <rect x="1130" y="338" width="385" height="286" fill="#f4f1e8"/>
+    <text x="1160" y="386" fill="#0b1a17" font-size="17" font-weight="700" letter-spacing="2">SIMULATE + INSPECT</text>
+    <polyline points="1165,548 1200,514 1240,530 1270,447 1310,490 1350,418 1393,469 1440,430 1482,455" fill="none" stroke="#2f6bff" stroke-width="6"/>
+    <line x1="1165" y1="570" x2="1482" y2="570" stroke="#899791" stroke-width="2"/>
+    <text x="1160" y="596" fill="#3d5049" font-size="18">Navigate back to the changed artifact</text>
+  </g>
+
+  <g fill="none" stroke="#ff6b35" stroke-width="4">
+    <path d="M339 481H391"/>
+    <path d="M711 481H763"/>
+    <path d="M1078 481H1130"/>
+  </g>
+  <g fill="#ff6b35">
+    <path d="M381 468L397 481L381 494Z"/>
+    <path d="M753 468L769 481L753 494Z"/>
+    <path d="M1120 468L1136 481L1120 494Z"/>
+  </g>
+
+  <g font-family="Arial, sans-serif">
+    <text x="86" y="756" fill="#aebbb5" font-size="17" letter-spacing="2">DESIGN PRINCIPLE</text>
+    <text x="86" y="812" fill="#f4f1e8" font-size="34" font-weight="700">Keep the engineer at the level of system intent.</text>
+    <text x="992" y="756" fill="#aebbb5" font-size="17" letter-spacing="2">CONTROL BOUNDARY</text>
+    <text x="992" y="804" fill="#f4f1e8" font-size="23">AI proposes and explains.</text>
+    <text x="992" y="838" fill="#d8ff3e" font-size="23" font-weight="700">The engineer decides and can return.</text>
+  </g>
+</svg>

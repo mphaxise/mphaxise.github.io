@@ -2,7 +2,7 @@
 
 > Product design and UX leader who makes expert engineering tools, complex workflows, and AI product behavior easier to understand and trust.
 
-Last updated: 2026-07-14
+Last updated: 2026-07-15
 Canonical human portfolio: https://mphaxise.github.io/Praneet_Koppula/
 Agent-readable HTML: https://mphaxise.github.io/Praneet_Koppula/agent/
 
@@ -30,11 +30,11 @@ Led the UX vision with an engineering lead for an assistant connecting requireme
 
 ### Model Slicer workflows
 
-Status: Public product context.
+Status: Documented design contribution with public product context.
 
-Designed state-heavy engineering workflows involving simulation data, constraints, time windows, invalid states, and cross-product debugging.
+Designed state-aware interactions and simulation-aware slicing prototypes involving starting points, exclusions, constraints, data provenance, time windows, and invalid states. Local primary artifacts support the contribution; redrawn visuals protect proprietary details.
 
-Public context: https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/
 
 ### Design quality across a broad product ecosystem
 

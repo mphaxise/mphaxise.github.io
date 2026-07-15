@@ -1,0 +1,13 @@
+flowchart LR
+    A["Large model"] --> B["Choose a starting point"]
+    B --> C["Add exclusions or constraints"]
+    C --> D["Trace relevant dependencies"]
+    D --> E["Focused slice"]
+    E --> F["Inspect, explain, refine"]
+
+    classDef model fill:#f6f0e3,stroke:#173c36,color:#102823;
+    classDef criteria fill:#f9c74f,stroke:#173c36,color:#102823;
+    classDef slice fill:#c7f0dc,stroke:#173c36,color:#102823;
+    class A model;
+    class B,C criteria;
+    class D,E,F slice;

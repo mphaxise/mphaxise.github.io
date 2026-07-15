@@ -12,6 +12,8 @@ This file is a curated public index for inference-time agents. It does not defin
 
 ## Public work
 
+- [Model Slicer case study](https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/): Documented state-aware interaction design and simulation-aware slicing prototypes, with public product chronology kept separate from Praneet's contribution.
+- [Simulink AI Assistant vision](https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/): Customer-tested product vision for an AI partner inside a model-based engineering workflow.
 - [GitHub profile](https://github.com/mphaxise): Public repositories and current AI design experiments.
 - [Agent UX research platform](https://github.com/mphaxise/ai-agent-ux-research-platform): Ongoing exploration of agent-callable UX validation.
 - [GStack for Codex](https://github.com/mphaxise/gstack-port-for-codex): Codex-native design and engineering workflows.

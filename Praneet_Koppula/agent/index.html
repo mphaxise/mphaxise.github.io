@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A concise, agent-readable profile of product design and UX leader Praneet Koppula.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/agent/">
+  <link rel="alternate" type="text/html" href="https://mphaxise.github.io/Praneet_Koppula/" title="Human portfolio">
+  <link rel="alternate" type="text/plain" href="https://mphaxise.github.io/Praneet_Koppula/agent.txt" title="Plain-text profile">
+  <title>Agent view | Praneet Koppula</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap");
+
+    :root {
+      --ink: #132521;
+      --muted: #53645f;
+      --paper: #f7f2e8;
+      --card: #fffdf7;
+      --line: #cfd9d1;
+      --teal: #087f73;
+      --teal-dark: #07564f;
+      --lime: #dbe969;
+      --blue: #dceef4;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 90% 4%, rgba(219, 233, 105, 0.42), transparent 24rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--teal-dark); text-underline-offset: 0.18em; }
+    a:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; border-radius: 4px; }
+    .skip-link {
+      position: fixed;
+      z-index: 10;
+      top: 12px;
+      left: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--ink);
+      color: white;
+      font-weight: 700;
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(1040px, calc(100% - 36px)); margin: 0 auto; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px 0;
+    }
+    .wordmark { color: var(--ink); font-weight: 700; text-decoration: none; }
+    .view-switcher {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.58);
+    }
+    .view-switcher a, .view-switcher span {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .view-switcher [aria-current="page"] { background: var(--ink); color: white; }
+
+    main { padding: 70px 0 100px; }
+    .eyebrow {
+      color: var(--teal-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; font-weight: 600; letter-spacing: -0.025em; }
+    h1 { max-width: 800px; margin: 14px 0 22px; font-size: clamp(3.2rem, 7vw, 6rem); line-height: 0.96; }
+    h2 { margin: 0; font-size: clamp(2.2rem, 4.5vw, 3.8rem); line-height: 1; }
+    h3 { margin: 5px 0 10px; font-size: 1.65rem; line-height: 1.1; }
+    .lede { max-width: 760px; margin: 0; color: var(--muted); font-size: 1.2rem; }
+    .machine-note {
+      margin-top: 34px;
+      padding: 16px 18px;
+      border-left: 4px solid var(--teal);
+      background: rgba(255,255,255,0.55);
+      color: var(--muted);
+    }
+    .machine-note strong { color: var(--ink); }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 42px 0 0;
+    }
+    .fact { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); }
+    .fact strong { display: block; margin-bottom: 4px; color: var(--teal-dark); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+    section { margin-top: 96px; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: 36px;
+      align-items: end;
+      padding-top: 42px;
+      border-top: 1px solid var(--line);
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
+    .card { padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--card); }
+    .card p { margin: 0; color: var(--muted); }
+    .status {
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #edf3ee;
+      color: var(--teal-dark);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .status.concept { background: var(--blue); }
+    .status.ongoing { background: rgba(219,233,105,0.55); }
+    .card ul { margin: 14px 0 0; padding-left: 20px; }
+    .card li { margin: 7px 0; }
+    .wide { grid-column: 1 / -1; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 20px; }
+    .links a { font-weight: 700; }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      padding: 34px;
+      border-radius: 24px;
+      background: var(--ink);
+      color: white;
+    }
+    .contact-panel h2 { margin-bottom: 12px; }
+    .contact-panel p { max-width: 620px; margin: 0; color: rgba(255,255,255,0.75); }
+    .contact-panel .button {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--lime);
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 34px 0 50px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media (max-width: 720px) {
+      header { align-items: flex-start; }
+      main { padding-top: 48px; }
+      .facts, .section-head, .grid, .contact-panel { grid-template-columns: 1fr; }
+      .wide { grid-column: auto; }
+      .contact-panel { align-items: start; }
+      footer { flex-direction: column; }
+    }
+    @media (max-width: 430px) {
+      header { flex-direction: column; }
+      .view-switcher { align-self: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="shell">
+    <header>
+      <a class="wordmark" href="../">Praneet Koppula</a>
+      <nav class="view-switcher" aria-label="Profile view">
+        <a href="../">Human view</a>
+        <span aria-current="page">Agent view</span>
+      </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <div class="eyebrow">Agent-readable profile · Public</div>
+      <h1>Praneet Koppula</h1>
+      <p class="lede">Product design and UX leader working across complex technical products, AI product behavior, research, design quality systems, and the operating structures that help teams do stronger work.</p>
+      <div class="machine-note"><strong>Reading note:</strong> this page is a concise public profile for people and software agents. Project status labels distinguish shipped work, product concepts, leadership systems, and ongoing experiments.</div>
+
+      <div class="facts" aria-label="Profile summary">
+        <div class="fact"><strong>Experience</strong>18+ years</div>
+        <div class="fact"><strong>Location</strong>San Francisco in person · U.S. remote</div>
+        <div class="fact"><strong>Current focus</strong>AI design experiments and complex workflows</div>
+      </div>
+
+      <section aria-labelledby="practice-heading">
+        <div class="section-head">
+          <h2 id="practice-heading">Practice</h2>
+          <p>Useful when a product is technically ambitious, behaviorally unclear, or needs senior design judgment without a full-time leadership hire.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><h3>Fractional product and UX leadership</h3><p>Clarify product direction, raise design quality, structure critique, and create practical operating mechanisms.</p></article>
+          <article class="card"><h3>AI interaction and trust</h3><p>Define agent behavior, user control, confirmation, provenance, recovery, and appropriate human escalation.</p></article>
+          <article class="card"><h3>Research and validation</h3><p>Turn uncertain product questions into focused evidence plans, evaluative studies, and decision-ready synthesis.</p></article>
+          <article class="card"><h3>Complex workflow design</h3><p>Make system state, constraints, technical dependencies, and failure conditions easier to understand and act on.</p></article>
+        </div>
+      </section>
+
+      <section aria-labelledby="evidence-heading">
+        <div class="section-head">
+          <h2 id="evidence-heading">Selected evidence</h2>
+          <p>These summaries are deliberately bounded. Proprietary work is described through public context and redrawn abstractions.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <span class="status concept">Product vision · concept</span>
+            <h3>AI partner for model-based engineering</h3>
+            <p>Led the UX vision with an engineering lead for an assistant connecting requirements, architecture, implementation, simulation, and explanation. This was vision and prototype work, not a claim of a publicly shipped AI product.</p>
+          </article>
+          <article class="card">
+            <span class="status">Public product context</span>
+            <h3>Model Slicer workflows</h3>
+            <p>Designed state-heavy engineering workflows involving simulation data, constraints, time windows, invalid states, and cross-product debugging.</p>
+            <div class="links"><a href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html">Public product context</a></div>
+          </article>
+          <article class="card wide">
+            <span class="status">Leadership system</span>
+            <h3>Design quality across a broad product ecosystem</h3>
+            <p>Helped establish shared workflow language, structured critique, reusable guidance, coaching, and design governance across a technical product organization spanning approximately 120 products.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="experiments-heading">
+        <div class="section-head">
+          <h2 id="experiments-heading">Public AI design experiments</h2>
+          <p>Ongoing repositories used to explore how agents understand workflows, validate interfaces, and support product and design practice.</p>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <span class="status ongoing">Ongoing experiment</span>
+            <h3>Agent UX validation</h3>
+            <p>A product and research exploration of agent-callable UX validation for AI-generated applications.</p>
+            <div class="links"><a href="https://github.com/mphaxise/ai-agent-ux-research-platform">Repository</a></div>
+          </article>
+          <article class="card">
+            <span class="status ongoing">Ongoing experiment</span>
+            <h3>Design workflows for coding agents</h3>
+            <p>Codex-native design and engineering workflows, including reusable design-review and implementation skills.</p>
+            <div class="links"><a href="https://github.com/mphaxise/gstack-port-for-codex">GStack for Codex</a><a href="https://github.com/mphaxise/design-skill-pack-for-ai-agent-coding-platforms">Design skill pack</a></div>
+          </article>
+          <article class="card wide">
+            <span class="status ongoing">Working tool</span>
+            <h3>GitHub pull-request mapping</h3>
+            <p>A compact experiment in making repository and pull-request relationships easier to inspect.</p>
+            <div class="links"><a href="https://github.com/mphaxise/gh-pr-map">Repository</a></div>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="contact-heading">
+        <div class="contact-panel">
+          <div>
+            <h2 id="contact-heading">Start with the product question.</h2>
+            <p>Available for fractional, advisory, and focused contract work. San Francisco in person and U.S. remote.</p>
+            <div class="links"><a href="mailto:praneet.koppula@gmail.com" style="color:white">Email</a><a href="https://www.linkedin.com/in/praneetkoppula" style="color:white">LinkedIn</a><a href="https://github.com/mphaxise" style="color:white">GitHub</a><a href="../agent.txt" style="color:white">Plain-text profile</a></div>
+          </div>
+          <a class="button" href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>Praneet Koppula · Agent-readable profile</div>
+      <div>Last updated July 14, 2026 · <a href="../">Human portfolio</a></div>
+    </footer>
+  </div>
+  <!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "27f71da0f0dd4de6a1109686b1c1e4ab"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</body>
+</html>

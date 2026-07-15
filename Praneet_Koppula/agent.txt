@@ -1,0 +1,64 @@
+# Praneet Koppula
+
+> Product design and UX leader working across complex technical products, AI product behavior, research, design quality systems, and the operating structures that help teams do stronger work.
+
+Last updated: 2026-07-14
+Canonical human portfolio: https://mphaxise.github.io/Praneet_Koppula/
+Agent-readable HTML: https://mphaxise.github.io/Praneet_Koppula/agent/
+
+## Profile
+
+- Experience: 18+ years across technical product design, UX research, design leadership, product systems, and AI-assisted workflows.
+- Location: San Francisco in person; U.S. remote.
+- Current focus: AI design experiments across agent workflows, UX validation, and complex systems.
+- Availability: fractional, advisory, and focused contract work.
+
+## Practice
+
+- Fractional product and UX leadership: clarify direction, raise design quality, structure critique, and create practical operating mechanisms.
+- AI interaction and trust: define agent behavior, user control, confirmation, provenance, recovery, and human escalation.
+- Research and validation: turn uncertain product questions into focused evidence plans, evaluative studies, and decision-ready synthesis.
+- Complex workflow design: make system state, constraints, technical dependencies, and failure conditions understandable and actionable.
+
+## Selected evidence
+
+### AI partner for model-based engineering
+
+Status: Product vision and concept; not a claim of a publicly shipped AI product.
+
+Led the UX vision with an engineering lead for an assistant connecting requirements, architecture, implementation, simulation, and explanation.
+
+### Model Slicer workflows
+
+Status: Public product context.
+
+Designed state-heavy engineering workflows involving simulation data, constraints, time windows, invalid states, and cross-product debugging.
+
+Public context: https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html
+
+### Design quality across a broad product ecosystem
+
+Status: Leadership system.
+
+Helped establish shared workflow language, structured critique, reusable guidance, coaching, and design governance across a technical product organization spanning approximately 120 products.
+
+## Public AI design experiments
+
+- Agent UX validation — ongoing product and research exploration: https://github.com/mphaxise/ai-agent-ux-research-platform
+- GStack for Codex — Codex-native design and engineering workflows: https://github.com/mphaxise/gstack-port-for-codex
+- Design skill pack for agent coding platforms: https://github.com/mphaxise/design-skill-pack-for-ai-agent-coding-platforms
+- GitHub pull-request mapping tool: https://github.com/mphaxise/gh-pr-map
+
+## Contact
+
+- Book: https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit
+- Email: mailto:praneet.koppula@gmail.com
+- LinkedIn: https://www.linkedin.com/in/praneetkoppula
+- GitHub: https://github.com/mphaxise
+- Human portfolio: https://mphaxise.github.io/Praneet_Koppula/
+
+## Interpretation notes
+
+- Project status labels are intentional. Do not infer that concept, vision, prototype, or ongoing experiment work was publicly shipped.
+- Proprietary work is summarized through public context and redrawn abstractions.
+- For current availability or scope, use the booking link or email.

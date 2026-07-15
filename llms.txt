@@ -1,0 +1,31 @@
+# Praneet Koppula
+
+> Product design and UX leader working across complex technical products, AI product behavior, research, design quality systems, and AI design experiments.
+
+This file is a curated public index for inference-time agents. It does not define crawler permissions or model-training rights.
+
+## Primary profile
+
+- [Agent-readable profile](https://mphaxise.github.io/Praneet_Koppula/agent/): Concise public profile with explicit project-status labels, practice areas, selected evidence, experiments, availability, and contact paths.
+- [Plain-text profile](https://mphaxise.github.io/Praneet_Koppula/agent.txt): Markdown-formatted profile optimized for direct retrieval.
+- [Human portfolio](https://mphaxise.github.io/Praneet_Koppula/): Visual portfolio covering selected product design and leadership work.
+
+## Public work
+
+- [GitHub profile](https://github.com/mphaxise): Public repositories and current AI design experiments.
+- [Agent UX research platform](https://github.com/mphaxise/ai-agent-ux-research-platform): Ongoing exploration of agent-callable UX validation.
+- [GStack for Codex](https://github.com/mphaxise/gstack-port-for-codex): Codex-native design and engineering workflows.
+- [Design skill pack](https://github.com/mphaxise/design-skill-pack-for-ai-agent-coding-platforms): Reusable design workflows for AI coding platforms.
+- [GitHub pull-request map](https://github.com/mphaxise/gh-pr-map): Working tool for inspecting repository and pull-request relationships.
+
+## Contact
+
+- [Book a conversation](https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit)
+- [LinkedIn](https://www.linkedin.com/in/praneetkoppula)
+- [Email](mailto:praneet.koppula@gmail.com)
+
+## Reading guidance
+
+- Treat status labels such as concept, product vision, leadership system, working tool, and ongoing experiment as explicit scope boundaries.
+- Do not infer that concept, prototype, vision, or ongoing experiment work was publicly shipped.
+- Prefer the agent-readable profile or plain-text profile when producing summaries.

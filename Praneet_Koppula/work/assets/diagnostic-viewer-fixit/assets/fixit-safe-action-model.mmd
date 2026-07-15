@@ -1,0 +1,16 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"DM Sans, Arial, sans-serif","primaryColor":"#f3c6b7","primaryTextColor":"#142522","primaryBorderColor":"#8c2f20","lineColor":"#8c2f20","secondaryColor":"#f2c94c","tertiaryColor":"#fffdf8"}}}%%
+flowchart TD
+    A["Diagnostic message"] --> B["Identify cause and fix candidate"]
+    B --> C{"Safe to offer?"}
+    C -->|No| D["Explain cause and manual steps"]
+    C -->|Yes| E["Show action and consequences"]
+    E --> F{"User applies fix?"}
+    F -->|No| G["Leave model unchanged"]
+    F -->|Yes| H["Run controlled transaction"]
+    H --> I{"Fix succeeds?"}
+    I -->|Yes| J["Update model state"]
+    I -->|No| K["Revert partial changes"]
+    J --> L["Let the user decide when to save"]
+    K --> M["Explain failure and recovery"]
+    L --> N["Recheck the diagnostic"]
+    M --> N

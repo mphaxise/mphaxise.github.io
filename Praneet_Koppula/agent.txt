@@ -28,6 +28,8 @@ Status: Customer-tested product vision.
 
 Led the UX vision with an engineering lead for an assistant connecting requirements, architecture, implementation, simulation, and explanation. Tested the concepts with customers through user interviews and validation tests, then refined interaction patterns for visible context, traceability, confirmation, and human control.
 
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/
+
 ### Model Slicer workflows
 
 Status: Documented design contribution with public product context.
@@ -36,11 +38,45 @@ Designed state-aware interactions and simulation-aware slicing prototypes involv
 
 Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/
 
-### Design quality across a broad product ecosystem
+### Actionable Simulink diagnostics
+
+Status: Documented design contribution with public product context.
+
+Researched dense diagnostic states and helped shape message hierarchy, safe Fix-It behavior, and suppression workflows from 2014 to 2017. The case separates direct design work, engineering collaboration, later product evolution, and exploratory strategy.
+
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/
+
+### Task-based UI across engineering apps
+
+Status: Design-system contribution across selected work from 2014 to 2019.
+
+Authored pattern guidance, contributed concepts during a Radar app workshop, documented the team's design decisions, and later served as a formal coach and reviewer. The shared strategy and workshop method remain team-owned.
+
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/
+
+### Mask Editor as a technical authoring environment
+
+Status: Documented design direction, mentorship, and unshipped vision.
+
+Authored validation and constraint directions, facilitated team synthesis, mentored a broader discovery effort, and co-authored an unshipped studio vision. Later public capabilities are context, not a causal claim.
+
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/
+
+### Customer workflows as a portfolio operating system
 
 Status: Leadership system.
 
-Helped establish shared workflow language, structured critique, reusable guidance, coaching, and design governance across a technical product organization spanning approximately 120 products.
+Authored and contributed structures that connected workflow evidence, product ownership, research questions, and investment decisions. The case presents the operating model without claiming quantified adoption.
+
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/
+
+### Distributed UX leadership systems
+
+Status: Anonymized leadership case.
+
+Built planning, coaching, and decision mechanisms across a distributed UX leadership context. Personnel details and internal measures remain private; the public case focuses on the operating system and qualitative outcomes.
+
+Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/
 
 ## Public AI design experiments
 

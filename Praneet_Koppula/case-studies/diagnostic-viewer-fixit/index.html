@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Praneet Koppula helped turn Simulink diagnostics into a clearer path from readable messages to safe fixes and accountable suppression.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/">
+  <link rel="stylesheet" href="../case-study.css">
+  <title>Diagnostic Viewer and Fix-It case study | Praneet Koppula</title>
+</head>
+<body class="theme-diagnostic">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="case-header">
+    <nav class="case-nav shell" aria-label="Case study navigation">
+      <a class="wordmark" href="../../">Praneet Koppula</a>
+      <a class="back-link" href="../../#work">Back to selected work</a>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero shell" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow">MathWorks · Simulink diagnostics · 2014–2017</div>
+        <h1 id="page-title">Making Simulink diagnostics <em>actionable.</em></h1>
+        <p class="hero-lede">I helped evolve an already-shipped diagnostic surface into a clearer resolution workflow, moving from readable messages to safe fixes and accountable suppression.</p>
+      </div>
+      <div class="hero-mark">
+        <div class="hero-mark-content">
+          <span class="eyebrow">Core design principle</span>
+          <strong>Prevent it, explain it, or resolve it quickly.</strong>
+          <span>Every action needed a clear consequence and a recovery path.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="reading">
+      <dl class="facts" aria-label="Project at a glance">
+        <div><dt class="eyebrow">Company</dt><dd>MathWorks</dd></div>
+        <div><dt class="eyebrow">Role</dt><dd>UX designer and product-strategy contributor</dd></div>
+        <div><dt class="eyebrow">Timeframe</dt><dd>2014–2017</dd></div>
+        <div><dt class="eyebrow">Collaborators</dt><dd>Simulink developers, diagnostic authors, and product teams</dd></div>
+        <div><dt class="eyebrow">Scope</dt><dd>Research, interaction design, requirements, usability, adoption support</dd></div>
+        <div><dt class="eyebrow">Product state</dt><dd>Shipped viewer and Fix-It capability; broader management vision remained exploratory</dd></div>
+      </dl>
+    </div>
+
+    <section class="section reading" aria-labelledby="precis-title">
+      <div class="precis">
+        <div class="bottom-line">
+          <div class="eyebrow">Précis</div>
+          <p>Diagnostic Viewer already collected technical messages, but the path from explanation to resolution remained fragmented. I shaped message hierarchy, Fix-It requirements, safe failure behavior, and suppression strategy with engineering partners; together, we established a reusable interaction model and support system for diagnostic authors.</p>
+        </div>
+        <h2 class="statement" id="precis-title">The design problem was the distance between an error message and a safe next step.</h2>
+      </div>
+    </section>
+
+    <section class="section dark-band" aria-labelledby="context-title">
+      <div class="reading">
+        <div class="section-head">
+          <div class="eyebrow">Context and stakes</div>
+          <div>
+            <h2 id="context-title">A diagnostic is a workflow interruption.</h2>
+            <p>Diagnostic Viewer had already shipped when I joined the work. MathWorks had re-engineered it in R2014a to collect messages from multiple simulations and make filtering easier. My work started from that real product state.</p>
+            <p>Diagnostics were dense, technical, and distributed across the model canvas, viewer, configuration settings, documentation, and command line. A message could describe several causes, suggest several remedies, or propose a change to the model itself.</p>
+          </div>
+        </div>
+        <div class="stakes-grid" role="list" aria-label="Four diagnostic workflow challenges">
+          <div class="stake" role="listitem"><strong>Readability</strong><p>Dense messages had to be scanned under pressure.</p></div>
+          <div class="stake" role="listitem"><strong>Discoverability</strong><p>Important actions could not depend on hover or memory.</p></div>
+          <div class="stake" role="listitem"><strong>Safety</strong><p>A fix might change model state or fail partway through.</p></div>
+          <div class="stake" role="listitem"><strong>Governance</strong><p>Suppression needed context, ownership, and a way back.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reading rule" aria-labelledby="role-title">
+      <div class="role-grid">
+        <div class="role-copy">
+          <div class="eyebrow">Role and collaboration</div>
+          <h2 id="role-title">Implementation-aware UX inside a shared product.</h2>
+          <p>I researched comparable diagnostic systems, explored message hierarchy and action visibility, authored visual requirements, analyzed Fix-It use cases, helped drive functional requirements, supported usability testing, and contributed to suppression and diagnostics-management strategy.</p>
+          <p>I worked with developers and diagnostic-authoring teams on the mechanism behind automatic fixes. Engineering partners shaped callbacks, transaction behavior, and implementation. Product teams owned their diagnostics and the shipped product.</p>
+        </div>
+        <aside class="boundary" aria-labelledby="boundary-title">
+          <h3 id="boundary-title">Contribution boundary</h3>
+          <p>This case covers my direct 2014–2017 work. Later diagnostics-in-editor concepts were designed by another UX practitioner and are not presented as mine.</p>
+          <dl>
+            <div><dt class="eyebrow">Direct</dt><dd>Research, requirements, use-case analysis, interaction concepts, vision</dd></div>
+            <div><dt class="eyebrow">Co-created</dt><dd>Fix mechanism, failure handling, implementation decisions</dd></div>
+            <div><dt class="eyebrow">Team-owned</dt><dd>Diagnostic content, engineering, shipped product</dd></div>
+            <div><dt class="eyebrow">Exploratory</dt><dd>Cross-surface status unification and broader management vision</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="story reading" aria-label="Project story">
+      <article class="chapter" aria-labelledby="story-one">
+        <div class="chapter-number">01 / SURFACE</div>
+        <div class="chapter-body">
+          <h2 id="story-one">Start with the shipped surface.</h2>
+          <p>I began with message hierarchy, scanning, stages, toolbar behavior, and action visibility. The aim was practical: make the important content easier to find and remove interaction patterns that users could miss.</p>
+          <p>That work built trust with the development team and created room to address the larger product question: what should happen after a user understands the message?</p>
+        </div>
+      </article>
+
+      <article class="chapter" aria-labelledby="story-two">
+        <div class="chapter-number">02 / MECHANISM</div>
+        <div class="chapter-body">
+          <h2 id="story-two">Design a mechanism, not a button.</h2>
+          <p>I evaluated 26 diagnostic scenarios to understand when the product should explain a remedy, offer one automatic fix, expose several alternatives, or avoid automation. The work covered success, failure, dependencies, deletion, and diagnostics with several linked causes.</p>
+          <p>The interaction needed an authoring contract behind it: a cause, a clear action label, a callback, feedback after execution, and a recovery path when the action failed.</p>
+          <div class="claim-note"><strong>Cross-functional work:</strong> I surfaced and helped resolve the automation-safety questions. Engineering partners shaped the mechanism and its implementation.</div>
+        </div>
+      </article>
+
+      <article class="chapter" aria-labelledby="story-three">
+        <div class="chapter-number">03 / CONTROL</div>
+        <div class="chapter-body">
+          <h2 id="story-three">Keep model-changing help under user control.</h2>
+          <p>A useful Fix-It sometimes had to modify a model. The decision boundary was explicit: apply the model change in a controlled transaction, roll back partial work if the action failed, and leave saving to the user.</p>
+          <p>That same principle carried into suppression. Accepting an exception should record context and preserve the ability to review, restore, or govern it later.</p>
+        </div>
+      </article>
+    </section>
+
+    <figure class="figure-wrap shell">
+      <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram of the diagnostic resolution lifecycle">
+        <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
+        <img src="../../work/assets/diagnostic-viewer-fixit/assets/diagnostic-lifecycle.svg" width="2729" height="224" alt="A diagnostic lifecycle moves from prevention and detection through explanation, safe action, confirmation, resolution, or accountable suppression.">
+      </div>
+      <figcaption><strong>Diagnostic resolution lifecycle</strong><span>Original explanatory redraw synthesizing my direct research, visual requirements, and suppression strategy with shared Fix-It work; it does not reproduce a proprietary interface.</span></figcaption>
+    </figure>
+
+    <figure class="figure-wrap shell">
+      <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram of the safe Fix-It action model">
+        <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
+        <img src="../../work/assets/diagnostic-viewer-fixit/assets/fixit-safe-action-model.svg" width="887" height="1459" alt="A safe automatic fix is offered only when appropriate, runs in a controlled transaction, rolls back on failure, and leaves saving to the user.">
+      </div>
+      <figcaption><strong>Safe action model</strong><span>Original explanatory redraw of the recoverability boundary I explored with engineering partners: explain consequences, avoid partial changes, and preserve the user's decision to save.</span></figcaption>
+    </figure>
+
+    <section class="section work-band" aria-labelledby="action-title">
+      <div class="reading">
+        <div class="section-head">
+          <div class="eyebrow">Work in action</div>
+          <div><h2 id="action-title">From interruption to informed action.</h2><p>The resulting interaction model separated understanding, action, feedback, and governance.</p></div>
+        </div>
+        <ol class="sequence">
+          <li><strong>Read the message</strong><p>Make severity, cause, and the affected model context easy to scan.</p></li>
+          <li><strong>Inspect possible remedies</strong><p>Distinguish explanation, manual guidance, and automatic actions.</p></li>
+          <li><strong>Understand the consequence</strong><p>Tell the user what the product will change before execution.</p></li>
+          <li><strong>Run safely</strong><p>Apply a controlled transaction and report success or failure.</p></li>
+          <li><strong>Preserve agency</strong><p>Leave persistence to the user and provide recovery when needed.</p></li>
+          <li><strong>Govern exceptions</strong><p>Let teams suppress, justify, review, and restore accepted diagnostics.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section outcomes" aria-labelledby="outcomes-title">
+      <div class="reading">
+        <div class="section-head">
+          <div class="eyebrow">Outcomes</div>
+          <div><h2 id="outcomes-title">A reusable path from message to resolution.</h2><p>The durable outcome was a reusable interaction model, supported by guidance and review for the teams applying it.</p></div>
+        </div>
+        <div class="outcome-grid">
+          <div class="outcome"><div class="eyebrow">Product</div><strong>Standardized Fix-It capability</strong><p>The interaction model covered suggestions, automatic actions, alternatives, success, failure, and recovery.</p></div>
+          <div class="outcome"><div class="eyebrow">Adoption</div><strong>Support for diagnostic authors</strong><p>Guidelines, reviews, documentation, and internal forums helped product teams apply the pattern.</p></div>
+          <div class="outcome"><div class="eyebrow">Continuity</div><strong>Current public product context</strong><p>MathWorks documentation still shows suggested fixes, success and failure states, suppression, justification, restore, and Suppression Manager.</p></div>
+        </div>
+        <p class="evidence-note"><strong>Attribution:</strong> public documentation shows current product behavior. Dated design and review artifacts establish my contribution, while the current experience also reflects later team work.</p>
+      </div>
+    </section>
+
+    <section class="section reflection" aria-labelledby="reflection-title">
+      <div class="reading reflection-grid">
+        <h2 id="reflection-title">Safe automation needs more than a callback.</h2>
+        <div>
+          <p>It needs clear consequences, recoverable failure, and an explicit boundary around user control.</p>
+          <p>I would now test the mechanism earlier with lower-fidelity state models. That would expose safety and comprehension questions before visual details made them expensive to change.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sources reading" aria-label="Sources and evidence notes">
+      <details>
+        <summary>Public product sources and evidence method</summary>
+        <p>Official MathWorks sources establish the product state. Dated private artifacts establish my role and remain unpublished.</p>
+        <ul>
+          <li><a href="https://blogs.mathworks.com/simulink/2014/03/12/welcome-r2014a/">R2014a Diagnostic Viewer announcement</a></li>
+          <li><a href="https://www.mathworks.com/help/simulink/slref/diagnosticviewer.html">Current Diagnostic Viewer documentation</a></li>
+          <li><a href="https://www.mathworks.com/help/simulink/configure-diagnostics.html">Current command-line and UI diagnostic behavior</a></li>
+          <li><a href="https://www.mathworks.com/help/simulink/slref/simulink.suppresseddiagnostic-class.html">SuppressedDiagnostic class and version history</a></li>
+          <li><a href="https://www.mathworks.com/videos/diagnostic-handling-1519930010324.html">MathWorks diagnostic handling video</a></li>
+        </ul>
+        <p>The diagrams abstract the internal work; confidential project and participant material is not reproduced.</p>
+      </details>
+    </section>
+
+    <nav class="next-case shell" aria-label="Next case study">
+      <h2>Next: scaling task-based UI design across engineering apps.</h2>
+      <a href="../toolstrip-workshops/">Read the Toolstrip case</a>
+    </nav>
+  </main>
+
+  <footer class="case-footer">
+    <div class="shell">© 2026 Praneet Koppula · Product design, research, and UX leadership</div>
+  </footer>
+</body>
+</html>

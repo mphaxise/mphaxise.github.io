@@ -14,6 +14,11 @@ This file is a curated public index for inference-time agents. It does not defin
 
 - [Model Slicer case study](https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/): Documented state-aware interaction design and simulation-aware slicing prototypes, with public product chronology kept separate from Praneet's contribution.
 - [Simulink AI Assistant vision](https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/): Customer-tested product vision for an AI partner inside a model-based engineering workflow.
+- [Making Simulink Diagnostics Actionable](https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/): Diagnostic hierarchy, safe Fix-It behavior, and suppression workflows, with direct work, collaboration, strategy, and later product context explicitly separated.
+- [Scaling Task-Based UI Design Across Engineering Apps](https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/): Pattern guidance, workshop contribution, documented app decisions, and formal design review across selected work from 2014 to 2019.
+- [Reimagining Mask Editor as a Technical Authoring Environment](https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/): Validation and constraint design, team synthesis, mentorship, and a clearly labeled unshipped vision.
+- [Turning Customer Workflows into a UX Portfolio Operating System](https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/): A leadership system connecting workflow evidence, product ownership, research questions, and investment decisions.
+- [Scaling a Distributed UX Organization Through Leadership Systems](https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/): An anonymized case about planning, coaching, decision clarity, and operating rhythm.
 - [GitHub profile](https://github.com/mphaxise): Public repositories and current AI design experiments.
 - [Agent UX research platform](https://github.com/mphaxise/ai-agent-ux-research-platform): Ongoing exploration of agent-callable UX validation.
 - [GStack for Codex](https://github.com/mphaxise/gstack-port-for-codex): Codex-native design and engineering workflows.

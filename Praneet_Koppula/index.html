@@ -256,6 +256,36 @@
     .case li { margin: 10px 0; }
     .public-link { font-weight: 700; color: var(--teal-dark); }
 
+    .case-library {
+      margin: -42px 0 110px;
+      padding-top: 34px;
+      border-top: 1px solid var(--line);
+    }
+    .case-library-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .case-library-head h3 { margin: 7px 0 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; }
+    .case-library-head p { max-width: 520px; margin: 0; color: var(--muted); }
+    .case-library-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .case-card {
+      display: block;
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,253,247,0.84);
+      text-decoration: none;
+    }
+    .case-card:last-child { grid-column: 1 / -1; }
+    .case-card:hover { border-color: var(--teal); box-shadow: 0 10px 30px rgba(26, 53, 46, 0.08); }
+    .case-card .case-label { color: var(--teal-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    .case-card h4 { margin: 11px 0 8px; font-family: "Source Serif 4", Georgia, serif; font-size: 1.45rem; line-height: 1.1; }
+    .case-card p { margin: 0; color: var(--muted); }
+
     .visual {
       position: relative;
       min-height: 430px;
@@ -362,6 +392,10 @@
       .contact { display: flex; gap: 14px; }
       .contact .desktop-only, .contact .header-secondary { display: none; }
       .workflow .node:nth-child(n) { margin-left: 0; }
+      .case-library-head { display: block; }
+      .case-library-head p { margin-top: 14px; }
+      .case-library-grid { grid-template-columns: 1fr; }
+      .case-card:last-child { grid-column: auto; }
       footer { flex-direction: column; }
     }
 
@@ -505,6 +539,7 @@
               <li>Used independent ratings and facilitated discussion to reduce opinion-driven critique.</li>
               <li>Built lightweight enablement so specialists could focus on harder strategic work.</li>
             </ul>
+            <a class="public-link" href="case-studies/workflow-portfolio/">Read the workflow portfolio case →</a>
           </div>
           <div class="visual quality-map" role="img" aria-label="Design quality system connecting shared principles, structured critique, reusable guidance, and continuous improvement">
             <div class="tile">
@@ -525,6 +560,43 @@
             </div>
           </div>
         </article>
+
+        <section class="case-library" aria-labelledby="mathworks-library-heading">
+          <div class="case-library-head">
+            <div>
+              <div class="eyebrow">MathWorks case library</div>
+              <h3 id="mathworks-library-heading">Five more views into the work.</h3>
+            </div>
+            <p>Each case separates direct contribution, team-owned work, public product context, and exploratory strategy.</p>
+          </div>
+          <div class="case-library-grid">
+            <a class="case-card" href="case-studies/diagnostic-viewer-fixit/">
+              <span class="case-label">Interaction design · 2014–2017</span>
+              <h4>Making Simulink Diagnostics Actionable</h4>
+              <p>Message hierarchy, safe Fix-It behavior, and suppression workflows for engineers already blocked by a model diagnostic.</p>
+            </a>
+            <a class="case-card" href="case-studies/toolstrip-workshops/">
+              <span class="case-label">Design systems · Selected work, 2014–2019</span>
+              <h4>Scaling Task-Based UI Design Across Engineering Apps</h4>
+              <p>Pattern guidance, workshop contribution, concrete product decisions, and formal design review.</p>
+            </a>
+            <a class="case-card" href="case-studies/mask-editor/">
+              <span class="case-label">Technical authoring · 2014–2017</span>
+              <h4>Reimagining Mask Editor as a Technical Authoring Environment</h4>
+              <p>Validation and constraint design, team synthesis, mentorship, and a clearly bounded future vision.</p>
+            </a>
+            <a class="case-card" href="case-studies/workflow-portfolio/">
+              <span class="case-label">Portfolio operations · Leadership system</span>
+              <h4>Turning Customer Workflows into a UX Portfolio Operating System</h4>
+              <p>A shared workflow language for connecting customer needs, ownership, research, and investment decisions.</p>
+            </a>
+            <a class="case-card" href="case-studies/ux-leadership-systems/">
+              <span class="case-label">Organization design · Leadership system</span>
+              <h4>Scaling a Distributed UX Organization Through Leadership Systems</h4>
+              <p>An anonymized look at planning, coaching, decision clarity, and operating rhythm across a distributed UX context.</p>
+            </a>
+          </div>
+        </section>
       </section>
 
       <section class="leadership">

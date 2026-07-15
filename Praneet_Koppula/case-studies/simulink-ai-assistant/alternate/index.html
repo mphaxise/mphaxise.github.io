@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An evidence-led case study about designing accountable AI actions across requirements, architecture, models, and simulation in Simulink.">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/alternate/">
+  <title>Simulink AI Assistant — engineering decision record | Praneet Koppula</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@400;500;600;700;800&display=swap");
+
+    :root {
+      --ink: #111310;
+      --ink-2: #2a2e29;
+      --muted: #515850;
+      --paper: #f3f0e7;
+      --paper-2: #e7e3d8;
+      --white: #fffdf7;
+      --line: #9da49b;
+      --line-dark: #4b514b;
+      --signal: #d6ff3f;
+      --red: #b43224;
+      --blue: #1743a4;
+      --night: #121815;
+      --max: 1500px;
+      --read: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: auto; background: var(--paper); }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible,
+    button:focus-visible {
+      outline: 4px solid var(--blue);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 12px;
+      left: 12px;
+      min-height: 44px;
+      padding: 10px 16px;
+      background: var(--signal);
+      color: var(--ink);
+      font-weight: 800;
+      transform: translateY(-180%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell { width: min(var(--max), calc(100% - 64px)); margin-inline: auto; }
+    .reading { width: min(var(--read), calc(100% - 64px)); margin-inline: auto; }
+    .mono,
+    .chapter-index,
+    dt {
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    header { border-bottom: 1px solid var(--line); }
+    .topbar {
+      display: flex;
+      min-height: 78px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .wordmark,
+    .top-links a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      font-weight: 700;
+    }
+    .wordmark { text-decoration: none; }
+    .top-links { display: flex; align-items: center; gap: 28px; }
+    .version-label { color: var(--red); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(64px, 8vw, 120px) 0 0;
+      background-image:
+        linear-gradient(rgba(17, 19, 16, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 19, 16, 0.045) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .hero::after {
+      position: absolute;
+      top: 0;
+      right: 16px;
+      width: 15px;
+      height: 58%;
+      background: var(--red);
+      content: "";
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.55fr);
+      gap: clamp(52px, 7vw, 120px);
+      align-items: end;
+      padding-bottom: clamp(60px, 8vw, 110px);
+    }
+    .eyebrow { margin: 0 0 24px; color: var(--blue); }
+    h1, h2, h3, p { overflow-wrap: break-word; }
+    h1, h2, h3 { margin-top: 0; letter-spacing: -0.045em; }
+    h1 {
+      max-width: 970px;
+      margin-bottom: 34px;
+      font-size: clamp(4.3rem, 8.8vw, 9.5rem);
+      font-weight: 800;
+      line-height: 0.84;
+    }
+    h1 span { display: block; color: var(--red); }
+    .hero-lede {
+      max-width: 820px;
+      margin: 0;
+      color: var(--ink-2);
+      font-size: clamp(1.25rem, 2.2vw, 1.72rem);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+    .brief {
+      margin: 0;
+      border-top: 5px solid var(--ink);
+    }
+    .brief div {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .brief dt { color: var(--muted); }
+    .brief dd { margin: 0; font-weight: 700; line-height: 1.35; }
+
+    .artifact-spine {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 0;
+      padding: 0;
+      background: var(--ink);
+      color: var(--white);
+      list-style: none;
+    }
+    .artifact-spine li {
+      position: relative;
+      min-height: 156px;
+      padding: 26px 30px;
+      border-right: 1px solid var(--line-dark);
+    }
+    .artifact-spine li:last-child { border-right: 0; }
+    .artifact-spine li:not(:last-child)::after {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: -13px;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--line-dark);
+      background: var(--signal);
+      color: var(--ink);
+      content: "→";
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 22px;
+      text-align: center;
+      transform: translateY(-50%);
+    }
+    .artifact-spine .mono { display: block; margin-bottom: 22px; color: var(--signal); }
+    .artifact-spine strong { font-size: 1.25rem; line-height: 1.2; }
+
+    .status-strip {
+      padding: 21px 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--signal);
+    }
+    .status-strip .reading {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 28px;
+    }
+    .status-strip p { margin: 0; font-weight: 600; }
+
+    .chapter { padding: clamp(84px, 10vw, 150px) 0; border-bottom: 1px solid var(--line); }
+    .chapter-header {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 38px;
+      margin-bottom: clamp(48px, 6vw, 88px);
+    }
+    .chapter-index { padding-top: 12px; color: var(--blue); }
+    h2 {
+      max-width: 980px;
+      margin-bottom: 24px;
+      font-size: clamp(3.2rem, 6.8vw, 7rem);
+      font-weight: 750;
+      line-height: 0.92;
+    }
+    .chapter-intro {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.24rem;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+    }
+    .signal {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      min-height: 430px;
+      padding: clamp(30px, 4vw, 54px);
+    }
+    .signal + .signal { border-left: 1px solid var(--line); }
+    .signal .mono { color: var(--red); }
+    .signal h3 {
+      max-width: 550px;
+      margin: 36px 0 24px;
+      font-size: clamp(2.25rem, 4vw, 4.3rem);
+      line-height: 0.96;
+    }
+    .signal p { max-width: 620px; margin: 0; color: var(--muted); font-size: 1.08rem; }
+    .signal footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--ink-2);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+    .research-boundary {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 38px;
+      margin-top: 34px;
+      padding: 26px 0;
+      border-top: 1px solid var(--line);
+    }
+    .research-boundary p { max-width: 850px; margin: 0; color: var(--muted); }
+
+    .scenario-chapter { background: var(--night); color: var(--white); }
+    .scenario-chapter .chapter-index { color: var(--signal); }
+    .scenario-chapter .chapter-intro { color: #c4cbc4; }
+    .trace-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 22px;
+      border: 1px solid var(--line-dark);
+      border-bottom: 0;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+    }
+    .trace-header strong { color: var(--signal); }
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--line-dark);
+      list-style: none;
+    }
+    .journey li {
+      position: relative;
+      min-width: 0;
+      min-height: 390px;
+      padding: 26px 24px;
+      border-right: 1px solid var(--line-dark);
+    }
+    .journey li:last-child { border-right: 0; }
+    .journey li::before {
+      display: block;
+      width: 36px;
+      height: 36px;
+      margin-bottom: 42px;
+      border: 1px solid #738078;
+      color: var(--signal);
+      content: counter(list-item, decimal-leading-zero);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      line-height: 34px;
+      text-align: center;
+    }
+    .journey .artifact {
+      display: block;
+      min-height: 45px;
+      margin-bottom: 16px;
+      color: #9fa9a1;
+    }
+    .journey h3 { margin-bottom: 18px; font-size: 1.55rem; line-height: 1.05; }
+    .journey p { margin: 0; color: #c4cbc4; font-size: 0.97rem; line-height: 1.5; }
+    .journey .gate {
+      position: absolute;
+      right: 20px;
+      bottom: 22px;
+      left: 24px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-dark);
+      color: var(--signal);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .scenario-caption {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 780px);
+      gap: 38px;
+      padding-top: 24px;
+      color: #c4cbc4;
+    }
+    .scenario-caption strong { color: var(--white); }
+    .scenario-caption p { margin: 0; }
+
+    .records { padding-bottom: 0; }
+    .record-list { border-top: 2px solid var(--ink); }
+    .record {
+      padding: clamp(54px, 7vw, 96px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .record-head {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr) minmax(250px, 0.45fr);
+      gap: 34px;
+      align-items: start;
+      margin-bottom: 46px;
+    }
+    .record-number {
+      color: var(--red);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .record h3 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.5rem, 5vw, 5.2rem);
+      line-height: 0.94;
+    }
+    .record-principle {
+      margin: 0;
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 1.12rem;
+      font-weight: 600;
+    }
+    .record-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 0;
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+    }
+    .record-grid div { padding: 25px 26px 30px 0; }
+    .record-grid div + div { padding-left: 26px; border-left: 1px solid var(--line); }
+    .record-grid dt { margin-bottom: 18px; color: var(--blue); }
+    .record-grid dd { margin: 0; color: var(--ink-2); }
+    .contract {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin: 38px 0 0;
+      padding: 0;
+      background: var(--ink);
+      color: var(--white);
+      list-style: none;
+    }
+    .contract li {
+      position: relative;
+      min-height: 170px;
+      padding: 24px;
+      border-right: 1px solid var(--line-dark);
+    }
+    .contract li:last-child { border-right: 0; }
+    .contract .mono { display: block; margin-bottom: 26px; color: var(--signal); }
+    .contract strong { line-height: 1.2; }
+
+    .matrix-chapter { background: var(--paper-2); }
+    .matrix {
+      margin: 0;
+      border-top: 2px solid var(--ink);
+    }
+    .matrix-row {
+      display: grid;
+      grid-template-columns: 0.7fr 1.25fr 1.25fr;
+      border-bottom: 1px solid var(--line);
+    }
+    .matrix-row > * { margin: 0; padding: 28px 30px 32px 0; }
+    .matrix-row > * + * { padding-left: 30px; border-left: 1px solid var(--line); }
+    .matrix-row dt {
+      color: var(--red);
+      font-family: "Inter Tight", sans-serif;
+      font-size: 1.6rem;
+      font-weight: 750;
+      letter-spacing: -0.03em;
+      text-transform: none;
+    }
+    .matrix-row dd { color: var(--ink-2); }
+    .matrix-row dd .mono { display: block; margin-bottom: 12px; color: var(--blue); }
+
+    .evaluation-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: clamp(50px, 8vw, 120px);
+      align-items: start;
+    }
+    .method-mark {
+      padding: 34px;
+      border: 2px solid var(--ink);
+      background: var(--signal);
+    }
+    .method-mark .mono { display: block; margin-bottom: 28px; }
+    .method-mark strong {
+      display: block;
+      font-size: clamp(2.2rem, 4vw, 4.3rem);
+      letter-spacing: -0.045em;
+      line-height: 0.96;
+    }
+    .methods { margin: 0; padding: 0; border-top: 2px solid var(--ink); list-style: none; }
+    .methods li {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 24px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .methods .mono { color: var(--red); }
+    .methods strong { display: block; margin-bottom: 7px; font-size: 1.25rem; }
+    .methods p { margin: 0; color: var(--muted); }
+    .boundary-box {
+      margin-top: 34px;
+      padding: 24px 28px;
+      border-left: 8px solid var(--red);
+      background: var(--paper-2);
+    }
+    .boundary-box p { margin: 0; }
+
+    .public-context { background: var(--blue); color: var(--white); }
+    .public-context .chapter-index { color: var(--signal); }
+    .public-context .chapter-intro { color: #d8e0f6; }
+    .lineage-note {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 34px;
+      margin-bottom: 52px;
+      padding: 26px 30px;
+      border: 2px solid var(--white);
+    }
+    .lineage-note .mono { color: var(--signal); }
+    .lineage-note p { max-width: 850px; margin: 0; font-weight: 600; }
+    .tracks { border-top: 1px solid #7892d0; }
+    .track {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 34px;
+      padding: 42px 0;
+      border-bottom: 1px solid #7892d0;
+    }
+    .track-label .mono { color: var(--signal); }
+    .track-label strong { display: block; margin-top: 14px; font-size: 1.2rem; }
+    .track-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid #a9b9e2;
+    }
+    .track-flow.four { grid-template-columns: repeat(4, 1fr); }
+    .track-node {
+      position: relative;
+      min-height: 180px;
+      padding: 24px;
+      border-right: 1px solid #a9b9e2;
+    }
+    .track-node:last-child { border-right: 0; }
+    .track-node .mono { display: block; margin-bottom: 24px; color: #d8e0f6; }
+    .track-node strong { display: block; font-size: 1.22rem; line-height: 1.25; }
+    .track-node p { margin: 14px 0 0; color: #d8e0f6; font-size: 0.95rem; }
+    .release-note {
+      margin: 26px 0 0;
+      color: #d8e0f6;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 60px 0 0;
+      padding: 0;
+      border-top: 1px solid #a9b9e2;
+      list-style: none;
+    }
+    .source-list li {
+      padding: 26px 30px 28px 0;
+      border-bottom: 1px solid #a9b9e2;
+    }
+    .source-list li:nth-child(even) { padding-left: 30px; border-left: 1px solid #a9b9e2; }
+    .source-list .mono { display: block; margin-bottom: 12px; color: var(--signal); }
+    .source-list a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      font-weight: 700;
+    }
+    .source-list p { margin: 8px 0 0; color: #d8e0f6; font-size: 0.96rem; }
+
+    .close {
+      padding: clamp(84px, 10vw, 150px) 0;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .close-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(50px, 8vw, 120px);
+      align-items: end;
+    }
+    .close h2 { margin-bottom: 0; }
+    .demonstrates { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line-dark); }
+    .demonstrates li { padding: 22px 0; border-bottom: 1px solid var(--line-dark); }
+    .demonstrates .mono { display: block; margin-bottom: 8px; color: var(--signal); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 38px; }
+    .button {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 19px;
+      border: 1px solid var(--white);
+      color: var(--white);
+      font-weight: 750;
+      text-decoration: none;
+    }
+    .button.primary { border-color: var(--signal); background: var(--signal); color: var(--ink); }
+
+    .site-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 34px 0 48px;
+      border-top: 1px solid var(--line-dark);
+      background: var(--ink);
+      color: #b9c0ba;
+      font-size: 0.92rem;
+    }
+    .site-footer a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .brief { display: grid; grid-template-columns: 1fr 1fr; }
+      .brief div:nth-child(even) { padding-left: 22px; border-left: 1px solid var(--line); }
+      .artifact-spine { grid-template-columns: 1fr 1fr; }
+      .artifact-spine li:nth-child(2) { border-right: 0; }
+      .artifact-spine li:nth-child(-n + 2) { border-bottom: 1px solid var(--line-dark); }
+      .artifact-spine li:nth-child(2)::after { display: none; }
+      .journey { grid-template-columns: repeat(3, 1fr); }
+      .journey li:nth-child(3) { border-right: 0; }
+      .journey li:nth-child(-n + 3) { border-bottom: 1px solid var(--line-dark); }
+      .record-grid { grid-template-columns: 1fr 1fr; }
+      .record-grid div:nth-child(3) { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
+      .record-grid div:nth-child(4) { border-top: 1px solid var(--line); }
+      .contract { grid-template-columns: repeat(3, 1fr); }
+      .contract li:nth-child(3) { border-right: 0; }
+      .contract li:nth-child(-n + 3) { border-bottom: 1px solid var(--line-dark); }
+      .contract li:nth-child(4) { grid-column: 1 / 2; }
+      .contract li:nth-child(5) { grid-column: 2 / 4; }
+      .track-flow.four { grid-template-columns: 1fr 1fr; }
+      .track-flow.four .track-node:nth-child(2) { border-right: 0; }
+      .track-flow.four .track-node:nth-child(-n + 2) { border-bottom: 1px solid #a9b9e2; }
+    }
+
+    @media (max-width: 760px) {
+      body { font-size: 17px; }
+      .shell, .reading { width: min(100% - 32px, var(--max)); }
+      .mono, .chapter-index, dt { font-size: 0.9rem; }
+      .topbar { min-height: 0; align-items: flex-start; padding: 17px 0; }
+      .top-links { align-items: flex-end; flex-direction: column; gap: 2px; text-align: right; }
+      .hero { padding-top: 62px; background-size: 24px 24px; }
+      .hero::after { width: 6px; height: 38%; right: 0; }
+      .hero-grid { gap: 48px; padding-bottom: 64px; }
+      h1 { font-size: clamp(3.6rem, 18vw, 6rem); }
+      .hero-lede { font-size: 1.2rem; }
+      .brief { grid-template-columns: 1fr; }
+      .brief div:nth-child(even) { padding-left: 0; border-left: 0; }
+      .artifact-spine { grid-template-columns: 1fr; }
+      .artifact-spine li { min-height: 0; padding: 24px; border-right: 0; border-bottom: 1px solid var(--line-dark); }
+      .artifact-spine li:last-child { border-bottom: 0; }
+      .artifact-spine li:not(:last-child)::after {
+        top: auto;
+        right: 24px;
+        bottom: -13px;
+        transform: rotate(90deg);
+      }
+      .artifact-spine li:nth-child(2)::after { display: block; }
+      .status-strip .reading,
+      .chapter-header,
+      .research-boundary,
+      .scenario-caption,
+      .lineage-note,
+      .track,
+      .evaluation-grid,
+      .close-grid { grid-template-columns: 1fr; }
+      .status-strip .reading,
+      .chapter-header,
+      .research-boundary,
+      .scenario-caption,
+      .lineage-note,
+      .track { gap: 14px; }
+      .chapter { padding: 70px 0; }
+      .chapter-header { margin-bottom: 48px; }
+      .chapter-index { padding-top: 0; }
+      h2 { font-size: clamp(3rem, 15vw, 5.3rem); }
+      .chapter-intro { font-size: 1.14rem; }
+      .signal-grid { grid-template-columns: 1fr; }
+      .signal { min-height: 0; padding: 34px 0; }
+      .signal + .signal { border-top: 1px solid var(--line); border-left: 0; }
+      .signal h3 { margin-top: 28px; }
+      .trace-header { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .journey { grid-template-columns: 1fr; }
+      .journey li {
+        min-height: 0;
+        padding: 24px 24px 76px 84px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line-dark);
+      }
+      .journey li:last-child { border-bottom: 0; }
+      .journey li::before { position: absolute; top: 24px; left: 24px; margin: 0; }
+      .journey .artifact { min-height: 0; }
+      .trace-header,
+      .journey li::before,
+      .journey .gate,
+      .signal footer,
+      .release-note { font-size: 0.95rem; }
+      .record-head { grid-template-columns: 58px 1fr; gap: 18px; }
+      .record-principle { grid-column: 2; }
+      .record h3 { font-size: clamp(2.65rem, 12vw, 4.4rem); }
+      .record-grid { grid-template-columns: 1fr; }
+      .record-grid div,
+      .record-grid div + div,
+      .record-grid div:nth-child(3) {
+        padding: 24px 0;
+        border-top: 1px solid var(--line);
+        border-left: 0;
+      }
+      .record-grid div:first-child { border-top: 0; }
+      .contract { grid-template-columns: 1fr; }
+      .contract li,
+      .contract li:nth-child(4),
+      .contract li:nth-child(5) {
+        grid-column: auto;
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line-dark);
+      }
+      .contract li:last-child { border-bottom: 0; }
+      .matrix-row { grid-template-columns: 1fr; padding: 22px 0; }
+      .matrix-row > *,
+      .matrix-row > * + * { padding: 9px 0; border-left: 0; }
+      .matrix-row dd .mono { margin-bottom: 5px; }
+      .method-mark { padding: 28px 24px; }
+      .methods { margin-top: 42px; }
+      .track-flow,
+      .track-flow.four { grid-template-columns: 1fr; }
+      .track-node,
+      .track-flow.four .track-node:nth-child(2) {
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid #a9b9e2;
+      }
+      .track-node:last-child { border-bottom: 0; }
+      .source-list { grid-template-columns: 1fr; }
+      .source-list li,
+      .source-list li:nth-child(even) { padding: 24px 0; border-left: 0; }
+      .site-footer { align-items: flex-start; flex-direction: column; font-size: 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    @media (forced-colors: active) {
+      .artifact-spine,
+      .scenario-chapter,
+      .public-context,
+      .close,
+      .contract { border: 2px solid CanvasText; }
+      .method-mark,
+      .status-strip,
+      .button { border: 2px solid CanvasText; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header>
+    <nav class="topbar shell" aria-label="Case study navigation">
+      <a class="wordmark" href="../../../">Praneet Koppula</a>
+      <div class="top-links">
+        <span class="mono version-label">Alternate / decision record</span>
+        <a href="../">View editorial version</a>
+        <a href="../../../#work">Selected work</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero" aria-labelledby="case-title">
+      <div class="hero-grid shell">
+        <div>
+          <p class="eyebrow mono">MathWorks / Simulink / Approx. 2023–2024</p>
+          <h1 id="case-title">AI actions need a <span>chain of custody.</span></h1>
+          <p class="hero-lede">I led the experience vision with the Engineering Lead for an assistant that could carry system intent across requirements, architecture, implementation, and simulation—without hiding what it used, changed, or asked the engineer to approve.</p>
+        </div>
+
+        <dl class="brief" aria-label="Project brief">
+          <div>
+            <dt>Role</dt>
+            <dd>UX Lead</dd>
+          </div>
+          <div>
+            <dt>Partner</dt>
+            <dd>Engineering Lead and cross-functional concept team</dd>
+          </div>
+          <div>
+            <dt>I led</dt>
+            <dd>Experience vision, connected workflow, and interaction direction</dd>
+          </div>
+          <div>
+            <dt>Methods</dt>
+            <dd>Concept prototyping, prompt exploration, interviews, and validation tests</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>Concept work; shipping and product impact are not claimed</dd>
+          </div>
+        </dl>
+      </div>
+
+      <ol class="artifact-spine shell" aria-label="Connected engineering artifacts">
+        <li><span class="mono">Artifact 01</span><strong>Requirements and trace links</strong></li>
+        <li><span class="mono">Artifact 02</span><strong>System architecture</strong></li>
+        <li><span class="mono">Artifact 03</span><strong>Executable model</strong></li>
+        <li><span class="mono">Artifact 04</span><strong>Simulation evidence</strong></li>
+      </ol>
+    </section>
+
+    <aside class="status-strip" aria-label="Evidence status">
+      <div class="reading">
+        <span class="mono">Evidence status</span>
+        <p>Public-safe reconstruction from a reviewed team demo, prompt experiments, structured use cases, and Praneet's confirmed role. Original interfaces, names, code, and private service details are not shown.</p>
+      </div>
+    </aside>
+
+    <section class="chapter" aria-labelledby="signals-heading">
+      <div class="reading">
+        <header class="chapter-header">
+          <div class="chapter-index">01 / Research signals</div>
+          <div>
+            <h2 id="signals-heading">The archive named two kinds of friction.</h2>
+            <p class="chapter-intro">A second focused content pass recovered structured team use cases that make the design problem more concrete: understanding an unfamiliar model and constructing a first-pass model.</p>
+          </div>
+        </header>
+
+        <div class="signal-grid">
+          <article class="signal">
+            <span class="mono">Use case / model explanation</span>
+            <h3>Reconstructing intent is slow.</h3>
+            <p>Large or unstructured diagrams can make inputs and outputs difficult to trace. A new model owner may also have to interrupt the workflow and wait for the original author to answer implementation questions.</p>
+            <footer>Signal supported by an internal two-page use-case artifact. It is a team research input, not claimed as Praneet's sole research.</footer>
+          </article>
+
+          <article class="signal">
+            <span class="mono">Use case / model construction</span>
+            <h3>Mechanics compete with modeling.</h3>
+            <p>Adding, connecting, aligning, resizing, grouping, running, and inspecting blocks can pull attention away from early system design—even before the engineer reaches higher-value analysis.</p>
+            <footer>Signal supported by the same use-case artifact. The page does not claim a measured time saving or customer outcome.</footer>
+          </article>
+        </div>
+
+        <aside class="research-boundary" aria-label="Research boundary">
+          <span class="mono">What this changed</span>
+          <p>These signals shifted the case from “add chat to Simulink” toward a harder interaction problem: help an engineer move faster while preserving the structure needed to understand, review, and verify the work.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="chapter scenario-chapter" aria-labelledby="scenario-heading">
+      <div class="shell">
+        <header class="chapter-header">
+          <div class="chapter-index">02 / One controlled transaction</div>
+          <div>
+            <h2 id="scenario-heading">From intent to evidence—and back.</h2>
+            <p class="chapter-intro">The team concept demo connected a sequence that began with a requirement gap and ended with model behavior under inspection. This redraw preserves the interaction logic, not the private interface.</p>
+          </div>
+        </header>
+
+        <div class="trace-header">
+          <span><strong>Trace RQ–07</strong> / generic motor-control scenario</span>
+          <span>Public-safe reconstruction</span>
+        </div>
+        <ol class="journey">
+          <li>
+            <span class="artifact mono">Requirement set</span>
+            <h3>Clarify the gap</h3>
+            <p>Surface missing intent and ask before translating ambiguity into the model.</p>
+            <span class="gate">Gate / human answer</span>
+          </li>
+          <li>
+            <span class="artifact mono">Trace links</span>
+            <h3>Propose links</h3>
+            <p>Show the source, target, and rationale for a traceability change.</p>
+            <span class="gate">Gate / review</span>
+          </li>
+          <li>
+            <span class="artifact mono">Architecture</span>
+            <h3>Confirm the action</h3>
+            <p>Keep explanation separate from mutation; wait for explicit permission.</p>
+            <span class="gate">Gate / confirm</span>
+          </li>
+          <li>
+            <span class="artifact mono">Changed component</span>
+            <h3>Show the receipt</h3>
+            <p>Highlight what changed and give the engineer a direct route to it.</p>
+            <span class="gate">Gate / inspect</span>
+          </li>
+          <li>
+            <span class="artifact mono">Executable model</span>
+            <h3>Implement and run</h3>
+            <p>Carry the confirmed intent into model behavior and simulation.</p>
+            <span class="gate">Gate / verify</span>
+          </li>
+          <li>
+            <span class="artifact mono">Signal evidence</span>
+            <h3>Inspect and explain</h3>
+            <p>Add instrumentation, observe behavior, and ground the explanation in visible evidence.</p>
+            <span class="gate">Gate / decide next</span>
+          </li>
+        </ol>
+        <div class="scenario-caption">
+          <strong>What the archive proves</strong>
+          <p>The demo visibly supports this intended sequence. It does not prove that the final explanation was technically correct, that rollback existed, or that the concept shipped.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter records" aria-labelledby="records-heading">
+      <div class="reading">
+        <header class="chapter-header">
+          <div class="chapter-index">03 / Engineering decision record</div>
+          <div>
+            <h2 id="records-heading">Four decisions made action inspectable.</h2>
+            <p class="chapter-intro">Each record links the surviving evidence to the design move I helped frame, the reason for it, and the boundary of what can be claimed now.</p>
+          </div>
+        </header>
+
+        <div class="record-list">
+          <article class="record">
+            <header class="record-head">
+              <span class="record-number">EDR–01</span>
+              <h3>Clarify before generation.</h3>
+              <p class="record-principle">Human control begins before a consequential action is even formed.</p>
+            </header>
+            <dl class="record-grid">
+              <div><dt>Signal</dt><dd>The prompt archive stages one-at-a-time clarification before architecture generation and requirement linking.</dd></div>
+              <div><dt>Design move</dt><dd>Make uncertainty visible and turn clarification into an explicit first state.</dd></div>
+              <div><dt>Why</dt><dd>A weak assumption can propagate across every connected artifact that follows.</dd></div>
+              <div><dt>Boundary</dt><dd>Archive content is clear; exact prompt authorship remains unresolved.</dd></div>
+            </dl>
+          </article>
+
+          <article class="record">
+            <header class="record-head">
+              <span class="record-number">EDR–02</span>
+              <h3>Separate proposal from mutation.</h3>
+              <p class="record-principle">Explanation is lower-risk than changing a structured artifact, but both need visible grounding.</p>
+            </header>
+            <dl class="record-grid">
+              <div><dt>Signal</dt><dd>The demo shows a proposed link or update with reasons, then waits for confirmation.</dd></div>
+              <div><dt>Design move</dt><dd>Represent a generated action as a reviewable contract, not an implied side effect.</dd></div>
+              <div><dt>Why</dt><dd>The engineer needs to know what will change, where it will land, and why it was proposed.</dd></div>
+              <div><dt>Boundary</dt><dd>The record supports confirmation and inspection, not undo or version rollback.</dd></div>
+            </dl>
+            <ol class="contract" aria-label="Reviewable action contract">
+              <li><span class="mono">01 / Source</span><strong>Requirement or model context</strong></li>
+              <li><span class="mono">02 / Target</span><strong>Artifact to be changed</strong></li>
+              <li><span class="mono">03 / Rationale</span><strong>Why this action follows</strong></li>
+              <li><span class="mono">04 / Permission</span><strong>Explicit human confirmation</strong></li>
+              <li><span class="mono">05 / Receipt</span><strong>Visible result and route back</strong></li>
+            </ol>
+          </article>
+
+          <article class="record">
+            <header class="record-head">
+              <span class="record-number">EDR–03</span>
+              <h3>Return to the changed artifact.</h3>
+              <p class="record-principle">The durable output is the engineering artifact—not the assistant's prose.</p>
+            </header>
+            <dl class="record-grid">
+              <div><dt>Signal</dt><dd>After an architecture update, the demo highlights the result and offers navigation to the new component.</dd></div>
+              <div><dt>Design move</dt><dd>Treat highlight and navigation as part of the action receipt.</dd></div>
+              <div><dt>Why</dt><dd>Inspection needs to happen where the requirement, link, component, or result actually lives.</dd></div>
+              <div><dt>Boundary</dt><dd>The public view is a reconstruction; no original product interface is published.</dd></div>
+            </dl>
+          </article>
+
+          <article class="record">
+            <header class="record-head">
+              <span class="record-number">EDR–04</span>
+              <h3>Close the loop with simulation evidence.</h3>
+              <p class="record-principle">An explanation should point into inspectable behavior, not end as a persuasive answer.</p>
+            </header>
+            <dl class="record-grid">
+              <div><dt>Signal</dt><dd>The demo moves from implementation to simulation, adds scope inspection, and attempts to explain an observed change.</dd></div>
+              <div><dt>Design move</dt><dd>Connect explanation to the model, signal, and moment that produced the observation.</dd></div>
+              <div><dt>Why</dt><dd>Evidence lets the engineer challenge the explanation and decide what to test next.</dd></div>
+              <div><dt>Boundary</dt><dd>The artifact supports the intended pattern, not the technical correctness of the diagnosis.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter matrix-chapter" aria-labelledby="matrix-heading">
+      <div class="reading">
+        <header class="chapter-header">
+          <div class="chapter-index">04 / Intent transformations</div>
+          <div>
+            <h2 id="matrix-heading">Different inputs require different checks.</h2>
+            <p class="chapter-intro">The prompt experiments were not only a list of things to type. They mapped distinct forms of engineering intent to different artifact transformations—and therefore different verification needs.</p>
+          </div>
+        </header>
+
+        <dl class="matrix" aria-label="Intent transformation matrix">
+          <div class="matrix-row">
+            <dt>Requirements</dt>
+            <dd><span class="mono">Intended transformation</span>Linked architecture and model elements</dd>
+            <dd><span class="mono">Required check</span>Coverage, source, target, and preserved trace links</dd>
+          </div>
+          <div class="matrix-row">
+            <dt>System prose</dt>
+            <dd><span class="mono">Intended transformation</span>First-pass model or architecture</dd>
+            <dd><span class="mono">Required check</span>Assumptions, decomposition, interfaces, and behavior</dd>
+          </div>
+          <div class="matrix-row">
+            <dt>Equations</dt>
+            <dd><span class="mono">Intended transformation</span>Executable modeling representation</dd>
+            <dd><span class="mono">Required check</span>Units, parameters, initial conditions, and simulated response</dd>
+          </div>
+          <div class="matrix-row">
+            <dt>Code</dt>
+            <dd><span class="mono">Intended transformation</span>Equivalent model structure or behavior</dd>
+            <dd><span class="mono">Required check</span>Behavioral equivalence and test evidence</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="evaluation-heading">
+      <div class="reading">
+        <header class="chapter-header">
+          <div class="chapter-index">05 / Concept evaluation</div>
+          <div>
+            <h2 id="evaluation-heading">Method evidence is not outcome evidence.</h2>
+            <p class="chapter-intro">The concepts were put in front of customers. The surviving public-safe record confirms how the direction was tested, but not participant counts, findings, metrics, or impact.</p>
+          </div>
+        </header>
+
+        <div class="evaluation-grid">
+          <div class="method-mark">
+            <span class="mono">Claim boundary</span>
+            <strong>Tested does not mean proven.</strong>
+          </div>
+          <div>
+            <ol class="methods">
+              <li>
+                <span class="mono">01</span>
+                <div><strong>User interviews</strong><p>Confirmed method. Customer identities, sample size, and specific findings are not published.</p></div>
+              </li>
+              <li>
+                <span class="mono">02</span>
+                <div><strong>Concept validation tests</strong><p>Confirmed method. The exact stimulus and decision changes are not documented in the public-safe record.</p></div>
+              </li>
+            </ol>
+            <aside class="boundary-box">
+              <p><strong>Known:</strong> the connected workflow and interaction direction were evaluated. <strong>Unknown:</strong> what customers preferred, what changed afterward, and whether the work affected a roadmap or shipped product.</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter public-context" aria-labelledby="public-heading">
+      <div class="shell">
+        <header class="chapter-header">
+          <div class="chapter-index">06 / Public context now</div>
+          <div>
+            <h2 id="public-heading">In 2026, the design space became public in two forms.</h2>
+            <p class="chapter-intro">MathWorks now describes an in-product Simulink Copilot and a separate MCP-connected agentic toolkit. The split makes the distinction between guidance and model-changing action unusually concrete.</p>
+          </div>
+        </header>
+
+        <aside class="lineage-note" aria-label="Lineage boundary">
+          <span class="mono">Relevance, not lineage</span>
+          <p>These later public releases corroborate the importance of grounding, traceability, verification, and human review. They do not prove that this earlier team concept influenced the released products or their architecture.</p>
+        </aside>
+
+        <div class="tracks">
+          <article class="track">
+            <div class="track-label">
+              <span class="mono">Track A</span>
+              <strong>Inside Simulink</strong>
+            </div>
+            <div>
+              <div class="track-flow">
+                <div class="track-node"><span class="mono">Context</span><strong>Open model + MathWorks resources</strong></div>
+                <div class="track-node"><span class="mono">Product</span><strong>Simulink Copilot</strong><p>Introduced in R2026a</p></div>
+                <div class="track-node"><span class="mono">Public scope</span><strong>Explain, locate, guide, troubleshoot, run predefined tasks</strong></div>
+              </div>
+              <p class="release-note">Important boundary: MathWorks says the R2026a in-product Copilot does not generate or modify Simulink models.</p>
+            </div>
+          </article>
+
+          <article class="track">
+            <div class="track-label">
+              <span class="mono">Track B</span>
+              <strong>External agent</strong>
+            </div>
+            <div>
+              <div class="track-flow four">
+                <div class="track-node"><span class="mono">Client</span><strong>AI coding agent</strong></div>
+                <div class="track-node"><span class="mono">Bridge</span><strong>MATLAB MCP Server</strong></div>
+                <div class="track-node"><span class="mono">Expertise</span><strong>Simulink Agentic Toolkit</strong></div>
+                <div class="track-node"><span class="mono">Public scope</span><strong>Read, build, edit, check, and test models</strong></div>
+              </div>
+              <p class="release-note">The toolkit documentation explicitly tells users to review and validate tool calls and keep a human in the loop.</p>
+            </div>
+          </article>
+        </div>
+
+        <ul class="source-list" aria-label="Official public sources">
+          <li>
+            <span class="mono">27 Apr 2026</span>
+            <a href="https://www.mathworks.com/company/newsroom/matlab-and-simulink-release-2026a-features-new-generative-ai-powered-simulink-copilot-that-enhances-design-and-development-workflows-for-engineered-systems.html">MathWorks R2026a announcement</a>
+            <p>Introduces Simulink Copilot and describes embedded copilots plus MCP-connected agentic workflows.</p>
+          </li>
+          <li>
+            <span class="mono">R2026a</span>
+            <a href="https://www.mathworks.com/products/simulink-copilot/faq.html">Simulink Copilot FAQ</a>
+            <p>Documents open-model grounding, current use cases, user controls, and the no-model-modification boundary.</p>
+          </li>
+          <li>
+            <span class="mono">Release 08 Jul 2026</span>
+            <a href="https://github.com/matlab/simulink-agentic-toolkit/releases/tag/2026.07.08">Simulink Agentic Toolkit 2026.07.08</a>
+            <p>Current release checked for this case; the repository documents MCP-enabled model tools and human review guidance.</p>
+          </li>
+          <li>
+            <span class="mono">Release 10 Jul 2026</span>
+            <a href="https://github.com/matlab/matlab-mcp-server/releases/tag/v0.11.2">MATLAB MCP Server v0.11.2</a>
+            <p>Current release checked for this case; adds official Codex support.</p>
+          </li>
+          <li>
+            <span class="mono">Recorded 21 May 2026</span>
+            <a href="https://www.mathworks.com/videos/introducing-simulink-copilot-and-generative-ai-for-model-based-design-1779819866238.html">Simulink Copilot and generative AI webinar</a>
+            <p>Explains the in-product and agentic routes for model-based design.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="close" aria-labelledby="close-heading">
+      <div class="close-grid reading">
+        <h2 id="close-heading">This is the design work behind trustworthy action.</h2>
+        <div>
+          <ul class="demonstrates">
+            <li><span class="mono">01 / Systems</span>Connected requirements, models, and simulation into one legible workflow.</li>
+            <li><span class="mono">02 / Interaction</span>Turned AI output into a reviewable action contract with a visible receipt.</li>
+            <li><span class="mono">03 / Evidence</span>Separated supported contribution, team artifacts, unknown outcomes, and later public context.</li>
+          </ul>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:praneet@alum.mit.edu">Start a conversation</a>
+            <a class="button" href="../">Compare the editorial version</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>© Praneet Koppula</span>
+    <span><a href="../../../">Portfolio</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a> · <a href="https://github.com/mphaxise">GitHub</a></span>
+  </footer>
+</body>
+</html>

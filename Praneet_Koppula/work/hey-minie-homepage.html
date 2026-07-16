@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hey Minie homepage | Praneet Koppula</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap");
+    :root { --ink:#132521; --muted:#53645f; --paper:#f7f2e8; --card:#fffdf7; --line:#cfd9d1; --teal:#087f73; --lime:#dbe969; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 "DM Sans", sans-serif; }
+    .shell { width:min(860px, calc(100% - 36px)); margin:auto; }
+    header { padding:26px 0; border-bottom:1px solid var(--line); }
+    a { color:var(--teal); } header a { text-decoration:none; font-weight:700; }
+    main { padding:72px 0 110px; }
+    .eyebrow { color:var(--teal); font-size:.75rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    h1,h2 { font-family:Fraunces, serif; line-height:1; letter-spacing:-.035em; }
+    h1 { font-size:clamp(3rem, 7vw, 5.7rem); margin:16px 0 26px; }
+    h2 { margin:54px 0 16px; font-size:2.2rem; }
+    .lede { font-size:1.25rem; color:var(--muted); }
+    .facts,.comparison,.gallery { display:grid; gap:14px; }
+    .facts { grid-template-columns:repeat(3, 1fr); margin:38px 0; }
+    .fact { padding:18px; border:1px solid var(--line); border-radius:14px; background:var(--card); }
+    .fact strong { display:block; color:var(--teal); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; }
+    .signal { margin:32px 0; padding:26px; border-radius:18px; background:var(--ink); color:white; }
+    .signal strong { display:block; color:var(--lime); font:600 2rem Fraunces,serif; }
+    .comparison { grid-template-columns:1fr 1fr; margin:34px 0; }
+    .gallery { grid-template-columns:repeat(2, 1fr); margin:34px 0; }
+    figure { margin:0; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--card); }
+    figure img { display:block; width:100%; height:auto; }
+    figcaption { padding:12px 14px; color:var(--muted); font-size:.85rem; }
+    .comparison figure:first-child { border-top:5px solid #d28a57; }
+    .comparison figure:last-child { border-top:5px solid var(--teal); }
+    .mobile-shot { max-width:310px; margin:auto; }
+    li { margin:8px 0; }
+    @media(max-width:620px) { main { padding-top:50px; } .facts,.comparison,.gallery { grid-template-columns:1fr; } .mobile-shot { max-width:230px; } }
+  </style>
+</head>
+<body><div class="shell">
+  <header><a href="./">← Selected work</a></header>
+  <main>
+    <div class="eyebrow">Growth design and website optimization · July 2026</div>
+    <h1>Turning mobile acquisition data into a clearer homepage</h1>
+    <p class="lede">For Hey Minie, a voice-first storytelling app for children, I connected real acquisition behavior to a focused homepage-improvement program that strengthened how the product explains its core promise.</p>
+    <div class="facts"><div class="fact"><strong>Role</strong>Product and growth design</div><div class="fact"><strong>Surface</strong>minie.ai marketing homepage</div><div class="fact"><strong>Methods</strong>Analytics, heuristic review, responsive QA</div></div>
+
+    <h2>The signal</h2>
+    <p>The homepage was the principal landing surface, especially for mobile and paid social visitors. It needed to explain the product, establish family trust, show what to do next, and sustain momentum from the acquisition promise.</p>
+    <div class="signal"><strong>1,096 visitors</strong>across the active three-month period; the homepage represented 953 unique entrances. Paid-social visitors had a 95% bounce rate and roughly two seconds average visit duration.</div>
+
+    <h2>Live baseline → proposed homepage direction</h2>
+    <p>The first viewport was the critical comparison point. The live baseline shows the currently deployed navigation and hero. The branch implementation makes the intended hierarchy explicit and remains a proposed output awaiting deployment.</p>
+    <div class="comparison">
+      <figure><img src="assets/hey-minie-live-baseline.png" alt="Currently live Hey Minie desktop homepage hero"><figcaption><strong>Live baseline.</strong> The deployed desktop homepage before the proposed navigation and hero changes.</figcaption></figure>
+      <figure><img src="assets/hey-minie-desktop-hero.png" alt="Proposed Hey Minie desktop homepage hero"><figcaption><strong>Proposed branch output.</strong> Revised desktop hierarchy, pending deployment and validation.</figcaption></figure>
+    </div>
+    <figure><img src="assets/hey-minie-hero-prototype.png" alt="Hey Minie desktop hero prototype"><figcaption><strong>Intermediate direction.</strong> A reviewable hero composition used to align the new hierarchy and product story before the branch implementation.</figcaption></figure>
+
+    <h2>My approach</h2>
+    <p>I combined a Plausible analytics review with a source-level audit and responsive browser QA. I treated the bounce rate as a signal and framed a set of testable causes: promise mismatch from paid social, weak first-screen clarity, insufficient product proof, and friction in the mobile path to download.</p>
+    <div class="gallery">
+      <figure><img class="mobile-shot" src="assets/hey-minie-live-mobile-baseline.png" alt="Currently live Hey Minie mobile homepage hero"><figcaption><strong>Live mobile baseline.</strong> The deployed phone viewport before the proposed mobile changes.</figcaption></figure>
+      <figure><img class="mobile-shot" src="assets/hey-minie-mobile-hero.png" alt="Proposed Hey Minie mobile homepage hero"><figcaption><strong>Proposed mobile state.</strong> The same first-screen promise and download path at a phone viewport, pending deployment.</figcaption></figure>
+      <figure><img src="assets/hey-minie-how-it-works.png" alt="Hey Minie how it works section"><figcaption><strong>Journey clarity.</strong> The parent setup, child story use, and parent insight sequence made more legible in the branch.</figcaption></figure>
+      <figure><img src="assets/hey-minie-benefits.png" alt="Hey Minie benefits section for children and parents"><figcaption><strong>Supporting decision point.</strong> The kid and parent value proposition in the refined homepage flow.</figcaption></figure>
+      <figure><img src="assets/hey-minie-faq.png" alt="Hey Minie frequently asked questions section"><figcaption><strong>Trust and reassurance.</strong> FAQs provide a later-stage answer surface while the first-screen story stays focused.</figcaption></figure>
+    </div>
+
+    <h2>What I designed and implemented in the branch</h2>
+    <ul><li>Shaped the homepage around a clearer product-led hero, lock-screen value, store actions, and family-safety context.</li><li>Improved responsive hero behavior, mobile navigation, CTA consistency, desktop hierarchy, and vertical rhythm.</li><li>Clarified the parent-child-parent sequence in “How it works,” giving setup, story use, and parent reflection a distinct role.</li><li>Documented an event contract for privacy-conscious measurement of store CTA clicks, navigation, video interaction, FAQs, benefit tabs, and scroll depth.</li><li>Created a reviewable audit and experiment backlog that separates validated behavior from hypotheses to test after deployment.</li></ul>
+    <h2>Design principle</h2>
+    <p>The redesign focused on first-screen comprehension. A mobile visitor should quickly understand what Minie is, why it fits their family, and how to try it. The branch is awaiting deployment; the next measurement cycle should test whether the changes materially improve qualified download intent.</p>
+  </main>
+</div></body></html>

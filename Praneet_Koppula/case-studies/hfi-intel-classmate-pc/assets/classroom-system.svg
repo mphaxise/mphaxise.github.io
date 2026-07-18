@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Classroom computing system</title>
+  <desc id="desc">The student device sits at the center of learning activities, teacher coordination, a classroom server, IT administration, and physical infrastructure.</desc>
+  <defs><style>.bg{fill:#f7faf6}.panel{fill:#fff;stroke:#17343d;stroke-width:2}.core{fill:#17343d}.accent{fill:#b9ddcf;stroke:#1e5948;stroke-width:2}.signal{fill:#f2bf4a;stroke:#17343d;stroke-width:2}.line{fill:none;stroke:#3a7d68;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.dash{stroke-dasharray:10 10}.eyebrow{font:600 15px 'DM Sans',Arial,sans-serif;letter-spacing:2px;fill:#3a7d68}.h{font:700 28px 'DM Sans',Arial,sans-serif;fill:#17343d}.body{font:500 18px 'DM Sans',Arial,sans-serif;fill:#48625d}.white{fill:#fff}.small{font:600 16px 'DM Sans',Arial,sans-serif;fill:#17343d}</style></defs>
+  <rect class="bg" width="1200" height="680" rx="24"/>
+  <text class="eyebrow" x="58" y="54">EXPLANATORY REDRAW · PUBLIC-SAFE</text>
+  <text class="h" x="58" y="94">A student device inside a classroom system</text>
+  <path class="line" d="M600 350 C470 350 424 184 318 184M600 350 C730 350 776 184 882 184M600 350 C470 350 424 528 318 528M600 350 C730 350 776 528 882 528"/>
+  <path class="line dash" d="M600 350V155M600 350V570"/>
+  <rect class="core" x="463" y="257" width="274" height="186" rx="28"/>
+  <rect x="500" y="288" width="200" height="104" rx="8" fill="#f7faf6"/>
+  <circle class="signal" cx="600" cy="414" r="12"/>
+  <text x="600" y="332" text-anchor="middle" style="font:700 20px 'DM Sans',Arial,sans-serif;fill:#17343d">Student device</text>
+  <text x="600" y="365" text-anchor="middle" style="font:500 17px 'DM Sans',Arial,sans-serif;fill:#48625d">read · create · search · share</text>
+  <rect class="panel" x="94" y="116" width="276" height="136" rx="20"/>
+  <text class="h" x="126" y="161">Learning activity</text><text class="body" x="126" y="194">Tasks, content, notes,</text><text class="body" x="126" y="221">drawing, collaboration</text>
+  <rect class="accent" x="830" y="116" width="276" height="136" rx="20"/>
+  <text class="h" x="862" y="161">Teacher</text><text class="body" x="862" y="194">Guidance, communication,</text><text class="body" x="862" y="221">monitoring, distribution</text>
+  <rect class="accent" x="94" y="460" width="276" height="136" rx="20"/>
+  <text class="h" x="126" y="505">Infrastructure</text><text class="body" x="126" y="538">Space, connectivity,</text><text class="body" x="126" y="565">ruggedness, maintenance</text>
+  <rect class="panel" x="830" y="460" width="276" height="136" rx="20"/>
+  <text class="h" x="862" y="505">IT administration</text><text class="body" x="862" y="538">Setup, access, updates,</text><text class="body" x="862" y="565">storage, recovery</text>
+  <rect class="signal" x="482" y="112" width="236" height="86" rx="18"/>
+  <text class="small" x="600" y="148" text-anchor="middle">Classroom server</text><text class="body" x="600" y="176" text-anchor="middle">local coordination</text>
+  <rect class="signal" x="482" y="530" width="236" height="86" rx="18"/>
+  <text class="small" x="600" y="566" text-anchor="middle">School system</text><text class="body" x="600" y="594" text-anchor="middle">practice and policy</text>
+</svg>

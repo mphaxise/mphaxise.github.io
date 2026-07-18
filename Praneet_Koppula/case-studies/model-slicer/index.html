@@ -380,11 +380,11 @@
           <div class="eyebrow">02 · Role and collaboration</div>
           <h2 id="role-title">Hands-on interaction design inside a team product.</h2>
           <p>I authored a 2014 interaction deck that mapped selection states to valid actions. In 2015, I authored dynamic-slicing prototypes that made data source, time range, validity, and recalculation visible.</p>
-          <p>I developed the detailed interaction logic with a development partner and used the prototypes to gather functional feedback from the primary team and adjacent product teams. A UX researcher authored the team usability plan, so I treat that research plan as shared evidence rather than sole-authored work.</p>
+          <p>I developed the detailed interaction logic with a development partner and used the prototypes to gather functional feedback from the primary team and adjacent product teams. A UX researcher authored the team usability plan, which I credit as shared evidence.</p>
         </div>
         <aside class="boundary" aria-labelledby="boundary-title">
           <h3 id="boundary-title">Contribution boundary</h3>
-          <p>Model Slicer existed before my contribution. This case claims specific design work, not invention of the product or ownership of its later release history.</p>
+          <p>This case claims my specific design work. Product invention and later release history remain team-owned.</p>
           <dl>
             <div><dt class="eyebrow">Direct</dt><dd>Interaction deck and dynamic-slicing prototypes</dd></div>
             <div><dt class="eyebrow">Collaborative</dt><dd>Behavior matrix, product feedback, team alignment</dd></div>
@@ -406,7 +406,7 @@
         </div>
         <div class="chapter-copy">
           <p>The visible actions were straightforward: add a starting point, add an exclusion, add constraints, or remove a point. The harder design work sat behind those labels. The system needed rules for when each action was available and what happened when an object moved between roles.</p>
-          <p>I surfaced conflicts as product decisions. If an excluded block became a starting point, for example, the system needed a predictable precedence rule instead of two apparently active states. The deck and enable/disable matrix turned that ambiguity into behavior the team could inspect and resolve.</p>
+          <p>I surfaced conflicts as product decisions. If an excluded block became a starting point, for example, the system needed a predictable precedence rule to prevent two apparently active states. The deck and enable/disable matrix turned that ambiguity into behavior the team could inspect and resolve.</p>
         </div>
       </div>
       <figure class="wide-figure">
@@ -414,7 +414,7 @@
           <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
           <img src="../../work/assets/model-slicer/assets/state-aware-interactions.svg" width="1200" height="760" alt="Three state panels show available actions for an object with no role, an existing starting point, and an incompatible-role conflict.">
         </div>
-        <figcaption><strong>State-aware context actions</strong><span>Historical design exploration redrawn from my August 2014 interaction deck. It represents my state model and conflict framing, not the final shipped interface.</span></figcaption>
+        <figcaption><strong>State-aware context actions</strong><span>Historical design exploration redrawn from my August 2014 interaction deck. It represents my state model and conflict framing; the final shipped interface remained team-owned.</span></figcaption>
       </figure>
     </section>
 
@@ -424,7 +424,7 @@
           <div class="chapter-number">02 / DATA</div>
           <div>
             <h2 id="chapter-two-title">Turn dynamic slicing into a visible data contract.</h2>
-            <p>Dynamic slicing made the highlighted result depend on recorded behavior. I treated provenance and validity as part of the interaction instead of hidden implementation detail.</p>
+            <p>Dynamic slicing made the highlighted result depend on recorded behavior. I made provenance and validity visible in the interaction.</p>
           </div>
         </div>
         <div class="chapter-copy">
@@ -437,7 +437,7 @@
           <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
           <img src="../../work/assets/model-slicer/assets/dynamic-slicing-workflow.svg" width="1200" height="760" alt="Coverage or simulation data supplies a recorded interval, a valid time window, and either refine or simulate-and-refine action.">
         </div>
-        <figcaption><strong>Dynamic slicing as a data-and-time workflow</strong><span>Historical prototype redrawn from my July–August 2015 decks. It exposes source, time range, validity, and recalculation. It is an exploration, not a claim that every control shipped as drawn.</span></figcaption>
+        <figcaption><strong>Dynamic slicing as a data-and-time workflow</strong><span>Historical prototype redrawn from my July–August 2015 decks. It exposes source, time range, validity, and recalculation. The shipped controls may differ from this exploration.</span></figcaption>
       </figure>
     </section>
 
@@ -503,7 +503,7 @@
         <h2 id="reflection-title">Technical UX often lives in state logic.</h2>
         <div>
           <p>When a result depends on selection roles, data provenance, simulation validity, and time, the interface has to expose those dependencies clearly.</p>
-          <p>The work also reinforced the value of detailed prototypes as alignment tools. <strong>A prototype becomes useful when it reveals the conflicts a team must resolve, not when it merely makes the interface look complete.</strong></p>
+          <p>The work also reinforced the value of detailed prototypes as alignment tools. <strong>A useful prototype reveals the conflicts a team must resolve and makes visual completeness secondary.</strong></p>
         </div>
       </div>
     </section>

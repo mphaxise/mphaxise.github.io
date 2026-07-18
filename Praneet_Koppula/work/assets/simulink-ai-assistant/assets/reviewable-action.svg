@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Review before execution</title>
+  <desc id="desc">A public-safe redraw showing an assistant identifying context, proposing a traceable model action, waiting for confirmation, and returning a visible change with navigation.</desc>
+  <rect width="1600" height="1000" fill="#f2efe7"/>
+  <text x="72" y="83" fill="#0b1a17" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">INTERACTION DECISION / REVIEW BEFORE EXECUTION</text>
+  <text x="72" y="146" fill="#0b1a17" font-family="Georgia, serif" font-size="54">A consequential action should never hide inside a reply.</text>
+
+  <rect x="72" y="220" width="430" height="680" fill="#0b1a17"/>
+  <g font-family="Arial, sans-serif">
+    <text x="108" y="270" fill="#d8ff3e" font-size="16" font-weight="700" letter-spacing="3">VISIBLE CONTEXT</text>
+    <text x="108" y="332" fill="#f4f1e8" font-size="27" font-weight="700">Requirement set</text>
+    <line x1="108" y1="362" x2="466" y2="362" stroke="#4d625a" stroke-width="2"/>
+    <text x="108" y="407" fill="#aebbb5" font-size="17">Current selection</text>
+    <text x="108" y="442" fill="#f4f1e8" font-size="21">Motor behavior</text>
+    <text x="108" y="497" fill="#aebbb5" font-size="17">Related system intent</text>
+    <text x="108" y="532" fill="#f4f1e8" font-size="21">Safety and operating limits</text>
+    <text x="108" y="587" fill="#aebbb5" font-size="17">Target artifact</text>
+    <text x="108" y="622" fill="#f4f1e8" font-size="21">Architecture model</text>
+    <rect x="108" y="686" width="358" height="130" fill="#142a25" stroke="#61756c" stroke-width="2"/>
+    <text x="132" y="728" fill="#aebbb5" font-size="16">STATE</text>
+    <text x="132" y="774" fill="#d8ff3e" font-size="24" font-weight="700">Nothing changed yet</text>
+  </g>
+
+  <rect x="552" y="220" width="610" height="680" fill="#ffffff" stroke="#b8c1bc" stroke-width="2"/>
+  <g font-family="Arial, sans-serif">
+    <text x="590" y="270" fill="#1746c2" font-size="16" font-weight="700" letter-spacing="3">PROPOSED ACTION</text>
+    <text x="590" y="326" fill="#0b1a17" font-size="28" font-weight="700">Add one model component</text>
+    <text x="590" y="363" fill="#4b5b55" font-size="21">and connect three requirement links.</text>
+    <line x1="590" y1="404" x2="1124" y2="404" stroke="#d2d8d4" stroke-width="2"/>
+    <text x="590" y="454" fill="#4b5b55" font-size="17">WHY THIS ACTION</text>
+    <text x="590" y="494" fill="#0b1a17" font-size="21">The selected requirements introduce behavior</text>
+    <text x="590" y="526" fill="#0b1a17" font-size="21">that has no corresponding architecture element.</text>
+
+    <text x="590" y="600" fill="#4b5b55" font-size="17">CHANGE PREVIEW</text>
+    <rect x="590" y="629" width="534" height="102" fill="#e8eee9"/>
+    <rect x="614" y="652" width="14" height="14" fill="#2f6bff"/>
+    <text x="650" y="668" fill="#0b1a17" font-size="19">New component</text>
+    <rect x="614" y="690" width="14" height="14" fill="#ff6b35"/>
+    <text x="650" y="706" fill="#0b1a17" font-size="19">New traceability links</text>
+
+    <rect x="590" y="780" width="244" height="70" fill="#d8ff3e"/>
+    <text x="635" y="824" fill="#0b1a17" font-size="21" font-weight="700">Confirm action</text>
+    <rect x="854" y="780" width="270" height="70" fill="#ffffff" stroke="#0b1a17" stroke-width="2"/>
+    <text x="899" y="824" fill="#0b1a17" font-size="21" font-weight="700">Keep reviewing</text>
+  </g>
+
+  <rect x="1212" y="220" width="316" height="680" fill="#2f6bff"/>
+  <g font-family="Arial, sans-serif">
+    <text x="1248" y="270" fill="#ffffff" font-size="16" font-weight="700" letter-spacing="3">AFTER CONFIRMATION</text>
+    <path d="M1248 345H1490M1248 420H1490M1248 495H1490" stroke="#9fbbff" stroke-width="2"/>
+    <circle cx="1280" cy="345" r="15" fill="#d8ff3e"/>
+    <circle cx="1406" cy="420" r="15" fill="#ff6b35"/>
+    <circle cx="1328" cy="495" r="15" fill="#d8ff3e"/>
+    <path d="M1280 360V495H1313M1406 435V540" stroke="#ffffff" stroke-width="3" fill="none"/>
+    <text x="1248" y="622" fill="#ffffff" font-size="25" font-weight="700">Change highlighted</text>
+    <text x="1248" y="658" fill="#dce5ff" font-size="18">The result appears in</text>
+    <text x="1248" y="686" fill="#dce5ff" font-size="18">the engineering artifact,</text>
+    <text x="1248" y="714" fill="#dce5ff" font-size="18">not only in chat.</text>
+    <rect x="1248" y="780" width="242" height="70" fill="#0b1a17"/>
+    <text x="1275" y="824" fill="#ffffff" font-size="20" font-weight="700">Go to changed item →</text>
+  </g>
+</svg>

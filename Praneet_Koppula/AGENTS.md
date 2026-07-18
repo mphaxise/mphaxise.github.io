@@ -1,7 +1,9 @@
 # Public Portfolio Agent Contract
 
-This repository is a public output surface. Private evidence, research corpora,
-claim ledgers, and active case drafts belong only in
+This repository is the working surface for privacy-cleared portfolio pages,
+public-safe visuals, site components, and discovery surfaces. Build that work
+directly in its final site path on a non-main branch. Private evidence,
+research corpora, claim ledgers, and unredacted case material belong only in
 `/Users/praneet/PortfolioEvidence`.
 
 ## Intake boundary
@@ -10,6 +12,9 @@ claim ledgers, and active case drafts belong only in
   `/Users/praneet/PortfolioEvidence/cases/03-public-safe/<case-slug>/`.
 - Use the vault's `scripts/publish_public_safe.py` handoff so every copied asset
   records the vault commit, source path, checksum, and destination.
+- Privacy-cleared page work may remain in progress on a local non-main branch.
+  Keep prose, layout, navigation, and responsive behavior in their final public
+  paths throughout development.
 - Do not treat `.codex/portfolio-evidence/`, PraneetIdeas case-study folders, or
   an uncommitted vault file as a publication source.
 - Never copy raw, company-private, personnel, customer, secret, or personally

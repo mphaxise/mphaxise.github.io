@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Traceability loop from intent to evidence</title>
+  <desc id="desc">A public-safe diagram showing requirements linked to architecture, implementation, and simulation evidence, with a return path to the changed artifact.</desc>
+  <rect width="1600" height="900" fill="#101c2d"/>
+  <text x="72" y="84" fill="#8eaeff" font-family="Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="4">TRACEABILITY / THE RETURN PATH MATTERS</text>
+  <text x="72" y="151" fill="#ffffff" font-family="Georgia, serif" font-size="55">From system intent to evidence—and back again.</text>
+
+  <g font-family="Arial, sans-serif">
+    <text x="90" y="270" fill="#8eaeff" font-size="16" letter-spacing="2">SOURCE</text>
+    <rect x="90" y="302" width="284" height="186" fill="#ffffff"/>
+    <text x="120" y="350" fill="#101c2d" font-size="17" font-weight="700" letter-spacing="2">REQUIREMENTS</text>
+    <text x="120" y="407" fill="#101c2d" font-size="27" font-weight="700">System intent</text>
+    <text x="120" y="444" fill="#506176" font-size="18">goals, constraints, rationale</text>
+
+    <text x="453" y="270" fill="#8eaeff" font-size="16" letter-spacing="2">STRUCTURE</text>
+    <rect x="453" y="302" width="284" height="186" fill="#d8ff3e"/>
+    <text x="483" y="350" fill="#101c2d" font-size="17" font-weight="700" letter-spacing="2">ARCHITECTURE</text>
+    <rect x="483" y="391" width="62" height="46" fill="#101c2d"/>
+    <rect x="566" y="391" width="62" height="46" fill="#101c2d"/>
+    <rect x="649" y="391" width="58" height="46" fill="#101c2d"/>
+    <line x1="545" y1="414" x2="566" y2="414" stroke="#101c2d" stroke-width="4"/>
+    <line x1="628" y1="414" x2="649" y2="414" stroke="#101c2d" stroke-width="4"/>
+
+    <text x="816" y="270" fill="#8eaeff" font-size="16" letter-spacing="2">BEHAVIOR</text>
+    <rect x="816" y="302" width="284" height="186" fill="#ff6b35"/>
+    <text x="846" y="350" fill="#101c2d" font-size="17" font-weight="700" letter-spacing="2">IMPLEMENTATION</text>
+    <circle cx="874" cy="418" r="17" fill="#101c2d"/>
+    <rect x="929" y="393" width="70" height="50" fill="#101c2d"/>
+    <circle cx="1043" cy="418" r="17" fill="#101c2d"/>
+    <line x1="891" y1="418" x2="929" y2="418" stroke="#101c2d" stroke-width="4"/>
+    <line x1="999" y1="418" x2="1026" y2="418" stroke="#101c2d" stroke-width="4"/>
+
+    <text x="1179" y="270" fill="#8eaeff" font-size="16" letter-spacing="2">EVIDENCE</text>
+    <rect x="1179" y="302" width="331" height="186" fill="#ffffff"/>
+    <text x="1209" y="350" fill="#101c2d" font-size="17" font-weight="700" letter-spacing="2">SIMULATION</text>
+    <polyline points="1209,444 1245,407 1279,426 1316,372 1352,430 1391,389 1426,416 1480,377" fill="none" stroke="#2f6bff" stroke-width="6"/>
+    <line x1="1209" y1="455" x2="1480" y2="455" stroke="#9ba8b5" stroke-width="2"/>
+  </g>
+
+  <g stroke="#8eaeff" stroke-width="4" fill="none">
+    <line x1="374" y1="395" x2="453" y2="395"/>
+    <line x1="737" y1="395" x2="816" y2="395"/>
+    <line x1="1100" y1="395" x2="1179" y2="395"/>
+  </g>
+  <g fill="#8eaeff">
+    <path d="M441 382L458 395L441 408Z"/>
+    <path d="M804 382L821 395L804 408Z"/>
+    <path d="M1167 382L1184 395L1167 408Z"/>
+  </g>
+
+  <path d="M1345 515V650H240V515" fill="none" stroke="#d8ff3e" stroke-width="5"/>
+  <path d="M225 530L240 507L255 530Z" fill="#d8ff3e"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="550" y="615" width="500" height="70" fill="#101c2d" stroke="#d8ff3e" stroke-width="3"/>
+    <text x="610" y="660" fill="#d8ff3e" font-size="23" font-weight="700">Explain · navigate · inspect · recover</text>
+    <text x="90" y="773" fill="#ffffff" font-size="32" font-weight="700">The output is not the end of the interaction.</text>
+    <text x="90" y="818" fill="#aebdd0" font-size="22">Engineers need a route back to the requirement, component, model, or result that changed.</text>
+  </g>
+</svg>

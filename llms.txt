@@ -9,8 +9,11 @@ This file is a curated public index for inference-time agents. It does not defin
 - [Agent-readable profile](https://mphaxise.github.io/Praneet_Koppula/agent/): Concise public profile with explicit project-status labels, practice areas, selected evidence, experiments, availability, and contact paths.
 - [Plain-text profile](https://mphaxise.github.io/Praneet_Koppula/agent.txt): Markdown-formatted profile optimized for direct retrieval.
 - [Human portfolio](https://mphaxise.github.io/Praneet_Koppula/): Visual portfolio covering selected product design and leadership work.
+- [Thoughts and writing](https://mphaxise.github.io/Praneet_Koppula/writing/): First-person essays on AI design, complex systems, and product behavior.
 
 ## Public work
+
+- [Closed-Loop Experience Design](https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/): A four-part essay tracing Praneet's design practice from a fast 2014 designer-developer loop to direct work with coding agents and a research agenda for physical system behavior.
 
 - [Model Slicer case study](https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/): Documented state-aware interaction design and simulation-aware slicing prototypes, with public product chronology kept separate from Praneet's contribution.
 - [Simulink AI Assistant vision](https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/): Customer-tested product vision for an AI partner inside a model-based engineering workflow.

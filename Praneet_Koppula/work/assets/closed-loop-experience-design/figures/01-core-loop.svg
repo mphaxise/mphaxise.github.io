@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">The experience control loop</title>
+  <desc id="desc">Human experience becomes evidence. Designer judgment guides an agent or controller. The system changes its behavior, and the outcome returns to people.</desc>
+  <defs>
+    <marker id="ink-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#25302d"/></marker>
+    <marker id="copper-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a05f48"/></marker>
+  </defs>
+  <rect width="1280" height="720" fill="#e8e2d7"/>
+  <rect x="24" y="20" width="1232" height="680" rx="3" fill="#f8f5ef"/>
+  <text x="72" y="60" fill="#435a55" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="2.4">01  /  CORE MODEL</text>
+  <text x="72" y="123" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="56" font-weight="500">The experience control loop</text>
+  <line x1="72" y1="158" x2="1208" y2="158" stroke="#cbc5b9"/>
+  <path d="M170 402C205 284 355 225 507 228C698 232 881 270 980 365C1051 433 1011 505 882 528C690 561 419 542 244 492C178 473 148 438 170 402" fill="none" stroke="#25302d" stroke-width="1.7" marker-end="url(#ink-arrow)"/>
+  <path d="M882 528C704 604 356 603 190 463" fill="none" stroke="#a05f48" stroke-width="3.2" stroke-linecap="round" marker-end="url(#copper-arrow)"/>
+  <g fill="#435a55"><circle cx="170" cy="402" r="5"/><circle cx="374" cy="254" r="5"/><circle cx="750" cy="259" r="5"/><circle cx="931" cy="325" r="5"/><circle cx="1011" cy="462" r="5"/></g>
+  <g fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="22"><text x="82" y="364">Human experience</text><text x="292" y="215">Evidence</text><text x="646" y="208">Designer judgment</text><text x="976" y="277">Agent or controller</text><text x="1028" y="490">System behavior</text></g>
+  <line x1="394" y1="350" x2="836" y2="350" stroke="#9da9a4"/>
+  <text x="615" y="398" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="32" text-anchor="middle">Design guides behavior.</text>
+  <text x="615" y="438" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="32" text-anchor="middle">Experience becomes evidence.</text>
+  <line x1="394" y1="468" x2="836" y2="468" stroke="#9da9a4"/>
+  <line x1="442" y1="608" x2="482" y2="608" stroke="#a05f48" stroke-width="3.2" stroke-linecap="round"/>
+  <text x="494" y="613" fill="#a05f48" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="16" font-style="italic">Outcome returns to people</text>
+  <line x1="72" y1="641" x2="1208" y2="641" stroke="#cbc5b9"/>
+  <text x="72" y="674" fill="#435a55" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="13">Object of control  /  system behavior</text>
+  <text x="1208" y="674" fill="#a05f48" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="13" text-anchor="end">Human authority  /  visibility, correction, approval, exit</text>
+</svg>

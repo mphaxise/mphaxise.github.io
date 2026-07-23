@@ -2,7 +2,7 @@
 
 > Product design and UX leader who makes expert engineering tools, complex workflows, and AI product behavior easier to understand and trust.
 
-Last updated: 2026-07-15
+Last updated: 2026-07-22
 Canonical human portfolio: https://mphaxise.github.io/Praneet_Koppula/
 Agent-readable HTML: https://mphaxise.github.io/Praneet_Koppula/agent/
 
@@ -84,6 +84,19 @@ Case study: https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadershi
 - GStack for Codex — Codex-native design and engineering workflows: https://github.com/mphaxise/gstack-port-for-codex
 - Design skill pack for agent coding platforms: https://github.com/mphaxise/design-skill-pack-for-ai-agent-coding-platforms
 - GitHub pull-request mapping tool: https://github.com/mphaxise/gh-pr-map
+
+## Writing
+
+### Closed-Loop Experience Design
+
+Status: Four-part first-person essay.
+
+Praneet traces an idea from designing beside a developer in 2014 to direct
+collaboration with coding agents, then develops a research agenda for shaping
+physical system behavior through simulation and research with affected people.
+
+Essay: https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/
+Writing index: https://mphaxise.github.io/Praneet_Koppula/writing/
 
 ## Contact
 

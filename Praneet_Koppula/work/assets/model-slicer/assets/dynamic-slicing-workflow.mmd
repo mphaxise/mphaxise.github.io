@@ -1,0 +1,11 @@
+flowchart LR
+    A{"Behavioral data"} --> B["Load coverage"]
+    A --> C["Run simulation"]
+    B --> D["Show recorded interval"]
+    C --> D
+    D --> E["Choose a valid time window"]
+    E --> F{"Inputs changed?"}
+    F -->|No| G["Refine"]
+    F -->|Yes| H["Simulate and refine"]
+    G --> I["Focused dynamic slice"]
+    H --> I

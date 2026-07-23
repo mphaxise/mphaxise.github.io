@@ -1,0 +1,5 @@
+# closed-loop-experience-design provenance
+
+- 2026-07-22 | vault commit `5b9457b2cca0df2af31dd8da480c65c4e299adee` | source `cases/03-public-safe/closed-loop-experience-design/figures/01-core-loop.svg` | sha256 `86bf7906b8b1a100b172697ef78f06b37fbdb92ee4b3bc7e98abe12a8e2e4c75` | copied to `work/assets/closed-loop-experience-design/figures/01-core-loop.svg`
+- 2026-07-22 | vault commit `5b9457b2cca0df2af31dd8da480c65c4e299adee` | source `cases/03-public-safe/closed-loop-experience-design/figures/02-digital-to-physical.svg` | sha256 `9af39f3acf4116c8ab50c840c533544b9ffd4079367d8534f7a8ac6e663e065a` | copied to `work/assets/closed-loop-experience-design/figures/02-digital-to-physical.svg`
+- 2026-07-22 | vault commit `5b9457b2cca0df2af31dd8da480c65c4e299adee` | source `cases/03-public-safe/closed-loop-experience-design/figures/03-first-person-timeline.svg` | sha256 `ce4aa64cb0981ef8a05d165caca49eead5eb190acbb1b02a3a0882e9f71c0e3d` | copied to `work/assets/closed-loop-experience-design/figures/03-first-person-timeline.svg`

@@ -1,0 +1,11 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"DM Sans, Arial, sans-serif","primaryColor":"#d9c8ea","primaryTextColor":"#142522","primaryBorderColor":"#4d2d70","lineColor":"#4d2d70","secondaryColor":"#efb64b","tertiaryColor":"#fffaf4"}}}%%
+flowchart LR
+    A["Define validation rule"] --> B["Name a reusable constraint"]
+    B --> C["Associate it with a parameter"]
+    C --> D["Validate user input"]
+    D --> E{"Value valid?"}
+    E -->|Yes| F["Continue the workflow"]
+    E -->|No| G["Explain the boundary"]
+    G --> H["Correct the value"]
+    H --> D
+    B --> I["Reuse across parameters and blocks"]

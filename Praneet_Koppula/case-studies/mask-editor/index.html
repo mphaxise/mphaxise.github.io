@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Praneet Koppula helped evolve Simulink Mask Editor toward a richer technical authoring environment through workflow design, constraints, mentorship, and vision work.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/">
+  <link rel="stylesheet" href="../case-study.css">
+  <title>Mask Editor case study | Praneet Koppula</title>
+</head>
+<body class="theme-mask">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="case-header">
+    <nav class="case-nav shell" aria-label="Case study navigation">
+      <a class="wordmark" href="../../">Praneet Koppula</a>
+      <a class="back-link" href="../../#work">Back to selected work</a>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero shell" aria-labelledby="page-title">
+      <div>
+        <div class="eyebrow">MathWorks · Simulink block authoring · 2014–2017</div>
+        <h1 id="page-title">Reimagining Mask Editor as a technical <em>authoring environment.</em></h1>
+        <p class="hero-lede">I helped move block-mask authoring toward a more structured workflow for parameters, dialog controls, callbacks, validation, icons, and reuse, while mentoring continuation work and co-shaping a longer-range studio vision.</p>
+      </div>
+      <div class="hero-mark">
+        <div class="hero-mark-content">
+          <span class="eyebrow">Authoring thesis</span>
+          <strong>Expert power needs a visible structure.</strong>
+          <span>Parameters, behavior, validation, and presentation should feel like one system.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="reading">
+      <dl class="facts" aria-label="Project at a glance">
+        <div><dt class="eyebrow">Company</dt><dd>MathWorks</dd></div>
+        <div><dt class="eyebrow">Role</dt><dd>UX designer, team contributor, and design mentor</dd></div>
+        <div><dt class="eyebrow">Timeframe</dt><dd>2014–2017</dd></div>
+        <div><dt class="eyebrow">Collaborators</dt><dd>Design partner, Masking team, engineering partner, and later project designer</dd></div>
+        <div><dt class="eyebrow">Scope</dt><dd>Authoring workflows, constraints, visual interaction, mentorship, vision</dd></div>
+        <div><dt class="eyebrow">Product state</dt><dd>Direct and team-credited concepts, mentored continuation, and an exploratory studio vision</dd></div>
+      </dl>
+    </div>
+
+    <section class="section reading" aria-labelledby="precis-title">
+      <div class="precis">
+        <div class="bottom-line">
+          <div class="eyebrow">Précis</div>
+          <p>Block authors had to coordinate parameters, dialog layout, code, validation, icons, documentation, and reuse. I authored validation and constraint explorations, contributed to a team-credited Mask Editor direction, mentored continuation work, and co-shaped a non-shipped studio vision; the work gave teams a clearer shared model for structured technical authoring.</p>
+        </div>
+        <h2 class="statement" id="precis-title">The product challenge was to turn fragmented expert tasks into one coherent authoring model.</h2>
+      </div>
+    </section>
+
+    <section class="section dark-band" aria-labelledby="context-title">
+      <div class="reading">
+        <div class="section-head">
+          <div class="eyebrow">Context and stakes</div>
+          <div>
+            <h2 id="context-title">A block interface is a product inside the product.</h2>
+            <p>Simulink masks let technical creators hide a block's internal complexity behind a tailored icon and parameter dialog. Authoring that experience required both domain knowledge and interface design.</p>
+            <p>Creators needed to expose the right parameters, choose controls, group content, write callbacks and initialization code, validate inputs, draw an icon, add help, preview the result, and preserve reuse. Fragmentation made an already technical job harder.</p>
+          </div>
+        </div>
+        <div class="stakes-grid" role="list" aria-label="Four block-authoring challenges">
+          <div class="stake" role="listitem"><strong>Structure</strong><p>Turn underlying block parameters into a comprehensible dialog.</p></div>
+          <div class="stake" role="listitem"><strong>Discoverability</strong><p>Make controls, containers, commands, and associations easier to find.</p></div>
+          <div class="stake" role="listitem"><strong>Validity</strong><p>Help authors define reusable rules without bespoke callback code.</p></div>
+          <div class="stake" role="listitem"><strong>Coherence</strong><p>Connect dialog, behavior, icon, documentation, preview, and reuse.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reading rule" aria-labelledby="role-title">
+      <div class="role-grid">
+        <div class="role-copy">
+          <div class="eyebrow">Role and collaboration</div>
+          <h2 id="role-title">Direct design work with explicit team credit.</h2>
+          <p>I contributed to and adapted a Model Mask usability-test plan, authored parameter-validation and constraints explorations, and created the Mask Editor 2.0 deck that credits a design partner and the Masking team alongside me.</p>
+          <p>I later served as the internal mentor for a six-month Masking 2.0 project and co-authored a Block Authoring Studio vision with an engineering partner. The Model Mask material documents planning; completed findings sit outside the current evidence. The studio remained a vision exploration.</p>
+        </div>
+        <aside class="boundary" aria-labelledby="boundary-title">
+          <h3 id="boundary-title">Contribution boundary</h3>
+          <p>This case separates direct artifacts, team work, mentorship, public product history, and non-shipped vision.</p>
+          <dl>
+            <div><dt class="eyebrow">Direct</dt><dd>Validation and constraints design explorations</dd></div>
+            <div><dt class="eyebrow">Team-credited</dt><dd>Mask Editor 2.0 authoring workflow</dd></div>
+            <div><dt class="eyebrow">Mentored</dt><dd>Later Masking 2.0 research and design continuation</dd></div>
+            <div><dt class="eyebrow">Vision</dt><dd>Block Authoring Studio remained an exploratory direction</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="story reading" aria-label="Project story">
+      <article class="chapter" aria-labelledby="story-one">
+        <div class="chapter-number">01 / MODEL</div>
+        <div class="chapter-body">
+          <h2 id="story-one">Map the complete authoring job.</h2>
+          <p>The Model Mask plan focused on discoverability and mental model: could an engineer expose tunable parameters at the model level, understand how the mask related to the underlying model, and use it in a referenced-model workflow?</p>
+          <p>The broader design-case inventory then decomposed Mask Editor into access, templates, parameters, controls, containers, callbacks, initialization, constraints, icons, documentation, preview, and testing.</p>
+          <div class="claim-note"><strong>Study boundary:</strong> I contributed to the plan; I do not claim sole study authorship or completed research outcomes.</div>
+        </div>
+      </article>
+
+      <article class="chapter" aria-labelledby="story-two">
+        <div class="chapter-number">02 / AUTHOR</div>
+        <div class="chapter-body">
+          <h2 id="story-two">Move from procedural setup toward visual authoring.</h2>
+          <p>The Mask Editor 2.0 concept organized the experience around authoring tasks: add or import parameters, promote underlying values, choose containers, select controls, arrange the dialog, edit properties, and extend the system when standard controls reached their limits.</p>
+          <p>The work treated layout as part of a technical system. Control choice, property editing, parameter association, callback scope, and preview all needed to stay understandable as the mask grew.</p>
+        </div>
+      </article>
+
+      <article class="chapter" aria-labelledby="story-three">
+        <div class="chapter-number">03 / VALIDATE</div>
+        <div class="chapter-body">
+          <h2 id="story-three">Make constraints visible and reusable.</h2>
+          <p>My constraint explorations covered type, complexity, dimensions, sign, finiteness, range, and related validation attributes. A parameter could expose associated constraints, create a new one, and open a manager for reuse.</p>
+          <p>The interaction made a hidden technical relationship legible: define a rule once, name it, associate it with parameters, explain violations, and reuse it across authoring contexts.</p>
+        </div>
+      </article>
+
+      <article class="chapter" aria-labelledby="story-four">
+        <div class="chapter-number">04 / VISION</div>
+        <div class="chapter-body">
+          <h2 id="story-four">Explore one environment for block authoring.</h2>
+          <p>The Block Authoring Studio vision asked how masking, icon authoring, code-based block mechanisms, templates, testing, and sharing could converge into a more seamless experience.</p>
+          <p>It was a strategy artifact, not a released product. Its value was aligning teams around the shape of a coherent authoring system and clarifying what Mask Editor might eventually connect.</p>
+        </div>
+      </article>
+    </section>
+
+    <figure class="figure-wrap shell">
+      <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram of the Mask Editor authoring system">
+        <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
+        <img src="../../work/assets/mask-editor/assets/mask-editor-authoring-system.svg" width="2318" height="238" alt="Block author intent leads through parameter exposure, controls, dialog design, callbacks, constraints, icon and documentation, and a reusable block experience.">
+      </div>
+      <figcaption><strong>Block authoring system</strong><span>Original explanatory redraw synthesizing my direct validation work, team-credited Mask Editor concepts, and mentored continuation without reproducing a pre-release interface.</span></figcaption>
+    </figure>
+
+    <figure class="figure-wrap shell">
+      <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram of the constraint reuse model">
+        <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
+        <img src="../../work/assets/mask-editor/assets/constraint-reuse-model.svg" width="1813" height="314" alt="A validation rule becomes a named reusable constraint, is associated with a parameter, validates input, explains invalid values, and can be reused across parameters and blocks.">
+      </div>
+      <figcaption><strong>Constraint reuse model</strong><span>Original explanatory redraw of my direct constraint explorations and their goal of making validation rules discoverable, explainable, and reusable.</span></figcaption>
+    </figure>
+
+    <section class="section work-band" aria-labelledby="action-title">
+      <div class="reading">
+        <div class="section-head">
+          <div class="eyebrow">Work in action</div>
+          <div><h2 id="action-title">Author a block as an integrated experience.</h2><p>The workflow connected what a block exposes, how users interact with it, and how the author preserves validity.</p></div>
+        </div>
+        <ol class="sequence">
+          <li><strong>Choose the interface</strong><p>Decide which underlying parameters and behaviors should be exposed.</p></li>
+          <li><strong>Structure the dialog</strong><p>Select controls and containers that match the data and task.</p></li>
+          <li><strong>Define behavior</strong><p>Add callbacks and initialization while keeping scope understandable.</p></li>
+          <li><strong>Validate</strong><p>Associate named rules and explain values outside the allowed boundary.</p></li>
+          <li><strong>Represent</strong><p>Create the block icon, description, and help needed by downstream users.</p></li>
+          <li><strong>Preview and reuse</strong><p>Test the result and carry standards or reusable parts into the next block.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section outcomes" aria-labelledby="outcomes-title">
+      <div class="reading">
+        <div class="section-head">
+          <div class="eyebrow">Outcomes</div>
+          <div><h2 id="outcomes-title">A clearer shared direction for technical authoring.</h2><p>The clearest outcome was shared design direction: a coherent authoring model and a concrete interaction model for reusable constraints.</p></div>
+        </div>
+        <div class="outcome-grid">
+          <div class="outcome"><div class="eyebrow">Consensus</div><strong>Authoring work became inspectable</strong><p>Workflow decomposition and wireframes gave the team a shared object for resolving design questions.</p></div>
+          <div class="outcome"><div class="eyebrow">Validation</div><strong>Constraints gained an interaction model</strong><p>Named rules, parameter associations, discovery, explanation, and reuse became concrete design decisions.</p></div>
+          <div class="outcome"><div class="eyebrow">Continuity</div><strong>Public product evolution</strong><p>MathWorks later documented richer Mask Editor controls, constraints in R2018a, and another editor modernization in R2022a.</p></div>
+        </div>
+        <p class="evidence-note"><strong>Attribution:</strong> public release history shows the surrounding product evolution. I limit my attribution to the historical design, mentorship, and vision artifacts; later capabilities remain part of the team’s product evolution.</p>
+      </div>
+    </section>
+
+    <section class="section reflection" aria-labelledby="reflection-title">
+      <div class="reading reflection-grid">
+        <h2 id="reflection-title">Authoring tools shape every experience built with them.</h2>
+        <div>
+          <p>Helping experts structure parameters, validation, behavior, and presentation improves the experience of the downstream users who may never see the authoring environment.</p>
+          <p>The work reinforced a leadership discipline: direct design, mentored execution, and long-range vision each need a clear operating boundary.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sources reading" aria-label="Sources and evidence notes">
+      <details>
+        <summary>Public product sources and evidence method</summary>
+        <p>Official MathWorks sources establish public product evolution. Dated local test-plan, design, constraints, mentorship, and vision artifacts establish my contribution.</p>
+        <ul>
+          <li><a href="https://blogs.mathworks.com/simulink/2018/06/29/new-capabilities-for-block-masking/">New Capabilities for Block Masking</a></li>
+          <li><a href="https://www.mathworks.com/help/simulink/gui/mask-editor-overview.html">Mask Editor Overview</a></li>
+          <li><a href="https://www.mathworks.com/help/simulink/slref/simulink.mask.constraints-class.html">Simulink.Mask.Constraints, introduced in R2018a</a></li>
+          <li><a href="https://in.mathworks.com/products/new_products/release2022a.html">R2022a product-family highlights</a></li>
+        </ul>
+        <p>The diagrams abstract the internal work; confidential research and pre-release material is not reproduced.</p>
+      </details>
+    </section>
+
+    <nav class="next-case shell" aria-label="Next case study">
+      <h2>Next: turning customer workflows into a UX portfolio operating system.</h2>
+      <a href="../workflow-portfolio/">Read the Workflow Portfolio case</a>
+    </nav>
+  </main>
+
+  <footer class="case-footer">
+    <div class="shell">© 2026 Praneet Koppula · Product design, research, and UX leadership</div>
+  </footer>
+</body>
+</html>

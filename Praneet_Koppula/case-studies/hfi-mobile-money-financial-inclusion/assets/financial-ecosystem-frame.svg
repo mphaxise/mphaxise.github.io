@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Financial ecosystem research frame</title>
+  <desc id="desc">Household financial life connects to trust networks, providers, mobile access, and migration history. Research identifies gaps and barriers, then frames mobile-money opportunities.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="#c65b44"/></marker><style>.bg{fill:#fffaf4}.panel{fill:#fff;stroke:#263b38;stroke-width:2}.core{fill:#263b38}.soft{fill:#edc4b5;stroke:#803725;stroke-width:2}.signal{fill:#e7c64d;stroke:#263b38;stroke-width:2}.line{fill:none;stroke:#c65b44;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#arrow)}.eyebrow{font:600 15px 'DM Sans',Arial,sans-serif;letter-spacing:2px;fill:#c65b44}.h{font:700 25px 'DM Sans',Arial,sans-serif;fill:#263b38}.body{font:500 17px 'DM Sans',Arial,sans-serif;fill:#5f554f}.white{fill:#fff}</style></defs>
+  <rect class="bg" width="1200" height="680" rx="24"/>
+  <text class="eyebrow" x="58" y="54">EXPLANATORY REDRAW · PUBLIC-SAFE</text>
+  <text class="h" x="58" y="94">From household financial life to mobile-money opportunity</text>
+  <rect class="core" x="58" y="150" width="280" height="380" rx="24"/>
+  <text class="white" x="90" y="200" style="font:700 27px 'DM Sans',Arial,sans-serif">Household</text><text class="white" x="90" y="235" style="font:700 27px 'DM Sans',Arial,sans-serif">financial life</text>
+  <text x="90" y="290" style="font:500 18px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">Transactions</text><text x="90" y="328" style="font:500 18px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">Roles and control</text><text x="90" y="366" style="font:500 18px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">Risk and obligation</text><text x="90" y="404" style="font:500 18px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">Existing workarounds</text><text x="90" y="442" style="font:500 18px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">Daily constraints</text>
+  <path class="line" d="M338 340H424"/>
+  <text class="eyebrow" x="428" y="139">ECOSYSTEM</text>
+  <rect class="soft" x="424" y="164" width="250" height="120" rx="20"/><text class="h" x="454" y="210">Trust networks</text><text class="body" x="454" y="242">Family and community</text>
+  <rect class="panel" x="424" y="304" width="250" height="120" rx="20"/><text class="h" x="454" y="350">Providers</text><text class="body" x="454" y="382">Formal and informal</text>
+  <rect class="soft" x="424" y="444" width="250" height="120" rx="20"/><text class="h" x="454" y="490">Migration history</text><text class="body" x="454" y="522">Rural and urban ties</text>
+  <rect class="panel" x="704" y="164" width="200" height="120" rx="20"/><text class="h" x="734" y="210">Mobile access</text><text class="body" x="734" y="242">Device and service</text>
+  <rect class="signal" x="704" y="304" width="200" height="120" rx="20"/><text class="h" x="734" y="350">Gaps</text><text class="body" x="734" y="382">Access and fit</text>
+  <rect class="signal" x="704" y="444" width="200" height="120" rx="20"/><text class="h" x="734" y="490">Barriers</text><text class="body" x="734" y="522">Trust, control, risk</text>
+  <path class="line" d="M674 224H704M674 364H704M674 504H704"/>
+  <path class="line" d="M904 364H970"/>
+  <rect class="core" x="970" y="250" width="180" height="228" rx="24"/>
+  <text class="white" x="1060" y="304" text-anchor="middle" style="font:700 25px 'DM Sans',Arial,sans-serif">Mobile-money</text><text class="white" x="1060" y="337" text-anchor="middle" style="font:700 25px 'DM Sans',Arial,sans-serif">opportunity</text>
+  <text x="1060" y="392" text-anchor="middle" style="font:500 17px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">Product paradigms</text><text x="1060" y="423" text-anchor="middle" style="font:500 17px 'DM Sans',Arial,sans-serif;fill:#c3d0cb">grounded in lives</text>
+  <text class="body" x="58" y="626">Research keeps household context attached to each service opportunity.</text>
+</svg>

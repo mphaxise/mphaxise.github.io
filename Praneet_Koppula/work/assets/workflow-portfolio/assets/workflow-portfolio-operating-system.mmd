@@ -1,0 +1,15 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"DM Sans, Arial, sans-serif","primaryColor":"#b4dce0","primaryTextColor":"#142522","primaryBorderColor":"#07505b","lineColor":"#07505b","secondaryColor":"#e7bd45","tertiaryColor":"#fbfdfc"}}}%%
+flowchart LR
+    A["Shared workflow lexicon"] --> B["Candidate workflow inventory"]
+    B --> C{"Portfolio priority?"}
+    C -->|Workflow of today| D["High-frequency current workflow"]
+    C -->|Workflow of tomorrow| E["Strategic future workflow"]
+    D --> F["Top-N workflow list"]
+    E --> F
+    F --> G["Workflow owner and core team"]
+    G --> H["Map stages, tasks, steps, and variants"]
+    H --> I["Add research and quality signals"]
+    I --> J["Identify pain points and benchmark"]
+    J --> K["Roadmap and release actions"]
+    K --> L["Advisory communication and follow-up"]
+    L --> M["Refresh the inventory next cycle"]

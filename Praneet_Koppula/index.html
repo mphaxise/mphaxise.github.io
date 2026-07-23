@@ -16,7 +16,7 @@
     "url": "https://mphaxise.github.io/Praneet_Koppula/",
     "name": "Praneet Koppula | Expert Engineering Tools & Trustworthy AI",
     "description": "Product design leadership for expert engineering tools, complex workflows, and trustworthy AI by Praneet Koppula.",
-    "dateModified": "2026-07-14",
+    "dateModified": "2026-07-22",
     "mainEntity": {
       "@type": "Person",
       "@id": "https://mphaxise.github.io/Praneet_Koppula/#praneet-koppula",
@@ -256,6 +256,36 @@
     .case li { margin: 10px 0; }
     .public-link { font-weight: 700; color: var(--teal-dark); }
 
+    .case-library {
+      margin: -42px 0 110px;
+      padding-top: 34px;
+      border-top: 1px solid var(--line);
+    }
+    .case-library-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 22px;
+    }
+    .case-library-head h3 { margin: 7px 0 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; }
+    .case-library-head p { max-width: 520px; margin: 0; color: var(--muted); }
+    .case-library-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .case-card {
+      display: block;
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,253,247,0.84);
+      text-decoration: none;
+    }
+    .case-card:last-child { grid-column: 1 / -1; }
+    .case-card:hover { border-color: var(--teal); box-shadow: 0 10px 30px rgba(26, 53, 46, 0.08); }
+    .case-card .case-label { color: var(--teal-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    .case-card h4 { margin: 11px 0 8px; font-family: "Source Serif 4", Georgia, serif; font-size: 1.45rem; line-height: 1.1; }
+    .case-card p { margin: 0; color: var(--muted); }
+
     .visual {
       position: relative;
       min-height: 430px;
@@ -330,6 +360,23 @@
     .metric { padding: 18px; border: 1px solid rgba(255,255,255,0.18); border-radius: 16px; }
     .metric strong { display: block; font-family: "Source Serif 4", Georgia, serif; font-size: 2.2rem; color: var(--lime); }
 
+    .writing-feature {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: clamp(34px, 6vw, 78px);
+      align-items: center;
+      margin: 40px 0 110px;
+      padding: clamp(30px, 5vw, 58px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255,253,247,0.86);
+      box-shadow: 0 18px 54px rgba(26, 53, 46, 0.08);
+    }
+    .writing-feature h2 { margin: 12px 0 20px; font-size: clamp(2.6rem, 5vw, 4.8rem); line-height: 0.98; }
+    .writing-feature p { color: var(--muted); font-size: 1.08rem; }
+    .writing-visual { padding: 16px; border: 1px solid var(--line); background: #f8f4ea; }
+    .writing-visual img { display: block; width: 100%; height: auto; }
+
     footer {
       display: flex;
       justify-content: space-between;
@@ -353,7 +400,7 @@
     }
 
     @media (max-width: 840px) {
-      .hero, .section-head, .case, .leadership { grid-template-columns: 1fr; }
+      .hero, .section-head, .case, .leadership, .writing-feature { grid-template-columns: 1fr; }
       .hero { gap: 24px; min-height: auto; padding-top: 36px; }
       .signal-card { min-height: 360px; transform: none; }
       .principles { grid-template-columns: 1fr; margin-top: 36px; }
@@ -362,6 +409,10 @@
       .contact { display: flex; gap: 14px; }
       .contact .desktop-only, .contact .header-secondary { display: none; }
       .workflow .node:nth-child(n) { margin-left: 0; }
+      .case-library-head { display: block; }
+      .case-library-head p { margin-top: 14px; }
+      .case-library-grid { grid-template-columns: 1fr; }
+      .case-card:last-child { grid-column: auto; }
       footer { flex-direction: column; }
     }
 
@@ -377,6 +428,7 @@
     <header>
       <a class="wordmark" href="#">Praneet Koppula</a>
       <nav class="contact" aria-label="Contact">
+        <a href="writing/">Writing</a>
         <a href="agent/">Agent view</a>
         <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a>
         <a class="header-secondary" href="https://github.com/mphaxise">GitHub</a>
@@ -427,7 +479,7 @@
             <div class="eyebrow">Selected work</div>
             <h2>Systems, workflows, and teams.</h2>
           </div>
-          <p>These cases show the range of my practice: defining an AI interaction model, designing state-heavy engineering workflows, and building mechanisms that improve product quality across teams. Proprietary details are represented with redrawn diagrams.</p>
+          <p>These cases show the range of my practice: field research in India, interaction models for specialized products, state-heavy engineering workflows, and mechanisms that improve product quality across teams. Proprietary details are represented with original explanatory diagrams.</p>
         </div>
 
         <article class="case">
@@ -447,6 +499,7 @@
               <li>Used customer interviews and validation tests to refine the workflow and interaction model.</li>
               <li>Explored how natural language, requirements, equations, and code could express user intent.</li>
             </ul>
+            <a class="public-link" href="case-studies/simulink-ai-assistant/">Read the full case study →</a>
           </div>
           <div class="visual workflow" role="img" aria-label="AI workflow from requirements through traceable actions, preview, confirmation, execution, simulation, inspection, and explanation">
             <div class="node">Understand requirements</div>
@@ -461,19 +514,19 @@
           <div>
             <div class="eyebrow">Technical workflow design</div>
             <h3>Making complex model behavior inspectable</h3>
-            <p>Model Slicer helps engineers isolate the part of a large model relevant to a behavior, signal, test objective, or coverage gap. I helped improve its early productization and designed later workflows involving dynamic slicing, simulation data, constraints, time windows, and cross-product debugging.</p>
+            <p>Model Slicer helps engineers isolate the part of a large model relevant to a behavior, signal, test objective, or coverage gap. I helped improve its early productization through state-aware interaction design and simulation-aware workflow prototypes.</p>
             <div class="meta">
               <span>Detailed interaction design</span>
-              <span>Usability research</span>
+              <span>State logic</span>
               <span>Error states</span>
-              <span>Workflow architecture</span>
+              <span>Team alignment</span>
             </div>
             <ul>
               <li>Designed interaction rules for starting points, exclusions, conflicts, and conditional constraints.</li>
               <li>Made data provenance, recalculation, time-window validity, and failure states legible.</li>
-              <li>Helped connect testing and verification results to focused model inspection.</li>
+              <li>Used detailed prototypes to gather feedback and align development and adjacent teams.</li>
             </ul>
-            <a class="public-link" href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html">View public product context</a>
+            <a class="public-link" href="case-studies/model-slicer/">Read the full case study →</a>
           </div>
           <div class="visual state-map" role="img" aria-label="Model Slicer state model covering input, scope, data, time, result, and recovery">
             <div class="eyebrow" style="color:var(--lime); margin-bottom:20px">State model</div>
@@ -504,6 +557,7 @@
               <li>Used independent ratings and facilitated discussion to reduce opinion-driven critique.</li>
               <li>Built lightweight enablement so specialists could focus on harder strategic work.</li>
             </ul>
+            <a class="public-link" href="case-studies/workflow-portfolio/">Read the workflow portfolio case →</a>
           </div>
           <div class="visual quality-map" role="img" aria-label="Design quality system connecting shared principles, structured critique, reusable guidance, and continuous improvement">
             <div class="tile">
@@ -524,6 +578,83 @@
             </div>
           </div>
         </article>
+
+        <section class="case-library" aria-labelledby="mathworks-library-heading">
+          <div class="case-library-head">
+            <div>
+              <div class="eyebrow">MathWorks case library</div>
+              <h3 id="mathworks-library-heading">Five more views into the work.</h3>
+            </div>
+            <p>Each case separates direct contribution, team-owned work, public product context, and exploratory strategy.</p>
+          </div>
+          <div class="case-library-grid">
+            <a class="case-card" href="case-studies/diagnostic-viewer-fixit/">
+              <span class="case-label">Interaction design · 2014–2017</span>
+              <h4>Making Simulink Diagnostics Actionable</h4>
+              <p>Message hierarchy, safe Fix-It behavior, and suppression workflows for engineers already blocked by a model diagnostic.</p>
+            </a>
+            <a class="case-card" href="case-studies/toolstrip-workshops/">
+              <span class="case-label">Design systems · Selected work, 2014–2019</span>
+              <h4>Scaling Task-Based UI Design Across Engineering Apps</h4>
+              <p>Pattern guidance, workshop contribution, concrete product decisions, and formal design review.</p>
+            </a>
+            <a class="case-card" href="case-studies/mask-editor/">
+              <span class="case-label">Technical authoring · 2014–2017</span>
+              <h4>Reimagining Mask Editor as a Technical Authoring Environment</h4>
+              <p>Validation and constraint design, team synthesis, mentorship, and a clearly bounded future vision.</p>
+            </a>
+            <a class="case-card" href="case-studies/workflow-portfolio/">
+              <span class="case-label">Portfolio operations · Leadership system</span>
+              <h4>Turning Customer Workflows into a UX Portfolio Operating System</h4>
+              <p>A shared workflow language for connecting customer needs, ownership, research, and investment decisions.</p>
+            </a>
+            <a class="case-card" href="case-studies/ux-leadership-systems/">
+              <span class="case-label">Organization design · Leadership system</span>
+              <h4>Scaling a Distributed UX Organization Through Leadership Systems</h4>
+              <p>An anonymized look at planning, coaching, decision clarity, and operating rhythm across a distributed UX context.</p>
+            </a>
+          </div>
+        </section>
+
+        <section class="case-library" aria-labelledby="hfi-library-heading">
+          <div class="case-library-head">
+            <div>
+              <div class="eyebrow">Human Factors International research</div>
+              <h3 id="hfi-library-heading">Early systems research in classrooms, households, and cities.</h3>
+            </div>
+            <p>These cases use public records, private attribution evidence, and original diagrams. Each page states the role, evidence strength, privacy boundary, and limits on outcomes.</p>
+          </div>
+          <div class="case-library-grid">
+            <a class="case-card" href="case-studies/hfi-intel-classmate-pc/">
+              <span class="case-label">Field research · Usability · Interaction concept</span>
+              <h4>Designing a Classroom Computer as a Classroom System</h4>
+              <p>India classroom inquiry, an 18-participant India and China usability study, and an authored Environs, tags, and diary interface concept.</p>
+            </a>
+            <a class="case-card" href="case-studies/hfi-mobile-money-financial-inclusion/">
+              <span class="case-label">Field research · Systems thinking · Publication</span>
+              <h4>Designing Mobile Money from Household Financial Life</h4>
+              <p>Co-authored 2009 research connecting women’s household roles, migration, financial ecosystems, barriers, and service opportunities.</p>
+            </a>
+            <a class="case-card" href="case-studies/hfi-nokia-urban-wayfinding-research/">
+              <span class="case-label">Field research · Evidence-bounded vignette</span>
+              <h4>Researching Urban Wayfinding in the Field</h4>
+              <p>A carefully bounded account of planning, recruitment, moderation, observation, and in-field analysis for Nokia in Indian cities.</p>
+            </a>
+          </div>
+        </section>
+      </section>
+
+      <section class="writing-feature" aria-labelledby="writing-feature-heading">
+        <div class="writing-visual">
+          <img src="work/assets/closed-loop-experience-design/figures/01-core-loop.svg" width="1280" height="720" loading="lazy" decoding="async" alt="Human experience becomes evidence; design judgment guides an agent or controller; system behavior creates the next experience.">
+        </div>
+        <div>
+          <div class="eyebrow">Featured writing · Four-part essay</div>
+          <h2 id="writing-feature-heading">Closed-Loop Experience Design</h2>
+          <p>I trace an idea from the way I designed beside a developer in 2014 to the way I now build with coding agents, then ask how the same relationship could help designers shape physical system behavior.</p>
+          <a class="button primary" href="writing/closed-loop-experience-design/">Read the essay</a>
+          <a class="button" href="writing/">All writing</a>
+        </div>
       </section>
 
       <section class="leadership">
@@ -543,7 +674,7 @@
 
     <footer>
       <div>Praneet Koppula · Made with ☕ and ❤️ in SF.</div>
-      <div><a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a> · <a href="mailto:praneet.koppula@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a> · <a href="https://github.com/mphaxise">GitHub</a></div>
+      <div><a href="writing/">Writing</a> · <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Book a conversation</a> · <a href="mailto:praneet.koppula@gmail.com">Email</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a> · <a href="https://github.com/mphaxise">GitHub</a></div>
     </footer>
   </div>
   <!-- Cloudflare Web Analytics -->

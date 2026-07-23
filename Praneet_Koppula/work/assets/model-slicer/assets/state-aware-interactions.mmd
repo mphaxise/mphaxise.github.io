@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> NoRole
+    NoRole --> StartingPoint: add starting point
+    NoRole --> Exclusion: add exclusion
+    StartingPoint --> Remove: remove point
+    StartingPoint --> Conflict: request incompatible role
+    Exclusion --> Remove: remove exclusion
+    Exclusion --> Conflict: request incompatible role
+    Conflict --> Explain: disable action and explain why
+    Explain --> StartingPoint
+    Remove --> NoRole

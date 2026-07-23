@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">From digital interface to physical behavior</title>
+  <desc id="desc">A present-day interface feedback loop leads through simulation and research with people toward future physical behavior.</desc>
+  <defs>
+    <marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#435a55"/></marker>
+    <marker id="copper-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a05f48"/></marker>
+    <pattern id="field-grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#d7d2c7" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1280" height="720" fill="#e8e2d7"/>
+  <rect x="24" y="20" width="1232" height="680" rx="3" fill="#f8f5ef"/>
+  <text x="72" y="60" fill="#435a55" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="600" letter-spacing="2.4">02  /  STRATEGIC BRIDGE</text>
+  <text x="72" y="123" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="56" font-weight="500">From digital interface to physical behavior</text>
+  <line x1="72" y1="158" x2="1208" y2="158" stroke="#cbc5b9"/>
+  <text x="72" y="204" fill="#435a55" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="2">NOW</text>
+  <text x="72" y="245" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="33">A working interface</text>
+  <rect x="104" y="294" width="380" height="198" fill="#f2efe8" stroke="#25302d" stroke-width="1.7"/>
+  <line x1="104" y1="328" x2="484" y2="328" stroke="#25302d" stroke-width="1.5"/>
+  <circle cx="127" cy="311" r="3.5" fill="#a05f48"/>
+  <rect x="138" y="361" width="120" height="88" fill="none" stroke="#b9b5ac" stroke-dasharray="3 6"/>
+  <g stroke="#435a55" stroke-width="2.5"><line x1="294" y1="370" x2="450" y2="370"/><line x1="294" y1="399" x2="402" y2="399"/><line x1="294" y1="428" x2="430" y2="428"/></g>
+  <path d="M148 516C226 542 315 542 390 502" fill="none" stroke="#435a55" stroke-width="2.2" marker-end="url(#green-arrow)"/>
+  <text x="294" y="570" fill="#435a55" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="18" font-style="italic" text-anchor="middle">I use it. I respond. It changes.</text>
+  <line x1="640" y1="230" x2="640" y2="330" stroke="#cbc5b9"/>
+  <path d="M624 355H656" stroke="#a05f48" stroke-width="2" marker-end="url(#copper-arrow)"/>
+  <text x="640" y="407" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="21" text-anchor="middle">Simulation</text>
+  <text x="640" y="433" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="21" text-anchor="middle">+ people</text>
+  <line x1="640" y1="467" x2="640" y2="566" stroke="#cbc5b9"/>
+  <text x="760" y="204" fill="#a05f48" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="2">NEXT</text>
+  <text x="760" y="245" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="33">Physical behavior</text>
+  <rect x="748" y="292" width="442" height="208" fill="url(#field-grid)" stroke="#b9b5ac"/>
+  <circle cx="841" cy="395" r="27" fill="#f8f5ef" stroke="#25302d" stroke-width="1.8"/>
+  <circle cx="841" cy="395" r="52" fill="none" stroke="#9da9a4" stroke-dasharray="4 7"/>
+  <g transform="rotate(-12 1106 419)"><rect x="1072" y="397" width="68" height="44" fill="#435a55"/><line x1="1085" y1="419" x2="1127" y2="419" stroke="#f8f5ef" stroke-width="2"/></g>
+  <path d="M1110 389C1062 329 951 335 898 402" fill="none" stroke="#a05f48" stroke-width="2.3" marker-end="url(#copper-arrow)"/>
+  <path d="M1068 415C1003 441 953 461 892 444" fill="none" stroke="#435a55" stroke-width="1.5" stroke-dasharray="5 7"/>
+  <text x="970" y="570" fill="#a05f48" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="18" font-style="italic" text-anchor="middle">Can I read its intention?</text>
+  <line x1="72" y1="641" x2="1208" y2="641" stroke="#435a55" stroke-width="1.5"/>
+  <text x="72" y="675" fill="#202724" font-family="Iowan Old Style, Baskerville, Palatino Linotype, Georgia, serif" font-size="20">The stakes change.</text>
+  <text x="1208" y="674" fill="#69716c" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="13" text-anchor="end">Physical behavior requires stronger safety and authority boundaries.</text>
+</svg>

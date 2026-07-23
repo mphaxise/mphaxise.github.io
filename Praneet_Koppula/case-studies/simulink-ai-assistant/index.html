@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Praneet Koppula led the UX vision for an AI assistant connecting requirements, architecture, implementation, simulation, and explanation in model-based engineering.">
+  <link rel="icon" href="data:,">
+  <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/">
+  <title>Simulink AI Assistant vision | Praneet Koppula</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap");
+
+    :root {
+      --ink: #0b1a17;
+      --ink-soft: #314640;
+      --paper: #f2efe7;
+      --white: #fffefa;
+      --line: #b9c2bd;
+      --lime: #d8ff3e;
+      --blue: #2f6bff;
+      --blue-text: #1746c2;
+      --orange: #ff6b35;
+      --orange-text: #a92f0a;
+      --night: #101c2d;
+      --measure: 760px;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "DM Sans", Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.62;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-underline-offset: 0.18em; }
+    a:focus-visible { outline: 4px solid var(--blue); outline-offset: 5px; }
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 12px;
+      left: 12px;
+      padding: 12px 16px;
+      background: var(--lime);
+      color: var(--ink);
+      font-weight: 700;
+      transform: translateY(-180%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell { width: min(1440px, calc(100% - 56px)); margin: 0 auto; }
+    .reading { width: min(1100px, calc(100% - 56px)); margin: 0 auto; }
+    .measure { max-width: var(--measure); }
+    .mono {
+      font-family: "DM Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    header { border-bottom: 1px solid var(--line); }
+    .case-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      min-height: 86px;
+    }
+    .wordmark { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; text-decoration: none; }
+    .back-link { min-height: 44px; display: inline-flex; align-items: center; font-weight: 600; }
+
+    .hero { padding: clamp(72px, 10vw, 150px) 0 60px; }
+    .hero .kicker { color: var(--ink-soft); }
+    h1, h2, h3, .manifesto {
+      margin-top: 0;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -0.035em;
+    }
+    h1 {
+      max-width: 1250px;
+      margin: 26px 0 34px;
+      font-size: clamp(3.6rem, 8.3vw, 8.8rem);
+      line-height: 0.9;
+    }
+    h1 em { color: var(--blue); font-style: normal; }
+    .hero-lede {
+      max-width: 860px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+      line-height: 1.45;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 22px 0 76px;
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+    }
+    .facts div { min-height: 142px; padding: 24px 28px 28px 0; }
+    .facts div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+    .facts dt { margin-bottom: 11px; color: var(--ink-soft); }
+    .facts dd { margin: 0; font-size: 1.08rem; font-weight: 700; line-height: 1.35; }
+
+    figure { margin: 0; }
+    .hero-figure img, .wide-figure img { width: 100%; border: 1px solid var(--ink); }
+    figcaption {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 780px);
+      gap: 28px;
+      padding: 20px 0 0;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+    }
+    figcaption strong { color: var(--ink); }
+
+    .section { padding: clamp(100px, 12vw, 180px) 0; }
+    .section-rule { border-top: 1px solid var(--line); }
+    .section-head {
+      display: grid;
+      grid-template-columns: 230px minmax(0, 820px);
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+    .section-head .mono { padding-top: 13px; color: var(--blue-text); }
+    h2 {
+      margin-bottom: 26px;
+      font-size: clamp(3rem, 6vw, 6.2rem);
+      line-height: 0.96;
+    }
+    h3 { margin-bottom: 14px; font-size: clamp(1.8rem, 3.3vw, 3rem); line-height: 1.05; }
+    .section-head p, .body-large { color: var(--ink-soft); font-size: 1.22rem; }
+
+    .context-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(48px, 8vw, 120px);
+      align-items: start;
+    }
+    .context-note { padding-top: 18px; border-top: 6px solid var(--lime); }
+    .context-note p { margin-bottom: 0; color: var(--ink-soft); }
+    .manifesto {
+      margin-bottom: 0;
+      font-size: clamp(2.5rem, 5vw, 5.2rem);
+      line-height: 1.03;
+    }
+
+    .sequence { border-top: 1px solid var(--ink); }
+    .sequence-step {
+      display: grid;
+      grid-template-columns: 110px 0.8fr 1.2fr;
+      gap: 28px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .sequence-step .number { color: var(--blue-text); font-family: "DM Mono", monospace; font-size: 1.1rem; }
+    .sequence-step h3 { margin: 0; font-family: "DM Sans", sans-serif; font-size: 1.35rem; letter-spacing: -0.02em; }
+    .sequence-step p { max-width: 700px; margin: 0; color: var(--ink-soft); }
+
+    .evidence-band { background: var(--ink); color: var(--white); }
+    .evidence-band .section-head .mono { color: var(--lime); }
+    .evidence-band .section-head p { color: #b7c5bf; }
+    .evidence-list { border-top: 1px solid #50655d; }
+    .evidence-row {
+      display: grid;
+      grid-template-columns: 230px 1fr 1.15fr;
+      gap: 48px;
+      padding: 32px 0;
+      border-bottom: 1px solid #50655d;
+    }
+    .evidence-row .source { color: var(--lime); }
+    .evidence-row strong { font-size: 1.2rem; }
+    .evidence-row p { margin: 0; color: #b7c5bf; }
+
+    .wide-figure { width: min(1440px, calc(100% - 56px)); margin: 0 auto; }
+    .wide-figure figcaption { width: min(1100px, 100%); }
+
+    .validation {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: clamp(50px, 9vw, 140px);
+      padding: clamp(70px, 9vw, 120px);
+      background: var(--lime);
+    }
+    .validation h2 { max-width: 640px; margin-bottom: 0; }
+    .validation-copy { max-width: 680px; }
+    .validation-copy > p { margin-top: 0; font-size: 1.2rem; }
+    .methods { margin: 40px 0; border-top: 2px solid var(--ink); }
+    .method { display: grid; grid-template-columns: 80px 1fr; gap: 22px; padding: 24px 0; border-bottom: 1px solid rgba(11, 26, 23, 0.45); }
+    .method .mono { color: #26362f; }
+    .method strong { font-size: 1.3rem; }
+    .evidence-boundary { padding-left: 20px; border-left: 4px solid var(--blue); font-size: 0.98rem !important; }
+
+    .decisions { margin: 0; padding: 0; list-style: none; counter-reset: decision; border-top: 2px solid var(--ink); }
+    .decisions li {
+      display: grid;
+      grid-template-columns: 92px 0.8fr 1.2fr;
+      gap: 34px;
+      padding: 34px 0;
+      border-bottom: 1px solid var(--line);
+      counter-increment: decision;
+    }
+    .decisions li::before {
+      color: var(--orange-text);
+      content: "0" counter(decision);
+      font-family: "DM Mono", monospace;
+      font-size: 1.05rem;
+    }
+    .decisions h3 { margin: 0; font-family: "DM Sans", sans-serif; font-size: 1.35rem; letter-spacing: -0.02em; }
+    .decisions p { margin: 0; color: var(--ink-soft); }
+
+    .intent-spectrum { margin-top: 72px; border-top: 2px solid var(--ink); }
+    .intent-row {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 34px;
+      align-items: baseline;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .intent-row strong { font-family: "Source Serif 4", Georgia, serif; font-size: clamp(2.2rem, 5vw, 4.8rem); font-weight: 600; line-height: 1; }
+    .intent-row:nth-child(2) strong { color: var(--blue); }
+    .intent-row:nth-child(3) strong { color: var(--orange); }
+
+    .reflection { background: var(--night); color: white; }
+    .reflection-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(60px, 9vw, 150px);
+      align-items: end;
+    }
+    .reflection h2 { margin-bottom: 0; }
+    .reflection p { color: #b9c7d8; font-size: 1.2rem; }
+    .reflection strong { color: var(--lime); }
+
+    .provenance-note { padding: 42px 0; border-bottom: 1px solid var(--line); color: var(--ink-soft); font-size: 0.92rem; }
+    .provenance-note strong { color: var(--ink); }
+
+    .next {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 70px 0;
+    }
+    .next h2 { max-width: 800px; margin: 0; font-size: clamp(2.4rem, 5vw, 5.2rem); }
+    .next a {
+      display: inline-flex;
+      min-height: 52px;
+      align-items: center;
+      padding: 12px 20px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    footer { display: flex; justify-content: space-between; gap: 28px; padding: 30px 0 46px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 0.9rem; }
+
+    @media (max-width: 900px) {
+      .facts { grid-template-columns: 1fr 1fr; }
+      .facts div:nth-child(3) { border-left: 0; border-top: 1px solid var(--line); }
+      .facts div:nth-child(4) { border-top: 1px solid var(--line); }
+      .section-head, .context-grid, .validation, .reflection-grid { grid-template-columns: 1fr; }
+      .section-head { gap: 22px; }
+      .section-head .mono { padding-top: 0; }
+      .sequence-step, .decisions li { grid-template-columns: 70px 1fr; }
+      .sequence-step p, .decisions p { grid-column: 2; }
+      .evidence-row { grid-template-columns: 150px 1fr; gap: 24px; }
+      .evidence-row p { grid-column: 2; }
+      .validation { padding: 64px 42px; }
+      .next { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      .shell, .reading, .wide-figure { width: min(100% - 32px, 1440px); }
+      .case-nav { min-height: 0; align-items: flex-start; padding: 18px 0; }
+      .back-link { text-align: right; }
+      .hero { padding-top: 78px; }
+      h1 { font-size: clamp(3.25rem, 17vw, 5rem); }
+      .facts { grid-template-columns: 1fr; }
+      .facts div, .facts div + div { min-height: 0; padding: 20px 0; border-left: 0; border-top: 1px solid var(--line); }
+      .facts div:first-child { border-top: 0; }
+      figcaption { grid-template-columns: 1fr; gap: 8px; }
+      .sequence-step, .decisions li { grid-template-columns: 54px 1fr; gap: 14px; }
+      .evidence-row { grid-template-columns: 1fr; }
+      .evidence-row p { grid-column: auto; }
+      .validation { padding: 58px 24px; }
+      .method { grid-template-columns: 56px 1fr; }
+      .intent-row { grid-template-columns: 1fr; gap: 8px; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; }
+    }
+
+    @media (forced-colors: active) {
+      .validation, .next a { border: 2px solid CanvasText; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="shell">
+    <nav class="case-nav" aria-label="Case study navigation">
+      <a class="wordmark" href="../../">Praneet Koppula</a>
+      <a class="back-link" href="../../#work">← All selected work</a>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero shell" aria-labelledby="case-title">
+      <div class="mono kicker">Case study / AI interaction vision</div>
+      <h1 id="case-title">Designing an AI assistant for <em>model-based engineering.</em></h1>
+      <p class="hero-lede">I led the experience vision with the Engineering Lead for an assistant that could work across requirements, architecture, implementation, simulation, and explanation—while keeping every consequential action visible and under human control.</p>
+    </section>
+
+    <div class="shell">
+      <dl class="facts" aria-label="Case-study facts">
+        <div>
+          <dt class="mono">Company / product</dt>
+          <dd>MathWorks / Simulink</dd>
+        </div>
+        <div>
+          <dt class="mono">Period</dt>
+          <dd>Approx. 2023–2024</dd>
+        </div>
+        <div>
+          <dt class="mono">Role</dt>
+          <dd>UX Lead with Engineering Lead</dd>
+        </div>
+        <div>
+          <dt class="mono">Scope</dt>
+          <dd>Experience vision, workflow, interaction model, customer evaluation</dd>
+        </div>
+      </dl>
+    </div>
+
+    <figure class="hero-figure shell">
+      <img src="../../work/assets/simulink-ai-assistant/assets/workflow-overview.svg" alt="Redrawn workflow: requirements become traceable architecture and implementation actions only after review and confirmation, followed by simulation, inspection, explanation, and navigation.">
+      <figcaption>
+        <strong>Concept sequence</strong>
+        <span>A public-safe redraw based on the team concept demo. The assistant was imagined as a connected action layer embedded in the engineering environment and its work.</span>
+      </figcaption>
+    </figure>
+
+    <section class="section reading" aria-labelledby="different-heading">
+      <div class="context-grid">
+        <div class="context-note">
+          <div class="mono">The product context</div>
+          <p>Model-based engineering connects requirements, architecture, executable models, simulation results, and the links between them. A useful assistant has to understand that structure and leave it more legible after acting.</p>
+        </div>
+        <div>
+          <h2 id="different-heading">Engineering changes require visible context and control.</h2>
+          <p class="body-large">A plausible answer cannot carry the full burden when the output changes an engineering artifact. The interaction has to show which context the system used, what it proposes to change, where the change will land, and how the engineer can inspect or reverse course.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-rule reading" aria-labelledby="opportunity-heading">
+      <div class="section-head">
+        <div class="mono">The opportunity</div>
+        <div>
+          <h2 id="opportunity-heading">Work at the level of intent. Keep the chain of evidence.</h2>
+          <p>The vision was to let engineers describe what the system should do, while the assistant helped carry that intent through structured artifacts without erasing traceability or decision authority.</p>
+        </div>
+      </div>
+      <p class="manifesto">Make the assistant useful across the workflow, without making the workflow opaque.</p>
+    </section>
+
+    <section class="section section-rule reading" aria-labelledby="workflow-heading">
+      <div class="section-head">
+        <div class="mono">The concept</div>
+        <div>
+          <h2 id="workflow-heading">A workflow, not a feature.</h2>
+          <p>The source artifacts show one connected sequence. Each step creates context for the next and a place the engineer can return to.</p>
+        </div>
+      </div>
+
+      <div class="sequence">
+        <div class="sequence-step">
+          <div class="number">01</div>
+          <h3>Understand requirements</h3>
+          <p>Read the current system and stakeholder intent, surface gaps, and ask for clarification before building.</p>
+        </div>
+        <div class="sequence-step">
+          <div class="number">02</div>
+          <h3>Propose traceable actions</h3>
+          <p>Suggest requirement refinements, links, or model changes with the source context still visible.</p>
+        </div>
+        <div class="sequence-step">
+          <div class="number">03</div>
+          <h3>Review and confirm</h3>
+          <p>Keep action separate from explanation. The engineer reviews the intended change before execution.</p>
+        </div>
+        <div class="sequence-step">
+          <div class="number">04</div>
+          <h3>Update architecture and implementation</h3>
+          <p>Carry the confirmed intent into connected model artifacts and preserve the link to its source.</p>
+        </div>
+        <div class="sequence-step">
+          <div class="number">05</div>
+          <h3>Simulate and inspect</h3>
+          <p>Run behavior, expose the resulting signal or scope, and keep the output tied to the model that produced it.</p>
+        </div>
+        <div class="sequence-step">
+          <div class="number">06</div>
+          <h3>Explain and navigate</h3>
+          <p>Explain what changed and provide a direct route back to the relevant requirement, component, model, or result.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section evidence-band" aria-labelledby="evidence-heading">
+      <div class="reading">
+        <div class="section-head">
+          <div class="mono">Evidence behind the vision</div>
+          <div>
+            <h2 id="evidence-heading">The story is carried by working artifacts.</h2>
+            <p>I reviewed the surviving concept and experiment archive for this case. The public visuals preserve the supported interaction logic while removing confidential interfaces, names, identifiers, code, and service details.</p>
+          </div>
+        </div>
+        <div class="evidence-list">
+          <div class="evidence-row">
+            <div class="mono source">Team concept demo</div>
+            <strong>End-to-end workflow</strong>
+            <p>Visible movement from requirements assistance and link confirmation through architecture updates, implementation, simulation, scope inspection, explanation, and navigation.</p>
+          </div>
+          <div class="evidence-row">
+            <div class="mono source">Prompt experiments</div>
+            <strong>Forms of engineering intent</strong>
+            <p>Requirements, natural-language system descriptions, equations, and code were explored as different ways engineers might ask for model-based help.</p>
+          </div>
+          <div class="evidence-row">
+            <div class="mono source">Assistant UI artifact</div>
+            <strong>Interaction states</strong>
+            <p>The archive includes onboarding, history, feedback, cancellation, mobile, and localized assistant states. It is team evidence; I do not claim sole authorship of the implementation.</p>
+          </div>
+          <div class="evidence-row">
+            <div class="mono source">Planning artifact</div>
+            <strong>Cross-functional development</strong>
+            <p>A surviving sprint-planning file is part of the archive. Its content and authorship remain private and are not used for substantive public claims.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="review-heading">
+      <div class="reading">
+        <div class="section-head">
+          <div class="mono">Interaction decision 01</div>
+          <div>
+            <h2 id="review-heading">Review before execution.</h2>
+            <p>The assistant can explain freely. Acting on a structured artifact is a separate step: show the source, state the proposed change, wait for confirmation, make the result visible, and return the engineer to it.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="wide-figure">
+        <img src="../../work/assets/simulink-ai-assistant/assets/reviewable-action.svg" alt="Redrawn interaction with visible requirement context, a proposed architecture action, explicit confirmation controls, and a highlighted result with a navigation link.">
+        <figcaption>
+          <strong>Decision represented</strong>
+          <span>The team demo visibly separates suggestion, confirmation, execution feedback, and navigation. The redraw keeps that interaction sequence while removing the original interface and internal content.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="validation shell" aria-labelledby="validation-heading">
+      <h2 id="validation-heading">Test the interaction with customers.</h2>
+      <div class="validation-copy">
+        <p>We tested the AI-assistant concepts with customers through both user interviews and validation tests. That put the workflow and its interaction direction in front of the people expected to reason with it.</p>
+        <div class="methods" aria-label="Customer evaluation methods">
+          <div class="method">
+            <span class="mono">01</span>
+            <strong>User interviews</strong>
+          </div>
+          <div class="method">
+            <span class="mono">02</span>
+            <strong>Validation tests</strong>
+          </div>
+        </div>
+        <p class="evidence-boundary"><strong>Evidence boundary:</strong> the surviving public-safe record supports these methods and the interaction direction evaluated. It does not support participant counts, customer identities, metrics, or measured product impact.</p>
+      </div>
+    </section>
+
+    <section class="section reading" aria-labelledby="decisions-heading">
+      <div class="section-head">
+        <div class="mono">Interaction decisions</div>
+        <div>
+          <h2 id="decisions-heading">Trust had to be designed into the sequence.</h2>
+          <p>The interaction model centered on the points where an engineer needs to understand, decide, inspect, or recover.</p>
+        </div>
+      </div>
+      <ol class="decisions">
+        <li>
+          <h3>Visible context</h3>
+          <p>Show which requirement, model element, or result the assistant is using. Do not make the source of an action implicit.</p>
+        </li>
+        <li>
+          <h3>Reviewable action</h3>
+          <p>Turn a generated suggestion into a legible proposed change with a target and rationale.</p>
+        </li>
+        <li>
+          <h3>Confirmation</h3>
+          <p>Ask for an explicit decision before changing a consequential engineering artifact.</p>
+        </li>
+        <li>
+          <h3>Traceability</h3>
+          <p>Keep requirements and the components that satisfy them connected as the system evolves.</p>
+        </li>
+        <li>
+          <h3>Navigation</h3>
+          <p>After acting, point back to the changed item so the engineer can inspect the actual artifact.</p>
+        </li>
+        <li>
+          <h3>Human control and recovery</h3>
+          <p>Preserve a clear boundary between proposing, acting, checking the result, and choosing the next step.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="section section-rule" aria-labelledby="traceability-heading">
+      <div class="reading">
+        <div class="section-head">
+          <div class="mono">Interaction decision 02</div>
+          <div>
+            <h2 id="traceability-heading">Make every output navigable.</h2>
+            <p>In an expert tool, the response is not the durable output. The changed requirement, component, model, link, or simulation result is. The assistant should help the engineer reach it.</p>
+          </div>
+        </div>
+      </div>
+      <figure class="wide-figure">
+        <img src="../../work/assets/simulink-ai-assistant/assets/traceability-loop.svg" alt="Traceability loop linking requirements to architecture, implementation, and simulation evidence, then returning to the source through explanation, navigation, inspection, and recovery.">
+        <figcaption>
+          <strong>Decision represented</strong>
+          <span>The demo repeatedly returns attention to the artifact that changed. Explanation and navigation become core parts of the control model.</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="section reading" aria-labelledby="intent-heading">
+      <div class="section-head">
+        <div class="mono">Prompt exploration</div>
+        <div>
+          <h2 id="intent-heading">Engineers express intent in more than one language.</h2>
+          <p>The experiment archive explored different starting materials. The design question asked how each input becomes structured, inspectable work.</p>
+        </div>
+      </div>
+      <div class="intent-spectrum">
+        <div class="intent-row">
+          <span class="mono">01 / Structured</span>
+          <strong>Requirements</strong>
+        </div>
+        <div class="intent-row">
+          <span class="mono">02 / Descriptive</span>
+          <strong>System behavior</strong>
+        </div>
+        <div class="intent-row">
+          <span class="mono">03 / Mathematical</span>
+          <strong>Equations</strong>
+        </div>
+        <div class="intent-row">
+          <span class="mono">04 / Executable</span>
+          <strong>Code</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reflection" aria-labelledby="reflection-heading">
+      <div class="reading reflection-grid">
+        <h2 id="reflection-heading">AI for expert tools is an interaction architecture problem.</h2>
+        <div>
+          <p>This work reinforced a durable principle in my practice: usefulness comes from more than model capability. The product has to make context legible, actions bounded, consequences inspectable, and control recoverable.</p>
+          <p><strong>The assistant should help experts think at a higher level without hiding the system they remain responsible for.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="provenance-note reading" aria-label="Artifact and claim note">
+      <strong>About the evidence:</strong> This case is based on a reviewed local archive of a team concept demo, prompt experiments, assistant UI states, and planning evidence, plus Praneet's confirmed role and customer-testing methods. All visuals on this page are public-safe redraws; no customer data, internal interfaces, source code, service details, or private names are published.
+    </aside>
+
+    <section class="next reading" aria-labelledby="next-heading">
+      <h2 id="next-heading">Need senior design judgment for a complex or AI-enabled product?</h2>
+      <a href="mailto:praneet@alum.mit.edu">Start a conversation</a>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© Praneet Koppula</span>
+    <span><a href="../../">Portfolio</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a> · <a href="https://github.com/mphaxise">GitHub</a></span>
+  </footer>
+</body>
+</html>

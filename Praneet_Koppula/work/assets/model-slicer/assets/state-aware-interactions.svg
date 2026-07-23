@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">State-aware Model Slicer interactions</title>
+  <desc id="desc">An explanatory state map showing that Model Slicer actions change according to whether an object has no role, is a starting point, is excluded, or has a conflicting role.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#173c36"/></marker></defs>
+  <rect width="1200" height="760" rx="28" fill="#fffdf7"/>
+  <text x="64" y="66" fill="#527069" font-family="DM Mono, monospace" font-size="15" letter-spacing="2.2">HISTORICAL DESIGN EXPLORATION · AUGUST 2014</text>
+  <text x="64" y="121" fill="#102823" font-family="Source Serif 4, Georgia, serif" font-size="43" font-weight="700">The menu is a view of system state</text>
+  <text x="64" y="157" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="20">The same object needs different actions as its role changes.</text>
+
+  <g transform="translate(64 220)">
+    <rect width="254" height="410" rx="22" fill="#f6f0e3" stroke="#aebdb5"/>
+    <text x="24" y="38" fill="#173c36" font-family="DM Mono, monospace" font-size="14" letter-spacing="1.5">STATE 01 · NO ROLE</text>
+    <circle cx="127" cy="105" r="38" fill="#dce8e2" stroke="#173c36" stroke-width="3"/>
+    <text x="127" y="112" text-anchor="middle" fill="#173c36" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Block</text>
+    <text x="24" y="181" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="16">Available actions</text>
+    <rect x="24" y="199" width="206" height="50" rx="8" fill="#f9c74f"/><text x="42" y="230" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Add starting point</text>
+    <rect x="24" y="261" width="206" height="50" rx="8" fill="#c7f0dc"/><text x="42" y="292" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Add exclusion</text>
+    <rect x="24" y="323" width="206" height="50" rx="8" fill="#dce8e2"/><text x="42" y="354" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Add constraint</text>
+  </g>
+
+  <path d="M338 425H412" stroke="#173c36" stroke-width="4" marker-end="url(#a)"/>
+
+  <g transform="translate(432 220)">
+    <rect width="336" height="410" rx="22" fill="#173c36"/>
+    <text x="24" y="38" fill="#c7f0dc" font-family="DM Mono, monospace" font-size="14" letter-spacing="1.5">STATE 02 · EXISTING POINT</text>
+    <circle cx="168" cy="106" r="40" fill="#f9c74f" stroke="#fffdf7" stroke-width="3"/>
+    <text x="168" y="102" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="15" font-weight="700">Starting</text>
+    <text x="168" y="121" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="15" font-weight="700">point</text>
+    <text x="24" y="181" fill="#b8cbc4" font-family="DM Sans, Arial, sans-serif" font-size="16">State-aware response</text>
+    <rect x="24" y="199" width="288" height="50" rx="8" fill="#fffdf7"/><text x="42" y="230" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Remove starting point</text>
+    <rect x="24" y="261" width="288" height="50" rx="8" fill="#2e4a44"/><text x="42" y="292" fill="#9fb3aa" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Add exclusion · unavailable</text>
+    <text x="24" y="345" fill="#c7f0dc" font-family="DM Sans, Arial, sans-serif" font-size="16">Keep one role legible at a time.</text>
+  </g>
+
+  <path d="M788 425H862" stroke="#173c36" stroke-width="4" marker-end="url(#a)"/>
+
+  <g transform="translate(882 220)">
+    <rect width="254" height="410" rx="22" fill="#fbe0d3" stroke="#f08a5d" stroke-width="2"/>
+    <text x="24" y="38" fill="#9e3f1e" font-family="DM Mono, monospace" font-size="14" letter-spacing="1.5">STATE 03 · CONFLICT</text>
+    <path d="M83 84L171 146M171 84L83 146" stroke="#f08a5d" stroke-width="9" stroke-linecap="round"/>
+    <text x="24" y="188" fill="#102823" font-family="Source Serif 4, Georgia, serif" font-size="28" font-weight="700">Explain why.</text>
+    <text x="24" y="230" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="17">Do not allow an object</text>
+    <text x="24" y="256" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="17">to appear active in two</text>
+    <text x="24" y="282" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="17">incompatible roles.</text>
+    <rect x="24" y="318" width="206" height="58" rx="8" fill="#f08a5d"/>
+    <text x="127" y="353" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Resolve current role</text>
+  </g>
+
+  <text x="64" y="704" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="17">Redrawn from a Praneet-authored interaction deck. This is an explanatory model, not the shipped interface.</text>
+</svg>

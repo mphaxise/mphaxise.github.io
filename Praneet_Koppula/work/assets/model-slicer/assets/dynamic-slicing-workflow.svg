@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Dynamic slicing as a visible data and time contract</title>
+  <desc id="desc">A workflow diagram showing simulation or coverage data, its recorded interval, a selected valid time window, validation, and refinement of a dynamic slice.</desc>
+  <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#173c36"/></marker></defs>
+  <rect width="1200" height="760" rx="28" fill="#173c36"/>
+  <text x="64" y="66" fill="#8fdcb8" font-family="DM Mono, monospace" font-size="15" letter-spacing="2.2">PROTOTYPE RECONSTRUCTION · JULY–AUGUST 2015</text>
+  <text x="64" y="121" fill="#fffdf7" font-family="Source Serif 4, Georgia, serif" font-size="43" font-weight="700">A slice is only as trustworthy as its data</text>
+  <text x="64" y="157" fill="#b8cbc4" font-family="DM Sans, Arial, sans-serif" font-size="20">Expose the source, recorded interval, selected window, and reason to recalculate.</text>
+
+  <g transform="translate(64 222)">
+    <rect width="252" height="188" rx="20" fill="#fffdf7"/>
+    <text x="24" y="38" fill="#527069" font-family="DM Mono, monospace" font-size="14" letter-spacing="1.4">01 · DATA SOURCE</text>
+    <rect x="24" y="62" width="204" height="44" rx="8" fill="#c7f0dc"/><text x="126" y="90" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Load coverage</text>
+    <text x="126" y="131" text-anchor="middle" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="14">or</text>
+    <rect x="24" y="143" width="204" height="44" rx="8" fill="#f9c74f"/><text x="126" y="171" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Run simulation</text>
+  </g>
+  <path d="M336 316H414" stroke="#8fdcb8" stroke-width="4" marker-end="url(#arr)"/>
+
+  <g transform="translate(434 222)">
+    <rect width="702" height="188" rx="20" fill="#fffdf7"/>
+    <text x="24" y="38" fill="#527069" font-family="DM Mono, monospace" font-size="14" letter-spacing="1.4">02 · RECORDED INTERVAL AND SELECTED WINDOW</text>
+    <line x1="50" y1="112" x2="650" y2="112" stroke="#aebdb5" stroke-width="12" stroke-linecap="round"/>
+    <line x1="197" y1="112" x2="458" y2="112" stroke="#f9c74f" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="197" cy="112" r="13" fill="#f08a5d"/><circle cx="458" cy="112" r="13" fill="#f08a5d"/>
+    <text x="50" y="151" fill="#527069" font-family="DM Mono, monospace" font-size="13">0.0 s</text>
+    <text x="650" y="151" text-anchor="end" fill="#527069" font-family="DM Mono, monospace" font-size="13">10.0 s</text>
+    <text x="197" y="84" text-anchor="middle" fill="#9e3f1e" font-family="DM Mono, monospace" font-size="13">2.5 s</text>
+    <text x="458" y="84" text-anchor="middle" fill="#9e3f1e" font-family="DM Mono, monospace" font-size="13">6.8 s</text>
+    <text x="327" y="174" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="16" font-weight="700">Selected inspection window</text>
+  </g>
+
+  <g transform="translate(64 462)">
+    <rect width="1072" height="198" rx="20" fill="#2c4942" stroke="#527069"/>
+    <text x="24" y="38" fill="#8fdcb8" font-family="DM Mono, monospace" font-size="14" letter-spacing="1.4">03 · VALIDATE, THEN REFINE</text>
+    <g transform="translate(24 66)">
+      <rect width="278" height="92" rx="14" fill="#fffdf7"/>
+      <circle cx="40" cy="46" r="17" fill="#c7f0dc"/><path d="M32 46l6 6 12-15" fill="none" stroke="#173c36" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="72" y="38" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="17" font-weight="700">Window is valid</text>
+      <text x="72" y="62" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="15">Data supports the request</text>
+    </g>
+    <path d="M326 112H390" stroke="#8fdcb8" stroke-width="4" marker-end="url(#arr)"/>
+    <g transform="translate(410 66)">
+      <rect width="276" height="92" rx="14" fill="#f9c74f"/>
+      <text x="138" y="40" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="18" font-weight="700">Refine</text>
+      <text x="138" y="64" text-anchor="middle" fill="#527069" font-family="DM Sans, Arial, sans-serif" font-size="14">Use current data</text>
+    </g>
+    <text x="714" y="114" fill="#8fdcb8" font-family="DM Mono, monospace" font-size="13">OR</text>
+    <g transform="translate(760 66)">
+      <rect width="288" height="92" rx="14" fill="#f08a5d"/>
+      <text x="144" y="40" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="18" font-weight="700">Simulate and refine</text>
+      <text x="144" y="64" text-anchor="middle" fill="#102823" font-family="DM Sans, Arial, sans-serif" font-size="14">Inputs or variables changed</text>
+    </g>
+  </g>
+  <text x="64" y="714" fill="#b8cbc4" font-family="DM Sans, Arial, sans-serif" font-size="17">Historical concept redrawn from Praneet-authored decks. It is not a claim that every control shipped as drawn.</text>
+</svg>

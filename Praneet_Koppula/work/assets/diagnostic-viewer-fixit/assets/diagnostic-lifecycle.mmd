@@ -1,0 +1,14 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"DM Sans, Arial, sans-serif","primaryColor":"#f3c6b7","primaryTextColor":"#142522","primaryBorderColor":"#8c2f20","lineColor":"#8c2f20","secondaryColor":"#f2c94c","tertiaryColor":"#fffdf8"}}}%%
+flowchart LR
+    A["Prevent avoidable diagnostics"] --> B["Detect issue"]
+    B --> C["Explain cause clearly"]
+    C --> D["Offer safe next action"]
+    D --> E{"Can the system fix it?"}
+    E -->|Yes| F["Apply guided or automatic fix"]
+    E -->|No| G["Show actionable guidance"]
+    F --> H["Confirm result"]
+    G --> H
+    H --> I{"Still relevant?"}
+    I -->|Resolved| J["Leave quickly"]
+    I -->|Accepted exception| K["Suppress with context"]
+    K --> L["Review, restore, or govern later"]

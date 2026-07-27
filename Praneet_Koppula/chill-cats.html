@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praneet Koppula — with cats</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f4f1ec;
+  --fg:#2c2c2c;
+  --muted:#7a7670;
+  --accent:#c75c2e;
+  --surface:#fff;
+  --border:#ddd5ca;
+  --cat1:#4a4a4a;
+  --cat2:#e8a44c;
+  --cat3:#f5f0e8;
+  --cat4:#c75c2e;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-display:'Literata','Georgia',serif;
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--fg);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ── LAYOUT ── */
+.page{max-width:640px;margin:0 auto;padding:60px 24px 100px;position:relative}
+
+/* ── HEADER ── */
+.header{text-align:center;margin-bottom:56px;position:relative;padding-top:20px}
+.header h1{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,5vw,2.8rem);
+  font-weight:600;
+  line-height:1.2;
+  letter-spacing:-0.02em;
+  color:var(--fg);
+  margin-bottom:8px;
+}
+.header .sub{color:var(--muted);font-size:0.95rem;margin-bottom:4px}
+
+/* ── CAT: HEADER SLEEPER ── */
+.cat-header{
+  position:absolute;
+  top:-8px;
+  left:50%;
+  transform:translateX(-50%);
+  width:220px;
+  height:70px;
+  z-index:10;
+  pointer-events:none;
+}
+.cat-header .cat-body{
+  position:absolute;
+  bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:140px;height:42px;
+  background:var(--cat1);
+  border-radius:42px 42px 12px 12px;
+  animation:catBreathe 3.5s ease-in-out infinite;
+}
+.cat-header .cat-head{
+  position:absolute;
+  bottom:20px;left:calc(50% - 85px);
+  width:52px;height:44px;
+  background:var(--cat1);
+  border-radius:50% 50% 40% 40%;
+  z-index:2;
+}
+.cat-header .cat-ear-l,.cat-header .cat-ear-r{
+  position:absolute;top:-12px;width:0;height:0;
+  border-left:8px solid transparent;border-right:8px solid transparent;
+  border-bottom:14px solid var(--cat1);
+}
+.cat-header .cat-ear-l{left:4px}
+.cat-header .cat-ear-r{right:4px}
+.cat-header .cat-ear-inner-l,.cat-header .cat-ear-inner-r{
+  position:absolute;top:-8px;width:0;height:0;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-bottom:10px solid #d4956b;
+}
+.cat-header .cat-ear-inner-l{left:7px}
+.cat-header .cat-ear-inner-r{right:7px}
+.cat-header .cat-eye{
+  position:absolute;top:18px;width:8px;height:2px;
+  background:#333;border-radius:2px;
+  animation:catBlink 4s ease-in-out infinite;
+}
+.cat-header .cat-eye.l{left:12px}
+.cat-header .cat-eye.r{right:12px}
+.cat-header .cat-nose{
+  position:absolute;top:26px;left:50%;transform:translateX(-50%);
+  width:5px;height:3px;background:#d4956b;border-radius:50%;
+}
+.cat-header .cat-mouth{
+  position:absolute;top:29px;left:50%;transform:translateX(-50%);
+  width:14px;height:6px;
+  border-bottom:1.5px solid #b08060;
+  border-radius:0 0 50% 50%;
+}
+.cat-header .cat-tail{
+  position:absolute;bottom:8px;right:calc(50% - 100px);
+  width:60px;height:20px;
+  border:4px solid var(--cat1);
+  border-color:var(--cat1) transparent transparent transparent;
+  border-radius:40px 40px 0 0;
+  animation:tailSwish 2.5s ease-in-out infinite;
+  transform-origin:left center;
+}
+.cat-header .cat-zzz{
+  position:absolute;top:-16px;left:calc(50% + 50px);
+  font-size:14px;color:var(--muted);
+  animation:zzzFloat 2s ease-in-out infinite;
+  opacity:0.6;
+}
+
+/* ── SECTIONS ── */
+.section{margin-bottom:48px;position:relative}
+.section-label{
+  font-size:0.7rem;
+  font-weight:600;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:8px;
+}
+.section h2{
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  font-weight:600;
+  line-height:1.3;
+  margin-bottom:16px;
+}
+.section p{color:var(--muted);font-size:0.9rem;margin-bottom:12px}
+
+/* ── STAT CARDS ── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
+.stat-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px 12px;
+  text-align:center;
+  position:relative;
+  overflow:visible;
+}
+.stat-card .num{
+  font-family:var(--font-display);
+  font-size:2rem;
+  font-weight:600;
+  color:var(--fg);
+  line-height:1;
+}
+.stat-card .label{
+  font-size:0.7rem;
+  color:var(--muted);
+  margin-top:4px;
+  line-height:1.3;
+}
+
+/* ── CAT: STAT SITTER ── */
+.cat-stat{
+  position:absolute;
+  top:-28px;
+  right:8px;
+  z-index:5;
+  pointer-events:none;
+}
+.cat-stat .cat-body{
+  width:44px;height:26px;
+  background:var(--cat2);
+  border-radius:26px 26px 8px 8px;
+  animation:catBreathe 4s ease-in-out infinite 0.5s;
+}
+.cat-stat .cat-head{
+  position:absolute;top:-14px;left:-6px;
+  width:28px;height:24px;
+  background:var(--cat2);
+  border-radius:50% 50% 40% 40%;
+}
+.cat-stat .cat-ear-l,.cat-stat .cat-ear-r{
+  position:absolute;top:-7px;width:0;height:0;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-bottom:8px solid var(--cat2);
+}
+.cat-stat .cat-ear-l{left:1px}
+.cat-stat .cat-ear-r{right:1px}
+.cat-stat .cat-eye{
+  position:absolute;top:10px;width:5px;height:1.5px;
+  background:#333;border-radius:2px;
+  animation:catBlink 5s ease-in-out infinite 1s;
+}
+.cat-stat .cat-eye.l{left:6px}
+.cat-stat .cat-eye.r{right:6px}
+.cat-stat .cat-tail{
+  position:absolute;bottom:4px;right:-20px;
+  width:30px;height:12px;
+  border:3px solid var(--cat2);
+  border-color:var(--cat2) transparent transparent transparent;
+  border-radius:30px 30px 0 0;
+  animation:tailSwish 3s ease-in-out infinite 0.3s;
+  transform-origin:left center;
+}
+
+/* ── CASE STUDY CARDS ── */
+.cases{display:flex;flex-direction:column;gap:10px}
+.case-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px 18px;
+  text-decoration:none;
+  color:var(--fg);
+  transition:all 0.25s ease;
+  position:relative;
+}
+.case-card:hover{
+  border-color:var(--accent);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(0,0,0,0.06);
+}
+.case-card .icon{
+  width:36px;height:36px;
+  background:var(--bg);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+  flex-shrink:0;
+}
+.case-card .text{flex:1;min-width:0}
+.case-card .title{
+  font-size:0.85rem;
+  font-weight:600;
+  line-height:1.3;
+  margin-bottom:2px;
+}
+.case-card .meta{font-size:0.7rem;color:var(--muted)}
+.case-card .arrow{
+  font-size:1.1rem;
+  color:var(--muted);
+  transition:color 0.2s;
+}
+.case-card:hover .arrow{color:var(--accent)}
+
+/* ── CAT: LINK BAT ── */
+.cat-bat{
+  position:absolute;
+  top:-22px;
+  right:30px;
+  z-index:5;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.3s ease;
+}
+.case-card:hover .cat-bat{opacity:1}
+.cat-bat .cat-body{
+  width:38px;height:22px;
+  background:var(--cat3);
+  border-radius:22px 22px 6px 6px;
+}
+.cat-bat .cat-head{
+  position:absolute;top:-12px;left:-4px;
+  width:24px;height:20px;
+  background:var(--cat3);
+  border-radius:50% 50% 40% 40%;
+}
+.cat-bat .cat-ear-l,.cat-bat .cat-ear-r{
+  position:absolute;top:-6px;width:0;height:0;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-bottom:7px solid var(--cat3);
+}
+.cat-bat .cat-ear-l{left:0}
+.cat-bat .cat-ear-r{right:0}
+.cat-bat .cat-eye{
+  position:absolute;top:8px;width:4px;height:4px;
+  background:#2c2c2c;border-radius:50%;
+}
+.cat-bat .cat-eye.l{left:5px}
+.cat-bat .cat-eye.r{right:5px}
+.cat-bat .cat-paw{
+  position:absolute;bottom:-8px;right:-6px;
+  width:14px;height:14px;
+  background:var(--cat3);
+  border-radius:50%;
+  animation:pawBat 0.4s ease-in-out infinite;
+}
+
+/* ── INFOGRAPHIC: SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.skill-item{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+  position:relative;
+}
+.skill-item .skill-icon{font-size:1.4rem;margin-bottom:6px}
+.skill-item .skill-name{font-size:0.8rem;font-weight:600;margin-bottom:2px}
+.skill-item .skill-desc{font-size:0.7rem;color:var(--muted);line-height:1.4}
+.skill-item .skill-bar{
+  margin-top:8px;
+  height:3px;
+  background:var(--bg);
+  border-radius:2px;
+  overflow:hidden;
+}
+.skill-item .skill-fill{
+  height:100%;
+  background:var(--accent);
+  border-radius:2px;
+  animation:barGrow 1.5s ease-out forwards;
+}
+
+/* ── CAT: CORNER PEEKER ── */
+.cat-corner{
+  position:absolute;
+  top:-30px;
+  right:-20px;
+  z-index:5;
+  pointer-events:none;
+}
+.cat-corner .cat-body{
+  width:50px;height:30px;
+  background:var(--cat4);
+  border-radius:30px 30px 10px 10px;
+  animation:catBreathe 3s ease-in-out infinite 1s;
+}
+.cat-corner .cat-head{
+  position:absolute;top:-16px;left:10px;
+  width:30px;height:26px;
+  background:var(--cat4);
+  border-radius:50% 50% 40% 40%;
+  z-index:2;
+}
+.cat-corner .cat-ear-l,.cat-corner .cat-ear-r{
+  position:absolute;top:-8px;width:0;height:0;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-bottom:9px solid var(--cat4);
+}
+.cat-corner .cat-ear-l{left:0}
+.cat-corner .cat-ear-r{right:0}
+.cat-corner .cat-ear-inner-l,.cat-corner .cat-ear-inner-r{
+  position:absolute;top:-5px;width:0;height:0;
+  border-left:3px solid transparent;border-right:3px solid transparent;
+  border-bottom:6px solid #e8a070;
+}
+.cat-corner .cat-ear-inner-l{left:2px}
+.cat-corner .cat-ear-inner-r{right:2px}
+.cat-corner .cat-eye{
+  position:absolute;top:10px;width:5px;height:5px;
+  background:#2c2c2c;border-radius:50%;
+  animation:catLookAround 6s ease-in-out infinite;
+}
+.cat-corner .cat-eye.l{left:6px}
+.cat-corner .cat-eye.r{right:6px}
+.cat-corner .cat-nose{
+  position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  width:4px;height:2.5px;background:#e8a070;border-radius:50%;
+}
+.cat-corner .cat-tail{
+  position:absolute;bottom:6px;right:-16px;
+  width:30px;height:14px;
+  border:3px solid var(--cat4);
+  border-color:var(--cat4) transparent transparent transparent;
+  border-radius:30px 30px 0 0;
+  animation:tailSwish 2s ease-in-out infinite;
+  transform-origin:left center;
+}
+
+/* ── ESSAY LINK ── */
+.essay-link{
+  display:block;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+  text-decoration:none;
+  color:var(--fg);
+  transition:all 0.25s ease;
+  position:relative;
+}
+.essay-link:hover{
+  border-color:var(--accent);
+  transform:translateY(-1px);
+}
+.essay-link .essay-icon{font-size:2rem;margin-bottom:8px}
+.essay-link .essay-title{
+  font-family:var(--font-display);
+  font-size:1.1rem;
+  font-weight:600;
+  margin-bottom:4px;
+}
+.essay-link .essay-desc{font-size:0.8rem;color:var(--muted);line-height:1.5}
+.essay-link .essay-arrow{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-size:1.2rem;color:var(--muted);
+  transition:color 0.2s;
+}
+.essay-link:hover .essay-arrow{color:var(--accent)}
+
+/* ── CAT: ESSAY SLEEPER ── */
+.cat-essay{
+  position:absolute;
+  bottom:-24px;
+  right:16px;
+  z-index:5;
+  pointer-events:none;
+}
+.cat-essay .cat-body{
+  width:60px;height:32px;
+  background:var(--cat1);
+  border-radius:32px 32px 10px 10px;
+  position:relative;
+  animation:catBreathe 3.2s ease-in-out infinite 0.8s;
+}
+.cat-essay .cat-curl{
+  position:absolute;top:6px;left:10px;
+  width:40px;height:20px;
+  border:4px solid var(--cat1);
+  border-color:transparent transparent var(--cat1) transparent;
+  border-radius:0 0 20px 20px;
+}
+.cat-essay .cat-head{
+  position:absolute;top:-12px;right:-8px;
+  width:28px;height:22px;
+  background:var(--cat1);
+  border-radius:50% 50% 40% 40%;
+  z-index:2;
+}
+.cat-essay .cat-ear-l,.cat-essay .cat-ear-r{
+  position:absolute;top:-7px;width:0;height:0;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-bottom:8px solid var(--cat1);
+}
+.cat-essay .cat-ear-l{left:0}
+.cat-essay .cat-ear-r{right:0}
+.cat-essay .cat-eye{
+  position:absolute;top:9px;width:5px;height:1.5px;
+  background:#555;border-radius:2px;
+  animation:catBlink 3.5s ease-in-out infinite 0.5s;
+}
+.cat-essay .cat-eye.l{left:5px}
+.cat-essay .cat-eye.r{right:5px}
+.cat-essay .cat-zzz{
+  position:absolute;top:-12px;right:-10px;
+  font-size:11px;color:var(--muted);
+  animation:zzzFloat 2.5s ease-in-out infinite 1s;
+  opacity:0.5;
+}
+
+/* ── FOOTER ── */
+.footer{
+  text-align:center;
+  margin-top:48px;
+  padding-top:32px;
+  border-top:1px solid var(--border);
+  position:relative;
+}
+.footer p{font-size:0.8rem;color:var(--muted)}
+.footer a{color:var(--accent);text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* ── CAT: FOOTER CURL ── */
+.cat-footer{
+  position:absolute;
+  top:-20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:5;
+  pointer-events:none;
+}
+.cat-footer .cat-body{
+  width:70px;height:30px;
+  background:#b8a08a;
+  border-radius:30px 30px 10px 10px;
+  animation:catBreathe 3.8s ease-in-out infinite 1.5s;
+  position:relative;
+}
+.cat-footer .cat-head{
+  position:absolute;top:-14px;left:-8px;
+  width:32px;height:26px;
+  background:#b8a08a;
+  border-radius:50% 50% 40% 40%;
+  z-index:2;
+}
+.cat-footer .cat-ear-l,.cat-footer .cat-ear-r{
+  position:absolute;top:-8px;width:0;height:0;
+  border-left:5px solid transparent;border-right:5px solid transparent;
+  border-bottom:9px solid #b8a08a;
+}
+.cat-footer .cat-ear-l{left:0}
+.cat-footer .cat-ear-r{right:0}
+.cat-footer .cat-ear-inner-l,.cat-footer .cat-ear-inner-r{
+  position:absolute;top:-5px;width:0;height:0;
+  border-left:3px solid transparent;border-right:3px solid transparent;
+  border-bottom:6px solid #d4b89a;
+}
+.cat-footer .cat-ear-inner-l{left:2px}
+.cat-footer .cat-ear-inner-r{right:2px}
+.cat-footer .cat-eye{
+  position:absolute;top:10px;width:5px;height:1.5px;
+  background:#555;border-radius:2px;
+  animation:catBlink 4.5s ease-in-out infinite 2s;
+}
+.cat-footer .cat-eye.l{left:7px}
+.cat-footer .cat-eye.r{right:7px}
+.cat-footer .cat-nose{
+  position:absolute;top:15px;left:50%;transform:translateX(-50%);
+  width:4px;height:2.5px;background:#d4b89a;border-radius:50%;
+}
+.cat-footer .cat-tail{
+  position:absolute;bottom:4px;right:-18px;
+  width:35px;height:14px;
+  border:3px solid #b8a08a;
+  border-color:#b8a08a transparent transparent transparent;
+  border-radius:35px 35px 0 0;
+  animation:tailSwish 2.8s ease-in-out infinite 0.6s;
+  transform-origin:left center;
+}
+
+/* ── CAT: WALKER ── */
+.cat-walker{
+  position:fixed;
+  bottom:20px;
+  z-index:100;
+  pointer-events:none;
+  animation:catWalk 18s linear infinite;
+}
+.cat-walker .cat-body{
+  width:36px;height:22px;
+  background:#8b7355;
+  border-radius:22px 22px 8px 8px;
+  position:relative;
+  animation:catBreathe 2.8s ease-in-out infinite;
+}
+.cat-walker .cat-head{
+  position:absolute;top:-10px;left:-6px;
+  width:22px;height:18px;
+  background:#8b7355;
+  border-radius:50% 50% 40% 40%;
+  z-index:2;
+}
+.cat-walker .cat-ear-l,.cat-walker .cat-ear-r{
+  position:absolute;top:-6px;width:0;height:0;
+  border-left:4px solid transparent;border-right:4px solid transparent;
+  border-bottom:7px solid #8b7355;
+}
+.cat-walker .cat-ear-l{left:0}
+.cat-walker .cat-ear-r{right:0}
+.cat-walker .cat-eye{
+  position:absolute;top:7px;width:4px;height:4px;
+  background:#2c2c2c;border-radius:50%;
+}
+.cat-walker .cat-eye.l{left:4px}
+.cat-walker .cat-eye.r{right:4px}
+.cat-walker .cat-leg{
+  position:absolute;bottom:-6px;width:5px;height:8px;
+  background:#8b7355;border-radius:2px;
+}
+.cat-walker .cat-leg.fl{left:4px;animation:legWalk 0.5s ease-in-out infinite}
+.cat-walker .cat-leg.fr{left:12px;animation:legWalk 0.5s ease-in-out infinite 0.25s}
+.cat-walker .cat-leg.bl{right:12px;animation:legWalk 0.5s ease-in-out infinite 0.25s}
+.cat-walker .cat-leg.br{right:4px;animation:legWalk 0.5s ease-in-out infinite}
+.cat-walker .cat-tail{
+  position:absolute;bottom:4px;right:-14px;
+  width:24px;height:10px;
+  border:3px solid #8b7355;
+  border-color:#8b7355 transparent transparent transparent;
+  border-radius:24px 24px 0 0;
+  animation:tailSwish 1.5s ease-in-out infinite;
+  transform-origin:left center;
+}
+
+/* ── KEYFRAMES ── */
+@keyframes catBreathe{
+  0%,100%{transform:scaleY(1)}
+  50%{transform:scaleY(1.04)}
+}
+@keyframes catBlink{
+  0%,42%,48%,100%{height:2px;border-radius:2px}
+  45%{height:0.5px;border-radius:1px}
+}
+@keyframes tailSwish{
+  0%,100%{transform:rotate(-5deg)}
+  50%{transform:rotate(12deg)}
+}
+@keyframes zzzFloat{
+  0%,100%{transform:translateY(0);opacity:0.5}
+  50%{transform:translateY(-6px);opacity:0.8}
+}
+@keyframes catLookAround{
+  0%,30%,100%{transform:translateX(0)}
+  40%{transform:translateX(2px)}
+  60%{transform:translateX(-2px)}
+}
+@keyframes pawBat{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-4px) rotate(-15deg)}
+}
+@keyframes barGrow{
+  from{width:0}to{width:var(--bar-width)}
+}
+@keyframes catWalk{
+  0%{left:-60px}
+  100%{left:calc(100vw + 60px)}
+}
+@keyframes legWalk{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-2px)}
+}
+@keyframes fadeSlideUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;animation:fadeSlideUp 0.6s ease-out forwards}
+.reveal:nth-child(2){animation-delay:0.1s}
+.reveal:nth-child(3){animation-delay:0.2s}
+.reveal:nth-child(4){animation-delay:0.3s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .skills-grid{grid-template-columns:1fr}
+  .cat-header{width:160px;height:50px}
+  .cat-header .cat-body{width:100px;height:30px}
+  .cat-header .cat-head{width:38px;height:32px;left:calc(50% - 62px)}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="cat-header">
+      <div class="cat-body"></div>
+      <div class="cat-head">
+        <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+        <div class="cat-ear-inner-l"></div><div class="cat-ear-inner-r"></div>
+        <div class="cat-eye l"></div><div class="cat-eye r"></div>
+        <div class="cat-nose"></div>
+        <div class="cat-mouth"></div>
+      </div>
+      <div class="cat-tail"></div>
+      <div class="cat-zzz">z z z</div>
+    </div>
+    <h1>Praneet Koppula</h1>
+    <p class="sub">Designing systems people actually use</p>
+  </header>
+
+  <!-- ── STATS ── -->
+  <section class="section">
+    <div class="stats reveal">
+      <div class="stat-card">
+        <div class="cat-stat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-tail"></div>
+        </div>
+        <div class="num">13</div>
+        <div class="label">Case Studies</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">12+</div>
+        <div class="label">Years in UX</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">120+</div>
+        <div class="label">Products touched</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHAT I DO ── -->
+  <section class="section">
+    <div class="section-label">What I do</div>
+    <h2>Product design, design systems, prototypes, decks, dashboards, marketing</h2>
+    <p>I work across the full arc — from field research and workflow analysis to interaction design, visual systems, and launch. Most of my work lives at MathWorks (Simulink, MATLAB tooling), with prior chapters at HFI and Nokia.</p>
+  </section>
+
+  <!-- ── SKILLS ── -->
+  <section class="section">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid reveal">
+      <div class="skill-item">
+        <div class="skill-icon">🔬</div>
+        <div class="skill-name">Research</div>
+        <div class="skill-desc">Field studies, usability testing, workflow analysis</div>
+        <div class="skill-bar"><div class="skill-fill" style="--bar-width:92%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">Systems Design</div>
+        <div class="skill-desc">Design systems, patterns, consistency at scale</div>
+        <div class="skill-bar"><div class="skill-fill" style="--bar-width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">🖌️</div>
+        <div class="skill-name">Interaction Design</div>
+        <div class="skill-desc">Task flows, prototypes, information architecture</div>
+        <div class="skill-bar"><div class="skill-fill" style="--bar-width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-icon">📊</div>
+        <div class="skill-name">UX Leadership</div>
+        <div class="skill-desc">Org design, capacity planning, coaching</div>
+        <div class="skill-bar"><div class="skill-fill" style="--bar-width:88%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CASE STUDIES ── -->
+  <section class="section">
+    <div class="section-label">Selected Work</div>
+    <div class="cases">
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🤖</div>
+        <div class="text">
+          <div class="title">Designing an AI assistant for model-based engineering</div>
+          <div class="meta">AI interaction vision · 2023–2024</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🔧</div>
+        <div class="text">
+          <div class="title">Making Simulink diagnostics actionable</div>
+          <div class="meta">Interaction design · 2014–2017</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">📐</div>
+        <div class="text">
+          <div class="title">Scaling task-based UI design across engineering apps</div>
+          <div class="meta">Design systems · 2014–2019</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">📋</div>
+        <div class="text">
+          <div class="title">Turning customer workflows into a UX portfolio operating system</div>
+          <div class="meta">Quality at scale · 2020–2023</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🏗️</div>
+        <div class="text">
+          <div class="title">Scaling a distributed UX organization through leadership systems</div>
+          <div class="meta">Organization design · 2022–2024</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🏫</div>
+        <div class="text">
+          <div class="title">Designing a classroom computer as a classroom system</div>
+          <div class="meta">Field research · 2008–2009</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">💰</div>
+        <div class="text">
+          <div class="title">Designing mobile money from household financial life</div>
+          <div class="meta">Field research · 2009</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🗺️</div>
+        <div class="text">
+          <div class="title">Researching urban wayfinding in the field</div>
+          <div class="meta">Field research · 2010</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🧪</div>
+        <div class="text">
+          <div class="title">Agent-callable UX validation for AI-generated apps</div>
+          <div class="meta">AI experiment · 2026</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat">
+          <div class="cat-body"></div>
+          <div class="cat-head">
+            <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+            <div class="cat-eye l"></div><div class="cat-eye r"></div>
+          </div>
+          <div class="cat-paw"></div>
+        </div>
+        <div class="icon">🏠</div>
+        <div class="text">
+          <div class="title">Turning mobile acquisition data into a clearer homepage</div>
+          <div class="meta">Growth design · 2026</div>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── ESSAY ── -->
+  <section class="section">
+    <div class="section-label">Writing</div>
+    <a href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener" class="essay-link">
+      <div class="cat-essay">
+        <div class="cat-body">
+          <div class="cat-curl"></div>
+        </div>
+        <div class="cat-head">
+          <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+          <div class="cat-eye l"></div><div class="cat-eye r"></div>
+        </div>
+        <div class="cat-zzz">z z</div>
+      </div>
+      <div class="essay-icon">✍️</div>
+      <div class="essay-title">Closed-Loop Experience Design</div>
+      <div class="essay-desc">A four-part essay on connecting research, design, engineering, and measurement into one accountable system.</div>
+      <div class="essay-arrow">→</div>
+    </a>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="cat-footer">
+      <div class="cat-body"></div>
+      <div class="cat-head">
+        <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+        <div class="cat-ear-inner-l"></div><div class="cat-ear-inner-r"></div>
+        <div class="cat-eye l"></div><div class="cat-eye r"></div>
+        <div class="cat-nose"></div>
+      </div>
+      <div class="cat-tail"></div>
+    </div>
+    <p>Built with care. <a href="https://mphaxise.github.io/Praneet_Koppula/" target="_blank" rel="noopener">Full portfolio →</a></p>
+  </footer>
+
+</div>
+
+<!-- ── WALKING CAT ── -->
+<div class="cat-walker">
+  <div class="cat-body">
+    <div class="cat-head">
+      <div class="cat-ear-l"></div><div class="cat-ear-r"></div>
+      <div class="cat-eye l"></div><div class="cat-eye r"></div>
+    </div>
+    <div class="cat-leg fl"></div><div class="cat-leg fr"></div>
+    <div class="cat-leg bl"></div><div class="cat-leg br"></div>
+    <div class="cat-tail"></div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.reveal').forEach(el => {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.animationPlayState = 'running'; obs.unobserve(e.target); }});
+  }, { threshold: 0.2 });
+  el.style.animationPlayState = 'paused';
+  obs.observe(el);
+});
+</script>
+
+</body>
+</html>

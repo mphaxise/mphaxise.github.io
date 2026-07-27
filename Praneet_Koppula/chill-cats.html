@@ -17,53 +17,43 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .page{max-width:640px;margin:0 auto;padding:60px 24px 100px;position:relative}
 
-/* ── HEADER ── */
 .header{text-align:center;margin-bottom:56px;position:relative;padding-top:20px}
 .header h1{font-family:var(--font-display);font-size:clamp(2rem,5vw,2.8rem);font-weight:600;line-height:1.2;letter-spacing:-0.02em;color:var(--fg);margin-bottom:8px}
 .header .sub{color:var(--muted);font-size:0.95rem;margin-bottom:4px}
 
-/* ── REAL CAT IMAGES ── */
 .rcat{position:absolute;pointer-events:none;z-index:10}
 .rcat img{display:block;width:100%;height:100%;object-fit:cover;border-radius:var(--r,12px);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.12))}
 
-/* Header sleeper — loafing cat across the top */
 .rcat-header{top:-10px;left:50%;transform:translateX(-50%);width:180px;height:65px;--r:32px 32px 12px 12px;animation:breatheCenter 4s ease-in-out infinite}
 .rcat-header::after{content:'z z z';position:absolute;top:-14px;right:10px;font-size:13px;color:var(--muted);animation:zzzFloat 2.5s ease-in-out infinite;opacity:0.55}
 
-/* Stat cat — perched on first card */
 .rcat-stat{top:-32px;right:6px;width:60px;height:55px;--r:16px 16px 8px 8px;animation:breathe 4.5s ease-in-out infinite 0.5s}
-
-/* Corner peeker */
 .rcat-corner{top:-20px;right:-24px;width:72px;height:65px;--r:20px;animation:peek 5s ease-in-out infinite}
-
-/* Essay sleeper — curled up */
 .rcat-essay{bottom:-16px;right:12px;width:80px;height:55px;--r:24px 24px 10px 10px;animation:breathe 3.5s ease-in-out infinite 0.8s}
 .rcat-essay::after{content:'z z';position:absolute;top:-10px;right:-6px;font-size:11px;color:var(--muted);animation:zzzFloat 2.8s ease-in-out infinite 1s;opacity:0.45}
-
-/* Footer cat */
 .rcat-footer{top:-22px;left:50%;transform:translateX(-50%);width:120px;height:50px;--r:28px 28px 10px 10px;animation:breatheCenter 4.2s ease-in-out infinite 1.5s}
 
-/* Link bat — paw on hover */
 .cat-bat{position:absolute;top:-38px;right:24px;width:52px;height:48px;z-index:5;pointer-events:none;opacity:0;transition:opacity 0.3s ease,transform 0.3s ease;transform:translateY(-6px);--r:14px 14px 6px 6px}
 .case-card:hover .cat-bat{opacity:1;transform:translateY(0)}
 
-/* Walker — cat crossing the bottom */
 .rcat-walker{position:fixed;bottom:16px;width:70px;height:50px;z-index:100;pointer-events:none;--r:18px 18px 8px 8px;animation:catWalk 20s linear infinite}
 .rcat-walker img{animation:legBob 0.6s ease-in-out infinite}
 
-/* ── SECTIONS ── */
 .section{margin-bottom:48px;position:relative}
 .section-label{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
 .section h2{font-family:var(--font-display);font-size:1.5rem;font-weight:600;line-height:1.3;margin-bottom:16px}
 .section p{color:var(--muted);font-size:0.9rem;margin-bottom:12px}
 
-/* ── STAT CARDS ── */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 12px;text-align:center;position:relative;overflow:visible}
 .stat-card .num{font-family:var(--font-display);font-size:2rem;font-weight:600;color:var(--fg);line-height:1}
 .stat-card .label{font-size:0.7rem;color:var(--muted);margin-top:4px;line-height:1.3}
 
-/* ── CASE STUDY CARDS ── */
+.principles{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.principle{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.principle strong{font-size:0.85rem;display:block;margin-bottom:2px}
+.principle span{font-size:0.78rem;color:var(--muted);line-height:1.4}
+
 .cases{display:flex;flex-direction:column;gap:10px}
 .case-card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;text-decoration:none;color:var(--fg);transition:all 0.25s ease;position:relative}
 .case-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,0.06)}
@@ -74,16 +64,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-heig
 .case-card .arrow{font-size:1.1rem;color:var(--muted);transition:color 0.2s}
 .case-card:hover .arrow{color:var(--accent)}
 
-/* ── SKILLS ── */
-.skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.skill-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative}
-.skill-item .skill-icon{font-size:1.4rem;margin-bottom:6px}
-.skill-item .skill-name{font-size:0.8rem;font-weight:600;margin-bottom:2px}
-.skill-item .skill-desc{font-size:0.7rem;color:var(--muted);line-height:1.4}
-.skill-item .skill-bar{margin-top:8px;height:3px;background:var(--bg);border-radius:2px;overflow:hidden}
-.skill-item .skill-fill{height:100%;background:var(--accent);border-radius:2px;animation:barGrow 1.5s ease-out forwards}
+.group-label{font-size:0.65rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin:16px 0 6px;padding-left:2px}
 
-/* ── ESSAY LINK ── */
 .essay-link{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-decoration:none;color:var(--fg);transition:all 0.25s ease;position:relative}
 .essay-link:hover{border-color:var(--accent);transform:translateY(-1px)}
 .essay-link .essay-icon{font-size:2rem;margin-bottom:8px}
@@ -92,26 +74,23 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-heig
 .essay-link .essay-arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:1.2rem;color:var(--muted);transition:color 0.2s}
 .essay-link:hover .essay-arrow{color:var(--accent)}
 
-/* ── FOOTER ── */
 .footer{text-align:center;margin-top:48px;padding-top:32px;border-top:1px solid var(--border);position:relative}
 .footer p{font-size:0.8rem;color:var(--muted)}
 .footer a{color:var(--accent);text-decoration:none}
 .footer a:hover{text-decoration:underline}
 
-/* ── KEYFRAMES ── */
 @keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.03)}}
 @keyframes breatheCenter{0%,100%{transform:translateX(-50%) scaleY(1)}50%{transform:translateX(-50%) scaleY(1.03)}}
 @keyframes peek{0%,100%{transform:translateX(0)}50%{transform:translateX(-4px)}}
 @keyframes zzzFloat{0%,100%{transform:translateY(0);opacity:0.45}50%{transform:translateY(-5px);opacity:0.7}}
 @keyframes catWalk{0%{left:-80px}100%{left:calc(100vw + 80px)}}
 @keyframes legBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
-@keyframes barGrow{from{width:0}to{width:var(--bar-width)}}
 @keyframes fadeSlideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;animation:fadeSlideUp 0.6s ease-out forwards}
 .reveal:nth-child(2){animation-delay:0.1s}
 .reveal:nth-child(3){animation-delay:0.2s}
 .reveal:nth-child(4){animation-delay:0.3s}
-@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}.skills-grid{grid-template-columns:1fr}.rcat-header{width:130px;height:48px}}
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr)}.rcat-header{width:130px;height:48px}}
 </style>
 </head>
 <body>
@@ -119,130 +98,132 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-heig
 
   <header class="header">
     <div class="rcat rcat-header">
-      <img src="https://cdn2.thecatapi.com/images/MTk4ODA2Mw.jpg" alt="cat loafing on header" loading="lazy">
+      <img src="cats/cat1.jpg" alt="cat loafing on header" loading="lazy">
     </div>
     <h1>Praneet Koppula</h1>
-    <p class="sub">Designing systems people actually use</p>
+    <p class="sub">Product design leadership · Expert engineering tools · AI design experiments</p>
   </header>
 
   <section class="section">
     <div class="stats reveal">
       <div class="stat-card">
         <div class="rcat rcat-stat">
-          <img src="https://cdn2.thecatapi.com/images/MTk3Njg2NA.jpg" alt="cat sitting on stat" loading="lazy">
+          <img src="cats/cat2.jpg" alt="cat sitting on stat" loading="lazy">
         </div>
-        <div class="num">13</div>
-        <div class="label">Case Studies</div>
+        <div class="num">18+</div>
+        <div class="label">Years in design</div>
       </div>
       <div class="stat-card">
-        <div class="num">12+</div>
-        <div class="label">Years in UX</div>
+        <div class="num">120</div>
+        <div class="label">Products in governance ecosystem</div>
       </div>
       <div class="stat-card">
-        <div class="num">120+</div>
-        <div class="label">Products touched</div>
+        <div class="num">4</div>
+        <div class="label">Countries in leadership context</div>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="section-label">What I do</div>
-    <h2>Product design, design systems, prototypes, decks, dashboards, marketing</h2>
-    <p>I work across the full arc — from field research and workflow analysis to interaction design, visual systems, and launch. Most of my work lives at MathWorks (Simulink, MATLAB tooling), with prior chapters at HFI and Nokia.</p>
-  </section>
-
-  <section class="section">
-    <div class="section-label">Skills</div>
-    <div class="skills-grid reveal">
-      <div class="skill-item">
-        <div class="rcat rcat-corner">
-          <img src="https://cdn2.thecatapi.com/images/MTk4NDAyMw.jpg" alt="cat peeking from behind" loading="lazy">
-        </div>
-        <div class="skill-icon">🔬</div>
-        <div class="skill-name">Research</div>
-        <div class="skill-desc">Field studies, usability testing, workflow analysis</div>
-        <div class="skill-bar"><div class="skill-fill" style="--bar-width:92%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-icon">⚙️</div>
-        <div class="skill-name">Systems Design</div>
-        <div class="skill-desc">Design systems, patterns, consistency at scale</div>
-        <div class="skill-bar"><div class="skill-fill" style="--bar-width:95%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-icon">🖌️</div>
-        <div class="skill-name">Interaction Design</div>
-        <div class="skill-desc">Task flows, prototypes, information architecture</div>
-        <div class="skill-bar"><div class="skill-fill" style="--bar-width:90%"></div></div>
-      </div>
-      <div class="skill-item">
-        <div class="skill-icon">📊</div>
-        <div class="skill-name">UX Leadership</div>
-        <div class="skill-desc">Org design, capacity planning, coaching</div>
-        <div class="skill-bar"><div class="skill-fill" style="--bar-width:88%"></div></div>
-      </div>
+    <h2>Complex software should feel clear enough to trust.</h2>
+    <p>I lead design teams and stay close to the work, making expert-level engineering tools and AI-assisted workflows intuitive without hiding the complexity that makes them powerful.</p>
+    <div class="principles">
+      <div class="principle"><strong>Make state visible</strong><span>Users should understand what the system knows, changed, and needs from them.</span></div>
+      <div class="principle"><strong>Earn trust through control</strong><span>Preview, confirmation, correction, and recovery matter more than artificial certainty.</span></div>
+      <div class="principle"><strong>Scale judgment, not sameness</strong><span>Standards should raise quality while preserving room for the problem to shape the solution.</span></div>
     </div>
   </section>
 
   <section class="section">
     <div class="section-label">Selected Work</div>
+
+    <div class="group-label">AI &amp; Interaction</div>
     <div class="cases">
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2MA.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat3.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🤖</div>
-        <div class="text"><div class="title">Designing an AI assistant for model-based engineering</div><div class="meta">AI interaction vision · 2023–2024</div></div>
+        <div class="text"><div class="title">An AI partner inside the engineering workflow</div><div class="meta">AI product vision · 2023–2024</div></div>
+        <div class="arrow">→</div>
+      </a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat"><img src="cats/cat4.jpg" alt="cat" loading="lazy"></div>
+        <div class="icon">🔍</div>
+        <div class="text"><div class="title">Making complex model behavior inspectable</div><div class="meta">Technical workflow design · 2014–2016</div></div>
         <div class="arrow">→</div>
       </a>
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2MQ.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat5.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🔧</div>
         <div class="text"><div class="title">Making Simulink diagnostics actionable</div><div class="meta">Interaction design · 2014–2017</div></div>
         <div class="arrow">→</div>
       </a>
+    </div>
+
+    <div class="group-label">Design Systems &amp; Quality</div>
+    <div class="cases">
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2Mg.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat6.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">📐</div>
         <div class="text"><div class="title">Scaling task-based UI design across engineering apps</div><div class="meta">Design systems · 2014–2019</div></div>
         <div class="arrow">→</div>
       </a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2Mw.jpg" alt="cat reaching" loading="lazy"></div>
-        <div class="icon">📋</div>
-        <div class="text"><div class="title">Turning customer workflows into a UX portfolio operating system</div><div class="meta">Quality at scale · 2020–2023</div></div>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat"><img src="cats/cat7.jpg" alt="cat" loading="lazy"></div>
+        <div class="icon">🖌️</div>
+        <div class="text"><div class="title">Reimagining Mask Editor as a technical authoring environment</div><div class="meta">Technical authoring · 2014–2017</div></div>
         <div class="arrow">→</div>
       </a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/" target="_blank" rel="noopener" class="case-card">
+        <div class="cat-bat"><img src="cats/cat8.jpg" alt="cat" loading="lazy"></div>
+        <div class="icon">📋</div>
+        <div class="text"><div class="title">Turning design judgment into a team capability</div><div class="meta">Quality at scale · 2020–2023</div></div>
+        <div class="arrow">→</div>
+      </a>
+    </div>
+
+    <div class="group-label">Leadership</div>
+    <div class="cases">
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2NA.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat9.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🏗️</div>
         <div class="text"><div class="title">Scaling a distributed UX organization through leadership systems</div><div class="meta">Organization design · 2022–2024</div></div>
         <div class="arrow">→</div>
       </a>
+    </div>
+
+    <div class="group-label">Field Research (HFI)</div>
+    <div class="cases">
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2NQ.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat10.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🏫</div>
         <div class="text"><div class="title">Designing a classroom computer as a classroom system</div><div class="meta">Field research · 2008–2009</div></div>
         <div class="arrow">→</div>
       </a>
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2Ng.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat11.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">💰</div>
         <div class="text"><div class="title">Designing mobile money from household financial life</div><div class="meta">Field research · 2009</div></div>
         <div class="arrow">→</div>
       </a>
       <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2Nw.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat12.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🗺️</div>
         <div class="text"><div class="title">Researching urban wayfinding in the field</div><div class="meta">Field research · 2010</div></div>
         <div class="arrow">→</div>
       </a>
+    </div>
+
+    <div class="group-label">Experiments</div>
+    <div class="cases">
       <a href="https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2OA.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat1.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🧪</div>
         <div class="text"><div class="title">Agent-callable UX validation for AI-generated apps</div><div class="meta">AI experiment · 2026</div></div>
         <div class="arrow">→</div>
       </a>
       <a href="https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html" target="_blank" rel="noopener" class="case-card">
-        <div class="cat-bat"><img src="https://cdn2.thecatapi.com/images/MTk4NTA2OQ.jpg" alt="cat reaching" loading="lazy"></div>
+        <div class="cat-bat"><img src="cats/cat2.jpg" alt="cat" loading="lazy"></div>
         <div class="icon">🏠</div>
         <div class="text"><div class="title">Turning mobile acquisition data into a clearer homepage</div><div class="meta">Growth design · 2026</div></div>
         <div class="arrow">→</div>
@@ -254,26 +235,26 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-heig
     <div class="section-label">Writing</div>
     <a href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener" class="essay-link">
       <div class="rcat rcat-essay">
-        <img src="https://cdn2.thecatapi.com/images/MTk4NDAyMQ.jpg" alt="cat sleeping on essay" loading="lazy">
+        <img src="cats/cat5.jpg" alt="cat sleeping on essay" loading="lazy">
       </div>
       <div class="essay-icon">✍️</div>
       <div class="essay-title">Closed-Loop Experience Design</div>
-      <div class="essay-desc">A four-part essay on connecting research, design, engineering, and measurement into one accountable system.</div>
+      <div class="essay-desc">A four-part essay tracing an idea from designing beside a developer in 2014 to building with coding agents — and how the same relationship could help designers shape physical system behavior.</div>
       <div class="essay-arrow">→</div>
     </a>
   </section>
 
   <footer class="footer">
     <div class="rcat rcat-footer">
-      <img src="https://cdn2.thecatapi.com/images/MTk4NDAyMg.jpg" alt="cat lying on footer" loading="lazy">
+      <img src="cats/cat4.jpg" alt="cat lying on footer" loading="lazy">
     </div>
-    <p>Built with care. <a href="https://mphaxise.github.io/Praneet_Koppula/" target="_blank" rel="noopener">Full portfolio →</a></p>
+    <p>Made with ☕ and ❤️ in SF. <a href="https://mphaxise.github.io/Praneet_Koppula/" target="_blank" rel="noopener">Full portfolio →</a></p>
   </footer>
 
 </div>
 
 <div class="rcat rcat-walker">
-  <img src="https://cdn2.thecatapi.com/images/MTk4NDAyNA.jpg" alt="cat walking across" loading="lazy">
+  <img src="cats/cat3.jpg" alt="cat walking across" loading="lazy">
 </div>
 
 <script>

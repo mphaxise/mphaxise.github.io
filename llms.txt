@@ -14,6 +14,7 @@ This file is a curated public index for inference-time agents. It does not defin
 ## Public work
 
 - [Closed-Loop Experience Design](https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/): A four-part essay tracing Praneet's design practice from a fast 2014 designer-developer loop to direct work with coding agents and a research agenda for physical system behavior.
+- [Living AI & Design Lab](https://mphaxise.github.io/Praneet_Koppula/living-ai-design-lab/): Interactive portfolio demonstrations of inspectable AI workflows, model state, and principle-based design judgment.
 
 - [Model Slicer case study](https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/): Documented state-aware interaction design and simulation-aware slicing prototypes, with public product chronology kept separate from Praneet's contribution.
 - [Simulink AI Assistant vision](https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/): Customer-tested product vision for an AI partner inside a model-based engineering workflow.

@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en" data-od-id="page-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Living AI &amp; Design Lab - Praneet Koppula</title>
+<meta name="description" content="Praneet Koppula's Living AI &amp; Design Lab - a portfolio of interactive demonstrations exploring AI workflow traceability, state inspection, and design judgment.">
+<meta name="author" content="Praneet Koppula">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+ * TOKENS
+ * ──────────────────────────────────────────────────────────── */
+:root {
+  --bg: #f7f2e8;
+  --surface: #fffdf7;
+  --fg: #132521;
+  --fg-2: #2a3d38;
+  --muted: #53645f;
+  --border: #cfd9d1;
+  --accent: #087f73;
+  --accent-hover: #07564f;
+  --accent-on: #fffdf7;
+  --coral: #ee6b4d;
+  --yellow: #dbe969;
+  --pale: #b8dbea;
+
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: Inter, -apple-system, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --focus-ring: 0 0 0 3px color-mix(in oklab, var(--accent), transparent 65%);
+  --container: 1120px;
+  --container-narrow: 720px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * RESET & BASE
+ * ──────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{text-size-adjust:100%;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  line-height:1.6;
+  color:var(--fg);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+button:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+:focus:not(:focus-visible){outline:none}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* ─────────────────────────────────────────────────────────────
+ * SKIP LINK
+ * ──────────────────────────────────────────────────────────── */
+.skip-link{
+  position:fixed;top:-100%;left:var(--space-4);z-index:1000;
+  padding:var(--space-2) var(--space-4);
+  background:var(--fg);color:var(--bg);
+  font-size:var(--text-sm);border-radius:var(--radius-sm);
+  transition:top var(--duration-fast) var(--ease-out);
+}
+.skip-link:focus{top:var(--space-4)}
+
+/* ─────────────────────────────────────────────────────────────
+ * TYPOGRAPHY
+ * ──────────────────────────────────────────────────────────── */
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.15;letter-spacing:-0.01em;color:var(--fg)}
+h1{font-size:clamp(2rem,5.5vw,var(--text-5xl));letter-spacing:-0.02em}
+h2{font-size:clamp(1.5rem,3.5vw,var(--text-4xl));letter-spacing:-0.015em}
+h3{font-size:clamp(1.125rem,2vw,var(--text-2xl));letter-spacing:-0.01em}
+p,li{max-width:65ch}
+.text-sm{font-size:var(--text-sm);line-height:1.5}
+.muted{color:var(--muted)}
+.mono{font-family:var(--font-mono)}
+
+/* ─────────────────────────────────────────────────────────────
+ * HEADER
+ * ──────────────────────────────────────────────────────────── */
+.site-header{
+  position:sticky;top:0;z-index:100;
+  background:color-mix(in oklab, var(--bg), transparent 12%);
+  backdrop-filter:blur(12px) saturate(140%);
+  -webkit-backdrop-filter:blur(12px) saturate(140%);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  max-width:var(--container);margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:var(--space-3) var(--space-6);
+  gap:var(--space-4);
+}
+@media(max-width:639px){
+  .header-inner{flex-wrap:wrap;padding:var(--space-2) var(--space-4);row-gap:var(--space-2)}
+  .site-title{font-size:var(--text-base);white-space:normal}
+}
+.site-title{
+  font-family:var(--font-display);font-size:var(--text-lg);font-weight:600;
+  color:var(--fg);white-space:nowrap;
+  display:flex;align-items:center;gap:var(--space-2);
+}
+.site-title::before{
+  content:'';display:inline-block;width:10px;height:10px;
+  border-radius:2px;background:var(--accent);flex-shrink:0;
+}
+.header-nav{display:flex;gap:var(--space-2);flex-wrap:wrap}
+.header-nav a{
+  font-size:var(--text-sm);font-weight:500;color:var(--muted);
+  padding:var(--space-1) var(--space-2);border-radius:var(--radius-sm);
+  transition:color var(--duration-fast) var(--ease-out);
+}
+.header-nav a:hover{color:var(--accent);text-decoration:none}
+.header-nav a:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+
+/* ─────────────────────────────────────────────────────────────
+ * HERO
+ * ──────────────────────────────────────────────────────────── */
+.hero{
+  max-width:var(--container);margin:0 auto;
+  padding:var(--space-16) var(--space-6) var(--space-12);
+}
+@media(max-width:639px){
+  .hero{padding:var(--space-12) var(--space-4) var(--space-8);padding-top:clamp(3rem,10vw,var(--space-16))}
+}
+.hero-label{
+  font-family:var(--font-mono);font-size:var(--text-xs);
+  text-transform:uppercase;letter-spacing:0.08em;
+  color:var(--accent);margin-bottom:var(--space-4);
+}
+.hero-headline{
+  font-size:clamp(1.75rem,5vw,var(--text-5xl));
+  font-weight:600;line-height:1.1;
+  margin-bottom:var(--space-5);
+  max-width:14ch;
+}
+.hero-subtitle{
+  font-size:clamp(var(--text-base),1.5vw,var(--text-lg));
+  color:var(--fg-2);line-height:1.6;
+  margin-bottom:var(--space-10);
+  max-width:55ch;
+}
+.principles-list{
+  list-style:none;display:flex;flex-wrap:wrap;gap:var(--space-8);
+  padding-top:var(--space-6);
+  border-top:2px solid var(--fg);
+}
+.principles-list li{
+  font-family:var(--font-display);font-size:var(--text-lg);
+  font-style:italic;color:var(--fg);line-height:1.4;
+}
+@media(max-width:639px){
+  .principles-list{gap:var(--space-4);flex-direction:column}
+  .hero-headline{max-width:100%}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * SECTION BASE
+ * ──────────────────────────────────────────────────────────── */
+.section{padding:var(--space-20) var(--space-6)}
+.section + .section{border-top:1px solid var(--border)}
+.section-inner{max-width:var(--container);margin:0 auto}
+.section-heading{
+  font-size:clamp(var(--text-2xl),3vw,var(--text-3xl));
+  margin-bottom:var(--space-3);
+}
+.section-subtitle{
+  font-size:var(--text-lg);color:var(--muted);
+  margin-bottom:var(--space-12);
+  max-width:55ch;
+}
+@media(max-width:639px){
+  .section{padding:var(--space-12) var(--space-4)}
+  .section-subtitle{margin-bottom:var(--space-8)}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * EXPERIMENT (shared)
+ * ──────────────────────────────────────────────────────────── */
+.experiment{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:var(--space-8);
+  margin-bottom:var(--space-10);
+}
+.experiment:last-child{margin-bottom:0}
+.experiment-header{
+  display:flex;align-items:baseline;gap:var(--space-3);
+  margin-bottom:var(--space-3);
+}
+.experiment-badge{
+  font-family:var(--font-mono);font-size:var(--text-xs);
+  font-weight:600;text-transform:uppercase;letter-spacing:0.06em;
+  color:var(--accent-on);background:var(--accent);
+  padding:2px var(--space-2);border-radius:3px;
+  line-height:1.4;
+}
+.experiment-title{font-size:var(--text-xl)}
+.experiment-description{color:var(--muted);margin-bottom:var(--space-6);max-width:60ch}
+.experiment-note{
+  font-size:var(--text-xs);color:var(--muted);
+  font-style:italic;margin-top:var(--space-5);
+  padding-top:var(--space-3);border-top:1px solid var(--border);
+}
+@media(max-width:639px){
+  .experiment{padding:var(--space-5)}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * EXPERIMENT 1: AI Workflow Trace
+ * ──────────────────────────────────────────────────────────── */
+.wf-format-group{margin-bottom:var(--space-6)}
+.wf-format-label{
+  display:block;font-size:var(--text-sm);font-weight:500;color:var(--muted);
+  margin-bottom:var(--space-3);text-transform:uppercase;letter-spacing:0.04em;
+}
+.wf-formats{
+  display:flex;flex-wrap:wrap;gap:var(--space-2);
+}
+.wf-formats label{
+  display:flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-2) var(--space-4);
+  border:1px solid var(--border);border-radius:999px;
+  font-size:var(--text-sm);cursor:pointer;
+  transition:all var(--duration-fast) var(--ease-out);
+}
+.wf-formats label:has(input:checked){
+  border-color:var(--accent);background:color-mix(in oklab, var(--accent), transparent 92%);
+  color:var(--accent);
+}
+.wf-formats input{accent-color:var(--accent)}
+
+.step-flow{
+  display:flex;align-items:center;gap:var(--space-1);
+  margin-bottom:var(--space-5);overflow-x:auto;
+  padding-bottom:var(--space-2);list-style:none;
+}
+.step-flow > li{display:flex;align-items:center}
+.step-btn{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;gap:var(--space-1);
+  padding:var(--space-3) var(--space-2);
+  border:none;background:transparent;cursor:pointer;
+  font-family:var(--font-body);font-size:var(--text-xs);font-weight:500;
+  color:var(--muted);line-height:1.2;
+  transition:color var(--duration-fast) var(--ease-out);
+  position:relative;
+  min-width:64px;
+}
+.step-btn:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-sm)}
+.step-btn .step-circle{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;
+  border:2px solid var(--border);
+  font-family:var(--font-mono);font-size:var(--text-xs);
+  transition:all var(--duration-base) var(--ease-out);
+  background:var(--surface);
+}
+.step-btn.active{color:var(--fg)}
+.step-btn.active .step-circle{
+  border-color:var(--accent);background:var(--accent);color:var(--accent-on);
+}
+.step-btn.completed{color:var(--accent)}
+.step-btn.completed .step-circle{
+  border-color:var(--accent);background:color-mix(in oklab, var(--accent), transparent 90%);
+  color:var(--accent);
+}
+.step-btn .step-num{font-weight:600}
+.step-arrow{
+  flex-shrink:0;color:var(--border);font-size:var(--text-lg);
+  font-family:var(--font-mono);
+}
+
+.step-detail{
+  background:color-mix(in oklab, var(--bg), var(--surface) 50%);
+  border:1px solid var(--border);border-radius:var(--radius-md);
+  padding:var(--space-5);min-height:120px;
+}
+.step-detail h4{font-size:var(--text-base);margin-bottom:var(--space-2)}
+.step-detail p{font-size:var(--text-sm);color:var(--fg-2);line-height:1.6}
+.step-detail .state-tag{
+  display:inline-block;font-size:var(--text-xs);padding:2px var(--space-2);
+  border-radius:3px;font-weight:500;margin-top:var(--space-3);
+}
+.state-tag.human{background:color-mix(in oklab, var(--pale), transparent 40%);color:#1a5a6e}
+.state-tag.system{background:color-mix(in oklab, var(--yellow), transparent 50%);color:#5a5f1a}
+.state-tag.both{background:color-mix(in oklab, var(--accent), transparent 85%);color:var(--accent)}
+.confirm-btn{
+  margin-top:var(--space-3);
+  padding:var(--space-2) var(--space-5);
+  background:var(--accent);color:var(--accent-on);
+  border:none;border-radius:var(--radius-sm);
+  font-family:var(--font-body);font-size:var(--text-sm);font-weight:500;
+  cursor:pointer;transition:background var(--duration-fast) var(--ease-out);
+}
+.confirm-btn:hover{background:var(--accent-hover)}
+.confirm-btn:active{transform:scale(0.97)}
+.confirm-btn:disabled{opacity:0.5;cursor:default;transform:none}
+.confirmed-check{display:inline-flex;align-items:center;gap:var(--space-1);color:var(--accent);font-weight:500;margin-top:var(--space-2)}
+
+@media(max-width:639px){
+  .step-flow{flex-wrap:wrap;gap:var(--space-2)}
+  .step-arrow{display:none}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * EXPERIMENT 2: State Inspector
+ * ──────────────────────────────────────────────────────────── */
+.si-tabs{
+  display:flex;flex-wrap:wrap;gap:var(--space-1);
+  margin-bottom:var(--space-4);
+  border-bottom:1px solid var(--border);
+  padding-bottom:0;
+}
+.si-tab{
+  padding:var(--space-2) var(--space-3);
+  border:none;background:transparent;cursor:pointer;
+  font-family:var(--font-body);font-size:var(--text-sm);font-weight:500;
+  color:var(--muted);border-radius:var(--radius-sm) var(--radius-sm) 0 0;
+  transition:all var(--duration-fast) var(--ease-out);
+  position:relative;
+}
+.si-tab:hover{color:var(--fg)}
+.si-tab.active{color:var(--accent)}
+.si-tab.active::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;
+  height:2px;background:var(--accent);border-radius:1px;
+}
+.si-tab:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:var(--radius-sm)}
+
+.si-panel{
+  background:color-mix(in oklab, var(--bg), var(--surface) 50%);
+  border:1px solid var(--border);border-top:none;
+  border-radius:0 0 var(--radius-sm) var(--radius-sm);
+  padding:var(--space-5);
+}
+.js-enabled .si-panel{display:none}
+.js-enabled .si-panel.active{display:block}
+.si-panel h4{font-size:var(--text-base);margin-bottom:var(--space-2);font-family:var(--font-body);font-weight:600}
+.si-panel p{font-size:var(--text-sm);color:var(--fg-2);line-height:1.6}
+.si-panel .si-value{
+  font-family:var(--font-mono);font-size:var(--text-sm);
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:var(--space-3);
+  margin:var(--space-3) 0;line-height:1.5;
+  overflow-x:auto;
+}
+.si-panel .si-why{
+  font-size:var(--text-sm);color:var(--accent);
+  margin-top:var(--space-3);padding-top:var(--space-3);
+  border-top:1px solid var(--border);
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * EXPERIMENT 3: Design Judgment Lab
+ * ──────────────────────────────────────────────────────────── */
+.dj-principles{
+  display:flex;flex-wrap:wrap;gap:var(--space-2);
+  margin-bottom:var(--space-5);
+}
+.dj-principle-label{
+  display:inline-block;padding:var(--space-2) var(--space-4);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:transparent;cursor:pointer;
+  font-family:var(--font-body);font-size:var(--text-sm);font-weight:500;
+  color:var(--fg-2);transition:all var(--duration-fast) var(--ease-out);
+  user-select:none;
+}
+.dj-principle-label:hover{border-color:var(--accent);color:var(--accent)}
+.dj-principle-input:checked + .dj-principle-label{
+  border-color:var(--accent);background:var(--accent);color:var(--accent-on);
+}
+.dj-principle-input:focus-visible + .dj-principle-label{outline:none;box-shadow:var(--focus-ring)}
+
+.dj-ui-mock{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-md);padding:var(--space-5);
+  margin-bottom:var(--space-5);
+}
+.dj-ui-mock .mock-label{
+  font-size:var(--text-xs);text-transform:uppercase;letter-spacing:0.04em;
+  color:var(--muted);margin-bottom:var(--space-3);
+  font-weight:600;
+}
+.dj-field{margin-bottom:var(--space-3)}
+.dj-field label{display:block;font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-1);color:var(--fg-2)}
+.dj-field input,.dj-field select{
+  width:100%;padding:var(--space-2) var(--space-3);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-family:var(--font-mono);font-size:var(--text-sm);
+  background:var(--bg);color:var(--fg);
+}
+.dj-field input:focus,.dj-field select:focus{outline:none;border-color:var(--accent);box-shadow:var(--focus-ring)}
+.dj-checkbox-group{display:flex;flex-wrap:wrap;gap:var(--space-4);margin-top:var(--space-2)}
+.dj-checkbox-group label{font-size:var(--text-sm);color:var(--fg-2);display:flex;align-items:center;gap:var(--space-1)}
+.dj-action-row{display:flex;justify-content:flex-end;margin-top:var(--space-4)}
+.dj-action-row button{
+  padding:var(--space-2) var(--space-5);
+  background:var(--border);color:var(--muted);
+  border:none;border-radius:var(--radius-sm);
+  font-weight:500;font-size:var(--text-sm);cursor:default;
+}
+
+.dj-rating-area{margin:var(--space-5) 0}
+.dj-rating-area p{font-weight:500;margin-bottom:var(--space-3)}
+.dj-stars{
+  display:flex;justify-content:flex-start;
+  gap:var(--space-1);
+}
+.dj-stars input{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.dj-stars label{
+  cursor:pointer;font-size:1.5rem;color:var(--border);
+  transition:color var(--duration-fast) var(--ease-out);
+  line-height:1;
+}
+.dj-stars label::before{content:'\2605'}
+.dj-stars input:checked + label, .dj-stars label:has(~ input:checked), .dj-stars label:hover, .dj-stars label:has(~ label:hover){color:var(--coral)}
+.dj-stars input:focus-visible + label{outline:none;box-shadow:var(--focus-ring)}
+
+.dj-submit-btn{
+  margin-top:var(--space-4);
+  padding:var(--space-2) var(--space-6);
+  background:var(--accent);color:var(--accent-on);
+  border:none;border-radius:var(--radius-sm);
+  font-family:var(--font-body);font-size:var(--text-sm);font-weight:500;
+  cursor:pointer;transition:all var(--duration-fast) var(--ease-out);
+}
+.dj-submit-btn:hover:not(:disabled){background:var(--accent-hover)}
+.dj-submit-btn:disabled{opacity:0.4;cursor:default}
+
+.dj-result{
+  margin-top:var(--space-5);
+  padding:var(--space-5);
+  background:color-mix(in oklab, var(--pale), transparent 60%);
+  border:1px solid var(--pale);
+  border-radius:var(--radius-md);
+}
+.js-enabled .dj-result{display:none}
+.js-enabled .dj-result.active{display:block}
+.dj-result h4{font-size:var(--text-base);margin-bottom:var(--space-3);font-family:var(--font-body)}
+.dj-result .rating-compare{
+  display:flex;gap:var(--space-8);margin-bottom:var(--space-3);
+}
+.dj-result .rating-item{text-align:center}
+.dj-result .rating-item .score{
+  display:block;font-family:var(--font-display);font-size:var(--text-3xl);
+  font-weight:600;line-height:1;
+}
+.dj-result .rating-item .label{font-size:var(--text-xs);color:var(--muted);margin-top:var(--space-1)}
+.dj-result .dj-discuss{margin-top:var(--space-3);padding-top:var(--space-3);border-top:1px solid color-mix(in oklab, var(--pale), transparent 50%)}
+.dj-result .dj-discuss h5{font-size:var(--text-sm);margin-bottom:var(--space-2);font-family:var(--font-body);font-weight:600}
+.dj-result .dj-discuss ul{list-style:disc;padding-left:var(--space-5);font-size:var(--text-sm);color:var(--fg-2);line-height:1.7}
+
+.dj-noscript-fallback{
+  margin-top:var(--space-5);padding:var(--space-4);
+  border:1px solid var(--border);border-radius:var(--radius-md);
+  background:var(--surface);font-size:var(--text-sm);color:var(--fg-2);line-height:1.6;
+}
+.dj-noscript-fallback p{margin-bottom:var(--space-2)}
+.dj-noscript-fallback ul{padding-left:var(--space-5);margin-bottom:var(--space-2)}
+.dj-noscript-fallback li{margin-bottom:var(--space-1)}
+
+@media(max-width:639px){
+  .dj-stars label{font-size:1.75rem}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * CASE STUDIES
+ * ──────────────────────────────────────────────────────────── */
+.case-grid{display:grid;gap:var(--space-6)}
+@media(min-width:768px){
+  .case-grid{grid-template-columns:1fr 1fr 1fr}
+}
+.case-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-md);padding:var(--space-6);
+  display:flex;flex-direction:column;gap:var(--space-3);
+}
+.case-num{
+  font-family:var(--font-display);font-size:var(--text-3xl);
+  font-weight:400;color:var(--accent);line-height:1;
+  font-style:italic;
+}
+.case-card h3{font-size:var(--text-lg)}
+.case-card p{font-size:var(--text-sm);color:var(--fg-2);line-height:1.6}
+.case-link{
+  font-size:var(--text-sm);font-weight:500;
+  color:var(--accent);margin-top:auto;
+}
+.case-link:hover{text-decoration:underline}
+.case-link:focus-visible{outline:none;box-shadow:var(--focus-ring);border-radius:2px}
+
+/* ─────────────────────────────────────────────────────────────
+ * LEADERSHIP
+ * ──────────────────────────────────────────────────────────── */
+.leadership-content{
+  max-width:var(--container-narrow);
+}
+.leadership-content p{
+  font-size:var(--text-lg);color:var(--fg-2);line-height:1.7;
+  margin-bottom:var(--space-5);
+  max-width:55ch;
+}
+.leadership-stats{
+  display:flex;flex-wrap:wrap;gap:var(--space-10);
+  margin-top:var(--space-6);
+  padding-top:var(--space-6);
+  border-top:2px solid var(--fg);
+}
+.leadership-stats .stat{
+  font-family:var(--font-display);
+}
+.leadership-stats .stat-num{
+  display:block;font-size:var(--text-4xl);font-weight:600;
+  line-height:1;color:var(--fg);
+  font-style:italic;
+}
+.leadership-stats .stat-label{
+  font-size:var(--text-sm);color:var(--muted);
+  margin-top:var(--space-1);max-width:16ch;
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * FOOTER
+ * ──────────────────────────────────────────────────────────── */
+.site-footer{
+  border-top:1px solid var(--border);
+  padding:var(--space-10) var(--space-6) var(--space-6);
+  background:var(--surface);
+}
+.footer-inner{
+  max-width:var(--container);margin:0 auto;
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;
+  gap:var(--space-4);
+}
+.footer-links{display:flex;flex-wrap:wrap;gap:var(--space-6)}
+.footer-links a{
+  font-size:var(--text-sm);font-weight:500;
+  color:var(--muted);transition:color var(--duration-fast) var(--ease-out);
+}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+.footer-copy{font-size:var(--text-xs);color:var(--muted)}
+@media(max-width:639px){
+  .footer-inner{flex-direction:column;align-items:flex-start}
+  .footer-links{gap:var(--space-4)}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * RESPONSIVE
+ * ──────────────────────────────────────────────────────────── */
+@media(max-width:1023px){
+  .case-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:639px){
+  .case-grid{grid-template-columns:1fr}
+  .site-header .header-nav a{font-size:var(--text-xs)}
+  .leadership-stats{gap:var(--space-6)}
+  .leadership-stats .stat-num{font-size:var(--text-3xl)}
+  .dj-ui-mock .mock-label{font-size:11px}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * REDUCED MOTION
+ * ──────────────────────────────────────────────────────────── */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;scroll-behavior:auto!important}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * DARK MODE
+ * ──────────────────────────────────────────────────────────── */
+@media(prefers-color-scheme:dark){
+  body{background:#181f1c}
+  .site-header{background:color-mix(in oklab, #181f1c, transparent 12%);border-bottom-color:#2a3d38}
+  .site-title{color:#e8e4dc}
+  .site-title::before{background:var(--accent)}
+  .hero-principles .principles-list{border-top-color:#2a3d38}
+  .experiment{background:#1a2320;border-color:#2a3d38}
+  h1,h2,h3,h4{color:#e8e4dc}
+  .hero-subtitle{color:#9aaba4}
+  .principles-list li{color:#e8e4dc}
+  .section + .section{border-top-color:#2a3d38}
+  .section-subtitle{color:#9aaba4}
+  .experiment-description{color:#9aaba4}
+  .experiment-note{color:#9aaba4}
+  .wf-formats label{border-color:#2a3d38;color:#c8d4ce}
+  .wf-formats label:has(input:checked){border-color:var(--accent);background:color-mix(in oklab, var(--accent), transparent 88%)}
+  .step-btn{color:#9aaba4}
+  .step-btn .step-circle{border-color:#2a3d38;background:#1a2320}
+  .step-btn.active .step-circle{background:var(--accent);border-color:var(--accent)}
+  .step-btn.completed .step-circle{background:color-mix(in oklab, var(--accent), transparent 88%);border-color:var(--accent);color:var(--accent)}
+  .step-arrow{color:#2a3d38}
+  .step-detail{background:#1f2825;border-color:#2a3d38}
+  .step-detail p{color:#c8d4ce}
+  .si-tab{color:#9aaba4}
+  .si-tab:hover{color:#e8e4dc}
+  .si-tabs{border-bottom-color:#2a3d38}
+  .si-panel{background:#1f2825;border-color:#2a3d38}
+  .si-panel p{color:#c8d4ce}
+  .si-panel .si-value{background:#1a2320;border-color:#2a3d38;color:#c8d4ce}
+  .dj-principle-label{border-color:#2a3d38;color:#c8d4ce}
+  .dj-principle-input:checked + .dj-principle-label{background:var(--accent);color:var(--accent-on);border-color:var(--accent)}
+  .dj-ui-mock{background:#1a2320;border-color:#2a3d38}
+  .dj-field label{color:#c8d4ce}
+  .dj-field input,.dj-field select{background:#181f1c;border-color:#2a3d38;color:#c8d4ce}
+  .dj-checkbox-group label{color:#c8d4ce}
+  .dj-action-row button{background:#2a3d38;color:#9aaba4}
+  .dj-result{background:color-mix(in oklab, var(--accent), transparent 88%);border-color:color-mix(in oklab, var(--accent), transparent 70%)}
+  .dj-result .dj-discuss{border-top-color:color-mix(in oklab, var(--accent), transparent 80%)}
+  .case-card{background:#1a2320;border-color:#2a3d38}
+  .case-card p{color:#c8d4ce}
+  .leadership-content p{color:#c8d4ce}
+  .leadership-stats{border-top-color:#2a3d38}
+  .leadership-stats .stat-label{color:#9aaba4}
+  .site-footer{background:#1a2320;border-top-color:#2a3d38}
+  .footer-links a{color:#9aaba4}
+  .footer-copy{color:#9aaba4}
+  .state-tag.human{background:color-mix(in oklab, #b8dbea, transparent 60%);color:#b8dbea}
+  .state-tag.system{background:color-mix(in oklab, #dbe969, transparent 60%);color:#dbe969}
+  .si-panel .si-why{color:#3ab5a5}
+  .state-tag.both{background:color-mix(in oklab, #3ab5a5, transparent 75%);color:#3ab5a5}
+  .dj-stars label{color:#4a6058}
+  .dj-stars input:checked + label, .dj-stars label:has(~ input:checked), .dj-stars label:hover, .dj-stars label:has(~ label:hover){color:var(--coral)}
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * ANTI-SLOP OVERRIDES
+ * ──────────────────────────────────────────────────────────── */
+em{font-style:italic}
+blockquote{border-left:2px solid var(--border);padding-left:var(--space-4);margin:var(--space-4) 0;color:var(--fg-2)}
+</style>
+<script>document.documentElement.className='js-enabled'</script>
+</head>
+<body>
+
+<a href="#main" class="skip-link" data-od-id="skip-link">Skip to main content</a>
+
+<header class="site-header" data-od-id="site-header" role="banner">
+  <div class="header-inner">
+    <span class="site-title">Living AI &amp; Design Lab</span>
+    <nav class="header-nav" aria-label="External links">
+      <a href="https://mphaxise.github.io/Praneet_Koppula/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+      <a href="https://github.com/mphaxise" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/praneetkoppula" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit" target="_blank" rel="noopener noreferrer">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" data-od-id="main-content">
+
+  <!-- ── HERO ── -->
+  <section class="hero" data-od-id="hero" aria-labelledby="hero-title">
+    <p class="hero-label">Design research &amp; practice</p>
+    <h1 id="hero-title" class="hero-headline">Complex software should feel clear enough to trust.</h1>
+    <p class="hero-subtitle">Praneet Koppula &middot; 18+ years across technical product design, research, design leadership, and AI-assisted workflows.</p>
+    <div class="hero-principles">
+      <h2 class="sr-only">Design principles</h2>
+      <ul class="principles-list">
+        <li>Make state visible.</li>
+        <li>Earn trust through control.</li>
+        <li>Scale judgment, not sameness.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── LAB ── -->
+  <section class="section" data-od-id="lab-section" aria-labelledby="lab-title">
+    <div class="section-inner">
+      <h2 id="lab-title" class="section-heading">Lab</h2>
+      <p class="section-subtitle">Interactive demonstrations of concepts from Praneet&rsquo;s practice. Each uses fixed sample data and is clearly labeled as a portfolio demonstration.</p>
+
+      <!-- ── Experiment 1: AI Workflow Trace ── -->
+      <div class="experiment" data-od-id="experiment-workflow" role="region" aria-labelledby="wf-title">
+        <div class="experiment-header">
+          <span class="experiment-badge">Demo</span>
+          <h3 id="wf-title" class="experiment-title">Inspectable AI Workflow Trace</h3>
+        </div>
+        <p class="experiment-description">Choose an intent format, then step through the workflow. Each stage reveals what happens and who is involved. Human confirmation is required before execution.</p>
+
+        <div class="wf-format-group">
+          <span class="wf-format-label" id="wf-format-label">Intent format</span>
+          <div class="wf-formats" role="radiogroup" aria-labelledby="wf-format-label" id="wf-formats">
+            <label><input type="radio" name="wf-format" value="nl" checked> Natural language</label>
+            <label><input type="radio" name="wf-format" value="req"> Requirements</label>
+            <label><input type="radio" name="wf-format" value="eq"> Equations</label>
+            <label><input type="radio" name="wf-format" value="code"> Code</label>
+          </div>
+        </div>
+
+        <ul class="step-flow" aria-label="Workflow stages" id="wf-steps">
+          <li><button class="step-btn active" data-step="understand" aria-current="step" tabindex="0">
+            <span class="step-circle"><span class="step-num">01</span></span>
+            <span>Understand</span>
+          </button></li>
+          <li aria-hidden="true"><span class="step-arrow">&rarr;</span></li>
+          <li><button class="step-btn" data-step="propose" tabindex="-1">
+            <span class="step-circle"><span class="step-num">02</span></span>
+            <span>Propose</span>
+          </button></li>
+          <li aria-hidden="true"><span class="step-arrow">&rarr;</span></li>
+          <li><button class="step-btn" data-step="preview" tabindex="-1">
+            <span class="step-circle"><span class="step-num">03</span></span>
+            <span>Preview</span>
+          </button></li>
+          <li aria-hidden="true"><span class="step-arrow">&rarr;</span></li>
+          <li><button class="step-btn" data-step="confirm" tabindex="-1">
+            <span class="step-circle"><span class="step-num">04</span></span>
+            <span>Confirm</span>
+          </button></li>
+          <li aria-hidden="true"><span class="step-arrow">&rarr;</span></li>
+          <li><button class="step-btn" data-step="simulate" tabindex="-1">
+            <span class="step-circle"><span class="step-num">05</span></span>
+            <span>Simulate</span>
+          </button></li>
+          <li aria-hidden="true"><span class="step-arrow">&rarr;</span></li>
+          <li><button class="step-btn" data-step="explain" tabindex="-1">
+            <span class="step-circle"><span class="step-num">06</span></span>
+            <span>Explain</span>
+          </button></li>
+        </ul>
+
+        <div class="step-detail" id="wf-detail" aria-live="polite">
+          <h4>Understand - analyze intent</h4>
+          <p>This stage demonstrates parsing the selected format and building a structured model. In a production system, the model would be presented for review before any action is taken.</p>
+          <span class="state-tag system">Shows intent capture</span>
+        </div>
+
+        <p class="experiment-note">This is a portfolio demonstration. It does not connect to any live model or production system.</p>
+      </div>
+
+      <!-- ── Experiment 2: State Inspector ── -->
+      <div class="experiment" data-od-id="experiment-state-inspector" role="region" aria-labelledby="si-title">
+        <div class="experiment-header">
+          <span class="experiment-badge">Demo</span>
+          <h3 id="si-title" class="experiment-title">Model State Inspector</h3>
+        </div>
+        <p class="experiment-description">Explore the state dimensions of a simulation slicing session. Each tab reveals how inspectable state helps engineers understand and trust complex tools. Based on concepts from Model Slicer work.</p>
+
+        <div class="si-tabs" role="tablist" aria-label="State dimensions" id="si-tabs">
+          <button class="si-tab active" role="tab" aria-selected="true" aria-controls="si-panel-input" id="si-tab-input" tabindex="0">Input</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-scope" id="si-tab-scope" tabindex="-1">Scope</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-source" id="si-tab-source" tabindex="-1">Source</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-time" id="si-tab-time" tabindex="-1">Time</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-result" id="si-tab-result" tabindex="-1">Result</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-provenance" id="si-tab-provenance" tabindex="-1">Provenance</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-validity" id="si-tab-validity" tabindex="-1">Validity</button>
+          <button class="si-tab" role="tab" aria-selected="false" aria-controls="si-panel-recovery" id="si-tab-recovery" tabindex="-1">Recovery</button>
+        </div>
+
+        <div class="si-panel active" id="si-panel-input" role="tabpanel" aria-labelledby="si-tab-input">
+          <h4>Input</h4>
+          <p>The data or signal the system operates on. Knowing what the tool sees is the first step in trusting what it produces.</p>
+          <div class="si-value">Selected model object and role &middot; The element of the system under test that the slice is built around</div>
+          <p class="si-why">Why this matters: When you know exactly what went in, you can assess whether the output is reasonable for the given input.</p>
+        </div>
+        <div class="si-panel" id="si-panel-scope" role="tabpanel" aria-labelledby="si-tab-scope">
+          <h4>Scope</h4>
+          <p>What the analysis covers and what it deliberately excludes. Explicit boundaries prevent silent overreach.</p>
+          <div class="si-value">Selected block dependencies &middot; Excluded subsystems &middot; Constraint ranges applied &middot; Elements outside analysis boundary</div>
+          <p class="si-why">Why this matters: A tool that shows its scope helps engineers avoid relying on results that may not apply to their specific scenario.</p>
+        </div>
+        <div class="si-panel" id="si-panel-source" role="tabpanel" aria-labelledby="si-tab-source">
+          <h4>Data Source</h4>
+          <p>Where the data originated and how it was collected. Provenance at the source level enables reproducibility.</p>
+          <div class="si-value">Recorded simulation test case &middot; Known stimulus sequence &middot; Expected response baseline</div>
+          <p class="si-why">Why this matters: Knowing the data source lets engineers verify conditions and reproduce results independently.</p>
+        </div>
+        <div class="si-panel" id="si-panel-time" role="tabpanel" aria-labelledby="si-tab-time">
+          <h4>Time Window</h4>
+          <p>The temporal slice under analysis. Time windows allow engineers to focus on specific event sequences without reprocessing the entire dataset.</p>
+          <div class="si-value">Available time window from recorded test case &middot; Requested time window for analysis &middot; Slice extents</div>
+          <p class="si-why">Why this matters: Slicing time lets engineers isolate specific behaviors without losing the surrounding context.</p>
+        </div>
+        <div class="si-panel" id="si-panel-result" role="tabpanel" aria-labelledby="si-tab-result">
+          <h4>Result</h4>
+          <p>What the system produced within the defined scope and constraints. Results are always presented alongside their context, never in isolation.</p>
+          <div class="si-value">Highlighted slice &middot; Behavior of the selected element within its time window &middot; Recalculated after changed inputs</div>
+          <p class="si-why">Why this matters: Results without context are misleading. A highlighted slice tells the engineer precisely what the tool found relevant.</p>
+        </div>
+        <div class="si-panel" id="si-panel-provenance" role="tabpanel" aria-labelledby="si-tab-provenance">
+          <h4>Provenance</h4>
+          <p>The record of how this slice was created: from what parent analysis, and what parameters were used. Every analysis has a lineage.</p>
+          <div class="si-value">Slice configuration &middot; Parent analysis identifier &middot; Parameters used to define the slice</div>
+          <p class="si-why">Why this matters: Provenance creates accountability. Engineers can trace results back to specific configurations and replicate or challenge them.</p>
+        </div>
+        <div class="si-panel" id="si-panel-validity" role="tabpanel" aria-labelledby="si-tab-validity">
+          <h4>Validity</h4>
+          <p>Whether the current slice is still meaningful given changes in the underlying model or constraints. Validity has a shelf life.</p>
+          <div class="si-value">Valid for current model version &middot; Recalculated after constraint changes &middot; Notified on drift</div>
+          <p class="si-why">Why this matters: A valid result from a stale configuration is worse than no result. Validity tracking tells engineers when to regenerate.</p>
+        </div>
+        <div class="si-panel" id="si-panel-recovery" role="tabpanel" aria-labelledby="si-tab-recovery">
+          <h4>Recovery &amp; Failure</h4>
+          <p>What happens when constraints change, data drifts, or the slice becomes invalid. Recovery paths are a first-class part of the state model, not an afterthought.</p>
+          <div class="si-value">Auto-reslice with current constraints &middot; Preserve original slice for audit &middot; Notify engineer of changes &middot; Fallback to nearest valid ancestor</div>
+          <p class="si-why">Why this matters: Systems that handle recovery gracefully earn more trust than systems that silently fail or require manual reset.</p>
+        </div>
+
+        <p class="experiment-note">This is a portfolio demonstration using representative sample data. Not connected to any production system or internal study.</p>
+      </div>
+
+      <!-- ── Experiment 3: Design Judgment Lab ── -->
+      <div class="experiment" data-od-id="experiment-judgment" role="region" aria-labelledby="dj-title">
+        <div class="experiment-header">
+          <span class="experiment-badge">Demo</span>
+          <h3 id="dj-title" class="experiment-title">Design Judgment Lab</h3>
+        </div>
+        <p class="experiment-description">Select a principle, review the interface mockup, assign a rating, and compare with a design reviewer&rsquo;s perspective. Inspired by Praneet&rsquo;s design-principles review practice.</p>
+
+        <div class="dj-principles" id="dj-principles" role="radiogroup" aria-label="Select a principle">
+          <input type="radio" name="dj-principle" id="dj-p-state" value="state" checked class="sr-only dj-principle-input">
+          <label class="dj-principle-label" for="dj-p-state">Make state visible</label>
+          <input type="radio" name="dj-principle" id="dj-p-control" value="control" class="sr-only dj-principle-input">
+          <label class="dj-principle-label" for="dj-p-control">Earn trust through control</label>
+          <input type="radio" name="dj-principle" id="dj-p-scale" value="scale" class="sr-only dj-principle-input">
+          <label class="dj-principle-label" for="dj-p-scale">Scale judgment, not sameness</label>
+        </div>
+
+        <div class="dj-ui-mock">
+          <p class="mock-label">Training Configuration</p>
+          <div class="dj-field">
+            <label for="dj-model">Model</label>
+            <select id="dj-model"><option>Model configuration A</option><option>Model configuration B</option><option>Model configuration C</option></select>
+          </div>
+          <div class="dj-field">
+            <label for="dj-epochs">Epochs</label>
+            <input type="text" id="dj-epochs" value="Configured value" readonly>
+          </div>
+          <div class="dj-field">
+            <label for="dj-lr">Learning rate</label>
+            <input type="text" id="dj-lr" value="Configured value" readonly>
+          </div>
+          <div class="dj-field">
+            <label class="sr-only" for="dj-dataset">Data</label>
+            <select id="dj-dataset"><option>Training dataset</option><option>Validation dataset</option></select>
+          </div>
+          <div class="dj-field">
+            <span style="display:block;font-size:var(--text-sm);font-weight:500;margin-bottom:var(--space-1);color:var(--fg-2)">Augmentation</span>
+            <div class="dj-checkbox-group">
+              <label><input type="checkbox" checked disabled> Flip</label>
+              <label><input type="checkbox" disabled> Rotate</label>
+              <label><input type="checkbox" disabled> Crop</label>
+              <label><input type="checkbox" disabled> Noise</label>
+            </div>
+          </div>
+          <div class="dj-action-row">
+            <button disabled>Run Training</button>
+          </div>
+        </div>
+
+        <div class="dj-rating-area" id="dj-rating">
+          <p id="dj-rating-label">Rate this interface against the selected principle:</p>
+          <div class="dj-stars" role="radiogroup" aria-labelledby="dj-rating-label">
+            <input type="radio" name="dj-score" id="dj-s1" value="1" checked aria-label="1 out of 5"><label for="dj-s1" title="1">1</label>
+            <input type="radio" name="dj-score" id="dj-s2" value="2" aria-label="2 out of 5"><label for="dj-s2" title="2">2</label>
+            <input type="radio" name="dj-score" id="dj-s3" value="3" aria-label="3 out of 5"><label for="dj-s3" title="3">3</label>
+            <input type="radio" name="dj-score" id="dj-s4" value="4" aria-label="4 out of 5"><label for="dj-s4" title="4">4</label>
+            <input type="radio" name="dj-score" id="dj-s5" value="5" aria-label="5 out of 5"><label for="dj-s5" title="5">5</label>
+          </div>
+        </div>
+
+        <button class="dj-submit-btn" id="dj-submit">Submit rating</button>
+
+        <div class="dj-result" id="dj-result" aria-live="polite">
+          <h4>Comparison</h4>
+          <div class="rating-compare">
+            <div class="rating-item"><span class="score" id="dj-your-score">-</span><span class="label">Your rating</span></div>
+            <div class="rating-item"><span class="score" id="dj-designer-score" style="color:var(--accent)">-</span><span class="label">Design reviewer</span></div>
+          </div>
+          <div id="dj-comparison-text">
+            <p style="font-size:var(--text-sm);color:var(--fg-2)"></p>
+          </div>
+          <div class="dj-discuss" id="dj-discuss">
+            <h5>Discussion prompts</h5>
+            <ul id="dj-prompts"></ul>
+          </div>
+        </div>
+
+        <noscript>
+          <div class="dj-noscript-fallback">
+            <p><strong>Design Judgment Lab</strong> - This interactive comparison requires JavaScript.</p>
+            <p>The lab compares your rating against three fixed reviewer perspectives, one per principle:</p>
+            <ul>
+              <li><strong>Make state visible</strong> - The reviewer notes key training state is hidden and suggests surfacing readiness checks and dry-run previews.</li>
+              <li><strong>Earn trust through control</strong> - The reviewer notes limited configurability and missing preview and undo mechanisms.</li>
+              <li><strong>Scale judgment, not sameness</strong> - The reviewer notes the form does not scale to complex multi-model workflows and suggests templates and presets.</li>
+            </ul>
+            <p>Discussion prompts accompany each comparison to facilitate principled design critique.</p>
+          </div>
+        </noscript>
+
+        <p class="experiment-note">This is a portfolio demonstration. Ratings are illustrative and do not represent user research or production analytics.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CASE STUDIES ── -->
+  <section class="section" data-od-id="case-studies" aria-labelledby="cases-title">
+    <div class="section-inner">
+      <h2 id="cases-title" class="section-heading">Case Studies</h2>
+      <p class="section-subtitle">Three projects that shaped my approach to designing complex, trustworthy systems.</p>
+      <div class="case-grid">
+
+        <article class="case-card" data-od-id="case-ai-partner">
+          <span class="case-num">01</span>
+          <h3>AI Partner Inside the Engineering Workflow</h3>
+          <p>I led UX vision with an engineering lead for an AI assistant spanning requirements, architecture, implementation, simulation, navigation, and explanation. The interaction emphasized traceability, preview, confirmation, and human control at every stage.</p>
+          <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/" target="_blank" rel="noopener noreferrer" class="case-link">Case study &nearr;</a>
+        </article>
+
+        <article class="case-card" data-od-id="case-model-slicer">
+          <span class="case-num">02</span>
+          <h3>Model Slicer</h3>
+          <p>I improved early productization and later workflow concepts for dynamic slicing, simulation data, constraints, time windows, provenance, recalculation, validity, and failure states. The work demonstrated why inspectable state helps users trust complex engineering tools.</p>
+          <a href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html" target="_blank" rel="noopener noreferrer" class="case-link">Public context &nearr;</a>
+        </article>
+
+        <article class="case-card" data-od-id="case-design-judgment">
+          <span class="case-num">03</span>
+          <h3>Turning Design Judgment into Team Capability</h3>
+          <p>I developed a shared workflow language and reusable design-principles review practice. The process uses independent ratings followed by facilitated discussion, coaching, and lightweight enablement to help teams scale judgment without losing individual perspective.</p>
+          <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/" target="_blank" rel="noopener noreferrer" class="case-link">Case study &nearr;</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── LEADERSHIP ── -->
+  <section class="section" data-od-id="leadership" aria-labelledby="leadership-title">
+    <div class="section-inner">
+      <div class="leadership-content">
+        <h2 id="leadership-title" class="section-heading">Leadership &amp; Context</h2>
+        <p>I managed distributed UX leadership across 4 countries, working within a broader governance ecosystem spanning 120 products. My work combined strategic leadership development with hands-on contribution to workflow and interaction direction.</p>
+        <p>I developed UX design and research leaders while remaining directly involved in the craft: shaping how complex tools reveal their state, how AI-assisted workflows stay accountable to human judgment, and how design teams build shared language around principles.</p>
+        <div class="leadership-stats">
+          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Countries across distributed leadership</span></div>
+          <div class="stat"><span class="stat-num">120</span><span class="stat-label">Products within governance ecosystem</span></div>
+          <div class="stat"><span class="stat-num">18+</span><span class="stat-label">Years across design, research, and leadership</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer" data-od-id="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <p class="footer-copy">&copy; Praneet Koppula</p>
+    <nav class="footer-links" aria-label="Connect">
+      <a href="https://mphaxise.github.io/Praneet_Koppula/" target="_blank" rel="noopener noreferrer">Portfolio</a>
+      <a href="https://github.com/mphaxise" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/praneetkoppula" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit" target="_blank" rel="noopener noreferrer">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  /* ─────────────────────────────────────────────────────────────
+   * EXPERIMENT 1: AI Workflow Trace
+   * ──────────────────────────────────────────────────────────── */
+  function initWorkflow() {
+    var container = document.getElementById('wf-steps');
+    var detail = document.getElementById('wf-detail');
+    if (!container || !detail) return;
+
+    var formatRadios = document.querySelectorAll('input[name="wf-format"]');
+    var steps = container.querySelectorAll('.step-btn');
+    var currentStep = 'understand';
+    var confirmed = false;
+
+    var stepData = {
+      understand: {
+        title: 'Understand - analyze intent',
+        body: {
+          nl: 'This stage demonstrates parsing natural language to extract intent, constraints, and context. In a production system, these would be presented for review before any action is taken.',
+          req: 'This stage demonstrates interpreting requirement statements and mapping them to capabilities, dependencies, and acceptance criteria. Ambiguous items would be flagged for clarification.',
+          eq: 'This stage demonstrates analyzing equations to identify variables and constraints. Domain boundaries and numerical assumptions would be made explicit.',
+          code: 'This stage demonstrates parsing code to understand structure, dependencies, and intended behavior. Entry points, data flow, and side effects would be identified.'
+        },
+        tag: 'Shows intent capture',
+        tagClass: 'system'
+      },
+      propose: {
+        title: 'Propose - generate approach',
+        body: {
+          nl: 'This stage demonstrates proposing relevant methods or workflows based on the captured intent. Each proposal would include rationale and expected outcomes.',
+          req: 'This stage demonstrates mapping requirements to implementation components with traceability links maintained throughout the chain.',
+          eq: 'This stage demonstrates identifying solution strategies, applicable methods, and numerical approaches with convergence criteria.',
+          code: 'This stage demonstrates proposing refactoring or architecture changes with impact analysis and dependency mapping.'
+        },
+        tag: 'Shows proposal generation',
+        tagClass: 'system'
+      },
+      preview: {
+        title: 'Preview - review before acting',
+        body: {
+          nl: 'This stage demonstrates a human-readable preview of the planned action, showing inputs, expected outputs, and potential risks for review before proceeding.',
+          req: 'This stage demonstrates a traceability view showing how requirements map to planned implementation steps, with coverage gaps highlighted.',
+          eq: 'This stage demonstrates previewing the computational plan including intermediate steps and numerical stability notes.',
+          code: 'This stage demonstrates a diff preview of proposed changes alongside the original, with affected modules and test coverage noted.'
+        },
+        tag: 'Shows human review point',
+        tagClass: 'human'
+      },
+      confirm: {
+        title: 'Confirm - human decision required',
+        body: {
+          nl: 'This stage demonstrates a mandatory confirmation gate. In a production system, nothing would execute until the human explicitly approves the plan.',
+          req: 'This stage demonstrates requirement-level confirmation. Each requirement would need explicit acceptance or flagging for revision.',
+          eq: 'This stage demonstrates reviewing computational parameters and confirming the numerical approach matches intent.',
+          code: 'This stage demonstrates reviewing the full set of changes and confirming the transformation preserves intended behavior.'
+        },
+        tag: 'Shows human decision gate',
+        tagClass: 'human',
+        requiresConfirm: true
+      },
+      simulate: {
+        title: 'Simulate and inspect',
+        body: {
+          nl: 'This stage demonstrates running the approved action in a controlled context. Intermediate results would be exposed for inspection before any irreversible step.',
+          req: 'This stage demonstrates validating each requirement against the implementation, showing test results and coverage data.',
+          eq: 'This stage demonstrates executing the computational plan with intermediate values and convergence metrics visible at each step.',
+          code: 'This stage demonstrates applying proposed changes in a controlled context with build output and test results presented for inspection.'
+        },
+        tag: 'Shows simulation + inspection',
+        tagClass: 'both'
+      },
+      explain: {
+        title: 'Explain - trace the outcome',
+        body: {
+          nl: 'This stage demonstrates summarizing the action taken, why each decision was made, and what the outcome was. Every step would remain traceable.',
+          req: 'This stage demonstrates a requirements traceability report showing how each requirement was addressed and where trade-offs were made.',
+          eq: 'This stage demonstrates a computational narrative explaining the path through the solution space and numerical decisions made.',
+          code: 'This stage demonstrates a change log with rationale explaining each modification and its impact.'
+        },
+        tag: 'Shows full traceability',
+        tagClass: 'both'
+      }
+    };
+
+    function getFormat() {
+      for (var i = 0; i < formatRadios.length; i++) {
+        if (formatRadios[i].checked) return formatRadios[i].value;
+      }
+      return 'nl';
+    }
+
+    function activateStep(stepId) {
+      currentStep = stepId;
+      for (var i = 0; i < steps.length; i++) {
+        var s = steps[i];
+        var id = s.getAttribute('data-step');
+        s.classList.toggle('active', id === stepId);
+        s.classList.toggle('completed', false);
+        s.setAttribute('aria-current', id === stepId ? 'step' : 'false');
+        s.setAttribute('tabindex', id === stepId ? '0' : '-1');
+      }
+      // Mark previous steps as completed
+      var ids = ['understand','propose','preview','confirm','simulate','explain'];
+      var found = false;
+      for (var j = 0; j < ids.length; j++) {
+        if (ids[j] === stepId) { found = true; continue; }
+        if (!found) {
+          var prevBtn = container.querySelector('[data-step="' + ids[j] + '"]');
+          if (prevBtn) prevBtn.classList.add('completed');
+        }
+      }
+
+      var data = stepData[stepId];
+      var fmt = getFormat();
+      var body = data.body[fmt] || data.body.nl;
+
+      detail.textContent = '';
+      var h4 = document.createElement('h4');
+      h4.textContent = data.title;
+      detail.appendChild(h4);
+      var p = document.createElement('p');
+      p.textContent = body;
+      detail.appendChild(p);
+      var tag = document.createElement('span');
+      tag.className = 'state-tag ' + data.tagClass;
+      tag.textContent = data.tag;
+      detail.appendChild(tag);
+
+      if (data.requiresConfirm) {
+        if (confirmed) {
+          var chk = document.createElement('div');
+          chk.className = 'confirmed-check';
+          var icon = document.createElement('span');
+          icon.setAttribute('aria-hidden', 'true');
+          icon.textContent = '\u2713';
+          chk.appendChild(icon);
+          chk.appendChild(document.createTextNode(' Confirmed'));
+          detail.appendChild(chk);
+        } else {
+          var btn = document.createElement('button');
+          btn.className = 'confirm-btn';
+          btn.id = 'wf-confirm-btn';
+          btn.type = 'button';
+          btn.textContent = 'I confirm - proceed';
+          detail.appendChild(btn);
+        }
+      }
+
+      if (data.requiresConfirm && !confirmed) {
+        var btn = document.getElementById('wf-confirm-btn');
+        if (btn) {
+          btn.addEventListener('click', function() {
+            confirmed = true;
+            // Mark confirm as completed
+            for (var i = 0; i < steps.length; i++) {
+              if (steps[i].getAttribute('data-step') === 'confirm') {
+                steps[i].classList.remove('active');
+                steps[i].classList.add('completed');
+              }
+            }
+            // Advance to simulate
+            activateStep('simulate');
+          });
+        }
+      }
+    }
+
+    // Step click handlers
+    for (var i = 0; i < steps.length; i++) {
+      (function(btn) {
+        btn.addEventListener('click', function(e) {
+          var id = btn.getAttribute('data-step');
+          // Can only activate already-reached steps
+          var ids = ['understand','propose','preview','confirm','simulate','explain'];
+          var idx = ids.indexOf(id);
+          var curIdx = ids.indexOf(currentStep);
+          if (idx <= curIdx + 1 || confirmed) {
+            activateStep(id);
+          }
+        });
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+      })(steps[i]);
+    }
+
+    // Format change resets
+    for (var r = 0; r < formatRadios.length; r++) {
+      (function(radio) {
+        radio.addEventListener('change', function() {
+          if (radio.checked) {
+            confirmed = false;
+            activateStep('understand');
+          }
+        });
+      })(formatRadios[r]);
+    }
+
+    activateStep('understand');
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * EXPERIMENT 2: State Inspector
+   * ──────────────────────────────────────────────────────────── */
+  function initStateInspector() {
+    var tabs = document.querySelectorAll('.si-tab');
+    if (!tabs.length) return;
+
+    function activateTab(tab) {
+      var targetId = tab.getAttribute('aria-controls');
+      // Deactivate all
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+        tabs[i].setAttribute('aria-selected', 'false');
+        tabs[i].setAttribute('tabindex', '-1');
+        var panelId = tabs[i].getAttribute('aria-controls');
+        var panel = document.getElementById(panelId);
+        if (panel) panel.classList.remove('active');
+      }
+      // Activate
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      tab.setAttribute('tabindex', '0');
+      var panel = document.getElementById(targetId);
+      if (panel) panel.classList.add('active');
+    }
+
+    for (var i = 0; i < tabs.length; i++) {
+      (function(tab) {
+        tab.addEventListener('click', function(e) { activateTab(tab); });
+        tab.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activateTab(tab);
+          }
+          // Arrow key navigation
+          var dir = null;
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') dir = 1;
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') dir = -1;
+          if (dir) {
+            e.preventDefault();
+            var currentIdx = Array.prototype.indexOf.call(tabs, tab);
+            var nextIdx = (currentIdx + dir + tabs.length) % tabs.length;
+            tabs[nextIdx].focus();
+            activateTab(tabs[nextIdx]);
+          }
+        });
+      })(tabs[i]);
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * EXPERIMENT 3: Design Judgment Lab
+   * ──────────────────────────────────────────────────────────── */
+  function initJudgmentLab() {
+    var principleInputs = document.querySelectorAll('.dj-principle-input');
+    var submitBtn = document.getElementById('dj-submit');
+    var result = document.getElementById('dj-result');
+    if (!principleInputs.length || !submitBtn || !result) return;
+
+    var selectedPrinciple = 'state';
+
+    // Data for each principle
+    var principleData = {
+      state: {
+        designerScore: 3,
+        comparison: 'The interface surfaces model name, dataset selection, and basic parameters, but the training configuration is presented as a static form. Key state like learning rate schedule, gradient flow, or batch distribution is hidden. The "Run Training" button gives no preview of what will happen. A "make state visible" pass would surface training readiness checks, data validation status, and a dry-run simulation option.',
+        prompts: [
+          'What specific states are visible in this interface? Which are hidden?',
+          'If you were adding one piece of state information, what would it be?',
+          'How would you communicate training readiness without overwhelming the user?'
+        ]
+      },
+      control: {
+        designerScore: 2,
+        comparison: 'The form provides model and dataset selection, but there is no way to override defaults, review the full pipeline before execution, or cancel a running job. The augmentation checkboxes are disabled, removing the user\'s ability to configure preprocessing. A "control" review would add stage gates, the ability to inspect and modify intermediate steps, and an undo mechanism.',
+        prompts: [
+          'Where does the user have meaningful control in this interface? Where is control missing?',
+          'How could you add a preview stage before execution?',
+          'What would an undo mechanism look like in a training workflow?'
+        ]
+      },
+      scale: {
+        designerScore: 3,
+        comparison: 'The interface uses a form template that works for simple cases but would not scale to complex multi-model, multi-dataset workflows. There are no presets, no batch operations, and no way to save or share configurations. A "scale judgment" approach would provide reusable configuration templates, parameter interpolation, and exportable pipeline definitions.',
+        prompts: [
+          'What patterns in this interface would break as complexity grows?',
+          'How could you make expert workflows faster without confusing new users?',
+          'What is the right level of abstraction for a reusable training configuration?'
+        ]
+      }
+    };
+
+    function resetJudgmentUI() {
+      result.classList.remove('active');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit rating';
+    }
+
+    // Principle selection (native radios)
+    function onPrincipleChange() {
+      selectedPrinciple = this.value;
+      resetJudgmentUI();
+      // Reset rating to default on principle change
+      var firstScore = document.querySelector('input[name="dj-score"][value="1"]');
+      if (firstScore) firstScore.checked = true;
+    }
+
+    for (var i = 0; i < principleInputs.length; i++) {
+      principleInputs[i].addEventListener('change', onPrincipleChange);
+    }
+
+    // Rating change reset
+    var scoreRadios = document.querySelectorAll('input[name="dj-score"]');
+    for (var r = 0; r < scoreRadios.length; r++) {
+      (function(radio) {
+        radio.addEventListener('change', function() {
+          if (radio.checked) {
+            resetJudgmentUI();
+          }
+        });
+      })(scoreRadios[r]);
+    }
+
+    // Submit
+    submitBtn.addEventListener('click', function() {
+      var scoreRadio = document.querySelector('input[name="dj-score"]:checked');
+      if (!scoreRadio) return;
+      var userScore = parseInt(scoreRadio.value, 10);
+      var data = principleData[selectedPrinciple];
+      if (!data) return;
+
+      document.getElementById('dj-your-score').textContent = userScore;
+      document.getElementById('dj-designer-score').textContent = data.designerScore;
+
+      var compEl = document.getElementById('dj-comparison-text');
+      compEl.textContent = '';
+      var cp = document.createElement('p');
+      cp.style.cssText = 'font-size:var(--text-sm);color:var(--fg-2)';
+      cp.textContent = data.comparison;
+      compEl.appendChild(cp);
+
+      var promptsList = document.getElementById('dj-prompts');
+      promptsList.textContent = '';
+      for (var p = 0; p < data.prompts.length; p++) {
+        var li = document.createElement('li');
+        li.textContent = data.prompts[p];
+        promptsList.appendChild(li);
+      }
+
+      result.classList.add('active');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitted';
+    });
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+   * INIT
+   * ──────────────────────────────────────────────────────────── */
+  function init() {
+    initWorkflow();
+    initStateInspector();
+    initJudgmentLab();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+
+</body>
+</html>

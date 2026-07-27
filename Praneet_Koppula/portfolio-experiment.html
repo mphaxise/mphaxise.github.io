@@ -273,41 +273,111 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* ═══════ CHAOS MODE ═══════ */
 .chaos-btn{width:100%;padding:var(--sp-3) var(--sp-4);border:2px dashed var(--accent);border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 8%,transparent);font-family:var(--font);font-size:var(--text-sm);font-weight:700;color:var(--accent);cursor:pointer;transition:all .3s var(--ease-bounce);letter-spacing:.02em}
 .chaos-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px color-mix(in srgb,var(--accent) 20%,transparent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
-.chaos-btn.active{background:var(--accent);color:#fff;border-style:solid;animation:chaosPulse 1.5s ease-in-out infinite}
-@keyframes chaosPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 40%,transparent)}50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 0%,transparent)}}
+.chaos-btn.active{background:var(--accent);color:#fff;border-style:solid;animation:chaosPulse 1s ease-in-out infinite}
+@keyframes chaosPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 40%,transparent)}50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--accent) 0%,transparent)}}
 .chaos-hint{font-size:10px;color:var(--muted);margin-top:var(--sp-1);opacity:.6}
 
 /* Chaos layer */
 .chaos-layer{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
-.chaos-emoji{position:absolute;font-size:28px;animation:emojiFloat linear forwards;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
-@keyframes emojiFloat{0%{opacity:0;transform:translateY(20px) rotate(0deg) scale(.5)}10%{opacity:1;transform:translateY(0) rotate(10deg) scale(1)}90%{opacity:1}100%{opacity:0;transform:translateY(-100vh) rotate(360deg) scale(.3)}}
+.chaos-emoji{position:absolute;animation:emojiFloat linear forwards;pointer-events:none}
+@keyframes emojiFloat{0%{opacity:0;transform:translateY(40px) rotate(0deg) scale(.2)}6%{opacity:1;transform:translateY(0) rotate(20deg) scale(1.2)}50%{transform:translateY(-50vh) rotate(200deg) scale(1)}90%{opacity:1}100%{opacity:0;transform:translateY(-110vh) rotate(500deg) scale(.1)}}
 
-.chaos-cat{position:absolute;pointer-events:none;z-index:10000;transition:transform .5s var(--ease-bounce)}
-.chaos-cat-body{font-size:48px;line-height:1;text-shadow:0 4px 12px rgba(0,0,0,.15)}
-.chaos-cat--top .chaos-cat-body{transform:rotate(180deg)}
+.chaos-confetti{position:absolute;border-radius:2px;animation:confettiFall linear forwards;pointer-events:none}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(-20px) rotate(0deg) scale(1)}100%{opacity:0;transform:translateY(110vh) rotate(1080deg) scale(.3)}}
+
+/* CURSOR TRAIL */
+.chaos-cursor-emoji{position:fixed;pointer-events:none;z-index:99999;font-size:24px;animation:cursorTrail .8s ease-out forwards}
+@keyframes cursorTrail{0%{opacity:1;transform:scale(1) rotate(0deg)}100%{opacity:0;transform:scale(.2) rotate(180deg) translateY(30px)}}
+
+/* POP TEXT */
+.chaos-pop{position:fixed;pointer-events:none;z-index:99999;font-weight:900;font-size:32px;text-shadow:0 2px 8px rgba(0,0,0,.3);animation:popText .7s var(--ease-bounce) forwards}
+@keyframes popText{0%{opacity:0;transform:scale(0) rotate(-20deg)}40%{opacity:1;transform:scale(1.4) rotate(5deg)}70%{transform:scale(.9) rotate(-2deg)}100%{opacity:0;transform:scale(1.1) rotate(0deg) translateY(-40px)}}
+
+/* NYAN TRAIL */
+.chaos-nyan{position:fixed;pointer-events:none;z-index:10000;font-size:36px;animation:nyanFly 2s linear forwards;filter:drop-shadow(0 0 8px rgba(255,100,200,.5))}
+@keyframes nyanFly{0%{left:-50px;opacity:1}100%{left:105vw;opacity:1}}
+
+/* FIREWORK */
+.chaos-firework{position:fixed;pointer-events:none;z-index:10000;font-size:28px;animation:fireworkBurst .8s var(--ease-bounce) forwards}
+@keyframes fireworkBurst{0%{opacity:1;transform:scale(0)}50%{opacity:1;transform:scale(1.5)}100%{opacity:0;transform:scale(.5) translateY(-60px)}}
+
+.chaos-cat{position:absolute;pointer-events:none;z-index:10000}
+.chaos-cat-body{line-height:1;text-shadow:0 4px 20px rgba(0,0,0,.25);animation:catWobble 1.2s ease-in-out infinite}
+@keyframes catWobble{0%,100%{transform:rotate(0deg) scale(1)}20%{transform:rotate(8deg) scale(1.1)}40%{transform:rotate(-6deg) scale(1.05)}60%{transform:rotate(4deg) scale(1.08)}80%{transform:rotate(-3deg) scale(1.02)}}
+
+/* SCREEN SHAKE */
+.chaos{animation:screenShake .1s ease-in-out infinite alternate}
+@keyframes screenShake{0%{transform:translate(0,0) rotate(0deg)}20%{transform:translate(-2px,1px) rotate(-.2deg)}40%{transform:translate(2px,-2px) rotate(.3deg)}60%{transform:translate(-1px,2px) rotate(-.1deg)}80%{transform:translate(1px,-1px) rotate(.2deg)}100%{transform:translate(-1px,-1px) rotate(-.15deg)}}
+
+/* RAINBOW BACKGROUND */
+.chaos .landing,.chaos .experience{animation:rainbowBg 2s linear infinite}
+@keyframes rainbowBg{0%{background-color:hsl(0,80%,94%)}12.5%{background-color:hsl(45,80%,94%)}25%{background-color:hsl(90,80%,94%)}37.5%{background-color:hsl(135,80%,94%)}50%{background-color:hsl(180,80%,94%)}62.5%{background-color:hsl(225,80%,94%)}75%{background-color:hsl(270,80%,94%)}87.5%{background-color:hsl(315,80%,94%)}100%{background-color:hsl(360,80%,94%)}}
+
+/* INVERT FLASHES */
+.chaos .exp-header{animation:invertFlash 6s ease-in-out infinite}
+@keyframes invertFlash{0%,89%,100%{filter:none}90%,94%{filter:invert(1)}92%{filter:none}}
 
 /* Text transforms */
-.chaos .exp-hero h2{animation:chaosWiggle 2s ease-in-out infinite}
-.chaos .exp-hero .eyebrow{animation:chaosColorShift 3s ease-in-out infinite}
+.chaos .exp-hero h2{animation:chaosWiggle .6s ease-in-out infinite,colorShift 1.5s ease-in-out infinite}
+.chaos .exp-hero .eyebrow{animation:chaosColorShift 1.5s ease-in-out infinite}
 .chaos .case-card h3 a::after{content:' 🎉' !important;transform:none !important}
-.chaos .exp-contact h3{animation:chaosWiggle 1.5s ease-in-out infinite}
-.chaos .shuffle-badge{animation:chaosFloat 2s ease-in-out infinite}
-@keyframes chaosWiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-1deg)}75%{transform:rotate(1deg)}}
-@keyframes chaosColorShift{0%,100%{color:var(--accent)}33%{color:#e8520e}66%{color:#7c6cff}}
-@keyframes chaosFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+.chaos .exp-contact h3{animation:chaosWiggle .5s ease-in-out infinite}
+.chaos .shuffle-badge{animation:chaosFloat 1s ease-in-out infinite}
+.chaos .wordmark{animation:chaosColorShift 2s ease-in-out infinite}
+.chaos .tag-sm{animation:chaosTagBounce .3s var(--ease-bounce) both}
+@keyframes chaosWiggle{0%,100%{transform:rotate(0deg)}15%{transform:rotate(-3deg)}30%{transform:rotate(3deg)}45%{transform:rotate(-2deg)}60%{transform:rotate(2deg)}75%{transform:rotate(-1deg)}90%{transform:rotate(1deg)}}
+@keyframes chaosColorShift{0%,100%{color:var(--accent)}20%{color:#e8520e}40%{color:#7c6cff}60%{color:#059669}80%{color:#dc2626}}
+@keyframes colorShift{0%,100%{color:var(--fg)}20%{color:#e8520e}40%{color:#7c6cff}60%{color:#059669}80%{color:#dc2626}}
+@keyframes chaosFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(8deg)}}
 
-.chaos .case-card{border:2px solid color-mix(in srgb,var(--accent) 30%,transparent);transition:all .3s var(--ease-bounce)}
-.chaos .case-card:nth-child(even){border-color:color-mix(in srgb,#e8520e 30%,transparent)}
-.chaos .case-card:nth-child(3n){border-color:color-mix(in srgb,#7c6cff 30%,transparent)}
+/* CARD CHAOS */
+.chaos .case-card{border:3px solid;color-transition:all .2s var(--ease-bounce);animation:cardPop .4s var(--ease-bounce) both}
+.chaos .case-card:nth-child(odd){border-color:#e8520e}
+.chaos .case-card:nth-child(even){border-color:#7c6cff}
+.chaos .case-card:nth-child(3n){border-color:#059669}
+.chaos .case-card:nth-child(4n){border-color:#dc2626}
+.chaos .case-card:nth-child(5n){border-color:#d97706}
+.chaos .case-card:hover{transform:translateY(-8px) rotate(-2deg) scale(1.03);box-shadow:0 20px 60px rgba(0,0,0,.2),0 0 30px color-mix(in srgb,var(--accent) 20%,transparent)}
+@keyframes cardPop{0%{opacity:0;transform:scale(.8) rotate(-3deg)}60%{transform:scale(1.05) rotate(1deg)}100%{opacity:1;transform:scale(1) rotate(0deg)}}
+.chaos .case-card:nth-child(1){animation-delay:.02s}
+.chaos .case-card:nth-child(2){animation-delay:.06s}
+.chaos .case-card:nth-child(3){animation-delay:.1s}
+.chaos .case-card:nth-child(4){animation-delay:.14s}
+.chaos .case-card:nth-child(5){animation-delay:.18s}
+.chaos .case-card:nth-child(6){animation-delay:.22s}
+.chaos .case-card:nth-child(7){animation-delay:.26s}
+.chaos .case-card:nth-child(8){animation-delay:.3s}
+.chaos .case-card:nth-child(9){animation-delay:.34s}
+.chaos .case-card:nth-child(10){animation-delay:.38s}
+.chaos .case-card:nth-child(11){animation-delay:.42s}
+.chaos .case-card:nth-child(12){animation-delay:.46s}
 
-.chaos .tag-sm{animation:chaosTagBounce .6s var(--ease-bounce) both}
-.chaos .tag-sm:nth-child(1){animation-delay:.05s}
-.chaos .tag-sm:nth-child(2){animation-delay:.1s}
-.chaos .tag-sm:nth-child(3){animation-delay:.15s}
-@keyframes chaosTagBounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.chaos .tag-sm{animation:chaosTagBounce .3s var(--ease-bounce) both}
+@keyframes chaosTagBounce{0%{transform:scale(0) rotate(-15deg)}50%{transform:scale(1.4) rotate(8deg)}100%{transform:scale(1) rotate(0deg)}}
 
-/* Cat paw cursor in chaos mode */
+/* NEON GLOW */
+.chaos .exp-hero h2{text-shadow:0 0 20px color-mix(in srgb,var(--accent) 40%,transparent),0 0 40px color-mix(in srgb,var(--accent) 20%,transparent),0 0 80px color-mix(in srgb,var(--accent) 10%,transparent)}
+.chaos .exp-contact{box-shadow:0 0 60px color-mix(in srgb,var(--accent) 25%,transparent),inset 0 0 60px color-mix(in srgb,var(--accent) 8%,transparent)}
+
+/* Cat paw cursor */
 .chaos .exp-body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80'%3E🐾%3C/text%3E%3C/svg%3E") 4 4, auto}
+
+/* SECTION CHAOS */
+.chaos .section-title{animation:chaosColorShift 2s ease-in-out infinite,chaosFloat 2s ease-in-out infinite}
+.chaos .principle{animation:cardPop .5s var(--ease-bounce) both;border-top:3px solid var(--accent);transition:all .2s var(--ease-bounce)}
+.chaos .principle:hover{transform:scale(1.05) rotate(-2deg);box-shadow:0 12px 32px rgba(0,0,0,.15)}
+.chaos .ds-teaser{animation:chaosFloat 2s ease-in-out infinite}
+.chaos .ds-teaser-badge{animation:chaosColorShift 1s ease-in-out infinite !important}
+.chaos .enter-btn{animation:chaosFloat 1.5s ease-in-out infinite}
+.chaos .enter-btn:hover{transform:scale(1.08) rotate(-2deg) !important}
+
+/* GRAVITY FLIP */
+@keyframes gravityFlip{0%,85%,100%{transform:none}88%{transform:scaleY(-1)}92%{transform:scaleY(1)}}
+.chaos .exp-body{animation:gravityFlip 8s ease-in-out infinite}
+
+/* DISCO STRIPE */
+.chaos::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 80px);pointer-events:none;z-index:9998;animation:discoStripe 2s linear infinite}
+@keyframes discoStripe{0%{background-position:0 0}100%{background-position:113px 113px}}
 
 /* ═══════ MOBILE ═══════ */
 @media(max-width:768px){
@@ -1323,8 +1393,18 @@ document.addEventListener('keydown', (e) => {
 let chaosActive = false;
 let chaosLayer = null;
 let chaosInterval = null;
-const CHAOS_EMOJIS = ['🐱','😹','🙀','😻','🐾','✨','🎉','🔥','💀','🌈','🦄','🍕','🪩','👽','🤖','👀','💅','🫠','🤯','🎵','💎','🪿','🧿','🎪'];
-const CAT_FACES = ['🐱','😺','😸','😹','😻','🙀','😿','😾','🐈','🐈‍⬛'];
+let chaosConfettiInterval = null;
+let chaosScrambleInterval = null;
+let chaosCursorInterval = null;
+let chaosPopInterval = null;
+let chaosNyanInterval = null;
+let chaosFireworkInterval = null;
+const CHAOS_EMOJIS = ['🐱','😹','🙀','😻','🐾','✨','🎉','🔥','💀','🌈','🦄','🍕','🪩','👽','🤖','👀','💅','🫠','🤯','🎵','💎','🪿','🧿','🎪','🤡','👻','🎃','🥑','⚡','🎸','🎭','🧠','🍭','🦑','🦩','🪐','🌋','🍩','🎲','🎯','🏆','💡','🚀','💥','🌊','🔮','🃏','🪬','🦜','🐙','🦞','🦐','🐡','🐠','🐟','🐬','🐳','🐋','🦭','🦚','🦢','🦩','🕊️','🐧','🐣','🦋','🐛','🐝'];
+const CAT_FACES = ['🐱','😺','😸','😹','😻','🙀','😿','😾','🐈','🐈‍⬛','🐆','🦁','🐯','🐱‍👤','🐱‍🚀','🐱‍💻'];
+const CONFETTI_COLORS = ['#e8520e','#7c6cff','#059669','#dc2626','#d97706','#0891b2','#ec4899','#8b5cf6','#f59e0b','#10b981'];
+const SCRAMBLE_CHARS = '🐱✨🎉🔥💀🌈🦄🍕🪩👽🤖👀💅🫠🤯🎵💎🎪';
+const POP_WORDS = ['MEOW!','PURR~','NYAAN!','✨WHOA✨','🔥FIRE🔥','💀SKULL💀','🌈VIBES🌈','🎉YAY!','🤯MIND=BLOWN','🍕PIZZA!','🦄MAGIC','👀LOOK!','💅SLAY','🫠MELT','🤖BEEP BOOP','⚡ZAP!','🚀LAUNCH','🌊WOOSH','🔮CRYSTAL','🎲ROLL'];
+const NYAN_FACES = ['🐱','😺','😸','😹','😻'];
 
 function toggleChaos() {
   chaosActive = !chaosActive;
@@ -1334,76 +1414,168 @@ function toggleChaos() {
   btn.classList.toggle('active', chaosActive);
   btn.textContent = chaosActive ? '🛑 Stop' : '🐱 Go Wild';
   hint.textContent = chaosActive ? 'click to restore sanity' : 'emoji overload · cat invasion';
-
-  if (chaosActive) {
-    startChaos();
-  } else {
-    stopChaos();
-  }
+  if (chaosActive) startChaos(); else stopChaos();
 }
 
 function startChaos() {
-  if (!chaosLayer) {
-    chaosLayer = document.createElement('div');
-    chaosLayer.className = 'chaos-layer';
-    document.body.appendChild(chaosLayer);
-  }
+  if (!chaosLayer) { chaosLayer = document.createElement('div'); chaosLayer.className = 'chaos-layer'; document.body.appendChild(chaosLayer); }
   chaosLayer.style.display = 'block';
-
-  // Spawn cats hanging from edges
-  spawnCats();
-
-  // Spawn emojis periodically
-  spawnEmoji();
-  chaosInterval = setInterval(spawnEmoji, 600);
+  spawnCats(); spawnEmoji(); spawnConfetti(); spawnPopText(); spawnNyan(); spawnFirework();
+  chaosInterval = setInterval(spawnEmoji, 100);
+  chaosConfettiInterval = setInterval(spawnConfetti, 60);
+  chaosScrambleInterval = setInterval(scrambleHeroText, 1200);
+  chaosCursorInterval = setInterval(spawnCursorEmoji, 50);
+  chaosPopInterval = setInterval(spawnPopText, 900);
+  chaosNyanInterval = setInterval(spawnNyan, 2000);
+  chaosFireworkInterval = setInterval(spawnFirework, 1500);
+  scrambleHeroText();
 }
 
 function stopChaos() {
-  if (chaosInterval) { clearInterval(chaosInterval); chaosInterval = null; }
-  if (chaosLayer) {
-    chaosLayer.innerHTML = '';
-    chaosLayer.style.display = 'none';
-  }
+  [chaosInterval, chaosConfettiInterval, chaosScrambleInterval, chaosCursorInterval, chaosPopInterval, chaosNyanInterval, chaosFireworkInterval].forEach(id => { if (id) clearInterval(id); });
+  chaosInterval = chaosConfettiInterval = chaosScrambleInterval = chaosCursorInterval = chaosPopInterval = chaosNyanInterval = chaosFireworkInterval = null;
+  if (chaosLayer) { chaosLayer.innerHTML = ''; chaosLayer.style.display = 'none'; }
+  document.querySelectorAll('.chaos-cursor-emoji,.chaos-pop,.chaos-nyan,.chaos-firework').forEach(e => e.remove());
+  unscrambleHeroText();
 }
+
+let lastMouseX = 0, lastMouseY = 0;
+document.addEventListener('mousemove', (e) => { lastMouseX = e.clientX; lastMouseY = e.clientY; });
 
 function spawnEmoji() {
   if (!chaosLayer || !chaosActive) return;
+  const count = Math.random() > 0.4 ? 4 : 2;
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'chaos-emoji';
+    el.textContent = CHAOS_EMOJIS[Math.floor(Math.random() * CHAOS_EMOJIS.length)];
+    el.style.left = Math.random() * 96 + 'vw';
+    el.style.bottom = '-40px';
+    el.style.fontSize = (16 + Math.random() * 44) + 'px';
+    el.style.animationDuration = (2 + Math.random() * 3.5) + 's';
+    el.style.animationDelay = (Math.random() * 0.1) + 's';
+    chaosLayer.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+function spawnConfetti() {
+  if (!chaosLayer || !chaosActive) return;
+  for (let i = 0; i < 8; i++) {
+    const el = document.createElement('div');
+    el.className = 'chaos-confetti';
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.top = '-10px';
+    el.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+    el.style.width = (3 + Math.random() * 12) + 'px';
+    el.style.height = (3 + Math.random() * 12) + 'px';
+    el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    el.style.animationDuration = (1.2 + Math.random() * 2) + 's';
+    chaosLayer.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+function spawnCursorEmoji() {
+  if (!chaosActive) return;
   const el = document.createElement('div');
-  el.className = 'chaos-emoji';
+  el.className = 'chaos-cursor-emoji';
   el.textContent = CHAOS_EMOJIS[Math.floor(Math.random() * CHAOS_EMOJIS.length)];
-  el.style.left = Math.random() * 95 + 'vw';
-  el.style.bottom = '-40px';
-  el.style.fontSize = (18 + Math.random() * 24) + 'px';
-  el.style.animationDuration = (4 + Math.random() * 6) + 's';
-  el.style.animationDelay = (Math.random() * 0.3) + 's';
-  chaosLayer.appendChild(el);
+  el.style.left = (lastMouseX + (Math.random()-0.5)*30) + 'px';
+  el.style.top = (lastMouseY + (Math.random()-0.5)*30) + 'px';
+  el.style.fontSize = (12 + Math.random() * 20) + 'px';
+  document.body.appendChild(el);
   el.addEventListener('animationend', () => el.remove());
+}
+
+function spawnPopText() {
+  if (!chaosActive || Math.random() > 0.35) return;
+  const el = document.createElement('div');
+  el.className = 'chaos-pop';
+  el.textContent = POP_WORDS[Math.floor(Math.random() * POP_WORDS.length)];
+  el.style.left = (8 + Math.random() * 78) + 'vw';
+  el.style.top = (8 + Math.random() * 75) + 'vh';
+  el.style.color = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+  el.style.fontSize = (22 + Math.random() * 32) + 'px';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}
+
+function spawnNyan() {
+  if (!chaosActive || Math.random() > 0.3) return;
+  const el = document.createElement('div');
+  el.className = 'chaos-nyan';
+  el.textContent = NYAN_FACES[Math.floor(Math.random() * NYAN_FACES.length)];
+  el.style.top = (5 + Math.random() * 80) + 'vh';
+  el.style.fontSize = (28 + Math.random() * 28) + 'px';
+  el.style.animationDuration = (1.2 + Math.random() * 2) + 's';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}
+
+function spawnFirework() {
+  if (!chaosActive || Math.random() > 0.45) return;
+  const x = 8 + Math.random() * 84;
+  const y = 8 + Math.random() * 65;
+  const burstEmojis = ['✨','💥','🎆','🎇','⭐','🌟','💫','🔥','🎆'];
+  for (let i = 0; i < 7; i++) {
+    const el = document.createElement('div');
+    el.className = 'chaos-firework';
+    el.textContent = burstEmojis[Math.floor(Math.random() * burstEmojis.length)];
+    el.style.left = (x + (Math.random()-0.5)*12) + 'vw';
+    el.style.top = (y + (Math.random()-0.5)*12) + 'vh';
+    el.style.animationDelay = (i * 0.06) + 's';
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+}
+
+let heroOriginalText = null;
+function scrambleHeroText() {
+  if (!chaosActive) return;
+  const h2 = document.querySelector('.exp-hero h2');
+  if (!h2) return;
+  if (!heroOriginalText) heroOriginalText = h2.textContent;
+  const scrambled = heroOriginalText.split('').map(c => {
+    if (c === ' ') return ' ';
+    return Math.random() > 0.45 ? SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)] : c;
+  }).join('');
+  h2.textContent = scrambled;
+  setTimeout(() => { if (h2 && heroOriginalText) h2.textContent = heroOriginalText; }, 500);
+}
+
+function unscrambleHeroText() {
+  const h2 = document.querySelector('.exp-hero h2');
+  if (h2 && heroOriginalText) { h2.textContent = heroOriginalText; heroOriginalText = null; }
 }
 
 function spawnCats() {
   const positions = [
-    { top: '-10px', left: '5%', rotate: '10deg' },
-    { top: '-10px', right: '8%', rotate: '-8deg' },
-    { bottom: '-10px', left: '12%', rotate: '5deg' },
-    { bottom: '-10px', right: '15%', rotate: '-12deg' },
-    { top: '20%', left: '-15px', rotate: '90deg' },
-    { top: '50%', right: '-15px', rotate: '-90deg' },
+    { top: '-22px', left: '2%', size: '68px', rotate: '15deg' },
+    { top: '-22px', right: '3%', size: '72px', rotate: '-12deg' },
+    { top: '-22px', left: '30%', size: '56px', rotate: '8deg' },
+    { top: '-22px', right: '28%', size: '60px', rotate: '-6deg' },
+    { bottom: '-22px', left: '4%', size: '64px', rotate: '-10deg' },
+    { bottom: '-22px', right: '5%', size: '68px', rotate: '18deg' },
+    { bottom: '-22px', left: '40%', size: '52px', rotate: '-8deg' },
+    { top: '10%', left: '-24px', size: '62px', rotate: '90deg' },
+    { top: '30%', left: '-24px', size: '54px', rotate: '88deg' },
+    { top: '55%', left: '-24px', size: '58px', rotate: '92deg' },
+    { top: '18%', right: '-24px', size: '60px', rotate: '-90deg' },
+    { top: '42%', right: '-24px', size: '66px', rotate: '-88deg' },
+    { top: '68%', right: '-24px', size: '54px', rotate: '-92deg' },
+    { top: '82%', left: '-24px', size: '50px', rotate: '95deg' },
   ];
   positions.forEach((pos, i) => {
     const cat = document.createElement('div');
     cat.className = 'chaos-cat';
     cat.innerHTML = `<div class="chaos-cat-body">${CAT_FACES[i % CAT_FACES.length]}</div>`;
     Object.assign(cat.style, {
-      position: 'fixed',
-      top: pos.top || 'auto',
-      bottom: pos.bottom || 'auto',
-      left: pos.left || 'auto',
-      right: pos.right || 'auto',
-      transform: `rotate(${pos.rotate})`,
-      fontSize: (32 + Math.random() * 24) + 'px',
-      zIndex: 10000,
-      animation: `chaosFloat ${2 + Math.random() * 2}s ease-in-out infinite`,
-      animationDelay: `${i * 0.3}s`
+      position: 'fixed', top: pos.top || 'auto', bottom: pos.bottom || 'auto',
+      left: pos.left || 'auto', right: pos.right || 'auto',
+      transform: `rotate(${pos.rotate})`, fontSize: pos.size, zIndex: 10000,
+      animation: `catWobble ${0.8 + Math.random() * 0.8}s ease-in-out infinite`,
+      animationDelay: `${i * 0.12}s`
     });
     chaosLayer.appendChild(cat);
   });

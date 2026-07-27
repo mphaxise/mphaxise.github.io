@@ -228,6 +228,35 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .anim-4.visible{animation-delay:.28s}
 .anim-5.visible{animation-delay:.36s}
 
+/* ═══════ LIVELY (anim-level 2) ═══════ */
+@keyframes livelyCardIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes livelyBounceIn{from{opacity:0;transform:translateY(30px) scale(.9)}to{opacity:0.6;transform:translateY(-6px) scale(1.02)}50%{transform:translateY(0) scale(1)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes livelyPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 30%,transparent)}50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 0%,transparent)}}
+@keyframes livelyFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.lively .anim.visible{animation:livelyCardIn .5s var(--ease-bounce) both}
+.lively .case-card{transition:all .35s var(--ease-bounce)}
+.lively .case-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,.1)}
+.lively .case-card .tag-sm{transition:all .25s var(--ease-bounce)}
+.lively .case-card:hover .tag-sm{transform:translateY(-1px);background:color-mix(in srgb,var(--accent) 10%,var(--surface))}
+.lively .case-card h3 a::after{transition:all .3s var(--ease-bounce)}
+.lively .featured-hero{transition:all .4s var(--ease-bounce)}
+.lively .featured-hero:hover{transform:translateY(-3px);box-shadow:0 12px 48px rgba(0,0,0,.08)}
+.lively .exp-contact{transition:all .4s var(--ease-bounce)}
+.lively .exp-contact:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,0,0,.15)}
+.lively .principle{transition:all .35s var(--ease-bounce)}
+.lively .principle:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.lively .section-title{transition:all .3s var(--ease-bounce)}
+.lively .section-title:hover{letter-spacing:.14em}
+.lively .enter-btn{transition:all .3s var(--ease-bounce)}
+.lively .enter-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 28px color-mix(in srgb,var(--accent) 40%,transparent)}
+.lively .landing-visual .ring:nth-child(1){animation-duration:25s}
+.lively .landing-visual .ring:nth-child(2){animation-duration:20s}
+.lively .landing-visual .ring:nth-child(3){animation-duration:15s}
+.lively .shuffle-badge{animation:livelyFloat 3s ease-in-out infinite}
+.lively .ds-teaser-badge{animation:livelyPulse 2s ease-in-out infinite}
+.lively .pill:hover{transform:translateY(-1px)}
+
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .landing-visual .ring{animation:none}
@@ -235,6 +264,10 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .case-card:hover{transform:none}
   .content-transition{animation:none;opacity:1}
   .ds-teaser-badge{animation:none}
+  .lively .anim.visible{animation:none;opacity:1}
+  .lively .case-card:hover,.lively .featured-hero:hover,.lively .exp-contact:hover,.lively .principle:hover,.lively .enter-btn:hover{transform:none}
+  .lively .shuffle-badge,.lively .ds-teaser-badge{animation:none}
+  .lively .pill:hover{transform:none}
 }
 
 /* ═══════ MOBILE ═══════ */
@@ -419,7 +452,7 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
   <!-- ── Personality ── -->
   <div class="panel-group">
-    <div class="panel-group-label">Your personality</div>
+    <div class="panel-group-label">Your fingerprint</div>
 
     <div class="panel-section">
       <div class="panel-label">Warmth</div>
@@ -721,7 +754,7 @@ function applyState(st) {
   if (st.typeScale) { root.style.setProperty('--type-scale', st.typeScale); const s = document.getElementById('typeSlider'); if(s) { s.value = st.typeScale; document.getElementById('typeVal').textContent = parseFloat(st.typeScale).toFixed(1) + '×'; } }
   if (st.spaceScale) { root.style.setProperty('--space-scale', st.spaceScale); const s = document.getElementById('spaceSlider'); if(s) { s.value = st.spaceScale; document.getElementById('spaceVal').textContent = parseFloat(st.spaceScale).toFixed(1) + '×'; } }
   if (st.accent) { root.style.setProperty('--accent', st.accent); document.querySelectorAll('#accentSwatches .swatch').forEach(sw => sw.classList.toggle('active', sw.dataset.color === st.accent)); }
-  if (st.animLevel !== undefined) { root.style.setProperty('--anim-level', st.animLevel); document.querySelectorAll('[data-anim]').forEach(b => b.classList.toggle('active', b.dataset.anim === String(st.animLevel))); }
+  if (st.animLevel !== undefined) { root.style.setProperty('--anim-level', st.animLevel); document.querySelectorAll('[data-anim]').forEach(b => b.classList.toggle('active', b.dataset.anim === String(st.animLevel))); document.body.classList.toggle('lively', +st.animLevel === 2); }
   if (st.themeControls) {
     themeControlValues = { ...st.themeControls };
     if (currentTheme.controls) {
@@ -966,7 +999,9 @@ document.querySelectorAll('[data-anim]').forEach(b => {
   b.onclick = () => {
     document.querySelectorAll('[data-anim]').forEach(x => x.classList.remove('active'));
     b.classList.add('active');
-    root.style.setProperty('--anim-level', +b.dataset.anim);
+    const level = +b.dataset.anim;
+    root.style.setProperty('--anim-level', level);
+    document.body.classList.toggle('lively', level === 2);
     scheduleSave();
   };
 });
@@ -996,6 +1031,7 @@ function resetDS() {
     p.classList.toggle('active', p.dataset.anim === '1');
   });
   root.style.setProperty('--anim-level', 1);
+  document.body.classList.remove('lively');
   themeControlValues = {};
   populateThemeControls(currentTheme);
   updateThemePreview();
@@ -1208,7 +1244,7 @@ document.addEventListener('visibilitychange', () => {
     if (saved.typeScale) { root.style.setProperty('--type-scale', saved.typeScale); }
     if (saved.spaceScale) { root.style.setProperty('--space-scale', saved.spaceScale); }
     if (saved.accent) { root.style.setProperty('--accent', saved.accent); }
-    if (saved.animLevel !== undefined) { root.style.setProperty('--anim-level', saved.animLevel); }
+    if (saved.animLevel !== undefined) { root.style.setProperty('--anim-level', saved.animLevel); document.body.classList.toggle('lively', +saved.animLevel === 2); }
     // Sync landing controls
     if (saved.depth) { S.depth = +saved.depth; const ld = document.getElementById('landingDepth'); if(ld) { ld.value = S.depth; document.getElementById('landingDepthLabel').textContent = depthLabels[S.depth]; } }
     if (saved.focus) { S.focus = saved.focus; syncPanelPills('landingFocus', 'focus', S.focus); }

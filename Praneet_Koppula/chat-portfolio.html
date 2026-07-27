@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Ask · Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf6ee; --surface: #fffdf8; --fg: #201914; --fg-2: #4c4037;
+  --muted: #7a6d63; --accent: #9b5b32; --accent-on: #ffffff;
+  --border: #ded2c3; --border-soft: #eee4d7;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, monospace;
+  --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px;
+  --radius-pill: 9999px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+::selection{background:var(--accent);color:var(--accent-on)}
+
+/* ─── HEADER ─── */
+.header{flex-shrink:0;padding:var(--space-5) var(--space-6);border-bottom:1px solid var(--border-soft);display:flex;align-items:center;gap:var(--space-3)}
+.header .avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--accent-on);display:grid;place-items:center;font-size:16px;font-weight:700;flex-shrink:0}
+.header h1{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:-0.01em}
+.header .status{font-size:11px;color:var(--muted);background:var(--bg);padding:2px 10px;border-radius:var(--radius-pill);margin-left:auto;font-weight:500;display:flex;align-items:center;gap:5px}
+.header .status::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e}
+
+/* ─── CHAT ─── */
+.chat{flex:1;overflow-y:auto;padding:var(--space-4) var(--space-6) var(--space-4);display:flex;flex-direction:column;gap:var(--space-4)}
+.chat::-webkit-scrollbar{width:4px}
+.chat::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.msg{max-width:85%;animation:msgIn .3s ease;line-height:1.5}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{margin-left:auto}
+.msg.bot{margin-right:auto}
+.msg .bubble{padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);font-size:14px}
+.msg.user .bubble{background:var(--accent);color:var(--accent-on);border-bottom-right-radius:var(--radius-sm)}
+.msg.bot .bubble{background:var(--surface);border:1px solid var(--border-soft);color:var(--fg);border-bottom-left-radius:var(--radius-sm)}
+.msg .time{font-size:10px;color:var(--muted);margin-top:4px;padding:0 var(--space-2);opacity:0.7}
+
+/* Suggestions */
+.suggestions{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-2);padding:0 var(--space-1)}
+.suggestion{
+  padding:8px 14px;border:1px solid var(--border);border-radius:var(--radius-pill);
+  background:var(--surface);font-family:var(--font-body);font-size:12px;font-weight:500;
+  color:var(--fg);cursor:pointer;transition:all .15s ease;
+}
+.suggestion:hover{border-color:var(--accent);color:var(--accent);background:color-mix(in oklab, var(--accent), var(--surface) 94%)}
+
+/* Links in bot messages */
+.msg.bot .bubble a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;font-weight:500}
+.msg.bot .bubble a:hover{text-decoration:none}
+
+/* ─── INPUT ─── */
+.input-wrap{flex-shrink:0;padding:var(--space-3) var(--space-6) var(--space-6);border-top:1px solid var(--border-soft)}
+.input-row{display:flex;gap:var(--space-3);align-items:flex-end}
+.input-row textarea{
+  flex:1;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius-md);
+  background:var(--surface);color:var(--fg);font-family:var(--font-body);font-size:14px;
+  resize:none;outline:none;transition:border-color .15s ease;line-height:1.4;max-height:120px;
+}
+.input-row textarea:focus{border-color:var(--accent)}
+.input-row textarea::placeholder{color:var(--muted)}
+.input-row .send-btn{
+  width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:var(--accent-on);
+  display:grid;place-items:center;cursor:pointer;transition:all .15s ease;flex-shrink:0;
+  font-size:18px;
+}
+.input-row .send-btn:hover{transform:scale(1.06);box-shadow:0 4px 16px rgba(155,91,50,0.2)}
+.input-row .send-btn:active{transform:scale(0.95)}
+.input-row .send-btn:disabled{opacity:0.4;cursor:default;transform:none}
+
+/* ─── TYPING ─── */
+.typing .bubble{display:flex;gap:4px;align-items:center;padding:var(--space-4) var(--space-5)}
+.typing .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:typing 1.2s ease-in-out infinite}
+.typing .dot:nth-child(2){animation-delay:0.2s}
+.typing .dot:nth-child(3){animation-delay:0.4s}
+@keyframes typing{0%,100%{opacity:0.3}50%{opacity:1}}
+
+/* ─── WELCOME ─── */
+.welcome{text-align:center;padding:var(--space-8) var(--space-4);flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-4);animation:fadeIn .6s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.welcome .icon{font-size:48px;opacity:0.6}
+.welcome h2{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-0.01em}
+.welcome p{color:var(--muted);font-size:14px;max-width:340px}
+</style>
+</head>
+<body>
+
+<header class="header" data-od-id="header">
+  <div class="avatar">P</div>
+  <h1 data-od-id="heading">Ask about Praneet's work</h1>
+  <div class="status">Portfolio data</div>
+</header>
+
+<div class="chat" id="chat">
+  <div class="welcome" id="welcome">
+    <div class="icon">💬</div>
+    <h2>What would you like to know?</h2>
+    <p>Ask about case studies, skills, years of experience, design philosophy — anything in the portfolio.</p>
+    <div class="suggestions">
+      <button class="suggestion" data-q="What projects did you work on?">What projects?</button>
+      <button class="suggestion" data-q="Tell me about your AI work">AI work</button>
+      <button class="suggestion" data-q="What field research have you done?">Field research</button>
+      <button class="suggestion" data-q="What is your design philosophy?">Philosophy</button>
+      <button class="suggestion" data-q="What years have you been designing?">Experience</button>
+    </div>
+  </div>
+</div>
+
+<div class="input-wrap">
+  <div class="input-row">
+    <textarea id="input" rows="1" placeholder="Ask a question…" data-od-id="chat-input"></textarea>
+    <button class="send-btn" id="sendBtn" aria-label="Send" data-od-id="send-btn">→</button>
+  </div>
+</div>
+
+<script>
+const CASES = [
+  { id:'simulink-ai', title:'An AI assistant for model-based engineering', period:'2023–2024', tags:'AI Tools Leadership'.split(' '), summary:'Led the UX vision for an AI assistant that works across requirements, architecture, simulation, and explanation.', detail:'Connected the full engineering workflow — understand, propose, review, update, simulate, explain — with traceability and human control.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/' },
+  { id:'model-slicer', title:'Model Slicer', period:'2014–2016', tags:'Tools'.split(' '), summary:'Made model-slicing workflows predictable by exposing state, data sources, and time intervals.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/' },
+  { id:'diagnostics', title:'Diagnostics & Fix-It', period:'2014–2017', tags:'Tools'.split(' '), summary:'Evolved Simulink diagnostics into a resolution workflow with safe fixes and accountable suppression.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/' },
+  { id:'toolstrip', title:'Toolstrip Workshops', period:'2014–2019', tags:'Tools Leadership'.split(' '), summary:'Scaled task-based UI design across engineering apps through pattern guidance and design review.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/' },
+  { id:'mask-editor', title:'Mask Editor', period:'2014–2017', tags:'Tools'.split(' '), summary:'Reimagined block-mask authoring with structured parameters, validation, and a studio vision.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/' },
+  { id:'workflow-portfolio', title:'Workflow Portfolio System', period:'2020–2023', tags:'Leadership Tools'.split(' '), summary:'Built a prioritization model and advisory mechanism for UX teams to focus on the most impactful workflows.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/' },
+  { id:'ux-leadership', title:'UX Leadership Systems', period:'2022–2024', tags:'Leadership'.split(' '), summary:'Management systems across 4 countries and 120+ products connecting leadership bench, skills, and planning.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/' },
+  { id:'classmate-pc', title:'Intel Classmate PC', period:'2008–2009', tags:'Civic'.split(' '), summary:'India classroom research and an 18-participant usability study. Authored a 46-page interface concept.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/' },
+  { id:'mobile-money', title:'Mobile Money & Financial Inclusion', period:'2009', tags:'Civic'.split(' '), summary:'Co-authored published Springer research on mobile money for low-income households in urban India.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/' },
+  { id:'nokia-wayfinding', title:'Urban Wayfinding Research', period:'2010', tags:'Civic'.split(' '), summary:'Moderated fieldwork for Nokia on mobile wayfinding among low-tech users in Indian cities.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/' },
+  { id:'ai-ux-validation', title:'Agent-Callable UX Validation', period:'2026', tags:'AI'.split(' '), summary:'Service model for app-building agents to get trustworthy UX evidence before shipping.', link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html' },
+  { id:'hey-minie', title:'Hey Minie Homepage', period:'2026', tags:'Tools'.split(' '), summary:'Connected acquisition behavior to a focused homepage program using Plausible analytics.', link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html' },
+];
+
+const RESPONSES = {
+  default: [
+    "I don't have a specific answer for that. Try asking about a case study, design philosophy, experience years, or specific domain like AI or field research.",
+    "Hmm, that's outside my portfolio data. You can ask about projects, skills, or Praneet's background.",
+  ],
+  philosophy: [
+    "Praneet's design philosophy rests on three principles: make state visible so users understand what the system knows; earn trust through control with preview and recovery; and scale judgment, not sameness — standards should raise quality while preserving room for the problem to shape the solution.",
+    "The core belief: complex software should feel clear enough to trust. This means visible system state, user control over outcomes, and quality systems that amplify good judgment rather than enforce uniformity.",
+  ],
+  experience: [
+    "Praneet has 18+ years in product design, starting with field research in 2008 (Intel Classmate PC in India) through to AI interaction design in 2026. The span covers: field research in India (2008–2010), engineering tools at MathWorks (2014–2023), AI interaction vision (2023–2024), and independent experiments (2026).",
+    "The career spans 2008 to present: field research with Intel and Nokia in India, then engineering tools and design systems at MathWorks (Model Slicer, Diagnostics, Mask Editor, Toolstrip), followed by AI interaction design, UX leadership systems, and independent consulting in 2026.",
+  ],
+  ai: [
+    "Praneet has two AI projects. (1) An AI assistant for model-based engineering (2023–2024) — a UX vision for an AI that works across requirements, architecture, simulation, and explanation with human control. (2) Agent-callable UX validation (2026) — a service model for app-building agents to get UX evidence before shipping.",
+    "AI work includes: leading the UX vision for a model-based engineering AI assistant that connects the full engineering workflow, and designing an agent-callable UX validation service for AI-generated apps.",
+  ],
+  civic: [
+    "Praneet's civic/frontier research includes: Intel Classmate PC classroom research in India, co-authored Springer research on mobile money for financial inclusion, and Nokia urban wayfinding fieldwork — all conducted through Human Factors International between 2008–2010.",
+  ],
+  tools: [
+    "Engineering tools work spans 2014–2023 at MathWorks: Model Slicer (exposing simulation state), Diagnostics & Fix-It (actionable error resolution), Mask Editor (technical authoring environment), Toolstrip Workshops (task-based UI at scale), and the Workflow Portfolio System (UX quality at scale). Plus a 2026 growth design project for Hey Minie.",
+  ],
+  leadership: [
+    "Leadership work includes: Toolstrip Workshops (scaling design patterns through coaching and review across engineering apps), Workflow Portfolio System (building shared language and prioritization for UX teams), and UX Leadership Systems (management infrastructure across 4 countries and 120+ products).",
+  ],
+};
+
+// ─── INTENT MATCHING ───
+function normalize(s) { return s.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim(); }
+
+function matchIntent(q) {
+  const n = normalize(q);
+  if (/philosoph(y|ies)|principle|belief|approach|how.*design|design.*philosoph/.test(n)) return 'philosophy';
+  if (/year|experience|career|background|2008|2014|how long|18|started|timeline/.test(n)) return 'experience';
+  if (/ai|artificial|intelligence|agent|assistant|chat|machine.*learn|llm|model.*engineer/.test(n)) return 'ai';
+  if (/civic|field.*research|india|classroom|mobile.*money|wayfinding|nokia|intel|bottom.*pyramid|financial.*inclusion/.test(n)) return 'civic';
+  if (/tool|engineer|simulink|diagnostic|slicer|mask|workflow|toolstrip|mathworks|fix.?it/.test(n)) return 'tools';
+  if (/leader|org|organization|distributed|team.*scale|leadership system|bench|capacity|120.*product/.test(n)) return 'leadership';
+  return null;
+}
+
+function searchCases(q) {
+  const n = normalize(q);
+  const words = n.split(/\s+/).filter(w => w.length > 2);
+  return CASES.filter(c => {
+    const text = normalize(c.title + ' ' + c.summary + ' ' + c.tags.join(' '));
+    return words.some(w => text.includes(w)) || c.tags.some(t => n.includes(t.toLowerCase()));
+  });
+}
+
+function generateResponse(q) {
+  const intent = matchIntent(q);
+  if (intent && RESPONSES[intent]) {
+    const resps = RESPONSES[intent];
+    return resps[Math.floor(Math.random() * resps.length)];
+  }
+  const matched = searchCases(q);
+  if (matched.length === 1) {
+    const c = matched[0];
+    return `**${c.title}** (${c.period}): ${c.summary}\n\n[Read more →](${c.link})`;
+  }
+  if (matched.length > 1) {
+    let r = `I found **${matched.length}** relevant projects:\n\n`;
+    matched.forEach(c => { r += `• **${c.title}** (${c.period}) — ${c.summary}\n\n`; });
+    r += 'Which one would you like to know more about?';
+    return r;
+  }
+  const intents = Object.keys(RESPONSES);
+  const r = RESPONSES.default[Math.floor(Math.random() * RESPONSES.default.length)];
+  return r;
+}
+
+// ─── UI ───
+const chat = document.getElementById('chat');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('sendBtn');
+const welcome = document.getElementById('welcome');
+
+function addMessage(text, role) {
+  welcome.style.display = 'none';
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  div.innerHTML = `<div class="bubble">${text}</div>`;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function convertMarkdown(text) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
+}
+
+function showTyping() {
+  const div = document.createElement('div');
+  div.className = 'msg bot typing';
+  div.id = 'typing';
+  div.innerHTML = '<div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typing');
+  if (el) el.remove();
+}
+
+function handleQuery(q) {
+  q = q.trim();
+  if (!q) return;
+  addMessage(q, 'user');
+  showTyping();
+  setTimeout(() => {
+    hideTyping();
+    const response = generateResponse(q);
+    addMessage(convertMarkdown(response), 'bot');
+  }, 400 + Math.random() * 500);
+}
+
+function send() {
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = '';
+  input.style.height = 'auto';
+  handleQuery(q);
+}
+
+sendBtn.addEventListener('click', send);
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+// Auto-resize textarea
+input.addEventListener('input', () => {
+  input.style.height = 'auto';
+  input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+});
+
+// Suggestion clicks
+document.querySelectorAll('.suggestion').forEach(btn => {
+  btn.addEventListener('click', () => handleQuery(btn.dataset.q));
+});
+
+// Focus input
+input.focus();
+</script>
+</body>
+</html>

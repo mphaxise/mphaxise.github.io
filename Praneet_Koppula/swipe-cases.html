@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Swipe Cases — Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;6..60,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:"Inter",system-ui,-apple-system,sans-serif;
+  background:#0a0a0c;color:#f0f0f2;display:flex;align-items:center;justify-content:center;
+  -webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none;
+}
+
+/* ─── LANDING ─── */
+.landing{
+  position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;background:#0a0a0c;text-align:center;
+  transition:opacity .5s,transform .5s;padding:24px;
+}
+.landing.hidden{opacity:0;transform:scale(1.04);pointer-events:none}
+.landing h1{font-family:"Source Serif 4",Georgia,serif;font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:12px}
+.landing p{color:#888890;font-size:clamp(14px,2vw,17px);max-width:420px;margin-bottom:40px;line-height:1.6}
+.landing .brand{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#555;margin-bottom:16px}
+.start-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 36px;border:none;border-radius:999px;
+  background:#f0f0f2;color:#0a0a0c;font-family:inherit;font-size:16px;font-weight:700;
+  cursor:pointer;transition:transform .2s,box-shadow .2s;
+}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(240,240,242,.15)}
+.start-btn:active{transform:translateY(0)}
+.start-btn svg{width:18px;height:18px;transition:transform .2s}
+.start-btn:hover svg{transform:translateX(4px)}
+
+/* ─── CARD DECK ─── */
+.deck{position:fixed;inset:0;display:none;align-items:center;justify-content:center;perspective:1200px}
+.deck.active{display:flex}
+.deck-empty{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:24px;background:#0a0a0c;z-index:50}
+.deck-empty.show{display:flex}
+.deck-empty h2{font-family:"Source Serif 4",Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:700;margin-bottom:12px}
+.deck-empty p{color:#888890;margin-bottom:28px;font-size:15px}
+.deck-empty .restart-btn{padding:12px 28px;border-radius:999px;border:1.5px solid #333;background:transparent;color:#f0f0f2;font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+.deck-empty .restart-btn:hover{background:#f0f0f2;color:#0a0a0c;border-color:#f0f0f2}
+
+.card-stack{position:relative;width:min(420px,88vw);height:min(600px,78vh)}
+.card-slot{position:absolute;inset:0;touch-action:none}
+
+.card{
+  position:absolute;inset:0;
+  background:#16161a;border:1px solid #28282e;border-radius:20px;
+  padding:32px 28px;display:flex;flex-direction:column;
+  cursor:grab;overflow:hidden;
+  transition:transform .3s cubic-bezier(.2,0,0,1),opacity .3s;
+  box-shadow:0 4px 40px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.04);
+}
+.card:active{cursor:grabbing}
+.card.dragging{transition:none !important}
+.card .eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#7c6cff;margin-bottom:12px;flex-shrink:0;
+}
+.card h2{
+  font-family:"Source Serif 4",Georgia,serif;
+  font-size:clamp(20px,3.5vw,28px);font-weight:700;line-height:1.15;
+  letter-spacing:-.02em;margin-bottom:8px;flex-shrink:0;
+}
+.card .period{font-size:13px;color:#555;margin-bottom:16px;flex-shrink:0}
+.card .summary{font-size:15px;line-height:1.6;color:#b0b0b8;flex:1;overflow-y:auto}
+.card .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px;flex-shrink:0}
+.card .tag{
+  font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;
+  background:#1e1e24;color:#888890;letter-spacing:.02em;
+}
+.card .swipe-hint{
+  text-align:center;font-size:12px;color:#555;
+  margin-top:14px;padding-top:14px;border-top:1px solid #1e1e22;flex-shrink:0;
+}
+
+/* Card swipe feedback overlays */
+.card .like-hint,.card .nope-hint{
+  position:absolute;top:28px;padding:8px 16px;border-radius:8px;
+  font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  opacity:0;transition:opacity .15s;pointer-events:none;z-index:2;
+}
+.card .like-hint{right:28px;color:#22c55e;border:2px solid #22c55e;transform:rotate(12deg)}
+.card .nope-hint{left:28px;color:#ef4444;border:2px solid #ef4444;transform:rotate(-12deg)}
+.card .like-hint.show,.card .nope-hint.show{opacity:1}
+
+/* Stack peeking cards */
+.card-stack .card-slot:nth-child(1) .card{transform:scale(1) translateY(0);z-index:10}
+.card-stack .card-slot:nth-child(2) .card{transform:scale(.95) translateY(8px);z-index:9;opacity:.6}
+.card-stack .card-slot:nth-child(3) .card{transform:scale(.90) translateY(16px);z-index:8;opacity:.3}
+.card-stack .card-slot:nth-child(4) .card{transform:scale(.85) translateY(24px);z-index:7;opacity:.15}
+.card-stack .card-slot:nth-child(5) .card{transform:scale(.80) translateY(32px);z-index:6;opacity:.08}
+.card-stack .card-slot:nth-child(n+6) .card{opacity:0;pointer-events:none}
+
+/* Swipe animations */
+.card.swiping-left{animation:swipeOutLeft .4s cubic-bezier(.2,0,0,1) forwards;pointer-events:none}
+.card.swiping-right{animation:swipeOutRight .4s cubic-bezier(.2,0,0,1) forwards;pointer-events:none}
+@keyframes swipeOutLeft{
+  0%{transform:translateX(0) rotate(0deg);opacity:1}
+  100%{transform:translateX(-160%) rotate(-20deg);opacity:0}
+}
+@keyframes swipeOutRight{
+  0%{transform:translateX(0) rotate(0deg);opacity:1}
+  100%{transform:translateX(160%) rotate(20deg);opacity:0}
+}
+
+/* ─── HEADER ─── */
+.deck-header{
+  position:fixed;top:0;left:0;right:0;z-index:30;
+  display:none;align-items:center;justify-content:space-between;
+  padding:16px 20px;background:linear-gradient(180deg,#0a0a0c 60%,transparent);
+}
+.deck-header.show{display:flex}
+.deck-header .counter{font-size:14px;font-weight:600;color:#555;letter-spacing:.02em}
+.deck-header .counter span{color:#f0f0f2}
+.deck-header .close-btn{
+  width:36px;height:36px;border-radius:50%;border:1px solid #28282e;
+  background:transparent;color:#f0f0f2;display:grid;place-items:center;
+  cursor:pointer;transition:all .2s;font-size:16px;
+}
+.deck-header .close-btn:hover{background:#28282e;border-color:#555}
+
+/* ─── ACTION BAR ─── */
+.action-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:30;
+  display:none;align-items:center;justify-content:center;gap:16px;
+  padding:20px 20px 28px;
+  background:linear-gradient(0deg,#0a0a0c 60%,transparent);
+}
+.action-bar.show{display:flex}
+
+.action-btn{
+  width:56px;height:56px;border-radius:50%;border:1.5px solid #28282e;
+  display:grid;place-items:center;cursor:pointer;transition:all .2s;
+  background:transparent;font-size:22px;
+}
+.action-btn:hover{transform:scale(1.08)}
+.action-btn:active{transform:scale(.95)}
+.action-btn.nope{border-color:#28282e;color:#ef4444}
+.action-btn.nope:hover{border-color:#ef4444;background:rgba(239,68,68,.08)}
+.action-btn.like{border-color:#28282e;color:#22c55e}
+.action-btn.like:hover{border-color:#22c55e;background:rgba(34,197,94,.08)}
+.action-btn.info{border-color:#28282e;color:#7c6cff}
+.action-btn.info:hover{border-color:#7c6cff;background:rgba(124,108,255,.08)}
+.action-btn svg{width:24px;height:24px}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:500px){
+  .card{padding:24px 20px;border-radius:16px}
+  .card h2{font-size:20px}
+  .card .summary{font-size:14px}
+  .card-stack{width:92vw;height:68vh}
+  .action-btn{width:48px;height:48px;font-size:18px}
+  .action-btn svg{width:20px;height:20px}
+}
+@media(prefers-reduced-motion:reduce){
+  .card,.landing,.start-btn,.card.swiping-left,.card.swiping-right{animation:none !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ LANDING ═══ -->
+<div class="landing" id="landing">
+  <div class="brand">Praneet Koppula</div>
+  <h1>Case studies, one swipe at a time</h1>
+  <p>Swipe through a dozen product design stories — AI tools, engineering workflows, field research, and org design.</p>
+  <button class="start-btn" onclick="startDeck()">
+    Start browsing
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<!-- ═══ DECK EMPTY ═══ -->
+<div class="deck-empty" id="deckEmpty">
+  <h2>You've seen them all</h2>
+  <p>All 12 case studies reviewed. Want to go through them again?</p>
+  <button class="restart-btn" onclick="restartDeck()">Browse again</button>
+</div>
+
+<!-- ═══ HEADER ═══ -->
+<div class="deck-header" id="deckHeader">
+  <div class="counter"><span id="currentIdx">1</span> of <span id="totalCount">12</span></div>
+  <button class="close-btn" onclick="exitDeck()" aria-label="Close">✕</button>
+</div>
+
+<!-- ═══ CARD DECK ═══ -->
+<div class="deck" id="deck">
+  <div class="card-stack" id="cardStack"></div>
+</div>
+
+<!-- ═══ ACTION BAR ═══ -->
+<div class="action-bar" id="actionBar">
+  <button class="action-btn nope" onclick="swipe('left')" aria-label="Skip">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="action-btn info" onclick="openReadMore()" aria-label="Read more">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+  <button class="action-btn like" onclick="swipe('right')" aria-label="Open">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5l7 7-7 7M5 12h14"/></svg>
+  </button>
+</div>
+
+<script>
+// ═══════ CASE DATA ═══════
+const CASES = [
+  { id:'simulink-ai', title:'Designing an AI assistant for model-based engineering', eyebrow:'AI interaction vision', period:'2023–2024', tags:['AI','Tools','Leadership'], summary:'Led the UX vision with an Engineering Lead for an assistant that could work across requirements, architecture, implementation, simulation, and explanation — while keeping every consequential action visible and under human control.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/' },
+  { id:'model-slicer', title:'Designing Model Slicer around state, data, and time', eyebrow:'Technical workflow design', period:'2014–2016', tags:['Tools'], summary:'Helped make an early Model Slicer workflow more predictable by exposing the role a selected model object played, the behavioral data supporting a slice, and the time interval in which that data was valid.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/' },
+  { id:'diagnostics', title:'Making Simulink diagnostics actionable', eyebrow:'Interaction design', period:'2014–2017', tags:['Tools'], summary:'Helped evolve an already-shipped diagnostic surface into a clearer resolution workflow, moving from readable messages to safe fixes and accountable suppression.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/' },
+  { id:'toolstrip', title:'Scaling task-based UI design across engineering apps', eyebrow:'Design systems', period:'2014–2019', tags:['Tools','Leadership'], summary:'Helped product teams turn dense engineering capabilities into task-based app structures, moving from pattern guidance and hands-on concepts to workshop contribution and formal design review.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/' },
+  { id:'mask-editor', title:'Reimagining Mask Editor as a technical authoring environment', eyebrow:'Technical authoring', period:'2014–2017', tags:['Tools'], summary:'Helped move block-mask authoring toward a more structured workflow for parameters, dialog controls, callbacks, validation, icons, and reuse.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/' },
+  { id:'workflow-portfolio', title:'Turning customer workflows into a UX portfolio operating system', eyebrow:'Quality at scale', period:'2020–2023', tags:['Leadership','Tools'], summary:'Helped build a shared language, prioritization model, ownership process, and advisory mechanism so UX and product teams could focus on the workflows that mattered most.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/' },
+  { id:'ux-leadership', title:'Scaling a distributed UX organization through leadership systems', eyebrow:'Organization design', period:'2022–2024', tags:['Leadership'], summary:'Designed management systems that connected leadership bench, role and skill gaps, capacity planning, geographic coverage, development pathways, and team listening.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/' },
+  { id:'classmate-pc', title:'Designing a classroom computer as a classroom system', eyebrow:'Field research', period:'2008–2009', tags:['Civic'], summary:'Contributed to India classroom research and an 18-participant usability study for Intel Classmate PC, then authored a 46-page interface concept organized around activity spaces, tags, and a school diary.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/' },
+  { id:'mobile-money', title:'Designing mobile money from household financial life', eyebrow:'Field research', period:'2009', tags:['Civic'], summary:'Co-authored published Springer research on how mobile money could support financial inclusion for women in bottom-of-the-pyramid households in urban India.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/' },
+  { id:'nokia-wayfinding', title:'Researching urban wayfinding in the field', eyebrow:'Field research', period:'2010', tags:['Civic'], summary:'Planned recruitment, coordinated and moderated fieldwork for Nokia on mobile wayfinding and navigation among low-tech users in Indian cities.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/' },
+  { id:'ai-ux-validation', title:'Agent-callable UX validation for AI-generated apps', eyebrow:'AI experiment', period:'2026', tags:['AI'], summary:'Turned a broad question — how might app-building agents get usable, trustworthy UX evidence before they ship? — into a concrete service model, evidence taxonomy, and sharper category position.', link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html' },
+  { id:'hey-minie', title:'Turning mobile acquisition data into a clearer homepage', eyebrow:'Growth design', period:'2026', tags:['Tools'], summary:'Connected real acquisition behavior to a focused homepage-improvement program for Hey Minie, a voice-first storytelling app for children.', link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html' },
+];
+
+// ═══════ STATE ═══════
+let queue = [];
+let currentCard = null;
+let isDragging = false;
+let startX = 0, startY = 0, offsetX = 0, offsetY = 0;
+
+function shuffle(a) { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]} return b; }
+
+// ═══════ DECK MANAGEMENT ═══════
+function startDeck() {
+  document.getElementById('landing').classList.add('hidden');
+  queue = shuffle([...CASES]);
+  renderDeck();
+  document.getElementById('deck').classList.add('active');
+  document.getElementById('deckHeader').classList.add('show');
+  document.getElementById('actionBar').classList.add('show');
+  document.getElementById('totalCount').textContent = CASES.length;
+}
+
+function exitDeck() {
+  document.getElementById('deck').classList.remove('active');
+  document.getElementById('deckHeader').classList.remove('show');
+  document.getElementById('actionBar').classList.remove('show');
+  document.getElementById('deckEmpty').classList.remove('show');
+  document.getElementById('landing').classList.remove('hidden');
+}
+
+function restartDeck() {
+  document.getElementById('deckEmpty').classList.remove('show');
+  queue = shuffle([...CASES]);
+  renderDeck();
+}
+
+function renderDeck() {
+  const stack = document.getElementById('cardStack');
+  stack.innerHTML = '';
+  if (queue.length === 0) {
+    document.getElementById('deckEmpty').classList.add('show');
+    document.getElementById('deckHeader').classList.remove('show');
+    document.getElementById('actionBar').classList.remove('show');
+    return;
+  }
+  const count = Math.min(queue.length, 5);
+  for (let i = count - 1; i >= 0; i--) {
+    const c = queue[i];
+    const slot = document.createElement('div');
+    slot.className = 'card-slot';
+    slot.innerHTML = `<div class="card" data-idx="${i}" data-link="${c.link}">
+      <div class="eyebrow">${c.eyebrow}</div>
+      <h2>${c.title}</h2>
+      <div class="period">${c.period}</div>
+      <div class="summary">${c.summary}</div>
+      <div class="tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      <div class="swipe-hint">${i === 0 ? 'Swipe right to read →' : ''}</div>
+      <div class="like-hint">Open</div>
+      <div class="nope-hint">Skip</div>
+    </div>`;
+    stack.appendChild(slot);
+  }
+  updateCounter();
+  bindDrag(document.querySelector('.card-slot:first-child .card'));
+}
+
+function updateCounter() {
+  const total = CASES.length;
+  const done = total - queue.length + 1;
+  document.getElementById('currentIdx').textContent = Math.min(done, total);
+}
+
+// ═══════ DRAG + SWIPE ═══════
+let dragCard = null;
+function bindDrag(card) {
+  if (!card || dragCard === card) return;
+  dragCard = card;
+
+  const onStart = (x, y) => {
+    isDragging = true;
+    startX = x; startY = y;
+    offsetX = 0; offsetY = 0;
+    card.classList.add('dragging');
+  };
+
+  const onMove = (x, y) => {
+    if (!isDragging) return;
+    offsetX = x - startX;
+    offsetY = y - startY;
+    const rot = offsetX * 0.08;
+    const scale = 1 - Math.min(Math.abs(offsetX) * 0.0006, 0.08);
+    card.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rot}deg) scale(${scale})`;
+    toggleHints(card, offsetX);
+  };
+
+  const onEnd = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    card.classList.remove('dragging');
+    hideHints(card);
+    if (offsetX > 100) { swipeCard(card, 'right'); }
+    else if (offsetX < -100) { swipeCard(card, 'left'); }
+    else { card.style.transform = ''; }
+  };
+
+  card.addEventListener('mousedown', e => {
+    e.preventDefault();
+    onStart(e.clientX, e.clientY);
+  });
+  card.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    onStart(t.clientX, t.clientY);
+  }, { passive: true });
+}
+
+function toggleHints(card, x) {
+  const like = card.querySelector('.like-hint');
+  const nope = card.querySelector('.nope-hint');
+  if (like) like.classList.toggle('show', x > 40);
+  if (nope) nope.classList.toggle('show', x < -40);
+}
+function hideHints(card) {
+  const like = card.querySelector('.like-hint');
+  const nope = card.querySelector('.nope-hint');
+  if (like) like.classList.remove('show');
+  if (nope) nope.classList.remove('show');
+}
+
+// Global move/end listeners (set once)
+document.addEventListener('mousemove', e => {
+  if (!isDragging || !dragCard) return;
+  offsetX = e.clientX - startX;
+  offsetY = e.clientY - startY;
+  const rot = offsetX * 0.08;
+  const scale = 1 - Math.min(Math.abs(offsetX) * 0.0006, 0.08);
+  dragCard.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rot}deg) scale(${scale})`;
+  toggleHints(dragCard, offsetX);
+});
+document.addEventListener('mouseup', () => {
+  if (!isDragging || !dragCard) return;
+  isDragging = false;
+  dragCard.classList.remove('dragging');
+  hideHints(dragCard);
+  if (offsetX > 100) { swipeCard(dragCard, 'right'); }
+  else if (offsetX < -100) { swipeCard(dragCard, 'left'); }
+  else { dragCard.style.transform = ''; }
+});
+document.addEventListener('touchmove', e => {
+  if (!isDragging || !dragCard) return;
+  const t = e.touches[0];
+  offsetX = t.clientX - startX;
+  offsetY = t.clientY - startY;
+  const rot = offsetX * 0.08;
+  const scale = 1 - Math.min(Math.abs(offsetX) * 0.0006, 0.08);
+  dragCard.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${rot}deg) scale(${scale})`;
+  toggleHints(dragCard, offsetX);
+}, { passive: true });
+document.addEventListener('touchend', () => {
+  if (!isDragging || !dragCard) return;
+  isDragging = false;
+  dragCard.classList.remove('dragging');
+  hideHints(dragCard);
+  if (offsetX > 100) { swipeCard(dragCard, 'right'); }
+  else if (offsetX < -100) { swipeCard(dragCard, 'left'); }
+  else { dragCard.style.transform = ''; }
+}, { passive: true });
+
+// ═══════ SWIPE ACTIONS ═══════
+function swipe(dir) {
+  const card = document.querySelector('.card-slot:first-child .card');
+  if (!card) return;
+  if (isDragging) return;
+  swipeCard(card, dir);
+}
+
+function swipeCard(card, dir) {
+  if (dir === 'right') {
+    const link = card.dataset.link;
+    card.classList.add('swiping-right');
+    setTimeout(() => { if (link) window.open(link, '_blank', 'noopener'); }, 200);
+  } else {
+    card.classList.add('swiping-left');
+  }
+  setTimeout(() => {
+    queue.shift();
+    renderDeck();
+  }, 350);
+}
+
+function openReadMore() {
+  const card = document.querySelector('.card-slot:first-child .card');
+  if (!card) return;
+  const link = card.dataset.link;
+  if (link) window.open(link, '_blank', 'noopener');
+}
+</script>
+</body>
+</html>

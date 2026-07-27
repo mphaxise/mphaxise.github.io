@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal · Praneet Koppula</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0d0d12;color:#c8c8d0;font-family:'JetBrains Mono',ui-monospace,Menlo,monospace;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+::selection{background:#7c6cff;color:#fff}
+
+/* ─── HEADER ─── */
+.header{flex-shrink:0;padding:16px 20px 0;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1e1e28}
+.header .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.header .dot.r{background:#ff5f57}
+.header .dot.y{background:#ffbd2e}
+.header .dot.g{background:#28c840}
+.header .title{font-size:12px;color:#555;margin-left:auto;font-weight:500;letter-spacing:0.04em}
+
+/* ─── TERMINAL ─── */
+.terminal{flex:1;overflow-y:auto;padding:12px 20px 20px;display:flex;flex-direction:column}
+.terminal::-webkit-scrollbar{width:4px}
+.terminal::-webkit-scrollbar-thumb{background:#1e1e28;border-radius:2px}
+
+.line{white-space:pre-wrap;word-break:break-word;animation:lineIn .15s ease;min-height:20px}
+@keyframes lineIn{from{opacity:0}to{opacity:1}}
+
+.line.output{color:#c8c8d0;margin-bottom:4px}
+.line.output .hl{color:#7c6cff}
+.line.output .hl2{color:#28c840}
+.line.output .hl3{color:#ffbd2e}
+.line.output .dim{color:#555}
+.line.output .err{color:#ff5f57}
+
+.line.system{color:#555;font-size:12px;margin-bottom:8px;font-style:italic}
+
+.line.prompt{display:flex;align-items:center;gap:0;margin-bottom:2px}
+.line.prompt .prompt-symbol{color:#28c840;margin-right:10px;font-weight:600}
+.line.prompt input{background:transparent;border:none;color:#c8c8d0;font-family:inherit;font-size:14px;outline:none;flex:1;caret-color:#7c6cff}
+.line.prompt input::selection{background:#7c6cff;color:#fff}
+
+.line.ascii{color:#555;font-size:12px;line-height:1.3;margin:8px 0;white-space:pre}
+.line.ascii .hl{color:#7c6cff}
+
+.separator{border:none;border-top:1px solid #1e1e28;margin:12px 0}
+</style>
+</head>
+<body>
+
+<header class="header" data-od-id="header">
+  <span class="dot r"></span>
+  <span class="dot y"></span>
+  <span class="dot g"></span>
+  <span class="title">portfolio — zsh</span>
+</header>
+
+<div class="terminal" id="terminal">
+  <div class="line ascii">
+    <span class="hl">  ╭──────────────────────────────────────╮</span>
+    <span class="hl">  │        Praneet Koppula · portfolio    │</span>
+    <span class="hl">  │        Interactive terminal edition    │</span>
+    <span class="hl">  ╰──────────────────────────────────────╯</span>
+  </div>
+  <div class="line system">Type <span style="color:#28c840">help</span> for available commands.</div>
+  <div class="line system">────────────────────────────────────────────────────</div>
+</div>
+
+<script>
+const CASES = [
+  { id:'simulink-ai', title:'AI Assistant for Model-Based Engineering', period:'2023–2024', tags:'AI Tools Leadership'.split(' '), summary:'UX vision for an AI assistant across the full engineering workflow.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/' },
+  { id:'model-slicer', title:'Model Slicer', period:'2014–2016', tags:'Tools'.split(' '), summary:'Exposed state, data sources, and time intervals in simulation workflows.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/' },
+  { id:'diagnostics', title:'Diagnostics & Fix-It', period:'2014–2017', tags:'Tools'.split(' '), summary:'Actionable diagnostic resolution with safe fixes and suppression.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/' },
+  { id:'toolstrip', title:'Toolstrip Workshops', period:'2014–2019', tags:'Tools Leadership'.split(' '), summary:'Scaled task-based UI across engineering apps.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/' },
+  { id:'mask-editor', title:'Mask Editor', period:'2014–2017', tags:'Tools'.split(' '), summary:'Technical authoring environment for block masks.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/' },
+  { id:'workflow-portfolio', title:'Workflow Portfolio System', period:'2020–2023', tags:'Leadership Tools'.split(' '), summary:'Prioritization and advisory for UX teams.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/' },
+  { id:'ux-leadership', title:'UX Leadership Systems', period:'2022–2024', tags:'Leadership'.split(' '), summary:'Org systems across 4 countries, 120+ products.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/' },
+  { id:'classmate-pc', title:'Intel Classmate PC', period:'2008–2009', tags:'Civic'.split(' '), summary:'India classroom research and 46-page interface concept.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/' },
+  { id:'mobile-money', title:'Mobile Money & Financial Inclusion', period:'2009', tags:'Civic'.split(' '), summary:'Published Springer research (IDGD 2009).', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/' },
+  { id:'nokia-wayfinding', title:'Urban Wayfinding Research', period:'2010', tags:'Civic'.split(' '), summary:'Nokia fieldwork on mobile wayfinding in Indian cities.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/' },
+  { id:'ai-ux-validation', title:'Agent-Callable UX Validation', period:'2026', tags:'AI'.split(' '), summary:'UX evidence service model for AI-generated apps.', link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html' },
+  { id:'hey-minie', title:'Hey Minie Homepage', period:'2026', tags:'Tools'.split(' '), summary:'Growth design for a children\'s storytelling app.', link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html' },
+];
+
+const COMMANDS = {
+  help: { desc: 'Show available commands' },
+  ls: { desc: 'List projects [ls, ls -a, ls <tag>]' },
+  cat: { desc: 'Show project details [cat <id>]' },
+  whoami: { desc: 'About Praneet' },
+  skills: { desc: 'List skills and domains' },
+  timeline: { desc: 'Show career timeline' },
+  contact: { desc: 'Contact info' },
+  clear: { desc: 'Clear terminal' },
+  pwd: { desc: 'Print working directory (yes, really)' },
+  neofetch: { desc: 'System info (portfolio edition)' },
+};
+
+const terminal = document.getElementById('terminal');
+let promptCount = 0;
+
+function addLine(html, cls = 'output') {
+  const div = document.createElement('div');
+  div.className = `line ${cls}`;
+  div.innerHTML = html;
+  terminal.appendChild(div);
+  terminal.scrollTop = terminal.scrollHeight;
+}
+
+function addPrompt() {
+  const div = document.createElement('div');
+  div.className = 'line prompt';
+  div.id = 'prompt-' + promptCount;
+  div.innerHTML = `<span class="prompt-symbol">➜</span><input type="text" id="cmdInput" autofocus spellcheck="false" autocomplete="off">`;
+  terminal.appendChild(div);
+  terminal.scrollTop = terminal.scrollHeight;
+  const input = div.querySelector('input');
+  input.focus();
+  input.addEventListener('keydown', onCmd);
+}
+
+function onCmd(e) {
+  if (e.key !== 'Enter') return;
+  const input = e.target;
+  const cmd = input.value.trim();
+  input.disabled = true;
+  input.parentElement.querySelector('.prompt-symbol').textContent = '❯';
+  execute(cmd);
+}
+
+function execute(cmd) {
+  if (!cmd) { addPrompt(); return; }
+  const parts = cmd.split(/\s+/);
+  const base = parts[0].toLowerCase();
+  const args = parts.slice(1);
+
+  switch (base) {
+    case 'help':
+      addLine('<span class="hl2">Available commands:</span>');
+      Object.entries(COMMANDS).forEach(([c, v]) => {
+        addLine(`  <span class="hl">${c.padEnd(14)}</span> ${v.desc}`);
+      });
+      break;
+
+    case 'ls':
+      let items = [...CASES];
+      if (args.includes('-a')) items = items;
+      else if (args[0] && args[0] !== '-a') {
+        const tag = args[0].toLowerCase();
+        items = items.filter(c => c.tags.some(t => t.toLowerCase() === tag));
+      }
+      if (items.length === 0) { addLine('<span class="dim">No results.</span>'); break; }
+      const grouped = {};
+      items.forEach(c => { c.tags.forEach(t => { if (!grouped[t]) grouped[t] = []; grouped[t].push(c); }); });
+      Object.entries(grouped).forEach(([tag, cases]) => {
+        addLine(`<span class="hl3">${tag}/</span>`);
+        cases.forEach(c => addLine(`  <span class="hl">${c.id.padEnd(18)}</span> <span class="dim">${c.period}</span> ${c.title}`));
+      });
+      addLine(`<span class="dim">${items.length} project(s)</span>`);
+      break;
+
+    case 'cat':
+      if (!args[0]) { addLine('<span class="err">Usage: cat &lt;project_id&gt;</span>'); addLine('<span class="dim">Try: cat simulink-ai</span>'); break; }
+      const c = CASES.find(x => x.id === args[0]);
+      if (!c) { addLine(`<span class="err">cat: ${args[0]}: no such project</span>`); break; }
+      addLine(`<span class="hl2">${c.title}</span>`);
+      addLine(`  <span class="dim">id:</span>     ${c.id}`);
+      addLine(`  <span class="dim">period:</span>  ${c.period}`);
+      addLine(`  <span class="dim">tags:</span>    ${c.tags.join(', ')}`);
+      addLine(`  <span class="dim">about:</span>   ${c.summary}`);
+      addLine(`  <span class="dim">link:</span>    <span class="hl">${c.link}</span>`);
+      break;
+
+    case 'whoami':
+      addLine('<span class="hl2">Praneet Koppula</span>');
+      addLine('  Product design leader · 18+ years');
+      addLine('  Expert engineering tools · AI interaction design · Field research · Org design');
+      addLine('  <span class="dim">Based in San Francisco · praneet.koppula@gmail.com</span>');
+      addLine('  <span class="hl">https://mphaxise.github.io/Praneet_Koppula/</span>');
+      break;
+
+    case 'skills':
+      addLine('<span class="hl2">Skills & Domains</span>');
+      addLine('  <span class="hl3">Domains:</span> Engineering tools, AI/ML, Design systems, Field research, Civic tech, Growth design');
+      addLine('  <span class="hl3">Methods:</span> Interaction design, UX research, Prototyping, Design strategy, Org design, Quality systems');
+      addLine('  <span class="hl3">Tools:</span> Figma, Framer, Prototyping tools, Analytics, Design systems');
+      break;
+
+    case 'timeline':
+      addLine('<span class="hl2">Career Timeline</span>');
+      const tl = [
+        '2008–2009  Intel Classmate PC (field research, India)',
+        '2009       Mobile Money & Financial Inclusion (published research)',
+        '2010       Nokia Urban Wayfinding (field research, India)',
+        '2014–2019  MathWorks — engineering tools & design systems',
+        '2014–2016    Model Slicer',
+        '2014–2017    Diagnostics, Mask Editor',
+        '2014–2019    Toolstrip Workshops',
+        '2020–2023  Workflow Portfolio System',
+        '2022–2024  UX Leadership Systems',
+        '2023–2024  AI Assistant (interaction vision)',
+        '2026       Independent experiments (AI validation, growth design)',
+      ];
+      tl.forEach(l => addLine(`  <span class="dim">${l}</span>`));
+      break;
+
+    case 'contact':
+      addLine('  Email:    <span class="hl">praneet.koppula@gmail.com</span>');
+      addLine('  LinkedIn: <span class="hl">https://www.linkedin.com/in/praneetkoppula</span>');
+      addLine('  Cal:      <span class="hl">https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit</span>');
+      break;
+
+    case 'clear':
+      terminal.innerHTML = '';
+      const sys = document.createElement('div');
+      sys.className = 'line system';
+      sys.textContent = 'Cleared. Type help for commands.';
+      terminal.appendChild(sys);
+      break;
+
+    case 'pwd':
+      addLine('<span class="hl">/home/pkoppula/portfolio</span>');
+      break;
+
+    case 'neofetch':
+      addLine(`<span class="hl">praneet@portfolio</span><span class="dim">.sh</span>`);
+      addLine('  <span class="dim">os:</span>         Design Leadership v18+');
+      addLine('  <span class="dim">host:</span>       San Francisco, CA');
+      addLine('  <span class="dim">kernel:</span>     Interaction Design 6.8');
+      addLine('  <span class="dim">uptime:</span>      18 years');
+      addLine('  <span class="dim">packages:</span>    12 case studies');
+      addLine('  <span class="dim">shell:</span>       Creative Problem Solving zsh');
+      addLine('  <span class="dim">resolution:</span>  1920×1080 (or whatever you\'re on)');
+      addLine('  <span class="dim">theme:</span>       Terminal Portfolio');
+      break;
+
+    default:
+      addLine(`<span class="err">zsh: command not found: ${base}</span>`);
+      addLine('<span class="dim">Type help for available commands.</span>');
+  }
+  addPrompt();
+}
+
+// ─── START ───
+addPrompt();
+</script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Network · Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf6ee;--surface:#fffdf8;--fg:#201914;--fg-2:#4c4037;--muted:#7a6d63;--accent:#9b5b32;--accent-on:#ffffff;--border:#ded2c3;--font-display:'Playfair Display',Georgia,'Times New Roman',serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'SF Mono',ui-monospace,Menlo,monospace;--space-4:16px;--space-5:20px;--space-6:24px;--radius-sm:10px;--radius-md:16px;--radius-pill:9999px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+::selection{background:var(--accent);color:var(--accent-on)}
+.header{flex-shrink:0;padding:var(--space-5) var(--space-6);display:flex;align-items:center;gap:var(--space-3);border-bottom:1px solid var(--border)}
+.header h1{font-family:var(--font-display);font-size:20px;font-weight:600;letter-spacing:-0.01em}
+.header .sub{font-size:13px;color:var(--muted);margin-left:auto}
+canvas{flex:1;display:block;width:100%;cursor:grab}
+canvas:active{cursor:grabbing}
+.legend{position:fixed;bottom:var(--space-6);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:8px 20px;display:flex;gap:var(--space-4);font-size:11px;color:var(--muted);z-index:5;flex-wrap:wrap;justify-content:center;pointer-events:none}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+@media(max-width:600px){.header .sub{font-size:11px}.legend{padding:6px 12px;gap:var(--space-2);bottom:var(--space-3)}}
+</style>
+</head>
+<body>
+<header class="header" data-od-id="header">
+  <h1 data-od-id="heading">Network</h1>
+  <div class="sub">Drag nodes · projects (large), tags (small), skills (medium)</div>
+</header>
+<canvas id="canvas"></canvas>
+<div class="legend">
+  <span><span class="legend-dot" style="background:#9b5b32"></span>Projects</span>
+  <span><span class="legend-dot" style="background:#7c6cff"></span>Tags</span>
+  <span><span class="legend-dot" style="background:#d97706"></span>Skills</span>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+const NODES = [];
+const EDGES = [];
+
+const PROJECTS = [
+  { id:'simulink-ai', title:'AI Assistant', tags:['AI','Tools','Leadership'] },
+  { id:'model-slicer', title:'Model Slicer', tags:['Tools'] },
+  { id:'diagnostics', title:'Diagnostics', tags:['Tools'] },
+  { id:'toolstrip', title:'Toolstrip', tags:['Tools','Leadership'] },
+  { id:'mask-editor', title:'Mask Editor', tags:['Tools'] },
+  { id:'workflow-portfolio', title:'Workflow Portfolio', tags:['Leadership','Tools'] },
+  { id:'ux-leadership', title:'UX Leadership', tags:['Leadership'] },
+  { id:'classmate-pc', title:'Classmate PC', tags:['Civic','Research'] },
+  { id:'mobile-money', title:'Mobile Money', tags:['Civic','Research'] },
+  { id:'nokia-wayfinding', title:'Wayfinding', tags:['Civic','Research'] },
+  { id:'ai-ux-validation', title:'UX Validation', tags:['AI'] },
+  { id:'hey-minie', title:'Hey Minie', tags:['Tools'] },
+];
+
+const SKILLS = ['Interaction Design','UX Research','Prototyping','Design Systems','Org Design','Field Research'];
+
+// Build nodes
+let nodeId = 0;
+PROJECTS.forEach(p => {
+  NODES.push({ id: nodeId++, label: p.title, type: 'project', radius: 18 + p.tags.length * 3, vx: 0, vy: 0, x: Math.random()*600+100, y: Math.random()*400+100 });
+  p.tags.forEach(t => {
+    if (!NODES.find(n => n.label === t && n.type === 'tag')) {
+      NODES.push({ id: nodeId++, label: t, type: 'tag', radius: 10, vx: 0, vy: 0, x: Math.random()*600+100, y: Math.random()*400+100 });
+    }
+  });
+});
+SKILLS.forEach(s => {
+  NODES.push({ id: nodeId++, label: s, type: 'skill', radius: 13, vx: 0, vy: 0, x: Math.random()*600+100, y: Math.random()*400+100 });
+});
+
+// Build edges
+PROJECTS.forEach(p => {
+  const pNode = NODES.find(n => n.label === p.title && n.type === 'project');
+  p.tags.forEach(t => {
+    const tNode = NODES.find(n => n.label === t && n.type === 'tag');
+    if (pNode && tNode) EDGES.push({ from: pNode.id, to: tNode.id });
+  });
+  p.tags.forEach(t => {
+    SKILLS.forEach(s => {
+      if ((t === 'AI' || t === 'Tools') && s === 'Interaction Design') {
+        const sNode = NODES.find(n => n.label === s && n.type === 'skill');
+        if (pNode && sNode) EDGES.push({ from: pNode.id, to: sNode.id });
+      }
+      if (t === 'Leadership' && (s === 'Org Design' || s === 'Design Systems')) {
+        const sNode = NODES.find(n => n.label === s && n.type === 'skill');
+        if (pNode && sNode) EDGES.push({ from: pNode.id, to: sNode.id });
+      }
+      if (t === 'Civic' && s === 'Field Research') {
+        const sNode = NODES.find(n => n.label === s && n.type === 'skill');
+        if (pNode && sNode) EDGES.push({ from: pNode.id, to: sNode.id });
+      }
+      if (t === 'Research' && s === 'UX Research') {
+        const sNode = NODES.find(n => n.label === s && n.type === 'skill');
+        if (pNode && sNode) EDGES.push({ from: pNode.id, to: sNode.id });
+      }
+    });
+  });
+});
+
+const COLORS = { project: '#9b5b32', tag: '#7c6cff', skill: '#d97706' };
+let width, height;
+let dragNode = null;
+
+function resize() {
+  const rect = canvas.parentElement.getBoundingClientRect();
+  width = canvas.width = rect.width;
+  height = canvas.height = rect.height;
+}
+resize();
+window.addEventListener('resize', resize);
+
+function simulate() {
+  for (let i = 0; i < 50; i++) {
+    NODES.forEach(a => {
+      NODES.forEach(b => {
+        if (a.id >= b.id) return;
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        const force = 8 / (dist * dist);
+        const fx = dx / dist * force, fy = dy / dist * force;
+        if (a !== dragNode) { a.vx += fx; a.vy += fy; }
+        if (b !== dragNode) { b.vx -= fx; b.vy -= fy; }
+      });
+    });
+    EDGES.forEach(e => {
+      const a = NODES[e.from], b = NODES[e.to];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+      const force = (dist - 80) * 0.002;
+      const fx = dx / dist * force, fy = dy / dist * force;
+      if (a !== dragNode) { a.vx -= fx; a.vy -= fy; }
+      if (b !== dragNode) { b.vx += fx; b.vy += fy; }
+    });
+    NODES.forEach(n => {
+      if (n === dragNode) return;
+      n.vx *= 0.92; n.vy *= 0.92;
+      n.x += n.vx;
+      n.y += n.vy;
+      n.x = Math.max(n.radius, Math.min(width - n.radius, n.x));
+      n.y = Math.max(n.radius, Math.min(height - n.radius, n.y));
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, width, height);
+  EDGES.forEach(e => {
+    const a = NODES[e.from], b = NODES[e.to];
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = 'rgba(222,210,195,0.5)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  });
+  NODES.forEach(n => {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+    ctx.fillStyle = COLORS[n.type];
+    ctx.globalAlpha = n === dragNode ? 1 : 0.85;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    if (n === dragNode) {
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    // Label
+    ctx.fillStyle = n.type === 'project' ? '#fff' : 'rgba(0,0,0,0.6)';
+    ctx.font = n.type === 'project' ? 'bold 10px DM Sans, sans-serif' : '9px DM Sans, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    if (n.type === 'project' || n.radius > 12) {
+      ctx.fillText(n.label, n.x, n.y);
+    } else {
+      ctx.fillText(n.label, n.x, n.y + n.radius + 11);
+    }
+  });
+}
+
+function animate() {
+  simulate();
+  draw();
+  requestAnimationFrame(animate);
+}
+
+// ─── DRAG ───
+function getNode(x, y) {
+  for (let i = NODES.length - 1; i >= 0; i--) {
+    const n = NODES[i];
+    const dx = x - n.x, dy = y - n.y;
+    if (dx*dx + dy*dy < n.radius * n.radius * 1.5) return n;
+  }
+  return null;
+}
+
+canvas.addEventListener('mousedown', e => {
+  const r = canvas.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  dragNode = getNode(x, y);
+});
+
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  if (dragNode) {
+    dragNode.x = Math.max(dragNode.radius, Math.min(width - dragNode.radius, x));
+    dragNode.y = Math.max(dragNode.radius, Math.min(height - dragNode.radius, y));
+    dragNode.vx = 0; dragNode.vy = 0;
+  } else {
+    canvas.style.cursor = getNode(x, y) ? 'grab' : 'default';
+  }
+});
+
+canvas.addEventListener('mouseup', () => { dragNode = null; });
+canvas.addEventListener('mouseleave', () => { dragNode = null; });
+
+animate();
+</script>
+</body>
+</html>

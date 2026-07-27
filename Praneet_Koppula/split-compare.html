@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compare · Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf6ee; --surface: #fffdf8; --fg: #201914; --fg-2: #4c4037;
+  --muted: #7a6d63; --accent: #9b5b32; --accent-on: #ffffff;
+  --border: #ded2c3; --border-soft: #eee4d7;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, monospace;
+  --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  --space-8: 32px; --space-10: 40px;
+  --radius-sm: 10px; --radius-md: 16px; --radius-lg: 24px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+::selection{background:var(--accent);color:var(--accent-on)}
+
+/* ─── HEADER ─── */
+.header{flex-shrink:0;padding:var(--space-5) var(--space-6) var(--space-3);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--space-3)}
+.header h1{font-family:var(--font-display);font-size:20px;font-weight:600;letter-spacing:-0.01em}
+.header .sub{font-size:13px;color:var(--muted)}
+.pickers{display:flex;align-items:center;gap:var(--space-3)}
+.pickers select{
+  padding:8px 32px 8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--fg);font-family:var(--font-body);font-size:13px;font-weight:500;
+  cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6d63' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;
+  transition:border-color .15s ease;
+}
+.pickers select:focus{outline:none;border-color:var(--accent)}
+.pickers .vs{font-size:12px;color:var(--muted);font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+@media(max-width:640px){
+  .header{flex-direction:column;align-items:stretch;text-align:center}
+  .pickers{justify-content:center;flex-wrap:wrap}
+}
+
+/* ─── SPLIT VIEW ─── */
+.split-wrap{flex:1;display:flex;gap:0;overflow:hidden;position:relative}
+.pane{
+  flex:1;overflow-y:auto;padding:var(--space-6) var(--space-6) 80px;
+  position:relative;transition:opacity .4s ease;
+}
+.pane:first-child{border-right:1px solid var(--border-soft)}
+.pane.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;flex-direction:column;gap:var(--space-3)}
+.pane.empty .empty-icon{font-size:40px;opacity:0.4}
+.pane.empty .empty-sub{font-size:12px;color:var(--border)}
+
+/* ─── CASE DETAIL ─── */
+.case-detail{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.case-detail .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-2)}
+.case-detail h2{font-family:var(--font-display);font-size:clamp(18px,2.5vw,24px);font-weight:600;letter-spacing:-0.01em;line-height:1.2;margin-bottom:var(--space-2)}
+.case-detail .period{font-size:13px;color:var(--muted);font-family:var(--font-mono);margin-bottom:var(--space-4)}
+.case-detail .summary{font-size:14px;line-height:1.65;color:var(--fg-2);margin-bottom:var(--space-4)}
+.case-detail .tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:var(--space-5)}
+.case-detail .tag{font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--bg);color:var(--muted)}
+
+.case-detail .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-5)}
+.case-detail .meta-item{padding:var(--space-3);background:var(--bg);border-radius:var(--radius-sm)}
+.case-detail .meta-item .ml{font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);font-weight:600;margin-bottom:2px}
+.case-detail .meta-item .mv{font-size:14px;font-weight:600}
+
+.case-detail .detail-text{font-size:13px;line-height:1.6;color:var(--fg-2);border-top:1px solid var(--border-soft);padding-top:var(--space-4);margin-top:var(--space-3)}
+.case-detail .read-link{display:inline-flex;align-items:center;gap:6px;margin-top:var(--space-4);padding:10px 20px;border-radius:var(--radius-pill);background:var(--accent);color:var(--accent-on);font-size:13px;font-weight:600;text-decoration:none;transition:all .15s ease}
+.case-detail .read-link:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(155,91,50,0.2)}
+
+/* ─── EMPTY STATE ─── */
+@media(max-width:800px){
+  .split-wrap{flex-direction:column}
+  .pane:first-child{border-right:none;border-bottom:1px solid var(--border-soft);max-height:50vh}
+  .pane{padding:var(--space-4) var(--space-4) 40px}
+}
+
+/* ─── DRAG HANDLE ─── */
+.handle{width:4px;cursor:col-resize;background:var(--border-soft);flex-shrink:0;position:relative;transition:background .15s ease;display:none}
+.handle:hover,.handle.active{background:var(--accent)}
+.handle::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:32px;border-radius:4px;border:1.5px solid var(--border);pointer-events:none;opacity:0;transition:opacity .15s ease}
+.handle:hover::after,.handle.active::after{opacity:1}
+</style>
+</head>
+<body>
+
+<header class="header" data-od-id="header">
+  <div>
+    <h1 data-od-id="heading">Compare</h1>
+    <div class="sub">Pick two case studies to compare side by side</div>
+  </div>
+  <div class="pickers">
+    <select id="pickA" data-od-id="pick-a"></select>
+    <span class="vs">vs</span>
+    <select id="pickB" data-od-id="pick-b"></select>
+  </div>
+</header>
+
+<div class="split-wrap" id="splitWrap">
+  <div class="pane empty" id="paneA" data-od-id="pane-a">
+    <div class="empty-icon">📋</div>
+    <span>Select a case study</span>
+    <div class="empty-sub">from the left dropdown</div>
+  </div>
+  <div class="handle" id="handle"></div>
+  <div class="pane empty" id="paneB" data-od-id="pane-b">
+    <div class="empty-icon">📋</div>
+    <span>Select a case study</span>
+    <div class="empty-sub">from the right dropdown</div>
+  </div>
+</div>
+
+<script>
+const CASES = [
+  { id:'simulink-ai', title:'Designing an AI assistant for model-based engineering', eyebrow:'AI interaction vision', period:'2023–2024', tags:['AI','Tools','Leadership'], summary:'Led the UX vision with an Engineering Lead for an assistant that could work across requirements, architecture, implementation, simulation, and explanation — while keeping every consequential action visible and under human control.', detail:'The assistant went beyond chat. It connected the full engineering workflow — understand requirements, propose traceable actions, review and confirm, update architecture, simulate and inspect, explain and navigate — while preserving traceability, confirmation, and human control.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/' },
+  { id:'model-slicer', title:'Designing Model Slicer around state, data, and time', eyebrow:'Technical workflow design', period:'2014–2016', tags:['Tools'], summary:'Helped make an early Model Slicer workflow more predictable by exposing the role a selected model object played, the behavioral data supporting a slice, and the time interval in which that data was valid.', detail:'Authored a 2014 interaction deck mapping selection states to valid actions, and 2015 dynamic-slicing prototypes that made data source, time range, validity, and recalculation visible.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/' },
+  { id:'diagnostics', title:'Making Simulink diagnostics actionable', eyebrow:'Interaction design', period:'2014–2017', tags:['Tools'], summary:'Helped evolve an already-shipped diagnostic surface into a clearer resolution workflow, moving from readable messages to safe fixes and accountable suppression.', detail:'Evaluated 26 diagnostic scenarios to understand when to explain, offer one fix, expose alternatives, or avoid automation. Designed controlled transactions that prevent partial model changes.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/' },
+  { id:'toolstrip', title:'Scaling task-based UI design across engineering apps', eyebrow:'Design systems', period:'2014–2019', tags:['Tools','Leadership'], summary:'Helped product teams turn dense engineering capabilities into task-based app structures, moving from pattern guidance to formal design review.', detail:'Authored 2014 pattern guidance on toolstrip and workflow-wizard patterns. Contributed Radar Waveform Analyzer concepts. Named coach and reviewer in 2019 with a nine-area review checklist.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/' },
+  { id:'mask-editor', title:'Reimagining Mask Editor as a technical authoring environment', eyebrow:'Technical authoring', period:'2014–2017', tags:['Tools'], summary:'Helped move block-mask authoring toward a more structured workflow for parameters, dialog controls, callbacks, validation, icons, and reuse.', detail:'Authored parameter-validation explorations covering type, complexity, dimensions, range, and reuse. Mentored Masking 2.0. Co-authored Block Authoring Studio vision with an engineering partner.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/' },
+  { id:'workflow-portfolio', title:'Turning customer workflows into a UX portfolio operating system', eyebrow:'Quality at scale', period:'2020–2023', tags:['Leadership','Tools'], summary:'Built a shared language, prioritization model, ownership process, and advisory mechanism so UX and product teams could focus on the workflows that mattered most.', detail:'Authored Target Workflow and ownership artifacts. Contributed to Top-N selection criteria and UX advisory workflow. Connected lexicon to workflow inventory, priority decisions, and roadmap actions.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/' },
+  { id:'ux-leadership', title:'Scaling a distributed UX organization through leadership systems', eyebrow:'Organization design', period:'2022–2024', tags:['Leadership'], summary:'Designed management systems that connected leadership bench, role and skill gaps, capacity planning, geographic coverage, development pathways, and team listening.', detail:'Mapped leadership capacity before drawing structure. Connected role gaps to development choices. Built planning and decision mechanisms across 4 countries and 120+ products.', depth:2, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/' },
+  { id:'classmate-pc', title:'Designing a classroom computer as a classroom system', eyebrow:'Field research', period:'2008–2009', tags:['Civic'], summary:'Contributed to India classroom research and an 18-participant usability study for Intel Classmate PC, then authored a 46-page interface concept.', detail:'Framed the device as part of a service system. The India inquiry surfaced needs around mobility, touch, ruggedness, and teacher control. The Hawk Peak study tested 18 participants across India and China.', depth:3, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/' },
+  { id:'mobile-money', title:'Designing mobile money from household financial life', eyebrow:'Field research', period:'2009', tags:['Civic'], summary:'Co-authored published Springer research on how mobile money could support financial inclusion for women in bottom-of-the-pyramid households in urban India.', detail:'Connected individual transactions to household relationships, informal and formal providers, migration history, and available products. Published in IDGD 2009 (LNCS 5623, pp. 475–484).', depth:3, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/' },
+  { id:'nokia-wayfinding', title:'Researching urban wayfinding in the field', eyebrow:'Field research', period:'2010', tags:['Civic'], summary:'Planned recruitment, coordinated and moderated fieldwork for Nokia on mobile wayfinding among low-tech users in Indian cities.', detail:'The city is part of the interface. Combined focus groups, one-to-one interviews, and fly-on-the-wall observation. Analyzed emerging evidence with designers while the team remained in the field.', depth:3, link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/' },
+  { id:'ai-ux-validation', title:'Agent-callable UX validation for AI-generated apps', eyebrow:'AI experiment', period:'2026', tags:['AI'], summary:'Turned a broad question into a concrete service model, evidence taxonomy, and sharper category position for app-building agents.', detail:'Mapped emerging market across synthetic testing, browser agents, researcher platforms, and app builders. Defined request-and-results loop as primary product experience. Calibration: synthetic signals triage, human confirmation for high stakes.', depth:3, link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html' },
+  { id:'hey-minie', title:'Turning mobile acquisition data into a clearer homepage', eyebrow:'Growth design', period:'2026', tags:['Tools'], summary:'Connected real acquisition behavior to a focused homepage-improvement program for Hey Minie.', detail:'Combined Plausible analytics with source-level audit and responsive QA. 1,096 visitors; 95% bounce from paid-social. Shaped homepage around product-led hero, store actions, and family-safety context.', depth:3, link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html' },
+];
+
+// ─── POPULATE SELECTS ───
+const pickA = document.getElementById('pickA');
+const pickB = document.getElementById('pickB');
+const paneA = document.getElementById('paneA');
+const paneB = document.getElementById('paneB');
+
+function populate(sel, excludeId) {
+  sel.innerHTML = '<option value="">— Select —</option>';
+  CASES.forEach(c => {
+    if (c.id === excludeId) return;
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.title;
+    sel.appendChild(opt);
+  });
+}
+
+function renderCase(pane, c) {
+  if (!c) { pane.innerHTML = '<div class="empty-icon">📋</div><span>Select a case study</span><div class="empty-sub">from the dropdown</div>'; pane.className = 'pane empty'; return; }
+  pane.className = 'pane';
+  pane.innerHTML = `
+    <div class="case-detail">
+      <div class="eyebrow">${c.eyebrow}</div>
+      <h2>${c.title}</h2>
+      <div class="period">${c.period}</div>
+      <div class="summary">${c.summary}</div>
+      <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+      <div class="detail-text">${c.detail}</div>
+      <a class="read-link" href="${c.link}" target="_blank" rel="noopener">Read full case study →</a>
+    </div>
+  `;
+}
+
+function onPickChange() {
+  const idA = pickA.value;
+  const idB = pickB.value;
+  const cA = CASES.find(c => c.id === idA);
+  const cB = CASES.find(c => c.id === idB);
+  renderCase(paneA, cA);
+  renderCase(paneB, cB);
+  populate(pickB, idA);
+  populate(pickA, idB);
+}
+
+pickA.addEventListener('change', onPickChange);
+pickB.addEventListener('change', onPickChange);
+
+populate(pickA, '');
+populate(pickB, '');
+
+// ─── DRAG HANDLE ───
+const handle = document.getElementById('handle');
+const splitWrap = document.getElementById('splitWrap');
+let isResizing = false;
+
+handle.addEventListener('mousedown', e => {
+  isResizing = true;
+  handle.classList.add('active');
+  e.preventDefault();
+});
+
+document.addEventListener('mousemove', e => {
+  if (!isResizing) return;
+  const rect = splitWrap.getBoundingClientRect();
+  const pct = ((e.clientX - rect.left) / rect.width) * 100;
+  const clamped = Math.max(25, Math.min(75, pct));
+  paneA.style.flex = 'none';
+  paneB.style.flex = 'none';
+  paneA.style.width = clamped + '%';
+  paneB.style.width = (100 - clamped) + '%';
+});
+
+document.addEventListener('mouseup', () => {
+  if (isResizing) {
+    isResizing = false;
+    handle.classList.remove('active');
+  }
+});
+
+// Init 50/50
+paneA.style.width = '50%';
+paneB.style.width = '50%';
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magazine · Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf6ee;--surface:#fffdf8;--fg:#201914;--fg-2:#4c4037;--muted:#7a6d63;--accent:#9b5b32;--accent-on:#ffffff;--border:#ded2c3;--font-display:'Playfair Display',Georgia,'Times New Roman',serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'SF Mono',ui-monospace,Menlo,monospace;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--space-20:80px;--radius-sm:10px;--radius-md:16px;--radius-lg:24px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;line-height:1.6}
+::selection{background:var(--accent);color:var(--accent-on)}
+
+/* ─── COVER ─── */
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:var(--space-8);position:relative;background:linear-gradient(180deg,var(--bg) 0%,var(--surface) 100%)}
+.cover .tagline{font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-5)}
+.cover h1{font-family:var(--font-display);font-size:clamp(48px,10vw,96px);font-weight:600;letter-spacing:-0.03em;line-height:0.95;margin-bottom:var(--space-4);max-width:900px}
+.cover .dek{font-size:clamp(18px,2.5vw,24px);color:var(--fg-2);max-width:600px;line-height:1.4;font-style:italic;font-family:var(--font-display)}
+.cover .scroll-hint{position:absolute;bottom:32px;font-size:12px;color:var(--muted);letter-spacing:0.06em;animation:bounce 2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ─── SECTION ─── */
+.section{padding:var(--space-20) var(--space-6);max-width:1080px;margin:0 auto}
+.section-header{margin-bottom:var(--space-12);border-bottom:2px solid var(--fg);padding-bottom:var(--space-4)}
+.section-header .num{font-family:var(--font-display);font-size:72px;font-weight:600;color:var(--border);line-height:0.8;margin-bottom:var(--space-2);letter-spacing:-0.04em}
+.section-header h2{font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-0.02em;line-height:1.1}
+
+/* ─── SPREAD ─── */
+.spread{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);margin-bottom:var(--space-16);align-items:start}
+.spread-full{grid-template-columns:1fr}
+.lede{font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--fg);font-family:var(--font-display)}
+.lede em{color:var(--accent);font-style:normal}
+.body-text{font-size:16px;color:var(--fg-2);line-height:1.7;max-width:55ch}
+.body-text p{margin-bottom:var(--space-4)}
+
+/* ─── STAT ROW ─── */
+.stat-row{display:flex;gap:var(--space-8);margin:var(--space-12) 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:var(--space-8) 0}
+.stat-item{flex:1}
+.stat-item .num{font-family:var(--font-display);font-size:56px;font-weight:600;letter-spacing:-0.03em;line-height:0.9;color:var(--accent);margin-bottom:var(--space-2)}
+.stat-item .label{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;font-weight:500}
+
+/* ─── PROJECT LIST ─── */
+.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5)}
+.project-card{padding:var(--space-5) 0;border-bottom:1px solid var(--border)}
+.project-card .pc-tag{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-1)}
+.project-card h3{font-family:var(--font-display);font-size:20px;font-weight:600;letter-spacing:-0.01em;line-height:1.2;margin-bottom:var(--space-1)}
+.project-card .pc-period{font-size:13px;color:var(--muted);font-family:var(--font-mono)}
+.project-card .pc-desc{font-size:14px;color:var(--fg-2);line-height:1.5;margin-top:var(--space-2)}
+.project-card .pc-link{display:inline-block;margin-top:var(--space-2);font-size:13px;font-weight:600;color:var(--accent);text-decoration:none}
+.project-card .pc-link:hover{text-decoration:underline}
+
+/* ─── PULL QUOTE ─── */
+.pull-quote{margin:var(--space-16) 0;padding:var(--space-10) var(--space-12);background:var(--surface);border-left:4px solid var(--accent);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.pull-quote q{font-family:var(--font-display);font-size:clamp(22px,3vw,32px);font-weight:500;line-height:1.2;letter-spacing:-0.01em;quotes:none;display:block;margin-bottom:var(--space-3)}
+.pull-quote .attribution{font-size:14px;color:var(--muted)}
+
+/* ─── FOOTER ─── */
+.footer-section{text-align:center;padding:var(--space-16) var(--space-6);border-top:1px solid var(--border);margin-top:var(--space-8)}
+.footer-section h2{font-family:var(--font-display);font-size:36px;font-weight:600;letter-spacing:-0.02em;margin-bottom:var(--space-4)}
+.footer-section p{color:var(--muted);margin-bottom:var(--space-6);max-width:400px;margin-left:auto;margin-right:auto}
+.footer-section .contact-links{display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap}
+.footer-section .contact-links a{padding:12px 28px;border:1px solid var(--border);border-radius:var(--radius-pill);text-decoration:none;color:var(--fg);font-size:14px;font-weight:600;transition:all .15s ease}
+.footer-section .contact-links a:hover{border-color:var(--accent);color:var(--accent);background:color-mix(in oklab, var(--accent), var(--surface) 94%)}
+
+@media(max-width:700px){
+  .spread{grid-template-columns:1fr;gap:var(--space-6)}
+  .project-grid{grid-template-columns:1fr}
+  .stat-row{flex-direction:column;gap:var(--space-6)}
+  .section{padding:var(--space-12) var(--space-4)}
+  .cover h1{font-size:42px}
+  .cover .dek{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<section class="cover" data-od-id="cover">
+  <div class="tagline">Volume I · Design Portfolio</div>
+  <h1 data-od-id="heading">Making complex software clear</h1>
+  <p class="dek">"The role of design is to make the invisible visible."</p>
+  <div class="scroll-hint">↓ Scroll</div>
+</section>
+
+<!-- ═══ CHAPTER I ═══ -->
+<section class="section" data-od-id="section-intro">
+  <div class="section-header">
+    <div class="num">01</div>
+    <h2>Practice</h2>
+  </div>
+  <div class="spread spread-full">
+    <div class="lede">Praneet Koppula is a product design leader with <em>18+ years</em> making expert-level engineering tools, AI interactions, and complex systems feel intuitive.</div>
+  </div>
+  <div class="spread">
+    <div class="body-text">
+      <p>Based in San Francisco, Praneet's career spans field research in India (Intel Classmate PC, Nokia wayfinding, mobile money financial inclusion), engineering tools and design systems at MathWorks, AI interaction vision, and independent experiments.</p>
+      <p>The common thread: making invisible system state legible, earning trust through user control, and scaling quality through systems that amplify good judgment rather than enforce sameness.</p>
+    </div>
+    <div class="body-text">
+      <p>Work spans four countries, 120+ products in a governance ecosystem, and domains from AI-assisted engineering to children's storytelling apps to civic technology research.</p>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-item"><div class="num">18+</div><div class="label">Years in design</div></div>
+    <div class="stat-item"><div class="num">120</div><div class="label">Products governed</div></div>
+    <div class="stat-item"><div class="num">12</div><div class="label">Case studies</div></div>
+    <div class="stat-item"><div class="num">4</div><div class="label">Countries</div></div>
+  </div>
+
+  <div class="pull-quote">
+    <q>Users should understand what the system knows, changed, and needs from them. Hidden state is the primary source of error in complex tools.</q>
+    <div class="attribution">— First principle: make state visible</div>
+  </div>
+</section>
+
+<!-- ═══ CHAPTER II ═══ -->
+<section class="section" data-od-id="section-work">
+  <div class="section-header">
+    <div class="num">02</div>
+    <h2>Selected Projects</h2>
+  </div>
+
+  <div class="spread spread-full">
+    <div class="lede" style="font-size:20px">From AI assistants to field research — <em>twelve projects</em> across engineering tools, civic technology, leadership systems, and growth design.</div>
+  </div>
+
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="pc-tag">AI · 2023–2024</div>
+      <h3>AI Assistant for Model-Based Engineering</h3>
+      <div class="pc-desc">UX vision for an AI that works across requirements, architecture, simulation, and explanation — with human control and traceability.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Tools · 2014–2016</div>
+      <h3>Model Slicer</h3>
+      <div class="pc-desc">Made simulation workflow predictable by exposing state, data sources, time intervals, and validity.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Tools · 2014–2017</div>
+      <h3>Diagnostics & Fix-It</h3>
+      <div class="pc-desc">Actionable diagnostic resolution with safe fixes and accountable suppression across 26 scenarios.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Design Systems · 2014–2019</div>
+      <h3>Toolstrip Workshops</h3>
+      <div class="pc-desc">Scaled task-based UI across engineering apps through pattern guidance, coaching, and design review.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Quality · 2020–2023</div>
+      <h3>Workflow Portfolio System</h3>
+      <div class="pc-desc">Shared language, prioritization, and advisory for UX teams to focus on the workflows that mattered most.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Leadership · 2022–2024</div>
+      <h3>UX Leadership Systems</h3>
+      <div class="pc-desc">Org infrastructure across 4 countries connecting bench, skills, capacity, and development pathways.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Field Research · 2008–2009</div>
+      <h3>Intel Classmate PC</h3>
+      <div class="pc-desc">India classroom research, 18-participant usability study, and a 46-page interface concept.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/" target="_blank" rel="noopener">Read →</a>
+    </div>
+    <div class="project-card">
+      <div class="pc-tag">Field Research · 2009</div>
+      <h3>Mobile Money & Financial Inclusion</h3>
+      <div class="pc-desc">Published Springer research on financial inclusion for bottom-of-the-pyramid households.</div>
+      <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/" target="_blank" rel="noopener">Read →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CHAPTER III ═══ -->
+<section class="section" data-od-id="section-writing">
+  <div class="section-header">
+    <div class="num">03</div>
+    <h2>Writing</h2>
+  </div>
+  <div class="spread spread-full">
+    <div class="lede">A four-part essay tracing a design idea from 2014 to the present.</div>
+  </div>
+  <div class="project-card" style="border-bottom:none;padding-top:0">
+    <h3>Closed-Loop Experience Design</h3>
+    <div class="pc-desc" style="margin-top:var(--space-2);font-size:15px">Designing with the systems that create the experience — from sitting beside a developer in 2014 through AI coding agents to the next interface: physical system behavior. Four parts: origin, digital proof, physical frontier, and progression.</div>
+    <a class="pc-link" href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener">Read the essay →</a>
+  </div>
+
+  <div class="pull-quote" style="margin-top:var(--space-8)">
+    <q>Preview, confirmation, correction, and recovery matter more than artificial certainty. Trust is engineered, not declared.</q>
+    <div class="attribution">— Second principle: earn trust through control</div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer-section" data-od-id="footer">
+  <h2>Start a conversation</h2>
+  <p>Available for fractional, advisory, and focused contract work. San Francisco in person and U.S. remote.</p>
+  <div class="contact-links">
+    <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit" target="_blank" rel="noopener">Book time</a>
+    <a href="mailto:praneet.koppula@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/praneetkoppula" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://mphaxise.github.io/Praneet_Koppula/">Full portfolio</a>
+  </div>
+</footer>
+</body>
+</html>

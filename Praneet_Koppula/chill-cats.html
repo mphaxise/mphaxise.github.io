@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>chill cats + work · Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fbf6ee; --fg: #201914; --fg-2: #4c4037;
+  --muted: #7a6d63; --accent: #9b5b32;
+  --border: #e8ddd0;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+
+.page{max-width:640px;margin:0 auto;padding:0 24px 80px}
+img{max-width:100%;display:block}
+
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
+.gallery .wide{grid-column:1/-1}
+.gallery .tall{grid-row:span 2}
+.gallery img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+@media(max-width:480px){.gallery{grid-template-columns:1fr;gap:8px}}
+
+.frame{border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(32,25,20,0.06)}
+.frame.sm{border-radius:50%;width:64px;height:64px;margin:0 auto 20px}
+
+h1{font-family:var(--font-display);font-size:clamp(36px,6vw,52px);font-weight:600;line-height:1.05;letter-spacing:-0.02em;text-align:center;margin-top:36px}
+.sub{font-size:15px;color:var(--muted);text-align:center;margin:10px 0 40px;max-width:480px;margin-left:auto;margin-right:auto}
+.sub strong{color:var(--fg);font-weight:600}
+
+.unit{position:relative;padding-left:160px;margin-bottom:56px}
+.unit-head{display:flex;align-items:center;margin-bottom:20px}
+.unit-head .mini{position:absolute;left:0;top:2px;width:132px;height:132px;border-radius:50%;overflow:hidden;flex-shrink:0}
+.unit-head .mini img{width:100%;height:100%;object-fit:cover}
+.unit-head .label{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
+
+.unit h2{font-family:var(--font-display);font-size:26px;font-weight:600;line-height:1.2;letter-spacing:-0.015em;margin-bottom:14px}
+.unit p{font-size:16px;color:var(--fg-2);line-height:1.7;max-width:58ch}
+.unit p + p{margin-top:12px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{text-align:center;background:var(--surface,#fffdf8);border:1px solid var(--border);border-radius:12px;padding:18px 12px}
+.stat .num{font-family:var(--font-display);font-size:clamp(28px,3.5vw,40px);font-weight:600;color:var(--accent);line-height:1}
+.stat .label{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.4}
+@media(max-width:480px){.stats{grid-template-columns:1fr}}
+
+.list{display:flex;flex-direction:column;gap:6px}
+.list a{display:block;background:var(--surface,#fffdf8);border:1px solid var(--border);border-radius:10px;padding:13px 18px;text-decoration:none;color:var(--fg);transition:border-color 0.2s;font-size:15px;line-height:1.4}
+.list a:hover{border-color:var(--accent)}
+.list .m{font-size:12px;color:var(--muted)}
+
+.essay{display:block;background:var(--surface,#fffdf8);border:1px solid var(--border);border-radius:12px;padding:20px 24px;text-decoration:none;color:var(--fg);transition:border-color 0.2s}
+.essay:hover{border-color:var(--accent)}
+.essay .t{font-family:var(--font-display);font-size:20px;font-weight:600;margin-bottom:6px}
+.essay .d{font-size:14px;color:var(--muted);line-height:1.5}
+.essay .a{display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:var(--accent)}
+
+.ftr{text-align:center;margin-top:56px;padding-top:28px;border-top:1px solid var(--border)}
+.ftr p{font-size:14px;color:var(--muted)}
+.ftr a{color:var(--accent);text-decoration:none;font-weight:500}
+
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.r{opacity:0}
+.r.in{animation:up 0.7s ease-out forwards}
+.r:nth-child(2).in{animation-delay:0.12s}
+.r:nth-child(3).in{animation-delay:0.24s}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ─── hero — six cats, one splash ─── -->
+  <div class="gallery">
+    <div class="wide frame"><img src="cats/ai/cat-ai1.jpg" alt="" loading="lazy"></div>
+    <div class="frame tall"><img src="cats/cat2.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/ai/cat-ai2.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/cat4.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/cat5.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/cat6.jpg" alt="" loading="lazy"></div>
+  </div>
+
+  <h1>Praneet Koppula</h1>
+  <p class="sub">makes complex software clear. lives with cats.</p>
+
+  <!-- ─── about ─── -->
+  <div class="unit">
+    <div class="unit-head">
+      <div class="mini frame sm"><img src="cats/ai/cat-ai3.jpg" alt="" loading="lazy"></div>
+      <div class="label">The setup</div>
+    </div>
+    <p>Product design leader, 18+ years. I lead teams and stay close to the work — making expert tools and AI workflows intuitive without hiding what makes them powerful. Visible state, user control, systems that scale judgment.</p>
+  </div>
+
+  <!-- ─── stats ─── -->
+  <div class="unit">
+    <div class="unit-head">
+      <div class="mini frame sm"><img src="cats/cat8.jpg" alt="" loading="lazy"></div>
+      <div class="label">By the numbers</div>
+    </div>
+    <div class="stats">
+      <div class="stat r"><div class="num">18+</div><div class="label">years untangling complex tools</div></div>
+      <div class="stat r"><div class="num">120</div><div class="label">products in the governance ecosystem</div></div>
+      <div class="stat r"><div class="num">4</div><div class="label">countries, one lap at a time</div></div>
+    </div>
+  </div>
+
+  <!-- ─── work ─── -->
+  <div class="unit">
+    <div class="unit-head">
+      <div class="mini frame sm"><img src="cats/cat1.jpg" alt="" loading="lazy"></div>
+      <div class="label">Things made</div>
+    </div>
+    <div class="list">
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/" target="_blank" rel="noopener">An AI partner inside the engineering workflow <span class="m">· AI product vision, 2023–2024</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/" target="_blank" rel="noopener">Making complex model behavior inspectable <span class="m">· Technical workflow design, 2014–2016</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/" target="_blank" rel="noopener">Making Simulink diagnostics actionable <span class="m">· Interaction design, 2014–2017</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/" target="_blank" rel="noopener">Scaling task-based UI design across engineering apps <span class="m">· Design systems, 2014–2019</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/" target="_blank" rel="noopener">Reimagining Mask Editor as a technical authoring environment <span class="m">· Technical authoring, 2014–2017</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/" target="_blank" rel="noopener">Turning design judgment into a team capability <span class="m">· Quality at scale, 2020–2023</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/" target="_blank" rel="noopener">Scaling a distributed UX organization through leadership systems <span class="m">· Organization design, 2022–2024</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/" target="_blank" rel="noopener">Designing a classroom computer as a classroom system <span class="m">· Field research, 2008–2009</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/" target="_blank" rel="noopener">Designing mobile money from household financial life <span class="m">· Field research, 2009</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/" target="_blank" rel="noopener">Researching urban wayfinding in the field <span class="m">· Field research, 2010</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html" target="_blank" rel="noopener">Agent-callable UX validation for AI-generated apps <span class="m">· AI experiment, 2026</span></a>
+      <a href="https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html" target="_blank" rel="noopener">Turning mobile acquisition data into a clearer homepage <span class="m">· Growth design, 2026</span></a>
+    </div>
+  </div>
+
+  <!-- ─── writing ─── -->
+  <div class="unit">
+    <div class="unit-head">
+      <div class="mini frame sm"><img src="cats/cat9.jpg" alt="" loading="lazy"></div>
+      <div class="label">Words</div>
+    </div>
+    <a href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener" class="essay">
+      <div class="t">Closed-Loop Experience Design</div>
+      <div class="d">A four-part essay from designing beside a developer in 2014 to building with coding agents — and how the same relationship could help designers shape physical system behavior.</div>
+      <div class="a">→</div>
+    </a>
+  </div>
+
+  <!-- ─── cats footer ─── -->
+  <div class="gallery" style="margin-bottom:0">
+    <div class="frame"><img src="cats/cat7.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/cat8.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/cat9.jpg" alt="" loading="lazy"></div>
+    <div class="frame"><img src="cats/ai/cat-ai4.jpg" alt="" loading="lazy"></div>
+  </div>
+
+  <footer class="ftr">
+    <p>Made with lap cats in SF. <a href="https://mphaxise.github.io/Praneet_Koppula/">Full portfolio →</a></p>
+  </footer>
+
+</div>
+
+<script>
+const io = new IntersectionObserver(e => { e.forEach(i => { if(i.isIntersecting){ i.target.classList.add('in'); io.unobserve(i.target); } }); }, {threshold:0.15});
+document.querySelectorAll('.r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

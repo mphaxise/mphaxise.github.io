@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map · Praneet Koppula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbf6ee;--surface:#fffdf8;--fg:#201914;--fg-2:#4c4037;--muted:#7a6d63;--accent:#9b5b32;--accent-on:#ffffff;--border:#ded2c3;--font-display:'Playfair Display',Georgia,'Times New Roman',serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'SF Mono',ui-monospace,Menlo,monospace;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--radius-sm:10px;--radius-md:16px;--radius-lg:24px;--radius-pill:9999px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--bg);color:var(--fg);-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+::selection{background:var(--accent);color:var(--accent-on)}
+.header{flex-shrink:0;padding:var(--space-5) var(--space-6);display:flex;align-items:center;gap:var(--space-3);border-bottom:1px solid var(--border)}
+.header h1{font-family:var(--font-display);font-size:20px;font-weight:600;letter-spacing:-0.01em}
+.header .sub{font-size:13px;color:var(--muted);margin-left:auto}
+.map-wrap{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:var(--space-4)}
+.map-wrap svg{width:100%;max-width:900px;height:auto;display:block}
+.pin{fill:var(--accent);cursor:pointer;transition:all .2s ease}
+.pin:hover{fill:#c75c2e;r:10}
+.pin-ring{fill:none;stroke:var(--accent);stroke-width:1.5;opacity:0.3}
+.tooltip{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);pointer-events:none;opacity:0;transition:opacity .2s ease;z-index:10;max-width:220px}
+.tooltip.show{opacity:1}
+.tooltip .tt-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.tooltip .tt-meta{font-size:11px;color:var(--muted);font-family:var(--font-mono)}
+.tooltip .tt-desc{font-size:12px;color:var(--fg-2);margin-top:6px;line-height:1.4}
+.legend{position:fixed;bottom:var(--space-6);left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-pill);padding:8px 20px;display:flex;gap:var(--space-4);font-size:11px;color:var(--muted);z-index:5}
+.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+@media(max-width:640px){
+  .header{flex-wrap:wrap;gap:var(--space-2)}
+  .header .sub{width:100;text-align:right}
+  .legend{padding:6px 12px;gap:var(--space-2);bottom:var(--space-3);flex-wrap:wrap;justify-content:center}
+}
+</style>
+</head>
+<body>
+<header class="header" data-od-id="header">
+  <h1 data-od-id="heading">Places</h1>
+  <div class="sub">Research, work, and practice locations</div>
+</header>
+<div class="map-wrap" id="mapWrap">
+  <svg viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="800" height="500" fill="var(--bg)" rx="16"/>
+    <!-- Simplified world outlines -->
+    <path d="M120 180 Q130 170 145 175 Q155 180 160 190 Q165 200 155 210 Q145 215 130 210 Q120 200 120 180Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M145 175 Q150 165 160 160 Q175 155 185 160 Q195 170 190 180 Q185 195 175 200 Q160 205 155 200 Q148 190 145 175Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M160 160 Q175 140 195 145 Q210 150 215 165 Q220 180 210 190 Q195 195 185 190 Q175 185 170 175Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M185 145 Q200 130 220 135 Q240 140 245 155 Q250 170 240 180 Q225 190 210 185 Q195 178 192 168Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M220 135 Q240 120 260 125 Q280 130 285 145 Q290 160 280 170 Q265 180 250 175 Q235 168 230 158Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M260 125 Q280 110 305 115 Q325 120 330 135 Q335 150 325 160 Q310 170 295 165 Q278 158 270 148Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M290 145 Q305 130 325 135 Q340 140 345 155 Q348 168 338 178 Q325 185 310 180 Q298 172 292 162Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M325 135 Q340 120 360 125 Q375 130 378 145 Q380 158 370 168 Q358 178 345 173 Q332 165 328 155Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M360 125 Q375 110 395 115 Q410 120 412 138 Q414 152 404 162 Q390 172 378 165 Q365 157 362 145Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M395 115 Q415 100 435 105 Q450 110 452 128 Q454 145 444 155 Q430 165 418 158 Q405 150 398 140Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M435 105 Q455 90 475 95 Q492 100 495 118 Q498 135 488 145 Q472 158 458 150 Q445 142 438 132Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M475 95 Q495 82 515 88 Q530 94 532 110 Q534 128 524 138 Q510 148 496 142 Q482 135 476 125Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M515 88 Q535 75 555 80 Q570 86 572 102 Q574 118 564 128 Q550 138 536 132 Q522 125 516 115Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M555 80 Q572 68 590 72 Q605 78 608 94 Q610 110 600 120 Q588 130 575 124 Q562 118 556 108Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M590 72 Q608 60 625 65 Q640 70 642 86 Q644 102 634 112 Q620 122 608 116 Q596 110 590 100Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M625 65 Q642 54 658 58 Q672 64 674 80 Q676 96 666 106 Q654 114 642 108 Q630 102 625 92Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+    <path d="M658 58 Q675 48 690 52 Q705 58 706 74 Q708 90 698 100 Q686 108 674 102 Q662 96 658 86Z" stroke="var(--border)" stroke-width="1" fill="var(--surface)"/>
+
+    <!-- India -->
+    <path d="M440 170 Q448 162 458 165 Q468 170 472 180 Q476 195 470 210 Q462 225 450 222 Q440 215 436 200 Q432 185 440 170Z" stroke="var(--border)" stroke-width="1.5" fill="var(--surface)" opacity="0.5"/>
+
+    <!-- Ocean labels -->
+    <text x="50" y="420" fill="var(--border)" font-size="12" font-family="var(--font-body)" opacity="0.4">Pacific</text>
+    <text x="580" y="420" fill="var(--border)" font-size="12" font-family="var(--font-body)" opacity="0.4">Atlantic</text>
+    <text x="360" y="380" fill="var(--border)" font-size="11" font-family="var(--font-body)" opacity="0.25">Indian Ocean</text>
+
+    <!-- Pins -->
+    <g id="pin-sf" class="pin-group">
+      <circle class="pin-ring" cx="150" cy="130" r="14"/>
+      <circle class="pin" cx="150" cy="130" r="6"/>
+      <text x="138" y="118" fill="var(--accent)" font-size="9" font-weight="600" font-family="var(--font-mono)">SF</text>
+    </g>
+    <g id="pin-bangalore" class="pin-group">
+      <circle class="pin-ring" cx="452" cy="195" r="14"/>
+      <circle class="pin" cx="452" cy="195" r="6"/>
+      <text x="440" y="182" fill="var(--accent)" font-size="9" font-weight="600" font-family="var(--font-mono)">BLR</text>
+    </g>
+    <g id="pin-delhi" class="pin-group">
+      <circle class="pin-ring" cx="446" cy="175" r="12"/>
+      <circle class="pin" cx="446" cy="175" r="5"/>
+      <text x="434" y="164" fill="var(--accent)" font-size="8" font-weight="600" font-family="var(--font-mono)">DEL</text>
+    </g>
+    <g id="pin-mumbai" class="pin-group">
+      <circle class="pin-ring" cx="440" cy="200" r="12"/>
+      <circle class="pin" cx="440" cy="200" r="5"/>
+      <text x="420" y="209" fill="var(--accent)" font-size="8" font-weight="600" font-family="var(--font-mono)">BOM</text>
+    </g>
+    <g id="pin-chennai" class="pin-group">
+      <circle class="pin-ring" cx="460" cy="210" r="12"/>
+      <circle class="pin" cx="460" cy="210" r="5"/>
+      <text x="462" y="226" fill="var(--accent)" font-size="8" font-weight="600" font-family="var(--font-mono)">MAA</text>
+    </g>
+    <g id="pin-beijing" class="pin-group">
+      <circle class="pin-ring" cx="570" cy="155" r="12"/>
+      <circle class="pin" cx="570" cy="155" r="5"/>
+      <text x="558" y="144" fill="var(--accent)" font-size="8" font-weight="600" font-family="var(--font-mono)">PEK</text>
+    </g>
+    <g id="pin-natick" class="pin-group">
+      <circle class="pin-ring" cx="328" cy="115" r="12"/>
+      <circle class="pin" cx="328" cy="115" r="5"/>
+      <text x="316" y="104" fill="var(--accent)" font-size="8" font-weight="600" font-family="var(--font-mono)">BOS</text>
+    </g>
+  </svg>
+
+  <div class="tooltip" id="tooltip">
+    <div class="tt-title" id="ttTitle"></div>
+    <div class="tt-meta" id="ttMeta"></div>
+    <div class="tt-desc" id="ttDesc"></div>
+  </div>
+</div>
+
+<div class="legend">
+  <span><span class="legend-dot" style="background:var(--accent)"></span>Field research</span>
+  <span><span class="legend-dot" style="background:#d97706"></span>Work location</span>
+</div>
+
+<script>
+const PINS = {
+  'pin-sf': { title:'San Francisco', meta:'Current base · 2024–present', desc:'Independent consulting, AI experiments, and product design leadership.' },
+  'pin-bangalore': { title:'Bangalore, India', meta:'Field research · 2008–2010', desc:'Intel Classmate PC usability study (18 participants across India and China). Mobile money research with low-income households.' },
+  'pin-delhi': { title:'Delhi, India', meta:'Field research · 2009–2010', desc:'Nokia urban wayfinding research. Focus groups and interviews on mobile navigation among low-tech users.' },
+  'pin-mumbai': { title:'Mumbai, India', meta:'Field research · 2009', desc:'Mobile money financial inclusion fieldwork. Bottom-of-the-pyramid household research.' },
+  'pin-chennai': { title:'Chennai, India', meta:'Field research · 2008', desc:'Intel Classmate PC classroom research and field studies.' },
+  'pin-beijing': { title:'Beijing, China', meta:'Usability study · 2008', desc:'Hawk Peak usability study for Intel Classmate PC. Tested alongside India participants.' },
+  'pin-natick': { title:'Natick / Boston, MA', meta:'Work location · 2014–2023', desc:'MathWorks headquarters. Engineering tools, design systems, AI interaction vision, and leadership systems.' },
+};
+
+const tooltip = document.getElementById('tooltip');
+const mapWrap = document.getElementById('mapWrap');
+
+document.querySelectorAll('.pin-group').forEach(g => {
+  const id = g.id;
+  const data = PINS[id];
+  if (!data) return;
+  const pin = g.querySelector('.pin');
+  pin.addEventListener('mouseenter', e => {
+    document.getElementById('ttTitle').textContent = data.title;
+    document.getElementById('ttMeta').textContent = data.meta;
+    document.getElementById('ttDesc').textContent = data.desc;
+    tooltip.classList.add('show');
+  });
+  pin.addEventListener('mousemove', e => {
+    const rect = mapWrap.getBoundingClientRect();
+    let x = e.clientX - rect.left + 16;
+    let y = e.clientY - rect.top - 10;
+    if (x + 220 > rect.width) x = e.clientX - rect.left - 220;
+    if (y + 120 > rect.height) y = e.clientY - rect.top - 120;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  });
+  pin.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+});
+</script>
+</body>
+</html>

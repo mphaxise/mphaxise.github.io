@@ -270,6 +270,45 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   .lively .pill:hover{transform:none}
 }
 
+/* ═══════ CHAOS MODE ═══════ */
+.chaos-btn{width:100%;padding:var(--sp-3) var(--sp-4);border:2px dashed var(--accent);border-radius:var(--radius);background:color-mix(in srgb,var(--accent) 8%,transparent);font-family:var(--font);font-size:var(--text-sm);font-weight:700;color:var(--accent);cursor:pointer;transition:all .3s var(--ease-bounce);letter-spacing:.02em}
+.chaos-btn:hover{transform:scale(1.03);box-shadow:0 4px 16px color-mix(in srgb,var(--accent) 20%,transparent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.chaos-btn.active{background:var(--accent);color:#fff;border-style:solid;animation:chaosPulse 1.5s ease-in-out infinite}
+@keyframes chaosPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 40%,transparent)}50%{box-shadow:0 0 0 8px color-mix(in srgb,var(--accent) 0%,transparent)}}
+.chaos-hint{font-size:10px;color:var(--muted);margin-top:var(--sp-1);opacity:.6}
+
+/* Chaos layer */
+.chaos-layer{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+.chaos-emoji{position:absolute;font-size:28px;animation:emojiFloat linear forwards;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.1))}
+@keyframes emojiFloat{0%{opacity:0;transform:translateY(20px) rotate(0deg) scale(.5)}10%{opacity:1;transform:translateY(0) rotate(10deg) scale(1)}90%{opacity:1}100%{opacity:0;transform:translateY(-100vh) rotate(360deg) scale(.3)}}
+
+.chaos-cat{position:absolute;pointer-events:none;z-index:10000;transition:transform .5s var(--ease-bounce)}
+.chaos-cat-body{font-size:48px;line-height:1;text-shadow:0 4px 12px rgba(0,0,0,.15)}
+.chaos-cat--top .chaos-cat-body{transform:rotate(180deg)}
+
+/* Text transforms */
+.chaos .exp-hero h2{animation:chaosWiggle 2s ease-in-out infinite}
+.chaos .exp-hero .eyebrow{animation:chaosColorShift 3s ease-in-out infinite}
+.chaos .case-card h3 a::after{content:' 🎉' !important;transform:none !important}
+.chaos .exp-contact h3{animation:chaosWiggle 1.5s ease-in-out infinite}
+.chaos .shuffle-badge{animation:chaosFloat 2s ease-in-out infinite}
+@keyframes chaosWiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-1deg)}75%{transform:rotate(1deg)}}
+@keyframes chaosColorShift{0%,100%{color:var(--accent)}33%{color:#e8520e}66%{color:#7c6cff}}
+@keyframes chaosFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+
+.chaos .case-card{border:2px solid color-mix(in srgb,var(--accent) 30%,transparent);transition:all .3s var(--ease-bounce)}
+.chaos .case-card:nth-child(even){border-color:color-mix(in srgb,#e8520e 30%,transparent)}
+.chaos .case-card:nth-child(3n){border-color:color-mix(in srgb,#7c6cff 30%,transparent)}
+
+.chaos .tag-sm{animation:chaosTagBounce .6s var(--ease-bounce) both}
+.chaos .tag-sm:nth-child(1){animation-delay:.05s}
+.chaos .tag-sm:nth-child(2){animation-delay:.1s}
+.chaos .tag-sm:nth-child(3){animation-delay:.15s}
+@keyframes chaosTagBounce{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+
+/* Cat paw cursor in chaos mode */
+.chaos .exp-body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='80'%3E🐾%3C/text%3E%3C/svg%3E") 4 4, auto}
+
 /* ═══════ MOBILE ═══════ */
 @media(max-width:768px){
   .control-panel{width:calc(100vw - var(--sp-8));right:var(--sp-4);max-height:50vh;border-radius:var(--radius);top:auto;bottom:var(--sp-4);transform:none}
@@ -493,6 +532,15 @@ button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   <hr class="panel-divider">
 
   <div id="themeControls"></div>
+
+  <hr class="panel-divider">
+
+  <div class="panel-section" style="text-align:center">
+    <button id="chaosBtn" class="chaos-btn" onclick="toggleChaos()" aria-label="Go wild">
+      🐱 Go Wild
+    </button>
+    <div class="chaos-hint" id="chaosHint">emoji overload · cat invasion</div>
+  </div>
 </nav>
 
 <script>
@@ -1270,6 +1318,96 @@ document.addEventListener('keydown', (e) => {
     if (!panel.classList.contains('collapsed') && !panel.classList.contains('hidden')) togglePanel();
   }
 });
+
+// ═══════ CHAOS MODE ═══════
+let chaosActive = false;
+let chaosLayer = null;
+let chaosInterval = null;
+const CHAOS_EMOJIS = ['🐱','😹','🙀','😻','🐾','✨','🎉','🔥','💀','🌈','🦄','🍕','🪩','👽','🤖','👀','💅','🫠','🤯','🎵','💎','🪿','🧿','🎪'];
+const CAT_FACES = ['🐱','😺','😸','😹','😻','🙀','😿','😾','🐈','🐈‍⬛'];
+
+function toggleChaos() {
+  chaosActive = !chaosActive;
+  document.body.classList.toggle('chaos', chaosActive);
+  const btn = document.getElementById('chaosBtn');
+  const hint = document.getElementById('chaosHint');
+  btn.classList.toggle('active', chaosActive);
+  btn.textContent = chaosActive ? '🛑 Stop' : '🐱 Go Wild';
+  hint.textContent = chaosActive ? 'click to restore sanity' : 'emoji overload · cat invasion';
+
+  if (chaosActive) {
+    startChaos();
+  } else {
+    stopChaos();
+  }
+}
+
+function startChaos() {
+  if (!chaosLayer) {
+    chaosLayer = document.createElement('div');
+    chaosLayer.className = 'chaos-layer';
+    document.body.appendChild(chaosLayer);
+  }
+  chaosLayer.style.display = 'block';
+
+  // Spawn cats hanging from edges
+  spawnCats();
+
+  // Spawn emojis periodically
+  spawnEmoji();
+  chaosInterval = setInterval(spawnEmoji, 600);
+}
+
+function stopChaos() {
+  if (chaosInterval) { clearInterval(chaosInterval); chaosInterval = null; }
+  if (chaosLayer) {
+    chaosLayer.innerHTML = '';
+    chaosLayer.style.display = 'none';
+  }
+}
+
+function spawnEmoji() {
+  if (!chaosLayer || !chaosActive) return;
+  const el = document.createElement('div');
+  el.className = 'chaos-emoji';
+  el.textContent = CHAOS_EMOJIS[Math.floor(Math.random() * CHAOS_EMOJIS.length)];
+  el.style.left = Math.random() * 95 + 'vw';
+  el.style.bottom = '-40px';
+  el.style.fontSize = (18 + Math.random() * 24) + 'px';
+  el.style.animationDuration = (4 + Math.random() * 6) + 's';
+  el.style.animationDelay = (Math.random() * 0.3) + 's';
+  chaosLayer.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
+}
+
+function spawnCats() {
+  const positions = [
+    { top: '-10px', left: '5%', rotate: '10deg' },
+    { top: '-10px', right: '8%', rotate: '-8deg' },
+    { bottom: '-10px', left: '12%', rotate: '5deg' },
+    { bottom: '-10px', right: '15%', rotate: '-12deg' },
+    { top: '20%', left: '-15px', rotate: '90deg' },
+    { top: '50%', right: '-15px', rotate: '-90deg' },
+  ];
+  positions.forEach((pos, i) => {
+    const cat = document.createElement('div');
+    cat.className = 'chaos-cat';
+    cat.innerHTML = `<div class="chaos-cat-body">${CAT_FACES[i % CAT_FACES.length]}</div>`;
+    Object.assign(cat.style, {
+      position: 'fixed',
+      top: pos.top || 'auto',
+      bottom: pos.bottom || 'auto',
+      left: pos.left || 'auto',
+      right: pos.right || 'auto',
+      transform: `rotate(${pos.rotate})`,
+      fontSize: (32 + Math.random() * 24) + 'px',
+      zIndex: 10000,
+      animation: `chaosFloat ${2 + Math.random() * 2}s ease-in-out infinite`,
+      animationDelay: `${i * 0.3}s`
+    });
+    chaosLayer.appendChild(cat);
+  });
+}
 </script>
 </body>
 </html>

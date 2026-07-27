@@ -458,17 +458,69 @@ const THEMES = {
       { id:'roundness', label:'Corner roundness', min:4, max:24, step:2, default:16, apply:v => root.style.setProperty('--radius', v + 'px') },
     ]
   },
-  technical: {
-    name: 'Technical',
-    colors: { bg:'#f8f9fa', surface:'#e9ecef', fg:'#212529', muted:'#6c757d', border:'#ced4da', accent:'#0d6efd' },
-    font: '"JetBrains Mono",monospace',
-    fontDisplay: '"Space Grotesk",system-ui,sans-serif',
-    radius: '6px',
-    preview: ['#0d6efd','#212529','#e9ecef','#ced4da'],
+  nightfall: {
+    name: 'Nightfall',
+    colors: { bg:'#111113', surface:'#1a1a1f', fg:'#e8e8ec', muted:'#9a9aa8', border:'#2e2e38', accent:'#7c6cff' },
+    font: '"DM Sans",system-ui,sans-serif',
+    fontDisplay: '"Source Serif 4",Georgia,serif',
+    radius: '10px',
+    preview: ['#7c6cff','#e8e8ec','#1a1a1f','#2e2e38'],
     controls: [
-      { id:'monoWeight', label:'Mono weight', min:400, max:600, step:50, default:400, apply:v => root.style.setProperty('--mono-weight', v) },
-      { id:'gridStrict', label:'Grid strictness', min:0, max:100, step:10, default:0, apply:v => root.style.setProperty('--grid-gap', (4 + v/5) + 'px') },
-      { id:'brightness', label:'Brightness', min:90, max:110, step:2, default:100, apply:v => root.style.setProperty('--bg', `hsl(210,20%,${v/2}%)`) },
+      { id:'brightness', label:'Brightness', min:0, max:100, step:5, default:50, apply:v => { const l=10+v/6; root.style.setProperty('--bg',`hsl(245,10%,${l}%)`); root.style.setProperty('--surface',`hsl(245,10%,${l+4}%)`); root.style.setProperty('--border',`hsl(245,8%,${l+12}%)`); } },
+      { id:'accentHue', label:'Accent hue', min:220, max:320, step:5, default:253, apply:v => root.style.setProperty('--accent', `hsl(${v},62%,68%)`) },
+      { id:'roundness', label:'Corner radius', min:4, max:18, step:1, default:10, apply:v => root.style.setProperty('--radius', v + 'px') },
+    ]
+  },
+  sage: {
+    name: 'Sage',
+    colors: { bg:'#f5f7f4', surface:'#e8ede6', fg:'#1e2a1c', muted:'#5c6b58', border:'#c5d0c0', accent:'#2d6a30' },
+    font: '"Outfit",system-ui,sans-serif',
+    fontDisplay: '"Source Serif 4",Georgia,serif',
+    radius: '12px',
+    preview: ['#2d6a30','#1e2a1c','#e8ede6','#c5d0c0'],
+    controls: [
+      { id:'earthiness', label:'Earthiness', min:0, max:100, step:5, default:50, apply:v => { const h=130+v/5; root.style.setProperty('--accent',`hsl(${h},52%,30%)`); root.style.setProperty('--bg',`hsl(${h-8},${15+v/10}%,94%)`); } },
+      { id:'roundness', label:'Corner roundness', min:6, max:22, step:2, default:12, apply:v => root.style.setProperty('--radius', v + 'px') },
+      { id:'softness', label:'Softness', min:0, max:100, step:10, default:50, apply:v => root.style.setProperty('--border', v > 70 ? 'transparent' : `hsl(110,15%,${65+v/5}%)`) },
+    ]
+  },
+  terracotta: {
+    name: 'Terracotta',
+    colors: { bg:'#faf6f1', surface:'#f0e8de', fg:'#2c1810', muted:'#8a6e5e', border:'#d9c4b0', accent:'#b84c1c' },
+    font: '"DM Sans",system-ui,sans-serif',
+    fontDisplay: '"Source Serif 4",Georgia,serif',
+    radius: '8px',
+    preview: ['#b84c1c','#2c1810','#f0e8de','#d9c4b0'],
+    controls: [
+      { id:'warmth', label:'Warmth', min:0, max:100, step:5, default:50, apply:v => root.style.setProperty('--bg', `hsl(${28+v/5},${30+v/5}%,95%)`) },
+      { id:'accentDepth', label:'Accent depth', min:0, max:100, step:10, default:50, apply:v => root.style.setProperty('--accent', v > 60 ? '#8b3210' : v > 30 ? '#b84c1c' : '#d4692e') },
+      { id:'surface', label:'Surface depth', min:0, max:100, step:10, default:50, apply:v => root.style.setProperty('--surface', `hsl(28,${25+v/5}%,${90+v/10}%)`) },
+    ]
+  },
+  ice: {
+    name: 'Ice',
+    colors: { bg:'#f4f7fb', surface:'#e8eef6', fg:'#141e2e', muted:'#5e7089', border:'#c4d1e2', accent:'#1565c0' },
+    font: '"Space Grotesk",system-ui,sans-serif',
+    fontDisplay: '"Source Serif 4",Georgia,serif',
+    radius: '6px',
+    preview: ['#1565c0','#141e2e','#e8eef6','#c4d1e2'],
+    controls: [
+      { id:'chill', label:'Chill', min:0, max:100, step:5, default:50, apply:v => root.style.setProperty('--bg', `hsl(${215+v/5},${40+v/3}%,94%)`) },
+      { id:'accentSat', label:'Accent saturation', min:20, max:100, step:10, default:70, apply:v => root.style.setProperty('--accent', `hsl(213,${v}%,43%)`) },
+      { id:'roundness', label:'Corner radius', min:2, max:14, step:2, default:6, apply:v => root.style.setProperty('--radius', v + 'px') },
+    ]
+  },
+  mono: {
+    name: 'Mono',
+    colors: { bg:'#ffffff', surface:'#f4f4f4', fg:'#171717', muted:'#6b6b6b', border:'#d4d4d4', accent:'#171717' },
+    font: '"Inter",system-ui,sans-serif',
+    fontDisplay: '"Inter",system-ui,sans-serif',
+    radius: '2px',
+    preview: ['#171717','#171717','#f4f4f4','#d4d4d4'],
+    controls: [
+      { id:'contrast', label:'Contrast', min:0, max:100, step:10, default:50, apply:v => { root.style.setProperty('--muted', v > 60 ? '#444' : '#6b6b6b'); root.style.setProperty('--border', v > 60 ? '#999' : '#d4d4d4'); } },
+      { id:'fontWeight', label:'Font weight', min:400, max:600, step:25, default:400, apply:v => root.style.setProperty('--weight', v) },
+      { id:'spacing', label:'Spacing scale', min:0.7, max:1.3, step:0.05, default:1, apply:v => root.style.setProperty('--scale', v) },
     ]
   },
   editorial: {
@@ -811,18 +863,18 @@ function pickN(a,n) { return shuffle(a).slice(0,n); }
 
 // ═══════ CONTENT DATABASE ═══════
 const CASES = [
-  { id:'simulink-ai', title:'An AI partner inside the engineering workflow', eyebrow:'AI product vision', period:'2023–2024', tags:['ai','tools','leadership'], summary:'Led the UX vision for an AI assistant in model-based design. Connected requirements, architecture, implementation, simulation, and explanation while keeping changes visible and reviewable.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/', detail:'The assistant went beyond chat — it connected the full engineering workflow while preserving traceability, confirmation, and human control.', depth:2 },
-  { id:'model-slicer', title:'Making complex model behavior inspectable', eyebrow:'Technical workflow design', period:'2014–2016', tags:['tools'], summary:'Designed state-aware interactions for Model Slicer — making starting points, exclusions, conflicts, data provenance, time windows, and invalid states legible to engineers.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/', detail:'Authored interaction decks mapping selection states to valid actions, and dynamic-slicing prototypes that made data source, time range, validity, and recalculation visible.', depth:2 },
-  { id:'diagnostics', title:'Making Simulink diagnostics actionable', eyebrow:'Interaction design', period:'2014–2017', tags:['tools'], summary:'Shaped message hierarchy, safe Fix-It behavior, and suppression workflows for engineers blocked by model diagnostics.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/', detail:'Prevented partial model changes through controlled transactions. Built adoption support: guidelines, reviews, documentation, and internal forums.', depth:2 },
-  { id:'toolstrip', title:'Scaling task-based UI design across engineering apps', eyebrow:'Design systems', period:'2014–2019', tags:['tools','leadership'], summary:'Authored pattern guidance, contributed Radar app workshop concepts, documented team design decisions, and served as formal coach and reviewer.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/', detail:'Consistency earned through workflow fit proved more durable than consistency enforced through surface rules.', depth:2 },
-  { id:'mask-editor', title:'Reimagining Mask Editor as a technical authoring environment', eyebrow:'Technical authoring', period:'2014–2017', tags:['tools'], summary:'Authored validation and constraint explorations, facilitated team synthesis, mentored a broader discovery effort.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/', detail:'Turned fragmented expert tasks into one coherent authoring model. Named rules, parameter associations, discovery, and reuse became concrete design decisions.', depth:2 },
-  { id:'workflow-portfolio', title:'Turning customer workflows into a UX portfolio operating system', eyebrow:'Quality at scale', period:'2020–2023', tags:['leadership','tools'], summary:'Built shared workflow language, prioritization model, ownership process, and advisory mechanism so UX and product teams could focus on workflows that mattered most.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/', detail:'Connected workflow evidence, product ownership, research questions, and investment decisions.', depth:2 },
-  { id:'ux-leadership', title:'Scaling a distributed UX organization through leadership systems', eyebrow:'Organization design', period:'2022–2024', tags:['leadership'], summary:'Designed management systems connecting leadership bench, role and skill gaps, capacity planning, geographic coverage, and development pathways.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/', detail:'Built planning, coaching, and decision mechanisms across 4 countries and 120+ products.', depth:2 },
-  { id:'classmate-pc', title:'Designing a classroom computer as a classroom system', eyebrow:'Field research', period:'2008–2009', tags:['civic'], summary:'India classroom inquiry and 18-participant usability study for Intel Classmate PC.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/', detail:'The research framed the device as part of a service system — teachers, students, administrators, infrastructure.', depth:3 },
-  { id:'mobile-money', title:'Designing mobile money from household financial life', eyebrow:'Field research', period:'2009', tags:['civic'], summary:'Co-authored published Springer research on mobile money for financial inclusion.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/', detail:'Connected individual transactions to household relationships, informal and formal providers, and access to mobile phones.', depth:3 },
-  { id:'nokia-wayfinding', title:'Researching urban wayfinding in the field', eyebrow:'Field research', period:'2010', tags:['civic'], summary:'Planned recruitment, coordinated and moderated fieldwork for Nokia on mobile wayfinding.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/', detail:'The city is part of the interface. People navigate through partial information, local knowledge, social help, habit.', depth:3 },
-  { id:'ai-ux-validation', title:'Agent-callable UX validation for AI-generated apps', eyebrow:'AI experiment', period:'2026', tags:['ai'], summary:'A product and research exploration of agent-callable UX validation.', link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html', detail:'Exploring how agents can understand UX evaluation criteria, generate synthetic test evidence, and surface actionable findings.', depth:3 },
-  { id:'hey-minie', title:'Turning mobile acquisition data into a clearer homepage', eyebrow:'Growth design', period:'2026', tags:['tools'], summary:'Using behavioral evidence, responsive QA, and focused iteration to improve a voice-first children\'s product homepage.', link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html', detail:'Applied analytics data to identify where the homepage lost visitors. Iterated on messaging hierarchy and trust signals.', depth:3 }
+  { id:'simulink-ai', title:'Designing an AI assistant for model-based engineering', eyebrow:'AI interaction vision', period:'2023–2024', tags:['ai','tools','leadership'], summary:'Led the UX vision with an Engineering Lead for an assistant that could work across requirements, architecture, implementation, simulation, and explanation — while keeping every consequential action visible and under human control.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/', detail:'The assistant went beyond chat. It connected the full engineering workflow — understand requirements, propose traceable actions, review and confirm, update architecture, simulate and inspect, explain and navigate — while preserving traceability, confirmation, and human control.', depth:2 },
+  { id:'model-slicer', title:'Designing Model Slicer around state, data, and time', eyebrow:'Technical workflow design', period:'2014–2016', tags:['tools'], summary:'Helped make an early Model Slicer workflow more predictable by exposing the role a selected model object played, the behavioral data supporting a slice, and the time interval in which that data was valid.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/', detail:'Authored a 2014 interaction deck mapping selection states to valid actions, and 2015 dynamic-slicing prototypes that made data source, time range, validity, and recalculation visible. Used prototypes to expose the decisions a team must make before implementation hardened.', depth:2 },
+  { id:'diagnostics', title:'Making Simulink diagnostics actionable', eyebrow:'Interaction design', period:'2014–2017', tags:['tools'], summary:'Helped evolve an already-shipped diagnostic surface into a clearer resolution workflow, moving from readable messages to safe fixes and accountable suppression.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/', detail:'Evaluated 26 diagnostic scenarios to understand when the product should explain a remedy, offer one automatic fix, expose several alternatives, or avoid automation. Designed controlled transactions that prevent partial model changes. Built adoption support: guidelines, reviews, documentation, and internal forums.', depth:2 },
+  { id:'toolstrip', title:'Scaling task-based UI design across engineering apps', eyebrow:'Design systems', period:'2014–2019', tags:['tools','leadership'], summary:'Helped product teams turn dense engineering capabilities into task-based app structures, moving from pattern guidance and hands-on concepts to workshop contribution and formal design review.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/', detail:'Authored 2014 pattern guidance on when toolstrip and workflow-wizard patterns improve discoverability. Contributed Radar Waveform Analyzer concepts and documented team convergence in 2018. Named coach and reviewer in 2019 with a nine-area review checklist. Consistency earned through workflow fit proved more durable than consistency enforced through surface rules.', depth:2 },
+  { id:'mask-editor', title:'Reimagining Mask Editor as a technical authoring environment', eyebrow:'Technical authoring', period:'2014–2017', tags:['tools'], summary:'Helped move block-mask authoring toward a more structured workflow for parameters, dialog controls, callbacks, validation, icons, and reuse, while mentoring continuation work and co-shaping a longer-range studio vision.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/', detail:'Authored parameter-validation and constraint explorations covering type, complexity, dimensions, range, and reuse. Contributed to a team-credited Mask Editor 2.0 direction. Mentored a six-month Masking 2.0 project. Co-authored a Block Authoring Studio vision with an engineering partner. Turned fragmented expert tasks into one coherent authoring model.', depth:2 },
+  { id:'workflow-portfolio', title:'Turning customer workflows into a UX portfolio operating system', eyebrow:'Quality at scale', period:'2020–2023', tags:['leadership','tools'], summary:'Helped build a shared language, prioritization model, ownership process, and advisory mechanism so UX and product teams could focus on the workflows that mattered most.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/', detail:'Authored Target Workflow and ownership artifacts. Contributed to Top-N selection criteria and UX advisory workflow. Connected a shared lexicon to workflow inventory, priority decisions, ownership, evidence, roadmap actions, and the next planning cycle. The unit of strategy: one customer goal, one workflow, many teams.', depth:2 },
+  { id:'ux-leadership', title:'Scaling a distributed UX organization through leadership systems', eyebrow:'Organization design', period:'2022–2024', tags:['leadership'], summary:'Designed management systems that connected leadership bench, role and skill gaps, capacity planning, geographic coverage, development pathways, and team listening.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/', detail:'Mapped leadership capacity before drawing structure. Connected role gaps to development choices. Treated capacity as a scenario, not a fixed ratio. Built planning, coaching, and decision mechanisms across 4 countries and 120+ products while protecting the privacy of the people inside the system.', depth:2 },
+  { id:'classmate-pc', title:'Designing a classroom computer as a classroom system', eyebrow:'Field research', period:'2008–2009', tags:['civic'], summary:'Contributed to India classroom research and an 18-participant usability study for Intel Classmate PC, then authored a 46-page interface concept organized around activity spaces, tags, and a school diary.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/', detail:'The research framed the device as part of a service system — teachers, students, administrators, infrastructure. The India inquiry surfaced needs around mobility, touch, ruggedness, teacher control, and local storage. The Hawk Peak study tested 18 participants across India and China. The authored concept connected Environs, tags, and diary to teacher communication and the wider classroom system.', depth:3 },
+  { id:'mobile-money', title:'Designing mobile money from household financial life', eyebrow:'Field research', period:'2009', tags:['civic'], summary:'Co-authored published Springer research on how mobile money could support financial inclusion for women in bottom-of-the-pyramid households in urban India.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/', detail:'Connected individual transactions to household relationships, informal and formal providers, access to mobile phones, migration history, and the products available to low-income urban families. The ecosystem view created a richer unit of analysis than the transaction screen. Published in IDGD 2009 (LNCS 5623, pp. 475–484).', depth:3 },
+  { id:'nokia-wayfinding', title:'Researching urban wayfinding in the field', eyebrow:'Field research', period:'2010', tags:['civic'], summary:'Planned recruitment, coordinated and moderated fieldwork for Nokia on mobile wayfinding and navigation among low-tech users in Indian cities.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/', detail:'The city is part of the interface. People navigate through partial information, local knowledge, social help, habit, language, landmarks, and the physical environment. Combined focus groups, one-to-one interviews, and fly-on-the-wall observation. Analyzed emerging evidence with product designers while the team remained in the field.', depth:3 },
+  { id:'ai-ux-validation', title:'Agent-callable UX validation for AI-generated apps', eyebrow:'AI experiment', period:'2026', tags:['ai'], summary:'Turned a broad question — how might app-building agents get usable, trustworthy UX evidence before they ship? — into a concrete service model, evidence taxonomy, and sharper category position.', link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html', detail:'Mapped the emerging market across synthetic testing, browser agents, researcher-facing platforms, and app builders. Defined the request-and-results loop as the primary product experience. Made calibration a product requirement: synthetic signals guide triage, while high-stakes or uncertain findings need human confirmation.', depth:3 },
+  { id:'hey-minie', title:'Turning mobile acquisition data into a clearer homepage', eyebrow:'Growth design', period:'2026', tags:['tools'], summary:'Connected real acquisition behavior to a focused homepage-improvement program for Hey Minie, a voice-first storytelling app for children.', link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html', detail:'Combined Plausible analytics review with source-level audit and responsive browser QA. 1,096 visitors across the active period; 95% bounce rate from paid-social. Shaped the homepage around a clearer product-led hero, lock-screen value, store actions, and family-safety context. Documented an event contract for privacy-conscious measurement.', depth:3 }
 ];
 
 const PRINCIPLES = [
@@ -916,9 +968,9 @@ function renderExperience() {
   if (S.depth >= 4) {
     html += `<hr class="section-divider anim"><div class="section-title">Writing</div>
     <div class="case-card featured anim anim-3">
-      <div class="case-eyebrow">Four-part essay · AI design</div>
+      <div class="case-eyebrow">Four-part essay · AI design · Physical UX</div>
       <h3><a href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener">Closed-Loop Experience Design</a></h3>
-      <p>Traces the controller idea from designing beside a developer in 2014 through AI coding agents to physical UX.</p>
+      <p>Designing with the systems that create the experience. Traces the controller idea from sitting beside a developer in 2014 through AI coding agents to the next interface: physical system behavior. Four parts — origin, digital proof, physical frontier, and progression.</p>
     </div>`;
   }
 

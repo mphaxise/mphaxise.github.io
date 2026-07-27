@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Praneet Koppula — Design System Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ═══════ DESIGN TOKENS ═══════ */
+:root{
+  --bg:#ffffff;--surface:#f7f8fa;--fg:#111111;--muted:#6b7280;
+  --border:#d9dee7;--border-width:1px;--accent:#0d5bcc;--radius:8px;
+  --font:"Inter",system-ui,-apple-system,Segoe UI,Helvetica Neue,Arial,sans-serif;
+  --font-display:"Source Serif 4",Georgia,serif;
+  --type-scale:1;--space-scale:1;--anim-level:1;
+  --text-xs:calc(11px * var(--type-scale));--text-sm:calc(13px * var(--type-scale));
+  --text-base:calc(15px * var(--type-scale));--text-lg:calc(18px * var(--type-scale));
+  --text-xl:calc(24px * var(--type-scale));--text-2xl:calc(32px * var(--type-scale));
+  --text-3xl:calc(44px * var(--type-scale));--text-4xl:calc(64px * var(--type-scale));
+  --sp-1:calc(4px * var(--space-scale));--sp-2:calc(8px * var(--space-scale));
+  --sp-3:calc(12px * var(--space-scale));--sp-4:calc(16px * var(--space-scale));
+  --sp-5:calc(20px * var(--space-scale));--sp-6:calc(24px * var(--space-scale));
+  --sp-8:calc(32px * var(--space-scale));--sp-10:calc(40px * var(--space-scale));
+  --sp-12:calc(48px * var(--space-scale));--sp-16:calc(64px * var(--space-scale));
+  --dur-fast:150ms;--dur-base:300ms;--dur-slow:600ms;
+  --ease:cubic-bezier(0.2,0,0,1);--ease-bounce:cubic-bezier(0.34,1.56,0.64,1);
+  --panel-w:280px;
+  /* Per-theme custom controls (defaults) */
+  --custom-1:0;--custom-2:0;--custom-3:0;--custom-4:0;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--fg);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent);text-decoration:none;transition:color var(--dur-fast) var(--ease)}
+a:hover{text-decoration:underline}
+
+/* ═══════ FOCUS VISIBLE ═══════ */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ═══════ LANDING ═══════ */
+.landing{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.landing.hidden{opacity:0;transform:scale(1.02);pointer-events:none}
+.landing-inner{text-align:center;max-width:680px;padding:var(--sp-6)}
+.landing h1{font-family:var(--font-display);font-size:var(--text-4xl);font-weight:700;letter-spacing:-.03em;line-height:.96;margin-bottom:var(--sp-3)}
+.landing .sub{color:var(--muted);font-size:var(--text-lg);margin-bottom:var(--sp-10)}
+
+/* Landing controls */
+.landing-controls{display:flex;flex-direction:column;gap:var(--sp-6);align-items:center;margin-bottom:var(--sp-10);max-width:420px;margin-left:auto;margin-right:auto}
+.landing-control{width:100%}
+.landing-control .lc-label{font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--sp-2);text-align:left}
+.landing-control .pill-row{justify-content:flex-start}
+
+/* Landing depth slider */
+.depth-track{width:100%;display:flex;align-items:center;gap:var(--sp-3)}
+.depth-track input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;transition:background var(--dur-fast) var(--ease)}
+.depth-track input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.depth-track input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--fg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:grab;transition:transform var(--dur-fast) var(--ease-bounce),background var(--dur-fast) var(--ease)}
+.depth-track input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);background:var(--accent)}
+.depth-track input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--fg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:grab}
+.depth-label{font-size:var(--text-sm);font-weight:600;color:var(--accent);min-width:80px;text-align:right}
+.depth-range{display:flex;justify-content:space-between;font-size:var(--text-xs);color:var(--muted);margin-top:var(--sp-1)}
+
+/* Landing CTA */
+.enter-btn{display:inline-flex;align-items:center;gap:var(--sp-2);padding:var(--sp-3) var(--sp-8);border:none;border-radius:999px;background:var(--accent);color:#fff;font-family:var(--font);font-size:var(--text-base);font-weight:700;cursor:pointer;transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.enter-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px color-mix(in srgb,var(--accent) 35%,transparent)}
+.enter-btn:active{transform:translateY(0)}
+.enter-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.enter-btn svg{width:16px;height:16px;transition:transform var(--dur-fast) var(--ease)}
+.enter-btn:hover svg{transform:translateX(3px)}
+
+/* Landing visual */
+.landing-visual{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.landing-visual svg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(80vw,600px);height:min(80vw,600px);opacity:.04}
+@keyframes ring-spin{from{transform:translate(-50%,-50%) rotate(0deg)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.landing-visual .ring{animation:ring-spin 60s linear infinite;transform-origin:center}
+.landing-visual .ring:nth-child(2){animation-duration:45s;animation-direction:reverse}
+.landing-visual .ring:nth-child(3){animation-duration:30s}
+
+/* ═══════ EXPERIENCE ═══════ */
+.experience{display:none;min-height:100vh;opacity:0;transition:opacity .5s var(--ease)}
+.experience.active{display:block;opacity:1}
+.experience.entering{display:block;opacity:0}
+
+.exp-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:var(--border-width) solid var(--border);padding:var(--sp-3) var(--sp-6);display:flex;align-items:center;justify-content:space-between;transition:margin-right var(--dur-base) var(--ease)}
+.exp-header .wordmark{font-weight:700;font-size:var(--text-sm);letter-spacing:-.01em}
+.exp-header .tag{font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent);padding:var(--sp-1) var(--sp-3);border-radius:999px}
+.exp-back{font-size:var(--text-sm);font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;font-family:var(--font);padding:var(--sp-2) var(--sp-3);border-radius:var(--radius);transition:all var(--dur-fast) var(--ease)}
+.exp-back:hover{color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.exp-back:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.exp-body{max-width:720px;margin:0 auto;padding:var(--sp-12) var(--sp-6) 80px;transition:margin-right var(--dur-base) var(--ease)}
+
+/* Panel-open: reserve space for floating panel on desktop */
+.panel-open .exp-header{margin-right:calc(var(--panel-w) + var(--sp-8))}
+.panel-open .exp-body{margin-right:calc(var(--panel-w) + var(--sp-10))}
+
+/* ═══════ CONTENT ELEMENTS ═══════ */
+.exp-hero{margin-bottom:var(--sp-16)}
+.exp-hero .eyebrow{font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-3)}
+.exp-hero h2{font-family:var(--font-display);font-size:var(--text-3xl);font-weight:700;letter-spacing:-.025em;line-height:1.05;margin-bottom:var(--sp-4)}
+.exp-hero p{color:var(--muted);font-size:var(--text-lg);max-width:540px;line-height:1.6}
+
+.case-card{border:var(--border-width) solid var(--border);border-radius:var(--radius);padding:var(--sp-6);margin-bottom:var(--sp-4);background:var(--bg);transition:all var(--dur-base) var(--ease);position:relative;overflow:hidden}
+.case-card::before{content:'';position:absolute;inset:0;background:color-mix(in srgb,var(--accent) 4%,transparent);opacity:0;transition:opacity var(--dur-base) var(--ease)}
+.case-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.06)}
+.case-card:hover::before{opacity:1}
+.case-card .case-eyebrow{font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-2);position:relative;z-index:1}
+.case-card h3{font-family:var(--font-display);font-size:var(--text-xl);font-weight:700;margin-bottom:var(--sp-2);letter-spacing:-.015em;position:relative;z-index:1}
+.case-card h3 a{color:var(--fg);text-decoration:none;transition:color var(--dur-fast) var(--ease)}
+.case-card h3 a:hover{color:var(--accent);text-decoration:none}
+.case-card h3 a::after{content:' →';font-weight:400;color:var(--muted);transition:color var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease);display:inline-block}
+.case-card:hover h3 a::after{color:var(--accent);transform:translateX(3px)}
+.case-card p{color:var(--muted);font-size:var(--text-base);margin-bottom:var(--sp-3);max-width:60ch;position:relative;z-index:1}
+.case-card .tags{display:flex;gap:var(--sp-1);flex-wrap:wrap;position:relative;z-index:1}
+.case-card .tag-sm{font-size:calc(var(--text-xs) * .95);font-weight:600;padding:var(--sp-1) var(--sp-2);border-radius:999px;background:var(--surface);color:var(--muted)}
+
+.featured-hero{background:var(--surface);border-radius:calc(var(--radius) * 1.5);padding:var(--sp-8);margin-bottom:var(--sp-8);border:var(--border-width) solid var(--border);transition:all var(--dur-base) var(--ease);position:relative;overflow:hidden}
+.featured-hero::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform var(--dur-slow) var(--ease)}
+.featured-hero:hover::after{transform:scaleX(1)}
+.featured-hero .case-eyebrow{font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--sp-2)}
+.featured-hero h3{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;letter-spacing:-.02em;margin-bottom:var(--sp-3);line-height:1.15}
+.featured-hero h3 a{color:var(--fg);text-decoration:none}
+.featured-hero h3 a:hover{color:var(--accent)}
+.featured-hero p{color:var(--muted);font-size:var(--text-base);max-width:520px}
+
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--sp-3);margin:var(--sp-12) 0}
+.principle{padding:var(--sp-5);border-top:3px solid var(--accent);background:var(--surface);border-radius:0 var(--radius) var(--radius) 0;transition:all var(--dur-base) var(--ease)}
+.principle strong{display:block;margin-bottom:var(--sp-2);font-size:var(--text-base)}
+.principle p{margin:0;color:var(--muted);font-size:var(--text-sm)}
+
+.section-divider{border:none;border-top:var(--border-width) solid var(--border);margin:var(--sp-12) 0 var(--sp-10)}
+.section-title{font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--sp-5)}
+
+.exp-contact{background:var(--fg);color:#fff;border-radius:calc(var(--radius) * 2);padding:var(--sp-10);text-align:center;margin-top:var(--sp-12)}
+.exp-contact h3{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;margin-bottom:var(--sp-2)}
+.exp-contact p{color:rgba(255,255,255,.6);margin-bottom:var(--sp-5);font-size:var(--text-base)}
+.exp-contact a{color:#fff;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+.shuffle-badge{display:inline-flex;align-items:center;gap:var(--sp-1);font-size:var(--text-xs);color:var(--muted);margin-top:var(--sp-3)}
+
+/* ═══════ FLOATING CONTROL PANEL ═══════ */
+.control-panel{position:fixed;right:var(--sp-4);top:50%;transform:translateY(-50%);z-index:200;width:var(--panel-w);background:color-mix(in srgb,var(--bg) 95%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:var(--border-width) solid var(--border);border-radius:calc(var(--radius) * 2);padding:var(--sp-5);box-shadow:0 12px 48px rgba(0,0,0,.08);transition:transform var(--dur-base) var(--ease),opacity var(--dur-base) var(--ease);overflow-y:auto;max-height:85vh}
+.control-panel::-webkit-scrollbar{width:4px}
+.control-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+
+.control-panel.hidden{transform:translateY(-50%) translateX(calc(100% + var(--sp-8)));pointer-events:none;opacity:0}
+
+.panel-toggle{position:fixed;right:var(--sp-4);top:var(--sp-4);z-index:210;width:40px;height:40px;border-radius:var(--radius);background:var(--fg);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:all var(--dur-fast) var(--ease)}
+.panel-toggle:hover{transform:scale(1.05)}
+.panel-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel-toggle svg{width:18px;height:18px;transition:transform var(--dur-base) var(--ease)}
+.panel-toggle.collapsed svg{transform:rotate(180deg)}
+.panel-toggle.hidden{opacity:0;pointer-events:none;transform:scale(.8)}
+
+.control-panel.collapsed{transform:translateY(-50%) translateX(calc(100% + var(--sp-8)));pointer-events:none;opacity:0}
+
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-4)}
+.panel-title{font-size:var(--text-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fg)}
+.panel-reset{font-size:var(--text-xs);font-weight:600;color:var(--muted);cursor:pointer;border:none;background:none;font-family:var(--font);padding:var(--sp-1) var(--sp-2);border-radius:4px;transition:all var(--dur-fast) var(--ease)}
+.panel-reset:hover{color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.panel-reset:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.panel-section{margin-bottom:var(--sp-4)}
+.panel-section:last-child{margin-bottom:0}
+.panel-label{font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:var(--sp-2)}
+
+.ds-slider{position:relative;width:100%;height:36px;display:flex;align-items:center}
+.ds-slider input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:var(--border);outline:none;cursor:pointer;transition:background var(--dur-fast) var(--ease)}
+.ds-slider input[type=range]:hover{background:color-mix(in srgb,var(--accent) 30%,var(--border))}
+.ds-slider input[type=range]:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.ds-slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--fg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:grab;transition:transform var(--dur-fast) var(--ease-bounce),background var(--dur-fast) var(--ease)}
+.ds-slider input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15);background:var(--accent)}
+.ds-slider input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--fg);border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:grab}
+.ds-val{font-size:var(--text-xs);font-weight:600;color:var(--muted);min-width:32px;text-align:right}
+
+.pill-row{display:flex;gap:var(--sp-1);flex-wrap:wrap}
+.pill{padding:var(--sp-1) var(--sp-3);border:1.5px solid var(--border);border-radius:999px;background:var(--bg);font-family:var(--font);font-size:calc(var(--text-xs) * .95);font-weight:600;color:var(--fg);cursor:pointer;transition:all var(--dur-fast) var(--ease);white-space:nowrap;min-height:32px}
+.pill:hover{border-color:var(--accent);color:var(--accent)}
+.pill.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.swatch-row{display:flex;gap:var(--sp-2);flex-wrap:wrap}
+.swatch{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all var(--dur-fast) var(--ease);box-shadow:0 0 0 1px var(--border)}
+.swatch:hover{transform:scale(1.15)}
+.swatch.active{border-color:var(--fg);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--fg)}
+.swatch:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.panel-divider{border:none;border-top:var(--border-width) solid var(--border);margin:var(--sp-4) 0}
+
+/* Theme selector */
+.ds-theme-select{width:100%;padding:var(--sp-2) var(--sp-3);border:1.5px solid var(--border);border-radius:var(--radius);background:var(--bg);font-family:var(--font);font-size:var(--text-xs);font-weight:600;color:var(--fg);cursor:pointer;transition:all var(--dur-fast) var(--ease);appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
+.ds-theme-select:hover{border-color:var(--accent)}
+.ds-theme-select:focus{outline:2px solid var(--accent);outline-offset:2px}
+.theme-preview{display:flex;gap:var(--sp-1);margin-top:var(--sp-2)}
+.theme-dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.1)}
+
+/* ═══════ DS TEASER ═══════ */
+.ds-teaser{background:var(--surface);border:1px dashed var(--accent);border-radius:calc(var(--radius) * 1.5);padding:var(--sp-5) var(--sp-6);margin:var(--sp-6) 0 var(--sp-10);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);transition:all var(--dur-base) var(--ease);cursor:pointer}
+.ds-teaser:hover{border-style:solid;background:color-mix(in srgb,var(--accent) 4%,var(--surface))}
+.ds-teaser:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ds-teaser-text{display:flex;flex-direction:column;gap:var(--sp-1)}
+.ds-teaser-text strong{font-size:var(--text-sm);color:var(--fg);letter-spacing:-.01em}
+.ds-teaser-text span{font-size:var(--text-xs);color:var(--muted);line-height:1.4}
+.ds-teaser-badge{display:inline-flex;align-items:center;gap:var(--sp-1);padding:var(--sp-2) var(--sp-3);background:var(--accent);color:#fff;border-radius:999px;font-size:var(--text-xs);font-weight:700;white-space:nowrap;transition:transform var(--dur-fast) var(--ease-bounce)}
+.ds-teaser:hover .ds-teaser-badge{transform:scale(1.04)}
+.ds-teaser-badge svg{width:14px;height:14px}
+@keyframes ds-badge-pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 40%,transparent)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 0%,transparent)}}
+.ds-teaser-badge{animation:ds-badge-pulse 2.5s ease-in-out 1}
+.ds-teaser:hover .ds-teaser-badge{animation:none}
+
+/* ═══════ CONTENT TRANSITION ═══════ */
+@keyframes contentFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.content-transition{animation:contentFade .4s var(--ease) both}
+
+/* ═══════ ANIMATIONS ═══════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.anim{opacity:0}
+.anim.visible{animation:fadeUp var(--dur-slow) var(--ease) both}
+.anim-1.visible{animation-delay:.05s}
+.anim-2.visible{animation-delay:.12s}
+.anim-3.visible{animation-delay:.2s}
+.anim-4.visible{animation-delay:.28s}
+.anim-5.visible{animation-delay:.36s}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .landing-visual .ring{animation:none}
+  .anim,.anim-1,.anim-2,.anim-3,.anim-4,.anim-5{animation:none;opacity:1}
+  .case-card:hover{transform:none}
+  .content-transition{animation:none;opacity:1}
+  .ds-teaser-badge{animation:none}
+}
+
+/* ═══════ MOBILE ═══════ */
+@media(max-width:768px){
+  .control-panel{width:calc(100vw - var(--sp-8));right:var(--sp-4);max-height:50vh;border-radius:var(--radius);top:auto;bottom:var(--sp-4);transform:none}
+  .control-panel.hidden{transform:translateY(calc(100% + var(--sp-8)))}
+  .control-panel.collapsed{transform:translateY(calc(100% + var(--sp-8)))}
+  .exp-header{margin-right:0!important}
+  .exp-body{margin-right:0!important;padding:var(--sp-8) var(--sp-4) 160px}
+  .landing h1{font-size:var(--text-3xl)}
+  .landing-controls{padding:0 var(--sp-4)}
+  .panel-toggle{bottom:var(--sp-4);top:auto;right:var(--sp-4);z-index:210}
+  .ds-teaser{flex-direction:column;align-items:flex-start;text-align:left}
+  .ds-teaser-badge{align-self:flex-start}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ LANDING ═══════ -->
+<div class="landing" id="landing">
+  <div class="landing-visual">
+    <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle class="ring" cx="300" cy="300" r="280" stroke="var(--fg)" stroke-width=".5"/>
+      <circle class="ring" cx="300" cy="300" r="200" stroke="var(--fg)" stroke-width=".5"/>
+      <circle class="ring" cx="300" cy="300" r="120" stroke="var(--fg)" stroke-width=".5"/>
+    </svg>
+  </div>
+  <div class="landing-inner">
+    <h1>Praneet Koppula</h1>
+    <p class="sub">Product design leader. What are you here for?</p>
+
+    <div class="landing-controls">
+      <div class="landing-control">
+        <div class="lc-label">How deep?</div>
+        <div class="depth-track">
+          <input type="range" id="landingDepth" min="1" max="5" value="3" step="1">
+          <span class="depth-label" id="landingDepthLabel">Balanced</span>
+        </div>
+        <div class="depth-range"><span>Quick glance</span><span>Deep dive</span></div>
+      </div>
+
+      <div class="landing-control">
+        <div class="lc-label">What interests you?</div>
+        <div class="pill-row" id="landingFocus">
+          <button class="pill active" data-focus="all">Everything</button>
+          <button class="pill" data-focus="tools">Tools</button>
+          <button class="pill" data-focus="ai">AI</button>
+          <button class="pill" data-focus="civic">Civic</button>
+          <button class="pill" data-focus="leadership">Leadership</button>
+        </div>
+      </div>
+
+      <div class="landing-control">
+        <div class="lc-label">Who are you?</div>
+        <div class="pill-row" id="landingAudience">
+          <button class="pill" data-audience="hiring">Hiring manager</button>
+          <button class="pill" data-audience="collab">Collaborator</button>
+          <button class="pill active" data-audience="explore">Just exploring</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="enter-btn" onclick="enterExperience()">
+      Build my view
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════ EXPERIENCE ═══════ -->
+<div class="experience" id="experience">
+  <header class="exp-header">
+    <span class="wordmark">Praneet Koppula</span>
+    <div style="display:flex;align-items:center;gap:var(--sp-3)">
+      <span class="tag" id="expTag"></span>
+      <button class="exp-back" onclick="goBack()">← Start over</button>
+    </div>
+  </header>
+  <div class="exp-body" id="expBody"></div>
+</div>
+
+<!-- ═══════ FLOATING CONTROL PANEL ═══════ -->
+<button class="panel-toggle hidden" id="panelToggle" onclick="togglePanel()" aria-label="Toggle controls">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+</button>
+
+<nav class="control-panel hidden" id="controlPanel" aria-label="Experience controls">
+  <div class="panel-header">
+    <span class="panel-title">Controls</span>
+    <div style="display:flex;gap:var(--sp-1)">
+      <button class="panel-reset" id="shareBtn" onclick="copyShareLink()">Copy link</button>
+      <button class="panel-reset" onclick="resetDS()">Reset</button>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Design system</div>
+    <select class="ds-theme-select" id="themeSelect"></select>
+    <div class="theme-preview" id="themePreview"></div>
+  </div>
+
+  <hr class="panel-divider">
+
+  <div class="panel-section">
+    <div class="panel-label">Depth</div>
+    <div class="ds-slider">
+      <input type="range" id="depthSlider" min="1" max="5" value="3" step="1">
+      <span class="ds-val" id="depthVal">Balanced</span>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Focus</div>
+    <div class="pill-row" id="focusOptions">
+      <button class="pill active" data-focus="all">Everything</button>
+      <button class="pill" data-focus="tools">Tools</button>
+      <button class="pill" data-focus="ai">AI</button>
+      <button class="pill" data-focus="civic">Civic</button>
+      <button class="pill" data-focus="leadership">Leadership</button>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Audience</div>
+    <div class="pill-row" id="audienceOptions">
+      <button class="pill" data-audience="hiring">Hiring</button>
+      <button class="pill" data-audience="collab">Collaborator</button>
+      <button class="pill active" data-audience="explore">Exploring</button>
+    </div>
+  </div>
+
+  <hr class="panel-divider">
+
+  <div class="panel-section">
+    <div class="panel-label">Type scale</div>
+    <div class="ds-slider">
+      <input type="range" id="typeSlider" min="0.8" max="1.4" value="1" step="0.05">
+      <span class="ds-val" id="typeVal">1.0×</span>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Space scale</div>
+    <div class="ds-slider">
+      <input type="range" id="spaceSlider" min="0.7" max="1.5" value="1" step="0.05">
+      <span class="ds-val" id="spaceVal">1.0×</span>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Accent</div>
+    <div class="swatch-row" id="accentSwatches">
+      <button class="swatch active" data-color="#0d5bcc" style="background:#0d5bcc" aria-label="Blue"></button>
+      <button class="swatch" data-color="#7c3aed" style="background:#7c3aed" aria-label="Purple"></button>
+      <button class="swatch" data-color="#059669" style="background:#059669" aria-label="Green"></button>
+      <button class="swatch" data-color="#dc2626" style="background:#dc2626" aria-label="Red"></button>
+      <button class="swatch" data-color="#d97706" style="background:#d97706" aria-label="Amber"></button>
+      <button class="swatch" data-color="#0891b2" style="background:#0891b2" aria-label="Cyan"></button>
+      <button class="swatch" data-color="#111111" style="background:#111111" aria-label="Black"></button>
+    </div>
+  </div>
+
+  <div class="panel-section">
+    <div class="panel-label">Motion</div>
+    <div class="pill-row">
+      <button class="pill" data-anim="0">Off</button>
+      <button class="pill active" data-anim="1">Subtle</button>
+      <button class="pill" data-anim="2">Lively</button>
+    </div>
+  </div>
+
+  <hr class="panel-divider">
+
+  <div id="themeControls"></div>
+</nav>
+
+<script>
+// ═══════ STATE ═══════
+const S = { depth:3, focus:'all', audience:'explore', theme:'product' };
+const depthLabels = ['','Glancing','Curious','Balanced','Thorough','Deep dive'];
+const FOCUS_LABELS = { all:'Everything', tools:'Engineering Tools', ai:'AI & Agents', civic:'Civic Tech', leadership:'Leadership' };
+const root = document.documentElement;
+const STORE_KEY = 'portfolio:ds';
+
+// ═══════ THEMES ═══════
+const THEMES = {
+  product: {
+    name: 'Product',
+    colors: { bg:'#ffffff', surface:'#f7f8fa', fg:'#111111', muted:'#6b7280', border:'#d9dee7', accent:'#0d5bcc' },
+    font: '"Inter",system-ui,sans-serif',
+    fontDisplay: '"Source Serif 4",Georgia,serif',
+    radius: '8px',
+    preview: ['#0d5bcc','#111111','#f7f8fa','#d9dee7'],
+    controls: [
+      { id:'warmth', label:'Color warmth', min:0, max:100, step:1, default:0, apply:v => { root.style.setProperty('--bg', v > 0 ? `color-mix(in srgb, #ffffff ${100-v}%, #faf8f5)` : '#ffffff'); root.style.setProperty('--surface', v > 0 ? `color-mix(in srgb, #f7f8fa ${100-v}%, #f5f0eb)` : '#f7f8fa'); } },
+      { id:'roundness', label:'Corner radius', min:0, max:20, step:1, default:8, apply:v => root.style.setProperty('--radius', v + 'px') },
+    ]
+  },
+  brutalist: {
+    name: 'Brutalist',
+    colors: { bg:'#ffffff', surface:'#f5f5f5', fg:'#000000', muted:'#555555', border:'#000000', accent:'#000000' },
+    font: '"Space Grotesk",system-ui,sans-serif',
+    fontDisplay: '"Space Grotesk",system-ui,sans-serif',
+    radius: '0px',
+    preview: ['#000000','#000000','#f5f5f5','#000000'],
+    controls: [
+      { id:'borderWeight', label:'Border weight', min:1, max:6, step:1, default:1, apply:v => root.style.setProperty('--border-width', v + 'px') },
+      { id:'uppercase', label:'Uppercase', min:0, max:1, step:1, default:0, apply:v => root.style.setProperty('--text-transform', v ? 'uppercase' : 'none') },
+      { id:'contrast', label:'Contrast', min:0, max:100, step:5, default:0, apply:v => { if(v>0){root.style.setProperty('--muted','#333333');root.style.setProperty('--border','#222222')}else{root.style.setProperty('--muted','#555555');root.style.setProperty('--border','#000000')} } },
+    ]
+  },
+  playful: {
+    name: 'Playful',
+    colors: { bg:'#fffbf5', surface:'#fff5eb', fg:'#33291e', muted:'#7a6858', border:'#d8cdc0', accent:'#e8520e' },
+    font: '"Outfit",system-ui,sans-serif',
+    fontDisplay: '"Outfit",system-ui,sans-serif',
+    radius: '16px',
+    preview: ['#e8520e','#33291e','#fff5eb','#d8cdc0'],
+    controls: [
+      { id:'vibrancy', label:'Color vibrancy', min:0, max:100, step:5, default:50, apply:v => root.style.setProperty('--accent', `color-mix(in srgb, #e8520e ${v}%, #cc4400)`) },
+      { id:'bounce', label:'Bounce intensity', min:0, max:2, step:0.1, default:1, apply:v => root.style.setProperty('--ease-bounce', `cubic-bezier(0.34,${1+v},0.64,1)`) },
+      { id:'roundness', label:'Corner roundness', min:4, max:24, step:2, default:16, apply:v => root.style.setProperty('--radius', v + 'px') },
+    ]
+  },
+  technical: {
+    name: 'Technical',
+    colors: { bg:'#f8f9fa', surface:'#e9ecef', fg:'#212529', muted:'#6c757d', border:'#ced4da', accent:'#0d6efd' },
+    font: '"JetBrains Mono",monospace',
+    fontDisplay: '"Space Grotesk",system-ui,sans-serif',
+    radius: '6px',
+    preview: ['#0d6efd','#212529','#e9ecef','#ced4da'],
+    controls: [
+      { id:'monoWeight', label:'Mono weight', min:400, max:600, step:50, default:400, apply:v => root.style.setProperty('--mono-weight', v) },
+      { id:'gridStrict', label:'Grid strictness', min:0, max:100, step:10, default:0, apply:v => root.style.setProperty('--grid-gap', (4 + v/5) + 'px') },
+      { id:'brightness', label:'Brightness', min:90, max:110, step:2, default:100, apply:v => root.style.setProperty('--bg', `hsl(210,20%,${v/2}%)`) },
+    ]
+  },
+  editorial: {
+    name: 'Editorial',
+    colors: { bg:'#fffff8', surface:'#f7f6f0', fg:'#1c1917', muted:'#78716c', border:'#e7e5e0', accent:'#9a3412' },
+    font: '"Source Serif 4",Georgia,serif',
+    fontDisplay: '"Source Serif 4",Georgia,serif',
+    radius: '3px',
+    preview: ['#9a3412','#1c1917','#f7f6f0','#e7e5e0'],
+    controls: [
+      { id:'colWidth', label:'Column width', min:540, max:800, step:20, default:720, apply:v => document.querySelector('.exp-body').style.maxWidth = v + 'px' },
+      { id:'dropCap', label:'Drop cap size', min:1, max:4, step:0.5, default:1, apply:v => root.style.setProperty('--drop-cap', v) },
+      { id:'leading', label:'Line height', min:1.4, max:1.9, step:0.05, default:1.55, apply:v => root.style.setProperty('--leading', v) },
+    ]
+  }
+};
+
+let currentTheme = THEMES.product;
+let themeControlValues = {};
+
+function applyTheme(key, skipRender) {
+  const t = THEMES[key];
+  if (!t) return;
+  currentTheme = t;
+  S.theme = key;
+  const c = t.colors;
+  root.style.setProperty('--bg', c.bg);
+  root.style.setProperty('--surface', c.surface);
+  root.style.setProperty('--fg', c.fg);
+  root.style.setProperty('--muted', c.muted);
+  root.style.setProperty('--border', c.border);
+  root.style.setProperty('--accent', c.accent);
+  root.style.setProperty('--font', t.font);
+  root.style.setProperty('--font-display', t.fontDisplay);
+  root.style.setProperty('--radius', t.radius);
+  document.querySelectorAll('.exp-header').forEach(el => el.style.background = `color-mix(in srgb, ${c.bg} 88%, transparent)`);
+  try { populateThemeControls(t); } catch(e) {}
+  if (!skipRender) { renderExperience(); scheduleSave(); }
+}
+
+function populateThemeControls(t) {
+  const container = document.getElementById('themeControls');
+  if (!t.controls.length) { container.innerHTML = ''; return; }
+  let html = '<div class="panel-section"><div class="panel-label">' + t.name + ' fine-tuning</div>';
+  t.controls.forEach(ctrl => {
+    const val = themeControlValues[ctrl.id] ?? ctrl.default;
+    html += `<div class="panel-section" style="margin-bottom:var(--sp-3)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-1)">
+        <span style="font-size:var(--text-xs);color:var(--muted)">${ctrl.label}</span>
+        <span class="ds-val" id="tc_${ctrl.id}_val">${val}</span>
+      </div>
+      <div class="ds-slider">
+        <input type="range" id="tc_${ctrl.id}" min="${ctrl.min}" max="${ctrl.max}" step="${ctrl.step}" value="${val}">
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+  t.controls.forEach(ctrl => {
+    const slider = document.getElementById('tc_' + ctrl.id);
+    if (!slider) return;
+    slider.oninput = function() {
+      const v = parseFloat(this.value);
+      themeControlValues[ctrl.id] = v;
+      const valEl = document.getElementById('tc_' + ctrl.id + '_val');
+      if (valEl) valEl.textContent = typeof v === 'number' && v % 1 !== 0 ? v.toFixed(2) : v;
+      ctrl.apply(v);
+      scheduleSave();
+    };
+    ctrl.apply(parseFloat(slider.value));
+  });
+}
+
+function populateThemeSelect() {
+  const sel = document.getElementById('themeSelect');
+  sel.innerHTML = '';
+  Object.keys(THEMES).forEach(key => {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = THEMES[key].name;
+    sel.appendChild(opt);
+  });
+  sel.value = S.theme;
+  sel.onchange = () => applyTheme(sel.value);
+  updateThemePreview();
+}
+
+function syncPanelControls() {
+  const ds = document.getElementById('depthSlider'); if(ds) { ds.value = S.depth; document.getElementById('depthVal').textContent = depthLabels[S.depth]; }
+  const ts = document.getElementById('typeSlider'); if(ts) { const v = getComputedStyle(root).getPropertyValue('--type-scale').trim() || 1; ts.value = v; document.getElementById('typeVal').textContent = parseFloat(v).toFixed(1) + '×'; }
+  const ss = document.getElementById('spaceSlider'); if(ss) { const v = getComputedStyle(root).getPropertyValue('--space-scale').trim() || 1; ss.value = v; document.getElementById('spaceVal').textContent = parseFloat(v).toFixed(1) + '×'; }
+  const accent = getComputedStyle(root).getPropertyValue('--accent').trim();
+  document.querySelectorAll('#accentSwatches .swatch').forEach(sw => sw.classList.toggle('active', sw.dataset.color === accent));
+  const anim = getComputedStyle(root).getPropertyValue('--anim-level').trim();
+  document.querySelectorAll('[data-anim]').forEach(b => b.classList.toggle('active', b.dataset.anim === String(anim)));
+  syncPanelPills('focusOptions', 'focus', S.focus);
+  syncPanelPills('audienceOptions', 'audience', S.audience);
+  document.getElementById('themeSelect').value = S.theme;
+  populateThemeControls(currentTheme);
+  updateThemePreview();
+}
+
+function updateThemePreview() {
+  const preview = document.getElementById('themePreview');
+  preview.innerHTML = '';
+  currentTheme.preview.forEach(color => {
+    const dot = document.createElement('span');
+    dot.className = 'theme-dot';
+    dot.style.background = color;
+    preview.appendChild(dot);
+  });
+}
+
+populateThemeSelect();
+
+// ═══════ PERSISTENCE ═══════
+function captureState() {
+  return {
+    depth: S.depth, focus: S.focus, audience: S.audience, theme: S.theme,
+    typeScale: getComputedStyle(root).getPropertyValue('--type-scale').trim() || 1,
+    spaceScale: getComputedStyle(root).getPropertyValue('--space-scale').trim() || 1,
+    accent: getComputedStyle(root).getPropertyValue('--accent').trim() || '#0d5bcc',
+    animLevel: getComputedStyle(root).getPropertyValue('--anim-level').trim() || 1,
+    themeControls: { ...themeControlValues }
+  };
+}
+
+function applyState(st) {
+  if (!st) return;
+  if (st.depth) { S.depth = +st.depth; const ds = document.getElementById('depthSlider'); if(ds) { ds.value = S.depth; document.getElementById('depthVal').textContent = depthLabels[S.depth]; } }
+  if (st.focus) { S.focus = st.focus; syncPanelPills('focusOptions', 'focus', S.focus); syncPanelPills('landingFocus', 'focus', S.focus); }
+  if (st.audience) { S.audience = st.audience; syncPanelPills('audienceOptions', 'audience', S.audience); syncPanelPills('landingAudience', 'audience', S.audience); }
+  if (st.theme && THEMES[st.theme]) { S.theme = st.theme; applyTheme(st.theme, true); document.getElementById('themeSelect').value = st.theme; }
+  if (st.typeScale) { root.style.setProperty('--type-scale', st.typeScale); const s = document.getElementById('typeSlider'); if(s) { s.value = st.typeScale; document.getElementById('typeVal').textContent = parseFloat(st.typeScale).toFixed(1) + '×'; } }
+  if (st.spaceScale) { root.style.setProperty('--space-scale', st.spaceScale); const s = document.getElementById('spaceSlider'); if(s) { s.value = st.spaceScale; document.getElementById('spaceVal').textContent = parseFloat(st.spaceScale).toFixed(1) + '×'; } }
+  if (st.accent) { root.style.setProperty('--accent', st.accent); document.querySelectorAll('#accentSwatches .swatch').forEach(sw => sw.classList.toggle('active', sw.dataset.color === st.accent)); }
+  if (st.animLevel !== undefined) { root.style.setProperty('--anim-level', st.animLevel); document.querySelectorAll('[data-anim]').forEach(b => b.classList.toggle('active', b.dataset.anim === String(st.animLevel))); }
+  if (st.themeControls) {
+    themeControlValues = { ...st.themeControls };
+    if (currentTheme.controls) {
+      currentTheme.controls.forEach(ctrl => {
+        const v = themeControlValues[ctrl.id] ?? ctrl.default;
+        ctrl.apply(v);
+        const slider = document.getElementById('tc_' + ctrl.id);
+        const valEl = document.getElementById('tc_' + ctrl.id + '_val');
+        if (slider) slider.value = v;
+        if (valEl) valEl.textContent = typeof v === 'number' && v % 1 !== 0 ? v.toFixed(2) : v;
+      });
+    }
+  }
+  updateThemePreview();
+}
+
+function saveToLocal() {
+  const d = JSON.stringify(captureState());
+  try { localStorage.setItem(STORE_KEY, d); } catch(e) {}
+  try { sessionStorage.setItem(STORE_KEY, d); } catch(e) {}
+}
+function saveNow() { clearTimeout(saveTimer); saveToLocal(); saveToHash(); }
+function loadFromLocal() {
+  let d = null;
+  try { d = localStorage.getItem(STORE_KEY); } catch(e) {}
+  if (!d) try { d = sessionStorage.getItem(STORE_KEY); } catch(e) {}
+  try { return d ? JSON.parse(d) : null; } catch(e) { return null; }
+}
+function loadFromHash() {
+  const h = location.hash.slice(1);
+  if (!h) return null;
+  try { return JSON.parse(decodeURIComponent(h)); } catch(e) { return null; }
+}
+function saveToHash() {
+  const st = captureState();
+  try {
+    const encoded = encodeURIComponent(JSON.stringify(st));
+    if (window.location.hash !== '#' + encoded) {
+      history.replaceState(null, '', '#' + encoded);
+    }
+  } catch(e) {
+    try { window.location.hash = encodeURIComponent(JSON.stringify(st)); } catch(e2) {}
+  }
+}
+function copyShareLink() {
+  saveToHash();
+  const url = location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('shareBtn');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { btn.textContent = 'Copy link'; }, 1500); }
+  }).catch(() => {
+    prompt('Copy this link:', url);
+  });
+}
+
+// Auto-save on every control change (synchronous)
+let saveTimer;
+function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(() => { saveToLocal(); saveToHash(); }, 50); }
+
+// ═══════ LANDING CONTROLS ═══════
+const landingDepth = document.getElementById('landingDepth');
+const landingDepthLabel = document.getElementById('landingDepthLabel');
+landingDepth.oninput = () => {
+  S.depth = +landingDepth.value;
+  landingDepthLabel.textContent = depthLabels[S.depth];
+  document.getElementById('depthSlider').value = S.depth;
+  document.getElementById('depthVal').textContent = depthLabels[S.depth];
+  scheduleSave();
+};
+
+document.querySelectorAll('#landingFocus .pill').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('#landingFocus .pill').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    S.focus = b.dataset.focus;
+    syncPanelPills('focusOptions', 'focus', S.focus);
+    scheduleSave();
+  };
+});
+
+document.querySelectorAll('#landingAudience .pill').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('#landingAudience .pill').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    S.audience = b.dataset.audience;
+    syncPanelPills('audienceOptions', 'audience', S.audience);
+    scheduleSave();
+  };
+});
+
+function syncPanelPills(containerId, attr, value) {
+  document.querySelectorAll(`#${containerId} .pill`).forEach(p => {
+    p.classList.toggle('active', p.dataset[attr] === value);
+  });
+}
+
+// ═══════ PANEL TOGGLE ═══════
+function openPanel() {
+  document.getElementById('controlPanel').classList.remove('collapsed');
+  document.getElementById('panelToggle').classList.remove('collapsed');
+  document.body.classList.add('panel-open');
+  document.getElementById('controlPanel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function togglePanel() {
+  const panel = document.getElementById('controlPanel');
+  if (panel.classList.contains('collapsed')) {
+    openPanel();
+  } else {
+    panel.classList.add('collapsed');
+    document.getElementById('panelToggle').classList.add('collapsed');
+    document.body.classList.remove('panel-open');
+  }
+}
+
+// ═══════ DS CONTROLS ═══════
+document.getElementById('typeSlider').oninput = function() {
+  root.style.setProperty('--type-scale', this.value);
+  document.getElementById('typeVal').textContent = parseFloat(this.value).toFixed(1) + '×';
+  scheduleSave();
+};
+
+document.getElementById('spaceSlider').oninput = function() {
+  root.style.setProperty('--space-scale', this.value);
+  document.getElementById('spaceVal').textContent = parseFloat(this.value).toFixed(1) + '×';
+  scheduleSave();
+};
+
+document.getElementById('depthSlider').oninput = function() {
+  S.depth = +this.value;
+  document.getElementById('depthVal').textContent = depthLabels[S.depth];
+  landingDepth.value = S.depth;
+  landingDepthLabel.textContent = depthLabels[S.depth];
+  renderExperience();
+  scheduleSave();
+};
+
+document.querySelectorAll('#focusOptions .pill').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('#focusOptions .pill').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    S.focus = b.dataset.focus;
+    syncPanelPills('landingFocus', 'focus', S.focus);
+    renderExperience();
+    scheduleSave();
+  };
+});
+
+document.querySelectorAll('#audienceOptions .pill').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('#audienceOptions .pill').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    S.audience = b.dataset.audience;
+    syncPanelPills('landingAudience', 'audience', S.audience);
+    renderExperience();
+    scheduleSave();
+  };
+});
+
+document.querySelectorAll('#accentSwatches .swatch').forEach(s => {
+  s.onclick = () => {
+    document.querySelectorAll('#accentSwatches .swatch').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+    root.style.setProperty('--accent', s.dataset.color);
+    scheduleSave();
+  };
+});
+
+document.querySelectorAll('[data-anim]').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('[data-anim]').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    root.style.setProperty('--anim-level', +b.dataset.anim);
+    scheduleSave();
+  };
+});
+
+// ═══════ DS RESET ═══════
+function resetDS() {
+  root.style.setProperty('--type-scale', 1);
+  root.style.setProperty('--space-scale', 1);
+  const defaultAccent = currentTheme.colors.accent;
+  root.style.setProperty('--accent', defaultAccent);
+  const ts = document.getElementById('typeSlider'); if(ts) { ts.value = 1; document.getElementById('typeVal').textContent = '1.0×'; }
+  const ss = document.getElementById('spaceSlider'); if(ss) { ss.value = 1; document.getElementById('spaceVal').textContent = '1.0×'; }
+  document.querySelectorAll('#accentSwatches .swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.color === defaultAccent);
+  });
+  document.querySelectorAll('[data-anim]').forEach(p => {
+    p.classList.toggle('active', p.dataset.anim === '1');
+  });
+  root.style.setProperty('--anim-level', 1);
+  themeControlValues = {};
+  populateThemeControls(currentTheme);
+  updateThemePreview();
+  scheduleSave();
+}
+
+// ═══════ UTILITIES ═══════
+function shuffle(a) { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]} return b; }
+function pick(a) { return a[Math.floor(Math.random()*a.length)]; }
+function pickN(a,n) { return shuffle(a).slice(0,n); }
+
+// ═══════ CONTENT DATABASE ═══════
+const CASES = [
+  { id:'simulink-ai', title:'An AI partner inside the engineering workflow', eyebrow:'AI product vision', period:'2023–2024', tags:['ai','tools','leadership'], summary:'Led the UX vision for an AI assistant in model-based design. Connected requirements, architecture, implementation, simulation, and explanation while keeping changes visible and reviewable.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/', detail:'The assistant went beyond chat — it connected the full engineering workflow while preserving traceability, confirmation, and human control.', depth:2 },
+  { id:'model-slicer', title:'Making complex model behavior inspectable', eyebrow:'Technical workflow design', period:'2014–2016', tags:['tools'], summary:'Designed state-aware interactions for Model Slicer — making starting points, exclusions, conflicts, data provenance, time windows, and invalid states legible to engineers.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/', detail:'Authored interaction decks mapping selection states to valid actions, and dynamic-slicing prototypes that made data source, time range, validity, and recalculation visible.', depth:2 },
+  { id:'diagnostics', title:'Making Simulink diagnostics actionable', eyebrow:'Interaction design', period:'2014–2017', tags:['tools'], summary:'Shaped message hierarchy, safe Fix-It behavior, and suppression workflows for engineers blocked by model diagnostics.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/', detail:'Prevented partial model changes through controlled transactions. Built adoption support: guidelines, reviews, documentation, and internal forums.', depth:2 },
+  { id:'toolstrip', title:'Scaling task-based UI design across engineering apps', eyebrow:'Design systems', period:'2014–2019', tags:['tools','leadership'], summary:'Authored pattern guidance, contributed Radar app workshop concepts, documented team design decisions, and served as formal coach and reviewer.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/', detail:'Consistency earned through workflow fit proved more durable than consistency enforced through surface rules.', depth:2 },
+  { id:'mask-editor', title:'Reimagining Mask Editor as a technical authoring environment', eyebrow:'Technical authoring', period:'2014–2017', tags:['tools'], summary:'Authored validation and constraint explorations, facilitated team synthesis, mentored a broader discovery effort.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/', detail:'Turned fragmented expert tasks into one coherent authoring model. Named rules, parameter associations, discovery, and reuse became concrete design decisions.', depth:2 },
+  { id:'workflow-portfolio', title:'Turning customer workflows into a UX portfolio operating system', eyebrow:'Quality at scale', period:'2020–2023', tags:['leadership','tools'], summary:'Built shared workflow language, prioritization model, ownership process, and advisory mechanism so UX and product teams could focus on workflows that mattered most.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/', detail:'Connected workflow evidence, product ownership, research questions, and investment decisions.', depth:2 },
+  { id:'ux-leadership', title:'Scaling a distributed UX organization through leadership systems', eyebrow:'Organization design', period:'2022–2024', tags:['leadership'], summary:'Designed management systems connecting leadership bench, role and skill gaps, capacity planning, geographic coverage, and development pathways.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/', detail:'Built planning, coaching, and decision mechanisms across 4 countries and 120+ products.', depth:2 },
+  { id:'classmate-pc', title:'Designing a classroom computer as a classroom system', eyebrow:'Field research', period:'2008–2009', tags:['civic'], summary:'India classroom inquiry and 18-participant usability study for Intel Classmate PC.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/', detail:'The research framed the device as part of a service system — teachers, students, administrators, infrastructure.', depth:3 },
+  { id:'mobile-money', title:'Designing mobile money from household financial life', eyebrow:'Field research', period:'2009', tags:['civic'], summary:'Co-authored published Springer research on mobile money for financial inclusion.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/', detail:'Connected individual transactions to household relationships, informal and formal providers, and access to mobile phones.', depth:3 },
+  { id:'nokia-wayfinding', title:'Researching urban wayfinding in the field', eyebrow:'Field research', period:'2010', tags:['civic'], summary:'Planned recruitment, coordinated and moderated fieldwork for Nokia on mobile wayfinding.', link:'https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/', detail:'The city is part of the interface. People navigate through partial information, local knowledge, social help, habit.', depth:3 },
+  { id:'ai-ux-validation', title:'Agent-callable UX validation for AI-generated apps', eyebrow:'AI experiment', period:'2026', tags:['ai'], summary:'A product and research exploration of agent-callable UX validation.', link:'https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html', detail:'Exploring how agents can understand UX evaluation criteria, generate synthetic test evidence, and surface actionable findings.', depth:3 },
+  { id:'hey-minie', title:'Turning mobile acquisition data into a clearer homepage', eyebrow:'Growth design', period:'2026', tags:['tools'], summary:'Using behavioral evidence, responsive QA, and focused iteration to improve a voice-first children\'s product homepage.', link:'https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html', detail:'Applied analytics data to identify where the homepage lost visitors. Iterated on messaging hierarchy and trust signals.', depth:3 }
+];
+
+const PRINCIPLES = [
+  { title:'Make state visible', body:'Users should understand what the system knows, changed, and needs from them.' },
+  { title:'Earn trust through control', body:'Preview, confirmation, correction, and recovery matter more than artificial certainty.' },
+  { title:'Scale judgment, not sameness', body:'Standards should raise quality while preserving room for the problem to shape the solution.' }
+];
+
+const HERO_VARIANTS = {
+  hiring: [
+    { eyebrow:'Design leadership', title:'18+ years making complex software feel clear.', body:'I lead multidisciplinary teams and stay close to the work — building expert engineering tools, AI-assisted workflows, and quality systems.' },
+    { eyebrow:'Senior UX leader', title:'I make the hard parts of technical products feel manageable.', body:'Design leadership across research, product, accessibility, and AI — from field studies in India to distributed teams across 4 countries.' }
+  ],
+  collab: [
+    { eyebrow:'How I work', title:'I build shared language between design, engineering, and product.', body:'Whether the problem is interaction architecture, quality systems, or AI trust — I start with the workflow and work outward.' },
+    { eyebrow:'Collaboration', title:'Complex products need design that earns trust through clarity.', body:'I work best when the problem is technically ambitious, behaviorally unclear, or needs someone who can bridge research and systems thinking.' }
+  ],
+  explore: [
+    { eyebrow:'Product design leadership', title:'Complex software should feel clear enough to trust.', body:'I lead design teams and stay close to the work, making expert-level engineering tools and AI-assisted workflows intuitive.' },
+    { eyebrow:'Design practice', title:'I make invisible system state legible to the people who depend on it.', body:'Engineering tools, AI interactions, civic technology, and leadership systems — connected by a belief that trust comes from visible context.' }
+  ]
+};
+
+// ═══════ RENDER ═══════
+function filterCases() {
+  let pool = [...CASES];
+  if (S.focus !== 'all') pool = pool.filter(c => c.tags.includes(S.focus));
+  if (S.depth <= 2) pool = pool.filter(c => c.depth <= 2);
+  return pool;
+}
+
+function renderExperience() {
+  const pool = filterCases();
+  const shuffled = shuffle(pool);
+  const heroPool = HERO_VARIANTS[S.audience] || HERO_VARIANTS.explore;
+  const hero = pick(heroPool);
+  const featured = shuffled[0];
+  const rest = shuffled.slice(1);
+  const showPrinciples = S.depth >= 2;
+  const showContact = S.depth >= 3;
+  const maxCases = S.depth <= 2 ? 4 : S.depth <= 4 ? 8 : 12;
+  const visibleCases = rest.slice(0, maxCases);
+
+  document.getElementById('expTag').textContent = `${FOCUS_LABELS[S.focus]} · ${depthLabels[S.depth]}`;
+
+  let html = '';
+  html += `<div class="exp-hero anim">
+    <div class="eyebrow">${hero.eyebrow}</div>
+    <h2>${hero.title}</h2>
+    <p>${hero.body}</p>
+  </div>`;
+
+  html += `<div class="ds-teaser anim anim-1" onclick="openPanel()">
+    <div class="ds-teaser-text">
+      <strong>This page is a design system experiment</strong>
+      <span>Adjust the type scale, spacing, accent color, and motion — and watch everything change in real time.</span>
+    </div>
+    <div class="ds-teaser-badge">
+      Open controls
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+    </div>
+  </div>`;
+
+  if (featured) {
+    html += `<div class="featured-hero anim anim-1">
+      <div class="case-eyebrow">${featured.eyebrow} · ${featured.period}</div>
+      <h3><a href="${featured.link}" target="_blank" rel="noopener">${featured.title}</a></h3>
+      <p>${S.depth >= 3 ? featured.detail : featured.summary}</p>
+      <div class="tags" style="margin-top:var(--sp-4)">${featured.tags.map(t=>`<span class="tag-sm">${t}</span>`).join('')}</div>
+    </div>`;
+  }
+
+  if (showPrinciples) {
+    const p = S.depth >= 4 ? PRINCIPLES : pickN(PRINCIPLES, 2);
+    html += `<div class="principles anim anim-2">${p.map(pr=>`<div class="principle"><strong>${pr.title}</strong><p>${pr.body}</p></div>`).join('')}</div>`;
+  }
+
+  if (visibleCases.length) {
+    html += `<hr class="section-divider anim anim-2"><div class="section-title">Case studies</div>`;
+    visibleCases.forEach((c,i) => {
+      const cls = `anim anim-${Math.min(i+3,5)}`;
+      html += `<div class="case-card ${cls}">
+        <div class="case-eyebrow">${c.eyebrow} · ${c.period}</div>
+        <h3><a href="${c.link}" target="_blank" rel="noopener">${c.title}</a></h3>
+        <p>${S.depth >= 4 ? c.detail : c.summary}</p>
+        <div class="tags">${c.tags.map(t=>`<span class="tag-sm">${t}</span>`).join('')}</div>
+      </div>`;
+    });
+  }
+
+  if (S.depth >= 4) {
+    html += `<hr class="section-divider anim"><div class="section-title">Writing</div>
+    <div class="case-card featured anim anim-3">
+      <div class="case-eyebrow">Four-part essay · AI design</div>
+      <h3><a href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener">Closed-Loop Experience Design</a></h3>
+      <p>Traces the controller idea from designing beside a developer in 2014 through AI coding agents to physical UX.</p>
+    </div>`;
+  }
+
+  if (showContact) {
+    html += `<div class="exp-contact anim anim-4">
+      <h3>Start a conversation</h3>
+      <p>Available for fractional, advisory, and focused contract work. San Francisco in person and U.S. remote.</p>
+      <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit" target="_blank" rel="noopener">Book a conversation</a> · 
+      <a href="mailto:praneet.koppula@gmail.com">Email</a> · 
+      <a href="https://www.linkedin.com/in/praneetkoppula" target="_blank" rel="noopener">LinkedIn</a>
+    </div>`;
+  }
+
+  html += `<div class="shuffle-badge anim anim-5">Shuffled for this visit · ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div>`;
+
+  const body = document.getElementById('expBody');
+  body.innerHTML = html;
+  body.classList.remove('content-transition');
+  void body.offsetWidth;
+  body.classList.add('content-transition');
+  observeAnimations();
+}
+
+function observeAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.anim:not(.visible)').forEach(el => observer.observe(el));
+}
+
+// ═══════ NAVIGATION ═══════
+function enterExperience() {
+  renderExperience();
+  const landing = document.getElementById('landing');
+  const exp = document.getElementById('experience');
+  landing.classList.add('hidden');
+  exp.classList.add('entering');
+  setTimeout(() => {
+    exp.classList.remove('entering');
+    exp.classList.add('active');
+    document.getElementById('controlPanel').classList.remove('hidden');
+    document.getElementById('panelToggle').classList.remove('hidden');
+    document.body.classList.add('panel-open');
+    syncPanelControls();
+    window.scrollTo(0,0);
+  }, 50);
+}
+
+function goBack() {
+  document.getElementById('experience').classList.remove('active');
+  document.getElementById('landing').classList.remove('hidden');
+  document.getElementById('controlPanel').classList.add('hidden');
+  document.getElementById('panelToggle').classList.add('hidden');
+  document.body.classList.remove('panel-open');
+  window.scrollTo(0,0);
+}
+
+// ═══════ BEFOREUNLOAD — force-save state ═══════
+window.addEventListener('beforeunload', () => {
+  const d = JSON.stringify(captureState());
+  try { localStorage.setItem(STORE_KEY, d); } catch(e) {}
+  try { sessionStorage.setItem(STORE_KEY, d); } catch(e) {}
+  try { window.location.hash = encodeURIComponent(d); } catch(e) {}
+});
+// Also save on visibility change (covers tab switches, app backgrounding)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') {
+    const d = JSON.stringify(captureState());
+    try { localStorage.setItem(STORE_KEY, d); } catch(e) {}
+    try { sessionStorage.setItem(STORE_KEY, d); } catch(e) {}
+  }
+});
+
+// ═══════ RESTORE ON LOAD ═══════
+(function restoreOnLoad() {
+  const fromLocal = loadFromLocal();
+  const fromHash = loadFromHash();
+  const saved = fromLocal || fromHash;
+  if (saved) {
+    // Apply theme to landing page (skip render — experience not active yet)
+    if (saved.theme && THEMES[saved.theme]) {
+      S.theme = saved.theme;
+      applyTheme(saved.theme, true);
+      document.getElementById('themeSelect').value = saved.theme;
+    }
+    // Apply type/space/accent overrides
+    if (saved.typeScale) { root.style.setProperty('--type-scale', saved.typeScale); }
+    if (saved.spaceScale) { root.style.setProperty('--space-scale', saved.spaceScale); }
+    if (saved.accent) { root.style.setProperty('--accent', saved.accent); }
+    if (saved.animLevel !== undefined) { root.style.setProperty('--anim-level', saved.animLevel); }
+    // Sync landing controls
+    if (saved.depth) { S.depth = +saved.depth; const ld = document.getElementById('landingDepth'); if(ld) { ld.value = S.depth; document.getElementById('landingDepthLabel').textContent = depthLabels[S.depth]; } }
+    if (saved.focus) { S.focus = saved.focus; syncPanelPills('landingFocus', 'focus', S.focus); }
+    if (saved.audience) { S.audience = saved.audience; syncPanelPills('landingAudience', 'audience', S.audience); }
+    // Apply theme-specific fine-tuning controls
+    if (saved.themeControls) {
+      themeControlValues = { ...saved.themeControls };
+      if (currentTheme.controls) {
+        currentTheme.controls.forEach(ctrl => {
+          const v = themeControlValues[ctrl.id] ?? ctrl.default;
+          ctrl.apply(v);
+        });
+      }
+    }
+    updateThemePreview();
+  }
+})();
+
+// ═══════ KEYBOARD ═══════
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const panel = document.getElementById('controlPanel');
+    if (!panel.classList.contains('collapsed') && !panel.classList.contains('hidden')) togglePanel();
+  }
+});
+</script>
+</body>
+</html>

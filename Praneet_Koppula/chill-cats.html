@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>chill cats + work · Praneet Koppula</title>
+<title>MK's Daily Cat Game</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #fbf6ee; --fg: #201914; --fg-2: #4c4037;
-  --muted: #7a6d63; --accent: #9b5b32;
+  --bg: #fbf6ee; 
+  --fg: #201914; 
+  --fg-2: #4c4037;
+  --muted: #7a6d63; 
+  --accent: #9b5b32;
+  --success: #4caf50;
+  --error: #f44336;
   --border: #e8ddd0;
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
@@ -18,151 +23,430 @@
 body{font-family:var(--font-body);background:var(--bg);color:var(--fg);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 ::selection{background:var(--accent);color:#fff}
 
-.page{max-width:640px;margin:0 auto;padding:0 24px 80px}
-img{max-width:100%;display:block}
+.container{max-width:640px;margin:0 auto;padding:0 24px 80px}
+img{max-width:100%;display:block;border-radius:12px;transition:transform 0.2s}
+img:hover{transform:scale(1.05)}
 
-.gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
-.gallery .wide{grid-column:1/-1}
-.gallery .tall{grid-row:span 2}
-.gallery img{width:100%;height:100%;object-fit:cover;border-radius:14px}
-@media(max-width:480px){.gallery{grid-template-columns:1fr;gap:8px}}
+.game-header{text-align:center;margin-bottom:32px;padding:20px;background:rgba(255,255,255,0.8);border-radius:16px}
+.game-title{font-family:var(--font-display);font-size:2.5rem;margin-bottom:8px;color:var(--fg)}
+.game-subtitle{font-family:var(--font-body);font-size:1.1rem;color:var(--muted)}
 
-.frame{border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(32,25,20,0.06)}
-.frame.sm{border-radius:50%;width:64px;height:64px;margin:0 auto 20px}
+.game-status{display:flex;justify-content:space-around;margin:20px 0;padding:16px;background:rgba(255,255,255,0.9);border-radius:12px}
+.status-item{text-align:center}
+.status-label{font-size:0.9rem;color:var(--muted);margin-bottom:4px}
+.status-value{font-family:var(--font-display);font-size:1.8rem;font-weight:bold}
+.streak-value{color:var(--accent)}
+.score-value{color:var(--fg)}
 
-h1{font-family:var(--font-display);font-size:clamp(36px,6vw,52px);font-weight:600;line-height:1.05;letter-spacing:-0.02em;text-align:center;margin-top:36px}
-.sub{font-size:15px;color:var(--muted);text-align:center;margin:10px 0 40px;max-width:480px;margin-left:auto;margin-right:auto}
-.sub strong{color:var(--fg);font-weight:600}
+.cats-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(120px, 1fr));gap:16px;margin:24px 0}
+.cat-card{position:relative;cursor:pointer;transition:transform 0.2s}
+.cat-card:hover{transform:translateY(-4px)}
+.cat-image{width:100%;height:120px;object-fit:cover;border-radius:12px}
+.cat-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;border-radius:12px}
+.cat-card:hover .cat-overlay{opacity:1}
+.cat-overlay span{color:white;font-weight:bold;font-size:1.1rem}
 
-.unit{position:relative;padding-left:160px;margin-bottom:56px}
-.unit-head{display:flex;align-items:center;margin-bottom:20px}
-.unit-head .mini{position:absolute;left:0;top:2px;width:132px;height:132px;border-radius:50%;overflow:hidden;flex-shrink:0}
-.unit-head .mini img{width:100%;height:100%;object-fit:cover}
-.unit-head .label{font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
+.guess-section{margin:32px 0;padding:24px;background:rgba(255,255,255,0.9);border-radius:16px}
+.guess-input{display:flex;gap:12px;align-items:center;margin-bottom:20px}
+.guess-input input{flex:1;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-size:1.1rem;outline:none}
+.guess-input input:focus{border-color:var(--accent)}
+.guess-input button{padding:12px 24px;background:var(--accent);color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:background 0.2s}
+.guess-input button:hover{background:#8a4a28}
 
-.unit h2{font-family:var(--font-display);font-size:26px;font-weight:600;line-height:1.2;letter-spacing:-0.015em;margin-bottom:14px}
-.unit p{font-size:16px;color:var(--fg-2);line-height:1.7;max-width:58ch}
-.unit p + p{margin-top:12px}
+.feedback{margin-top:16px;padding:16px;border-radius:12px;text-align:center;font-weight:bold;display:none}
+.feedback.correct{background:#e8f5e9;color:var(--success);border:1px solid var(--success)}
+.feedback.incorrect{background:#ffebee;color:var(--error);border:1px solid var(--error)}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.stat{text-align:center;background:var(--surface,#fffdf8);border:1px solid var(--border);border-radius:12px;padding:18px 12px}
-.stat .num{font-family:var(--font-display);font-size:clamp(28px,3.5vw,40px);font-weight:600;color:var(--accent);line-height:1}
-.stat .label{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.4}
-@media(max-width:480px){.stats{grid-template-columns:1fr}}
+.secret-section{margin-top:24px;padding:20px;background:#fff3e0;border-radius:12px}
+.secret-input{display:flex;gap:12px;align-items:center}
+.secret-input input{flex:1;padding:12px 16px;border:2px solid var(--border);border-radius:8px;font-size:1.1rem;outline:none}
+.secret-input input:focus{border-color:#ff9800}
+.secret-input button{padding:12px 24px;background:#ff9800;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;transition:background 0.2s}
+.secret-input button:hover{background:#f57c00}
 
-.list{display:flex;flex-direction:column;gap:6px}
-.list a{display:block;background:var(--surface,#fffdf8);border:1px solid var(--border);border-radius:10px;padding:13px 18px;text-decoration:none;color:var(--fg);transition:border-color 0.2s;font-size:15px;line-height:1.4}
-.list a:hover{border-color:var(--accent)}
-.list .m{font-size:12px;color:var(--muted)}
-
-.essay{display:block;background:var(--surface,#fffdf8);border:1px solid var(--border);border-radius:12px;padding:20px 24px;text-decoration:none;color:var(--fg);transition:border-color 0.2s}
-.essay:hover{border-color:var(--accent)}
-.essay .t{font-family:var(--font-display);font-size:20px;font-weight:600;margin-bottom:6px}
-.essay .d{font-size:14px;color:var(--muted);line-height:1.5}
-.essay .a{display:inline-block;margin-top:10px;font-size:13px;font-weight:600;color:var(--accent)}
-
-.ftr{text-align:center;margin-top:56px;padding-top:28px;border-top:1px solid var(--border)}
-.ftr p{font-size:14px;color:var(--muted)}
-.ftr a{color:var(--accent);text-decoration:none;font-weight:500}
-
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.r{opacity:0}
-.r.in{animation:up 0.7s ease-out forwards}
-.r:nth-child(2).in{animation-delay:0.12s}
-.r:nth-child(3).in{animation-delay:0.24s}
+.footer{text-align:center;margin-top:40px;color:var(--muted);font-size:0.9rem}
 </style>
 </head>
 <body>
-
-<div class="page">
-
-  <!-- ─── hero — six cats, one splash ─── -->
-  <div class="gallery">
-    <div class="wide frame"><img src="cats/ai/cat-ai1.jpg" alt="" loading="lazy"></div>
-    <div class="frame tall"><img src="cats/cat2.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/ai/cat-ai2.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/cat4.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/cat5.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/cat6.jpg" alt="" loading="lazy"></div>
+<div class="container">
+  <div class="game-header">
+    <h1 class="game-title">🐱 Daily Cat Detective</h1>
+    <p class="game-subtitle">Can you spot the AI-generated cats?</p>
   </div>
-
-  <h1>Praneet Koppula</h1>
-  <p class="sub">makes complex software clear. lives with cats.</p>
-
-  <!-- ─── about ─── -->
-  <div class="unit">
-    <div class="unit-head">
-      <div class="mini frame sm"><img src="cats/ai/cat-ai3.jpg" alt="" loading="lazy"></div>
-      <div class="label">The setup</div>
+  
+  <div class="game-status">
+    <div class="status-item">
+      <div class="status-label">Today's Challenge</div>
+      <div class="status-value" id="daily-target">?</div>
     </div>
-    <p>Product design leader, 18+ years. I lead teams and stay close to the work — making expert tools and AI workflows intuitive without hiding what makes them powerful. Visible state, user control, systems that scale judgment.</p>
-  </div>
-
-  <!-- ─── stats ─── -->
-  <div class="unit">
-    <div class="unit-head">
-      <div class="mini frame sm"><img src="cats/cat8.jpg" alt="" loading="lazy"></div>
-      <div class="label">By the numbers</div>
+    <div class="status-item">
+      <div class="status-label">Your Streak</div>
+      <div class="status-value streak-value" id="streak-count">0</div>
     </div>
-    <div class="stats">
-      <div class="stat r"><div class="num">18+</div><div class="label">years untangling complex tools</div></div>
-      <div class="stat r"><div class="num">120</div><div class="label">products in the governance ecosystem</div></div>
-      <div class="stat r"><div class="num">4</div><div class="label">countries, one lap at a time</div></div>
+    <div class="status-item">
+      <div class="status-label">Your Score</div>
+      <div class="status-value score-value" id="score-count">0</div>
     </div>
   </div>
-
-  <!-- ─── work ─── -->
-  <div class="unit">
-    <div class="unit-head">
-      <div class="mini frame sm"><img src="cats/cat1.jpg" alt="" loading="lazy"></div>
-      <div class="label">Things made</div>
-    </div>
-    <div class="list">
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/simulink-ai-assistant/" target="_blank" rel="noopener">An AI partner inside the engineering workflow <span class="m">· AI product vision, 2023–2024</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/" target="_blank" rel="noopener">Making complex model behavior inspectable <span class="m">· Technical workflow design, 2014–2016</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/diagnostic-viewer-fixit/" target="_blank" rel="noopener">Making Simulink diagnostics actionable <span class="m">· Interaction design, 2014–2017</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/toolstrip-workshops/" target="_blank" rel="noopener">Scaling task-based UI design across engineering apps <span class="m">· Design systems, 2014–2019</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/mask-editor/" target="_blank" rel="noopener">Reimagining Mask Editor as a technical authoring environment <span class="m">· Technical authoring, 2014–2017</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/workflow-portfolio/" target="_blank" rel="noopener">Turning design judgment into a team capability <span class="m">· Quality at scale, 2020–2023</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/ux-leadership-systems/" target="_blank" rel="noopener">Scaling a distributed UX organization through leadership systems <span class="m">· Organization design, 2022–2024</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-intel-classmate-pc/" target="_blank" rel="noopener">Designing a classroom computer as a classroom system <span class="m">· Field research, 2008–2009</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-mobile-money-financial-inclusion/" target="_blank" rel="noopener">Designing mobile money from household financial life <span class="m">· Field research, 2009</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/case-studies/hfi-nokia-urban-wayfinding-research/" target="_blank" rel="noopener">Researching urban wayfinding in the field <span class="m">· Field research, 2010</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/work/ai-agent-ux-validation.html" target="_blank" rel="noopener">Agent-callable UX validation for AI-generated apps <span class="m">· AI experiment, 2026</span></a>
-      <a href="https://mphaxise.github.io/Praneet_Koppula/work/hey-minie-homepage.html" target="_blank" rel="noopener">Turning mobile acquisition data into a clearer homepage <span class="m">· Growth design, 2026</span></a>
-    </div>
+  
+  <div class="cats-grid" id="cats-grid">
+    <!-- Cat images will be populated here by JavaScript -->
   </div>
-
-  <!-- ─── writing ─── -->
-  <div class="unit">
-    <div class="unit-head">
-      <div class="mini frame sm"><img src="cats/cat9.jpg" alt="" loading="lazy"></div>
-      <div class="label">Words</div>
+  
+  <div class="guess-section">
+    <h2>Make Your Guess</div>
+    <div class="guess-input">
+      <input type="number" id="guess-input" min="0" max="10" placeholder="How many AI cats? (0-10)" aria-label="Number of AI cats">
+      <button id="submit-guess">Submit Guess</button>
     </div>
-    <a href="https://mphaxise.github.io/Praneet_Koppula/writing/closed-loop-experience-design/" target="_blank" rel="noopener" class="essay">
-      <div class="t">Closed-Loop Experience Design</div>
-      <div class="d">A four-part essay from designing beside a developer in 2014 to building with coding agents — and how the same relationship could help designers shape physical system behavior.</div>
-      <div class="a">→</div>
-    </a>
+    <div class="feedback" id="feedback"></div>
   </div>
-
-  <!-- ─── cats footer ─── -->
-  <div class="gallery" style="margin-bottom:0">
-    <div class="frame"><img src="cats/cat7.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/cat8.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/cat9.jpg" alt="" loading="lazy"></div>
-    <div class="frame"><img src="cats/ai/cat-ai4.jpg" alt="" loading="lazy"></div>
+  
+  <div class="secret-section">
+    <h3>Verify Your Identity</h3>
+    <p>To save your progress, please enter the secret word:</p>
+    <div class="secret-input">
+      <input type="password" id="secret-input" placeholder="Enter secret word" aria-label="Secret word">
+      <button id="verify-secret">Verify</button>
+    </div>
+    <p id="secret-message" style="margin-top:12px; font-size:0.9rem; color:#666;"></p>
   </div>
-
-  <footer class="ftr">
-    <p>Made with lap cats in SF. <a href="https://mphaxise.github.io/Praneet_Koppula/">Full portfolio →</a></p>
-  </footer>
-
+  
+  <div class="footer">
+    <p>New challenge loads every day at midnight • Made with ❤️ for MK</p>
+  </div>
 </div>
 
 <script>
-const io = new IntersectionObserver(e => { e.forEach(i => { if(i.isIntersecting){ i.target.classList.add('in'); io.unobserve(i.target); } }); }, {threshold:0.15});
-document.querySelectorAll('.r').forEach(el => io.observe(el));
+  // Game state
+  let gameState = {
+    totalCats: 10,
+    aiCount: 0,
+    userGuess: null,
+    isCorrect: false,
+    streak: 0,
+    totalScore: 0,
+    maxPossibleScore: 0,
+    lastPlayedDate: null,
+    isVerified: false
+  };
+  
+  // Cat image paths (you'll need to populate these with actual paths)
+  const realCatImages = [
+    "cats/cat1.jpg",
+    "cats/cat2.jpg", 
+    "cats/cat3.jpg",
+    "cats/cat4.jpg",
+    "cats/cat5.jpg",
+    "cats/cat6.jpg",
+    "cats/cat7.jpg",
+    "cats/cat8.jpg",
+    "cats/cat9.jpg",
+    "cats/cat10.jpg"
+  ];
+  
+  const aiCatImages = [
+    "cats/ai/cat-ai1.jpg",
+    "cats/ai/cat-ai2.jpg",
+    "cats/ai/cat-ai3.jpg",
+    "cats/ai/cat-ai4.jpg",
+    "cats/ai/cat-ai5.jpg",
+    "cats/ai/cat-ai6.jpg",
+    "cats/ai/cat-ai7.jpg",
+    "cats/ai/cat-ai8.jpg",
+    "cats/ai/cat-ai9.jpg",
+    "cats/ai/cat-ai10.jpg"
+  ];
+  
+  // DOM elements
+  const catsGrid = document.getElementById('cats-grid');
+  const guessInput = document.getElementById('guess-input');
+  const submitGuessBtn = document.getElementById('submit-guess');
+  const feedbackEl = document.getElementById('feedback');
+  const secretInput = document.getElementById('secret-input');
+  const verifySecretBtn = document.getElementById('verify-secret');
+  const secretMessageEl = document.getElementById('secret-message');
+  const streakCountEl = document.getElementById('streak-count');
+  const scoreCountEl = document.getElementById('score-count');
+  const dailyTargetEl = document.getElementById('daily-target');
+  
+  // Initialize game
+  function initGame() {
+    loadGameState();
+    generateDailyChallenge();
+    updateDisplay();
+    
+    // Set up event listeners
+    submitGuessBtn.addEventListener('click', handleGuessSubmit);
+    guessInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleGuessSubmit();
+    });
+    
+    verifySecretBtn.addEventListener('click', handleSecretVerify);
+    secretInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSecretVerify();
+    });
+  }
+  
+  // Load game state from localStorage
+  function loadGameState() {
+    const saved = localStorage.getItem('mkCatGameState');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Check if it's from today
+        const lastDate = new parsed.lastPlayedDate;
+        if (lastDate.toDateString() === new Date().toDateString()) {
+          // Same day, restore state
+          gameState = parsed;
+        } else {
+          // New day, reset guess-related state but keep streak/score
+          gameState.streak = parsed.streak;
+          gameState.totalScore = parsed.totalScore;
+          gameState.maxPossibleScore = parsed.maxPossibleScore;
+          gameState.lastPlayedDate = new Date().toISOString();
+        }
+      } catch (e) {
+        console.error('Failed to parse game state', e);
+        resetGameState();
+      }
+    } else {
+      resetGameState();
+    }
+  }
+  
+  // Reset game state for new day or fresh start
+  function resetGameState() {
+    gameState = {
+      totalCats: 10,
+      aiCount: 0,
+      userGuess: null,
+      isCorrect: false,
+      streak: 0,
+      totalScore: 0,
+      maxPossibleScore: 0,
+      lastPlayedDate: new Date().toISOString(),
+      isVerified: false
+    };
+    saveGameState();
+  }
+  
+  // Save game state to localStorage
+  function saveGameState() {
+    localStorage.setItem('mkCatGameState', JSON.stringify(gameState));
+  }
+  
+  // Generate today's challenge (random number of AI cats)
+  function generateDailyChallenge() {
+    // Seed random based on date so it's the same all day
+    const today = new Date();
+    const dateKey = today.toDateString();
+    const seed = hashString(dateKey);
+    
+    // Use seeded random to get consistent results for the day
+    const random = seededRandom(seed);
+    gameState.aiCount = Math.floor(random() * 11); // 0-10 AI cats
+    gameState.maxPossibleScore += 1; // One point available per day
+    
+    saveGameState();
+  }
+  
+  // Simple string hash function for seeding
+  function hashString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+  }
+  
+  // Seeded random number generator
+  function seededRandom(seed) {
+    let x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  }
+  
+  // Get shuffled array of cat images for today
+  function getTodaysCats() {
+    // Create arrays with the right number of each type
+    const realCount = gameState.totalCats - gameState.aiCount;
+    const realCats = [...realCatImages].slice(0, realCount);
+    const aiCats = [...aiCatImages].slice(0, gameState.aiCount);
+    
+    // Combine and shuffle
+    const allCats = [...realCats, ...aiCats];
+    return shuffleArray(allCats);
+  }
+  
+  // Fisher-Yates shuffle algorithm
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+  
+  // Render the cat images
+  function renderCats() {
+    catsGrid.innerHTML = ''; // Clear existing
+    
+    const catImages = getTodaysCats();
+    
+    catImages.forEach((imgSrc, index) => {
+      const card = document.createElement('div');
+      card.className = 'cat-card';
+      card.dataset.index = index;
+      card.dataset.isAi = aiCatImages.includes(imgSrc) ? 'true' : 'false';
+      
+      card.innerHTML = `
+        <img src="${imgSrc}" alt="Cat ${index + 1}" class="cat-image">
+        <div class="cat-overlay"><span>?</span></div>
+      `;
+      
+      // Add click to reveal if needed (optional)
+      card.addEventListener('click', () => {
+        // Optional: reveal if it's AI or not after guess
+        // For now, just visual feedback
+        card.classList.add('selected');
+      });
+      
+      catsGrid.appendChild(card);
+    });
+  }
+  
+  // Handle guess submission
+  function handleGuessSubmit() {
+    const guessValue = parseInt(guessInput.value);
+    
+    if (isNaN(guessValue) || guessValue < 0 || guessValue > 10) {
+      showFeedback('Please enter a number between 0 and 10', false);
+      return;
+    }
+    
+    gameState.userGuess = guessValue;
+    gameState.isCorrect = (guessValue === gameState.aiCount);
+    
+    if (gameState.isCorrect) {
+      gameState.streak += 1;
+      gameState.totalScore += 1;
+      showFeedback(`Correct! There were ${gameState.aiCount} AI cats.`, true);
+    } else {
+      gameState.streak = 0; // Reset streak on wrong answer
+      showFeedback(`Sorry! There were ${gameState.aiCount} AI cats, not ${guessValue}.`, false);
+    }
+    
+    // Update display
+    updateDisplay();
+    saveGameState();
+    
+    // Reveal which cats were AI after a brief delay
+    setTimeout(() => {
+      revealAICats();
+    }, 1500);
+  }
+  
+  // Show feedback message
+  function showFeedback(message, isCorrect) {
+    feedbackEl.textContent = message;
+    feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+    feedbackEl.style.display = 'block';
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+      feedbackEl.style.display = 'none';
+    }, 3000);
+  }
+  
+  // Reveal which cats were AI
+  function revealAICats() {
+    const catCards = document.querySelectorAll('.cat-card');
+    catCards.forEach(card => {
+      const isAi = card.dataset.isAi === 'true';
+      if (isAi) {
+        card.querySelector('.cat-overlay span').textContent = 'AI';
+        card.querySelector('.cat-overlay').style.background = 'rgba(76, 175, 80, 0.7)'; // Green for AI
+      } else {
+        card.querySelector('.cat-overlay span').textContent = 'Real';
+        card.querySelector('.cat-overlay').style.background = 'rgba(33, 150, 243, 0.7)'; // Blue for real
+      }
+    });
+  }
+  
+  // Handle secret word verification
+  function handleSecretVerify() {
+    const secret = secretInput.value.trim();
+    if (secret === 'cutiepie680') {
+      gameState.isVerified = true;
+      secretMessageEl.textContent = 'Verified! Your progress will be saved.';
+      secretMessageEl.style.color = 'var(--success)';
+      secretInput.disabled = true;
+      verifySecretBtn.disabled = true;
+      saveGameState(); // Save after verification
+    } else {
+      secretMessageEl.textContent = 'Incorrect secret word. Try again.';
+      secretMessageEl.style.color = 'var(--error)';
+    }
+  }
+  
+  // Update the display with current state
+  function updateDisplay() {
+    streakCountEl.textContent = gameState.streak;
+    scoreCountEl.textContent = `${gameState.totalScore}/${gameState.maxPossibleScore}`;
+    dailyTargetEl.textContent = `${gameState.aiCount}/10`; // For reference after guess
+    
+    // Enable/disable guess input based on verification
+    const isVerified = localStorage.getItem('mkCatGameVerified') === 'true' || gameState.isVerified;
+    guessInput.disabled = !isVerified;
+    submitGuessBtn.disabled = !isVerified;
+    
+    if (!isVerified) {
+      guessInput.placeholder = 'Please verify your identity first';
+    } else {
+      guessInput.placeholder = 'How many AI cats? (0-10)';
+    }
+  }
+  
+  // Check if it's a new day and reset if needed
+  function checkForNewDay() {
+    const lastPlayed = localStorage.getItem('mkCatGameLastPlayed');
+    const today = new Date().toDateString();
+    
+    if (lastPlayed !== today) {
+      // New day - reset guess-related state but keep streak and score
+      const streak = parseInt(localStorage.getItem('mkCatGameStreak') || '0');
+      const totalScore = parseInt(localStorage.getItem('mkCatGameTotalScore') || '0');
+      const maxPossibleScore = parseInt(localStorage.getItem('mkCatGameMaxPossibleScore') || '0');
+      
+      localStorage.removeItem('mkCatGameState'); // Clear full state
+      localStorage.setItem('mkCatGameStreak', String(streak));
+      localStorage.setItem('mkCatGameTotalScore', String(totalScore));
+      localStorage.setItem('mkCatGameMaxPossibleScore', String(maxPossibleScore));
+      localStorage.setItem('mkCatGameLastPlayed', today);
+      
+      // Reload with new day's challenge
+      gameState.lastPlayedDate = new Date().toISOString();
+      generateDailyChallenge();
+    }
+  }
+  
+  // Initialize when page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    checkForNewDay();
+    initGame();
+    
+    // Also set up daily reset at midnight (using setTimeout)
+    const now = new Date();
+    const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+    const msToMidnight = midnight - now;
+    
+    setTimeout(() => {
+      // Reload page at midnight to get new day's challenge
+      location.reload();
+    }, msToMidnight);
+  });
 </script>
 </body>
 </html>

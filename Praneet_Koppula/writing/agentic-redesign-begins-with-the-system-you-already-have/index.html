@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Praneet Koppula explains how to redesign an existing product with agents by grounding each change in user needs and verified system behavior.">
+  <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/writing/agentic-redesign-begins-with-the-system-you-already-have/">
+  <link rel="stylesheet" href="../writing.css">
+  <title>Agentic redesign begins with the system you already have | Praneet Koppula</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Agentic redesign begins with the system you already have",
+    "description": "A practical approach to redesigning existing products with agents by grounding each change in user needs and verified system behavior.",
+    "author": {
+      "@type": "Person",
+      "name": "Praneet Koppula",
+      "url": "https://mphaxise.github.io/Praneet_Koppula/"
+    },
+    "datePublished": "2026-07-28",
+    "dateModified": "2026-07-28",
+    "mainEntityOfPage": "https://mphaxise.github.io/Praneet_Koppula/writing/agentic-redesign-begins-with-the-system-you-already-have/"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <nav class="site-nav shell" aria-label="Primary">
+      <a class="wordmark" href="../../">Praneet Koppula</a>
+      <div class="nav-links">
+        <a href="../../">Work</a>
+        <a aria-current="page" href="../">Writing</a>
+        <a class="optional" href="../../agent/">Agent view</a>
+        <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <header class="series-hero shell">
+      <div class="eyebrow">Essay · Agentic design · Product redesign</div>
+      <h1>Agentic redesign begins with the system you already have</h1>
+      <p class="series-subtitle">A stronger product emerges when user needs, current client behavior, and verified backend behavior guide the same redesign.</p>
+      <div class="series-meta"><span>By Praneet Koppula</span><span>6 min read</span><span>July 2026</span></div>
+    </header>
+
+    <section class="series-intro shell" aria-labelledby="article-thesis">
+      <h2 class="statement" id="article-thesis">The existing product is the first design artifact.</h2>
+      <div>
+        <p>Agentic redesign begins with the system people already depend on. The work starts by understanding what people are trying to do, what the current client actually does, and what the backend can reliably support.</p>
+        <p>That shared model gives a designer and an implementation agent enough truth to improve the experience while preserving behavior people trust. It also exposes missing capabilities early, when the team can turn them into explicit product work.</p>
+      </div>
+    </section>
+
+    <nav class="chapter-map" aria-label="Article sections">
+      <ol class="shell">
+        <li><a href="#section-01"><small>01</small><strong>Begin with the operating product</strong></a></li>
+        <li><a href="#section-02"><small>02</small><strong>Build a verified behavior model</strong></a></li>
+        <li><a href="#section-03"><small>03</small><strong>Redesign one coherent slice</strong></a></li>
+        <li><a href="#section-04"><small>04</small><strong>Turn gaps into product work</strong></a></li>
+      </ol>
+    </nav>
+
+    <section class="chapter" id="section-01" aria-labelledby="section-01-title">
+      <header class="chapter-header shell">
+        <div class="chapter-number" aria-hidden="true">01</div>
+        <div>
+          <div class="eyebrow">Orientation</div>
+          <h2 id="section-01-title">Begin with the operating product</h2>
+        </div>
+      </header>
+      <div class="prose">
+        <p>A redesign inherits a living system. People have learned its sequence, its language, and its ways of recovering from mistakes. The client contains years of product decisions. The backend enforces its own contracts, permissions, timing, and failure behavior.</p>
+        <p>An agent can move through that material quickly. It can trace routes, inspect components, follow requests, compare states, and build a candidate change. Speed becomes useful when the work has a clear factual base.</p>
+        <p>I start by placing three views of the product beside one another:</p>
+        <ol>
+          <li><strong>User needs:</strong> the goal, context, expectations, and points of uncertainty people bring to the flow.</li>
+          <li><strong>Client behavior:</strong> the screens, states, local logic, validation, navigation, and recovery paths people experience today.</li>
+          <li><strong>Backend behavior:</strong> the verified data contracts, permissions, side effects, error conditions, and response timing that shape what the product can do.</li>
+        </ol>
+        <p>Each view answers a different question. Together they reveal the actual design space.</p>
+        <p>A polished concept built from one view can quietly conflict with the other two. A new control may imply that a change happens immediately while the API processes it in a batch. A simplified form may hide a field the server requires. A seamless transition may erase the moment when a person needs to confirm a consequential action.</p>
+        <p>The operating product makes those constraints visible. It gives the redesign somewhere honest to begin.</p>
+      </div>
+    </section>
+
+    <section class="chapter" id="section-02" aria-labelledby="section-02-title">
+      <header class="chapter-header shell">
+        <div class="chapter-number" aria-hidden="true">02</div>
+        <div>
+          <div class="eyebrow">Evidence</div>
+          <h2 id="section-02-title">Build a verified behavior model</h2>
+        </div>
+      </header>
+      <div class="prose">
+        <p>The redesign needs a compact model of how the product behaves before the interface changes. This model can be lightweight. Its value comes from verification.</p>
+        <p>I ask the agent to trace one real task from entry to completion. For every meaningful step, we record what the person sees, which state the client holds, which request the system makes, what the backend returns, and how the experience responds when something goes wrong.</p>
+        <p>Running the current product supplies part of the evidence. Reading the client and server code supplies another. Tests, logs, schemas, and direct calls can confirm the details. When those sources disagree, the disagreement becomes a finding for the team.</p>
+        <p>The resulting behavior model might be a short flow map, a state table, or a set of annotated scenarios. It should answer practical design questions:</p>
+        <ul>
+          <li>Which behavior is intentional and which is incidental?</li>
+          <li>Where does the client know the truth, and where is it waiting for the server?</li>
+          <li>Which actions are reversible?</li>
+          <li>What does the system do with partial, stale, or invalid data?</li>
+          <li>Which permissions change the experience?</li>
+          <li>How can a person tell that an action succeeded?</li>
+        </ul>
+        <p>Unknowns stay visible. The agent can help investigate them, and the team owns the decision about how to resolve them. A verified map gives everyone the same product to redesign.</p>
+      </div>
+    </section>
+
+    <section class="chapter" id="section-03" aria-labelledby="section-03-title">
+      <header class="chapter-header shell">
+        <div class="chapter-number" aria-hidden="true">03</div>
+        <div>
+          <div class="eyebrow">Delivery</div>
+          <h2 id="section-03-title">Redesign one coherent slice</h2>
+        </div>
+      </header>
+      <div class="prose">
+        <p>A coherent slice improves a complete piece of the experience across interface, state, system behavior, and recovery. It is small enough to verify and complete enough for a person to use.</p>
+        <p>The slice begins with a user outcome. A person may need to understand a status, change a preference, resolve an error, or approve an action. The current behavior model shows which parts of the system participate in that outcome. The redesign can then change those parts together.</p>
+        <p>Consider a generic settings flow. The current interface collects several edits and saves them with one final action. Research shows that people lose track of unsaved changes. The backend accepts only a complete settings object and validates several fields together.</p>
+        <p>A coherent redesign can make edited fields visible, keep the save action present, explain validation near the affected input, and preserve a clear success state. An implementation agent can carry the change through components, state handling, request construction, and tests. The existing backend contract remains intact.</p>
+        <p>This approach creates a fast design-and-build loop:</p>
+        <ol>
+          <li>Define the user outcome and trusted behavior to preserve.</li>
+          <li>Give the agent the verified flow, system constraints, and acceptance scenarios.</li>
+          <li>Build the smallest complete change in the running product.</li>
+          <li>Use the result as a designer and as a person encountering each key state.</li>
+          <li>Run product, accessibility, and regression checks.</li>
+          <li>Revise from observed behavior.</li>
+        </ol>
+        <p>The running product becomes the shared design surface. Critique can address the exact moment where layout, language, data, and behavior meet.</p>
+      </div>
+    </section>
+
+    <section class="chapter" id="section-04" aria-labelledby="section-04-title">
+      <header class="chapter-header shell">
+        <div class="chapter-number" aria-hidden="true">04</div>
+        <div>
+          <div class="eyebrow">Product work</div>
+          <h2 id="section-04-title">Turn capability gaps into product work</h2>
+        </div>
+      </header>
+      <div class="prose">
+        <p>Some experience improvements require capabilities the product does not have. The redesign process should surface those gaps with enough precision for the team to act.</p>
+        <p>In the settings example, automatic saving could reduce uncertainty. The existing API still requires a complete object and validates related fields as a group. The concept has uncovered a product capability: safe partial updates with clear conflict, validation, and recovery behavior.</p>
+        <p>That gap belongs in the product plan. The team can define the user value, backend contract, security and permission implications, migration needs, failure states, and measurements. Design can show how the capability should feel. Engineering can determine how to support it safely. Product can decide when it earns priority.</p>
+        <p>The current redesign can proceed within verified system behavior. A later slice can introduce automatic saving after the capability exists and its risks have been resolved.</p>
+        <p>Agents make gaps easier to discover because they can follow a proposed interaction into the implementation. Their fluency can also make an unsupported idea look plausible. Explicit capability work keeps the proposal connected to reality.</p>
+        <h3>Trust is the measure of the redesign</h3>
+        <p>People build trust through repeated encounters with understandable behavior. They learn what an action will do, when the system is working, what went wrong, and how to recover.</p>
+        <p>A successful redesign improves that relationship. It can simplify a flow, clarify state, reduce effort, or introduce a stronger interaction model. It also preserves the product behaviors that remain useful and dependable.</p>
+        <p>Agentic tools help designers inspect more of the system and carry a decision further into working software. Human judgment still defines the outcome, chooses the evidence, resolves tradeoffs, and decides when the result is safe to use.</p>
+        <p>The existing product gives that judgment something concrete to work with. Its user needs, client behavior, and backend behavior form the ground for every coherent change.</p>
+      </div>
+    </section>
+
+    <section class="series-close shell" aria-labelledby="related-heading">
+      <div>
+        <div class="eyebrow">A practical principle</div>
+        <h2>Improve the experience from inside the system that produces it.</h2>
+        <p>Verify the current behavior. Choose a complete slice. Build through the real client and backend contract. Turn missing capabilities into named product work. Then use the running result to guide the next decision.</p>
+      </div>
+      <div>
+        <div class="eyebrow" id="related-heading">Related writing</div>
+        <div class="related-list">
+          <a href="../closed-loop-experience-design/"><strong>Closed-Loop Experience Design</strong><span>A four-part essay on bringing human judgment closer to the systems that create an experience.</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <div>Praneet Koppula · Made with ☕ and ❤️ in SF.</div>
+    <div><a href="../">All writing</a> · <a href="../../">Portfolio</a> · <a href="https://www.linkedin.com/in/praneetkoppula">LinkedIn</a></div>
+  </footer>
+</body>
+</html>

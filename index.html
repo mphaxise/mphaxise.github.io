@@ -33,7 +33,9 @@
     .tagline strong { color: var(--text); font-weight: 500; }
     nav { margin-top: 2.25rem; display: grid; gap: 0.75rem; }
     nav a {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
       padding: 0.9rem 1.1rem;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -43,9 +45,16 @@
       transition: border-color 0.15s ease;
     }
     nav a:hover, nav a:focus-visible { border-color: var(--accent); outline: none; }
+    .glyph {
+      width: 40px;
+      height: 40px;
+      flex: none;
+      color: var(--accent);
+      transition: color 0.15s ease;
+    }
+    nav a:hover .glyph, nav a:focus-visible .glyph { color: var(--text); }
     nav a .label { font-weight: 600; }
     nav a .why { display: block; color: var(--muted); font-size: 0.9rem; margin-top: 0.15rem; }
-    nav a .label::after { content: " →"; color: var(--accent); }
     footer { margin-top: 2.5rem; color: var(--muted); font-size: 0.85rem; }
     footer a { color: var(--muted); }
   </style>
@@ -57,28 +66,58 @@
 
     <nav aria-label="Where to find my work">
       <a href="https://mphaxise.github.io/Praneet_Koppula/">
-        <span class="label">Portfolio and case studies</span>
-        <span class="why">How I design expert engineering tools and AI product behavior.</span>
+        <svg class="glyph" viewBox="0 0 90 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="10" height="90"/><rect x="0" y="0" width="60" height="10"/><rect x="50" y="10" width="10" height="30"/><rect x="0" y="40" width="60" height="10"/><rect x="60" y="40" width="10" height="10"/><rect x="70" y="0" width="10" height="50"/><rect x="80" y="50" width="10" height="40"/>
+        </svg>
+        <span>
+          <span class="label">Portfolio and case studies</span>
+          <span class="why">How I design expert engineering tools and AI product behavior.</span>
+        </span>
       </a>
       <a href="https://mphaxise.github.io/Praneet_Koppula/writing/">
-        <span class="label">Writing</span>
-        <span class="why">Essays on closed-loop experience design and agent UX.</span>
+        <svg class="glyph" viewBox="0 0 90 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="10" height="90"/><rect x="80" y="0" width="10" height="90"/><rect x="40" y="20" width="10" height="70"/><rect x="10" y="80" width="30" height="10"/><rect x="50" y="80" width="30" height="10"/><rect x="10" y="0" width="40" height="10"/><rect x="40" y="10" width="10" height="10"/><rect x="10" y="30" width="30" height="10"/><rect x="30" y="40" width="10" height="20"/>
+        </svg>
+        <span>
+          <span class="label">Writing</span>
+          <span class="why">Essays on closed-loop experience design and agent UX.</span>
+        </span>
       </a>
       <a href="https://github.com/mphaxise">
-        <span class="label">GitHub</span>
-        <span class="why">Working experiments in AI-native workflows and agent UX.</span>
+        <svg class="glyph" viewBox="0 0 90 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="10" height="90"/><rect x="0" y="0" width="80" height="10"/><rect x="0" y="80" width="80" height="10"/><rect x="70" y="40" width="10" height="50"/><rect x="40" y="40" width="40" height="10"/><rect x="40" y="20" width="10" height="20"/><rect x="10" y="30" width="30" height="10"/><rect x="80" y="20" width="10" height="10"/>
+        </svg>
+        <span>
+          <span class="label">GitHub</span>
+          <span class="why">Working experiments in AI-native workflows and agent UX.</span>
+        </span>
       </a>
       <a href="https://cal.com/praneet-koppula-nmfz7u/founder-product-ux-fit">
-        <span class="label">Book a conversation</span>
-        <span class="why">Founder and product-UX fit, 30 minutes.</span>
+        <svg class="glyph" viewBox="0 0 90 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="10" height="90"/><rect x="0" y="0" width="60" height="10"/><rect x="0" y="40" width="60" height="10"/><rect x="0" y="80" width="60" height="10"/><rect x="50" y="10" width="10" height="30"/><rect x="50" y="50" width="10" height="30"/><rect x="10" y="50" width="10" height="30"/><rect x="20" y="50" width="20" height="10"/><rect x="20" y="70" width="20" height="10"/>
+        </svg>
+        <span>
+          <span class="label">Book a conversation</span>
+          <span class="why">Founder and product-UX fit, 30 minutes.</span>
+        </span>
       </a>
       <a href="https://www.linkedin.com/in/praneetkoppula">
-        <span class="label">LinkedIn</span>
-        <span class="why">Experience, roles, and recommendations.</span>
+        <svg class="glyph" viewBox="0 0 90 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="10" height="90"/><rect x="0" y="80" width="70" height="10"/><rect x="30" y="0" width="30" height="10"/><rect x="40" y="10" width="10" height="70"/><rect x="80" y="0" width="10" height="10"/>
+        </svg>
+        <span>
+          <span class="label">LinkedIn</span>
+          <span class="why">Experience, roles, and recommendations.</span>
+        </span>
       </a>
       <a href="mailto:praneet.koppula@gmail.com">
-        <span class="label">Email</span>
-        <span class="why">praneet.koppula@gmail.com</span>
+        <svg class="glyph" viewBox="0 0 90 90" fill="currentColor" aria-hidden="true" focusable="false">
+          <rect x="0" y="0" width="10" height="90"/><rect x="0" y="0" width="60" height="10"/><rect x="0" y="40" width="50" height="10"/><rect x="0" y="80" width="60" height="10"/><rect x="60" y="0" width="10" height="90"/><rect x="80" y="0" width="10" height="90"/><rect x="70" y="10" width="10" height="20"/>
+        </svg>
+        <span>
+          <span class="label">Email</span>
+          <span class="why">praneet.koppula@gmail.com</span>
+        </span>
       </a>
     </nav>
 

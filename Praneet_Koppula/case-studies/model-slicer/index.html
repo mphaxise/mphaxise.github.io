@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="How Praneet Koppula designed state-aware interactions and simulation-aware slicing concepts for MathWorks Model Slicer.">
-  <meta name="robots" content="index,follow">
+  <meta name="description" content="A recruiting case study about productizing MathWorks Model Slicer and connecting model slicing to verification workflows.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
   <link rel="icon" href="data:,">
   <link rel="canonical" href="https://mphaxise.github.io/Praneet_Koppula/case-studies/model-slicer/">
   <title>Model Slicer case study | Praneet Koppula</title>
@@ -13,16 +13,20 @@
 
     :root {
       --ink: #102823;
-      --ink-soft: #4d6962;
-      --green: #173c36;
-      --green-light: #c7f0dc;
+      --ink-soft: #49655e;
+      --forest: #173c36;
+      --forest-deep: #0b2722;
+      --mint: #c7f0dc;
       --paper: #f6f0e3;
+      --paper-deep: #e9dfcd;
       --white: #fffdf7;
-      --line: #adbbb4;
+      --line: #aebdb5;
       --yellow: #f9c74f;
-      --coral: #f08a5d;
-      --coral-dark: #9e3f1e;
+      --coral: #ef7d57;
+      --coral-dark: #983b1c;
+      --blue: #b8dbea;
       --measure: 760px;
+      --wide: 1320px;
     }
 
     * { box-sizing: border-box; }
@@ -33,504 +37,891 @@
       color: var(--ink);
       font-family: "DM Sans", Arial, sans-serif;
       font-size: 1rem;
-      line-height: 1.65;
+      line-height: 1.62;
     }
-    img { display: block; max-width: 100%; height: auto; }
-    a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+    body.locked { min-height: 100vh; overflow: hidden; background: var(--forest-deep); }
+    img, svg { display: block; max-width: 100%; height: auto; }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-underline-offset: .2em; text-decoration-thickness: 1px; }
     a:hover { text-decoration-thickness: 2px; }
-    a:focus-visible { outline: 4px solid var(--coral); outline-offset: 5px; }
+    :focus-visible {
+      outline: 3px solid var(--white);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 7px var(--coral-dark);
+    }
+    [hidden] { display: none !important; }
+    .shell { width: min(var(--wide), calc(100% - 56px)); margin-inline: auto; }
+    .reading { width: min(1080px, calc(100% - 56px)); margin-inline: auto; }
+    .measure { max-width: var(--measure); }
+    .eyebrow {
+      font-family: "DM Mono", ui-monospace, monospace;
+      font-size: .76rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
     .skip-link {
       position: fixed;
-      z-index: 20;
+      z-index: 100;
       top: 12px;
       left: 12px;
-      padding: 12px 16px;
+      padding: 11px 15px;
       background: var(--yellow);
       color: var(--ink);
       font-weight: 700;
       transform: translateY(-180%);
     }
     .skip-link:focus { transform: translateY(0); }
-    .shell { width: min(1390px, calc(100% - 56px)); margin: 0 auto; }
-    .reading { width: min(1100px, calc(100% - 56px)); margin: 0 auto; }
-    .measure { max-width: var(--measure); }
-    .eyebrow {
-      font-family: "DM Mono", ui-monospace, monospace;
-      font-size: 0.77rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
 
-    header { border-bottom: 1px solid var(--line); }
-    .case-nav {
+    /* Access gate */
+    .access-gate {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, .78fr);
+      background: var(--forest-deep);
+      color: var(--white);
+    }
+    .gate-story {
+      position: relative;
       display: flex;
-      min-height: 86px;
-      align-items: center;
+      min-height: 100svh;
+      flex-direction: column;
       justify-content: space-between;
-      gap: 32px;
+      overflow: hidden;
+      padding: clamp(32px, 5vw, 76px);
+      border-right: 1px solid #45645d;
     }
-    .wordmark, .back-link { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; }
-    .wordmark { text-decoration: none; }
+    .gate-story::after {
+      position: absolute;
+      right: -90px;
+      bottom: -120px;
+      width: 360px;
+      height: 360px;
+      border: 2px solid var(--yellow);
+      border-radius: 50%;
+      content: "";
+      opacity: .72;
+    }
+    .gate-wordmark { position: relative; z-index: 1; font-weight: 700; }
+    .gate-title { position: relative; z-index: 1; max-width: 760px; }
+    .gate-title .eyebrow { color: var(--mint); }
+    .gate-title h1 {
+      margin: 20px 0 28px;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(4rem, 9vw, 8.4rem);
+      font-weight: 600;
+      letter-spacing: -.055em;
+      line-height: .84;
+    }
+    .gate-title p { max-width: 660px; margin: 0; color: #c3d2cd; font-size: clamp(1.05rem, 1.7vw, 1.35rem); }
+    .gate-foot { position: relative; z-index: 1; color: #8fa8a1; }
+    .gate-form-wrap {
+      display: flex;
+      min-height: 100svh;
+      align-items: center;
+      padding: clamp(32px, 6vw, 90px);
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .gate-form-wrap form { width: 100%; max-width: 430px; }
+    .gate-form-wrap h2 {
+      margin: 16px 0;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 600;
+      letter-spacing: -.045em;
+      line-height: .96;
+    }
+    .gate-form-wrap p { color: var(--ink-soft); }
+    .field-label { display: block; margin: 34px 0 9px; font-weight: 700; }
+    .password-row { display: grid; grid-template-columns: 1fr auto; border: 2px solid var(--ink); background: var(--white); }
+    .password-row:focus-within {
+      outline: 3px solid var(--forest-deep);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 7px var(--yellow);
+    }
+    .password-row input { min-width: 0; min-height: 54px; padding: 12px 14px; border: 0; background: transparent; color: var(--ink); outline: 0; }
+    .password-row button { min-width: 72px; border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; font-weight: 700; }
+    .unlock-button {
+      width: 100%;
+      min-height: 54px;
+      margin-top: 14px;
+      border: 2px solid var(--forest);
+      background: var(--forest);
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .unlock-button:hover { background: var(--forest-deep); }
+    .gate-status { min-height: 28px; margin-top: 12px; color: var(--coral-dark) !important; font-weight: 700; }
+    .gate-note { margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--line); font-size: .9rem; }
 
-    h1, h2, h3, .pull-quote {
+    /* Case chrome */
+    .case-topbar {
+      position: sticky;
+      z-index: 50;
+      top: 0;
+      border-bottom: 1px solid rgba(16, 40, 35, .34);
+      background: var(--paper);
+    }
+    .progress { position: absolute; right: 0; bottom: -1px; left: 0; height: 3px; background: transparent; }
+    .progress span { display: block; width: 0; height: 100%; background: var(--coral-dark); }
+    .case-nav { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 28px; }
+    .case-nav a { display: inline-flex; min-height: 44px; align-items: center; font-weight: 700; text-decoration: none; }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .case-control {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      padding: 8px 13px;
+      border: 1px solid var(--ink);
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font-size: .88rem;
+      font-weight: 700;
+    }
+    .case-control:hover, .case-control[aria-pressed="true"] { background: var(--ink); color: var(--white); }
+    .present-hint { display: none; }
+
+    h1, h2, h3, .display {
       margin-top: 0;
       font-family: "Source Serif 4", Georgia, serif;
       font-weight: 600;
-      letter-spacing: -0.035em;
+      letter-spacing: -.042em;
     }
-    h1 {
-      max-width: 1240px;
-      margin: 24px 0 34px;
-      font-size: clamp(3.4rem, 8vw, 8.2rem);
-      line-height: 0.92;
-    }
-    h1 em { color: var(--coral-dark); font-style: normal; }
-    h2 { margin-bottom: 26px; font-size: clamp(2.8rem, 5.8vw, 5.9rem); line-height: 0.97; }
-    h3 { margin-bottom: 16px; font-size: clamp(1.9rem, 3.5vw, 3.2rem); line-height: 1.04; }
-
-    .hero { padding: clamp(76px, 10vw, 150px) 0 54px; }
-    .hero .eyebrow { color: var(--coral-dark); }
-    .hero-lede {
-      max-width: 900px;
-      margin: 0;
-      color: var(--ink-soft);
-      font-size: clamp(1.2rem, 2.2vw, 1.76rem);
-      line-height: 1.45;
-    }
-    .facts {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      margin: 28px 0 72px;
-      border-top: 2px solid var(--ink);
-      border-bottom: 2px solid var(--ink);
-    }
-    .facts div { min-height: 142px; padding: 24px 28px 28px 0; }
-    .facts div + div { padding-left: 28px; border-left: 1px solid var(--line); }
-    .facts dt { margin-bottom: 10px; color: var(--ink-soft); }
-    .facts dd { margin: 0; font-size: 1.06rem; font-weight: 700; line-height: 1.38; }
-
-    figure { margin: 0; }
-    .diagram-scroll { border-radius: 18px; }
-    .diagram-scroll:focus-visible { outline: 4px solid var(--coral); outline-offset: 5px; }
-    .mobile-pan-hint { display: none; }
-    .hero-figure img, .wide-figure img { width: 100%; border: 1px solid var(--ink); border-radius: 18px; background: white; }
-    figcaption {
-      display: grid;
-      grid-template-columns: 180px minmax(0, 820px);
-      gap: 28px;
-      padding: 20px 0 0;
-      color: var(--ink-soft);
-      font-size: 0.98rem;
-    }
-    figcaption strong { color: var(--ink); }
-
-    .section { padding: clamp(96px, 11vw, 168px) 0; }
+    h2 { margin-bottom: 24px; font-size: clamp(2.7rem, 5.8vw, 5.7rem); line-height: .98; }
+    h3 { margin-bottom: 14px; font-size: clamp(1.7rem, 3vw, 2.8rem); line-height: 1.06; }
+    .scene { scroll-margin-top: 70px; }
+    .section { padding: clamp(92px, 11vw, 164px) 0; }
     .rule { border-top: 1px solid var(--line); }
-    .section-head {
-      display: grid;
-      grid-template-columns: 220px minmax(0, 820px);
-      gap: 48px;
-      align-items: start;
-      margin-bottom: 58px;
-    }
-    .section-head .eyebrow { padding-top: 13px; color: var(--coral-dark); }
-    .section-head p, .body-large { color: var(--ink-soft); font-size: 1.2rem; }
+    .section-head { display: grid; grid-template-columns: 190px minmax(0, 830px); gap: clamp(30px, 6vw, 74px); align-items: start; margin-bottom: 58px; }
+    .section-head .eyebrow { padding-top: 12px; color: var(--coral-dark); }
+    .section-head p { color: var(--ink-soft); font-size: 1.18rem; }
     .section-head p:last-child { margin-bottom: 0; }
 
-    .precis {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: clamp(48px, 8vw, 120px);
-      align-items: start;
+    /* Hero */
+    .hero { position: relative; min-height: calc(100svh - 72px); overflow: hidden; padding: clamp(70px, 9vw, 132px) 0 68px; }
+    .hero::before {
+      position: absolute;
+      inset: auto -110px -180px auto;
+      width: 520px;
+      height: 520px;
+      border: 2px solid var(--coral);
+      border-radius: 50%;
+      content: "";
+      opacity: .65;
     }
-    .bottom-line { padding-top: 20px; border-top: 7px solid var(--yellow); }
-    .bottom-line .eyebrow { color: var(--ink-soft); }
-    .bottom-line p { margin-bottom: 0; font-size: 1.12rem; font-weight: 700; }
-    .pull-quote { margin-bottom: 0; font-size: clamp(2.5rem, 5.2vw, 5rem); line-height: 1.04; }
+    .hero .eyebrow { color: var(--coral-dark); }
+    .hero h1 {
+      position: relative;
+      z-index: 1;
+      max-width: 1180px;
+      margin: 22px 0 32px;
+      font-size: clamp(4rem, 9.7vw, 9.3rem);
+      line-height: .87;
+    }
+    .hero h1 em { color: var(--coral-dark); font-style: normal; }
+    .hero-lede { max-width: 910px; margin: 0; color: var(--ink-soft); font-size: clamp(1.2rem, 2.2vw, 1.75rem); line-height: 1.42; }
+    .facts { display: grid; grid-template-columns: repeat(4, 1fr); margin: 64px 0 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+    .facts div { min-height: 146px; padding: 24px 26px 26px 0; }
+    .facts div + div { padding-left: 26px; border-left: 1px solid var(--line); }
+    .facts dt { margin-bottom: 10px; color: var(--ink-soft); }
+    .facts dd { margin: 0; font-size: 1.03rem; font-weight: 700; line-height: 1.42; }
 
-    .stakes-band { background: var(--green); color: var(--white); }
-    .stakes-band .section-head .eyebrow { color: var(--green-light); }
-    .stakes-band .section-head p { color: #b8cbc4; }
-    .states {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border-top: 1px solid #527069;
-    }
-    .state-item { padding: 28px 24px 32px 0; }
-    .state-item + .state-item { padding-left: 24px; border-left: 1px solid #527069; }
-    .state-item strong { display: block; margin-bottom: 10px; color: var(--yellow); font-size: 1.08rem; }
-    .state-item p { margin: 0; color: #b8cbc4; }
+    /* Interactive explainer */
+    .explainer { background: var(--forest); color: var(--white); }
+    .explainer .section-head .eyebrow { color: var(--yellow); }
+    .explainer .section-head p { color: #bdd0ca; }
+    .slice-demo { border: 1px solid #55736b; background: var(--forest-deep); }
+    .demo-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 22px; border-bottom: 1px solid #55736b; }
+    .demo-toolbar p { margin: 0; color: #b9cbc5; }
+    .demo-toggle { min-height: 46px; padding: 9px 15px; border: 2px solid var(--yellow); background: var(--yellow); color: var(--ink); cursor: pointer; font-weight: 700; }
+    .demo-toggle:hover { background: var(--white); }
+    .demo-canvas { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(250px, .45fr); min-height: 470px; }
+    .demo-canvas svg { width: 100%; height: 100%; min-height: 470px; padding: clamp(20px, 4vw, 54px); border-right: 1px solid #55736b; }
+    .demo-copy { display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; }
+    .demo-copy .eyebrow { color: var(--mint); }
+    .demo-copy strong { display: block; margin: 12px 0; font-family: "Source Serif 4", Georgia, serif; font-size: 2.05rem; line-height: 1.05; }
+    .demo-copy p { margin: 0; color: #b9cbc5; }
+    .model-edge { stroke: #749088; stroke-width: 3; transition: opacity .35s, stroke .35s, stroke-width .35s; }
+    .model-node rect { fill: #244a43; stroke: #8da59e; stroke-width: 2; transition: opacity .35s, fill .35s, stroke .35s; }
+    .model-node text { fill: #f6f0e3; font: 600 14px "DM Sans", Arial, sans-serif; pointer-events: none; }
+    .slice-demo .signal { stroke: var(--coral); }
+    .slice-demo.is-focused .noise { opacity: .12; }
+    .slice-demo.is-focused .relevant { opacity: 1; }
+    .slice-demo.is-focused .model-edge.relevant { stroke: var(--yellow); stroke-width: 5; }
+    .slice-demo.is-focused .model-node.relevant rect { fill: var(--yellow); stroke: var(--white); }
+    .slice-demo.is-focused .model-node.relevant text { fill: var(--ink); }
 
-    .role-grid {
-      display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: clamp(50px, 9vw, 130px);
-      align-items: start;
-    }
-    .role-copy > p:first-of-type { margin-top: 0; font-size: 1.23rem; }
-    .boundary { padding: 30px; border: 1px solid var(--ink); background: var(--white); }
-    .boundary h3 { font-family: "DM Sans", Arial, sans-serif; font-size: 1.35rem; letter-spacing: -0.02em; }
-    .boundary dl { margin: 28px 0 0; }
-    .boundary div { display: grid; grid-template-columns: 126px 1fr; gap: 18px; padding: 17px 0; border-top: 1px solid var(--line); }
-    .boundary dt { color: var(--ink-soft); }
-    .boundary dd { margin: 0; font-weight: 700; }
+    .source-note { margin-top: 34px; padding-left: 20px; border-left: 5px solid var(--yellow); color: #b9cbc5; }
+    .source-note a { color: var(--white); }
 
-    .chapter { padding: clamp(82px, 9vw, 128px) 0; border-top: 1px solid var(--line); }
-    .chapter-head {
-      display: grid;
-      grid-template-columns: 140px minmax(0, 820px);
-      gap: 48px;
-      margin-bottom: 54px;
-    }
-    .chapter-number { color: var(--coral-dark); font-family: "DM Mono", monospace; font-size: 1.05rem; }
-    .chapter-head p { color: var(--ink-soft); font-size: 1.18rem; }
-    .chapter-copy { max-width: var(--measure); margin: 0 auto 62px; }
+    /* Product origin */
+    .origin-grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(54px, 9vw, 126px); align-items: start; }
+    .origin-claim { padding-top: 20px; border-top: 8px solid var(--yellow); }
+    .origin-claim p { margin: 14px 0 0; font-size: 1.12rem; font-weight: 700; }
+    .origin-copy > p:first-child { margin-top: 0; font-size: 1.25rem; }
+    .constraint-map { margin-top: 40px; border-top: 2px solid var(--ink); }
+    .constraint-map div { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+    .constraint-map dt { color: var(--coral-dark); }
+    .constraint-map dd { margin: 0; }
+    .team-credit { margin-top: 48px; padding: 28px 30px; border: 1px solid var(--ink); background: var(--white); }
+    .team-credit p { margin: 10px 0 0; }
+
+    /* Arc */
+    .arc { padding: 0; background: var(--yellow); }
+    .arc-grid { display: grid; grid-template-columns: 270px 1fr; }
+    .arc-title { padding: 72px 34px 72px 0; border-right: 2px solid var(--ink); }
+    .arc-title h2 { margin: 18px 0 0; font-size: clamp(3rem, 5vw, 5.4rem); }
+    .arc-steps { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .arc-step { padding: 74px 28px; }
+    .arc-step + .arc-step { border-left: 1px solid rgba(16, 40, 35, .44); }
+    .arc-step .year { display: block; margin-bottom: 42px; color: var(--coral-dark); font-family: "DM Mono", monospace; font-size: .88rem; }
+    .arc-step strong { display: block; margin-bottom: 12px; font-family: "Source Serif 4", Georgia, serif; font-size: 1.55rem; line-height: 1.08; }
+    .arc-step p { margin: 0; }
+
+    /* Chapters and evidence */
+    .chapter { padding: clamp(96px, 11vw, 170px) 0; border-top: 1px solid var(--line); }
+    .chapter-head { display: grid; grid-template-columns: 145px minmax(0, 860px); gap: 44px; margin-bottom: 56px; }
+    .chapter-number { color: var(--coral-dark); font-family: "DM Mono", monospace; font-size: .98rem; }
+    .chapter-head p { color: var(--ink-soft); font-size: 1.2rem; }
+    .chapter-copy { max-width: var(--measure); margin: 0 auto 60px; }
     .chapter-copy p { font-size: 1.08rem; }
-    .wide-figure { width: min(1390px, calc(100% - 56px)); margin: 0 auto; }
-    .wide-figure figcaption { width: min(1100px, 100%); }
+    .decision-list { margin: 44px 0 0; padding: 0; border-top: 2px solid var(--ink); list-style: none; }
+    .decision-row { display: grid; grid-template-columns: 170px .85fr 1.15fr; gap: 30px; padding: 25px 0; border-bottom: 1px solid var(--line); }
+    .decision-row .eyebrow { color: var(--coral-dark); }
+    .decision-row strong { font-size: 1.12rem; }
+    .decision-row p { margin: 0; color: var(--ink-soft); }
+    figure { margin: 0; }
+    .wide-figure { width: min(var(--wide), calc(100% - 56px)); margin-inline: auto; }
+    .figure-frame { overflow: hidden; border: 1px solid var(--ink); background: var(--white); }
+    .figure-frame img { width: 100%; }
+    figcaption { display: grid; grid-template-columns: 210px minmax(0, 800px); gap: 28px; padding: 20px 0 0; color: var(--ink-soft); font-size: .96rem; }
+    figcaption strong { color: var(--ink); }
+    .artifact-pair { display: grid; grid-template-columns: .78fr 1.22fr; gap: 22px; width: min(var(--wide), calc(100% - 56px)); margin: 62px auto 0; align-items: stretch; }
+    .artifact-pair figure { display: flex; min-width: 0; flex-direction: column; }
+    .artifact-pair .figure-frame { display: grid; min-height: 520px; flex: 1; place-items: center; padding: 18px; }
+    .artifact-pair img { max-height: 650px; object-fit: contain; }
+    .artifact-pair figcaption { grid-template-columns: 1fr; gap: 6px; }
 
-    .alignment {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(48px, 8vw, 110px);
-      align-items: center;
-      padding: clamp(70px, 9vw, 120px);
-      background: var(--yellow);
-    }
-    .alignment h2 { margin-bottom: 0; }
-    .alignment-copy p:first-child { margin-top: 0; font-size: 1.22rem; }
-    .alignment-list { margin: 36px 0 0; border-top: 2px solid var(--ink); }
-    .alignment-item { display: grid; grid-template-columns: 72px 1fr; gap: 20px; padding: 22px 0; border-bottom: 1px solid rgba(16, 40, 35, .4); }
-    .alignment-item .eyebrow { color: var(--coral-dark); }
-    .alignment-item p { margin: 0; }
+    /* Integrated workflows */
+    .integration { background: var(--blue); }
+    .integration .section-head .eyebrow { color: var(--forest); }
+    .workflow { margin-top: 42px; border-top: 2px solid var(--ink); }
+    .workflow + .workflow { margin-top: 72px; }
+    .workflow-header { display: grid; grid-template-columns: 210px 1fr; gap: 32px; padding: 24px 0; }
+    .workflow-header h3 { margin: 0; }
+    .workflow-header p { max-width: 670px; margin: 0; }
+    .flow-steps { display: grid; grid-template-columns: repeat(5, 1fr); margin: 0; padding: 0; border-top: 1px solid rgba(16, 40, 35, .4); border-bottom: 1px solid rgba(16, 40, 35, .4); list-style: none; }
+    .flow-step { position: relative; min-height: 164px; padding: 22px 20px; }
+    .flow-step + .flow-step { border-left: 1px solid rgba(16, 40, 35, .4); }
+    .flow-step + .flow-step::before { position: absolute; top: 50%; left: -8px; width: 15px; height: 15px; border-top: 2px solid var(--ink); border-right: 2px solid var(--ink); background: var(--blue); content: ""; transform: translateY(-50%) rotate(45deg); }
+    .flow-step .eyebrow { color: var(--coral-dark); }
+    .flow-step strong { display: block; margin-top: 14px; line-height: 1.3; }
+    .workflow-note { max-width: 820px; margin: 24px 0 0 auto; font-size: 1.06rem; }
+    .integration-timeline { margin-top: 88px; }
 
-    .sequence { margin: 0; padding: 0; list-style: none; counter-reset: step; border-top: 2px solid var(--ink); }
-    .sequence li {
-      display: grid;
-      grid-template-columns: 92px .9fr 1.1fr;
-      gap: 34px;
-      padding: 32px 0;
-      border-bottom: 1px solid var(--line);
-      counter-increment: step;
-    }
-    .sequence li::before { content: "0" counter(step); color: var(--coral-dark); font-family: "DM Mono", monospace; font-size: 1.05rem; }
-    .sequence strong { font-size: 1.22rem; }
-    .sequence p { margin: 0; color: var(--ink-soft); }
-
+    /* Outcomes and ownership */
     .outcomes { background: var(--ink); color: var(--white); }
     .outcomes .section-head .eyebrow { color: var(--yellow); }
     .outcomes .section-head p { color: #b8cbc4; }
-    .outcome-list { border-top: 1px solid #527069; }
-    .outcome-row {
-      display: grid;
-      grid-template-columns: 220px .85fr 1.15fr;
-      gap: 44px;
-      padding: 32px 0;
-      border-bottom: 1px solid #527069;
-    }
-    .outcome-row .eyebrow { color: var(--green-light); }
-    .outcome-row strong { font-size: 1.18rem; }
+    .outcome-list { margin: 0; padding: 0; border-top: 1px solid #527069; list-style: none; }
+    .outcome-row { display: grid; grid-template-columns: 210px .8fr 1.2fr; gap: 40px; padding: 32px 0; border-bottom: 1px solid #527069; }
+    .outcome-row .eyebrow { color: var(--mint); }
+    .outcome-row strong { font-size: 1.17rem; }
     .outcome-row p { margin: 0; color: #b8cbc4; }
-    .evidence-note { margin-top: 46px; padding-left: 22px; border-left: 5px solid var(--coral); color: #b8cbc4; }
-    .evidence-note strong { color: var(--white); }
+    .ownership { display: grid; grid-template-columns: 1fr 1fr; margin-top: 78px; border: 1px solid #527069; }
+    .ownership article { padding: 34px; }
+    .ownership article + article { border-left: 1px solid #527069; }
+    .ownership h3 { color: var(--white); }
+    .ownership p { color: #b8cbc4; }
+    .ownership ul { margin: 26px 0 0; padding-left: 20px; }
+    .ownership li { margin: 10px 0; }
+    .evidence-boundary { margin-top: 54px; padding-left: 22px; border-left: 5px solid var(--coral); color: #b8cbc4; }
+    .evidence-boundary strong { color: var(--white); }
 
-    .reflection { background: var(--coral); color: var(--ink); }
-    .reflection-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(54px, 8vw, 120px); align-items: end; }
-    .reflection h2 { margin-bottom: 0; }
-    .reflection p { font-size: 1.2rem; }
-    .reflection strong { color: #64240e; }
-
-    .sources { padding: 56px 0; border-bottom: 1px solid var(--line); }
-    .sources details { max-width: 900px; }
+    /* Reflection and sources */
+    .reflection { background: var(--coral); }
+    .lessons { margin: 0; padding: 0; border-top: 2px solid var(--ink); list-style: none; }
+    .lesson { display: grid; grid-template-columns: 110px .8fr 1.2fr; gap: 34px; padding: 30px 0; border-bottom: 1px solid rgba(16, 40, 35, .44); }
+    .lesson .eyebrow { color: #6f2813; }
+    .lesson strong { font-family: "Source Serif 4", Georgia, serif; font-size: 1.55rem; line-height: 1.1; }
+    .lesson p { margin: 0; }
+    .closing { padding: clamp(100px, 12vw, 180px) 0; background: var(--paper); }
+    .closing blockquote { max-width: 1050px; margin: 0; font-family: "Source Serif 4", Georgia, serif; font-size: clamp(2.6rem, 6vw, 6.2rem); font-weight: 600; letter-spacing: -.045em; line-height: .98; }
+    .closing p { max-width: 740px; margin: 38px 0 0; color: var(--ink-soft); font-size: 1.18rem; }
+    .sources { padding: 58px 0; border-top: 1px solid var(--line); }
+    .sources details { max-width: 940px; }
     .sources summary { min-height: 44px; cursor: pointer; font-weight: 700; }
-    .sources ul { padding-left: 21px; color: var(--ink-soft); }
-    .sources li { margin: 12px 0; }
+    .sources ol { padding-left: 22px; color: var(--ink-soft); }
+    .sources li { margin: 14px 0; }
     .sources p { color: var(--ink-soft); }
+    footer { padding: 34px 0 50px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .9rem; }
 
-    .next { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 72px 0; }
-    .next h2 { max-width: 820px; margin: 0; font-size: clamp(2.4rem, 5vw, 5rem); }
-    .next a { display: inline-flex; min-height: 52px; align-items: center; padding: 12px 20px; background: var(--green); color: white; font-weight: 700; text-decoration: none; }
-    footer { padding: 34px 0 48px; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .9rem; }
+    /* Presentation mode */
+    html.presenting { scroll-snap-type: y mandatory; }
+    html.presenting .case-topbar { position: fixed; right: 0; left: 0; }
+    html.presenting .scene { min-height: 100svh; scroll-margin-top: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+    html.presenting .hero { padding-top: 130px; }
+    html.presenting .present-hint { position: fixed; z-index: 60; right: 24px; bottom: 20px; display: block; padding: 8px 11px; background: var(--ink); color: var(--white); font: 500 .72rem/1.4 "DM Mono", monospace; }
 
-    @media (max-width: 900px) {
-      .facts, .states { grid-template-columns: 1fr 1fr; }
-      .facts div:nth-child(3), .states .state-item:nth-child(3) { border-left: 0; }
-      .facts div:nth-child(n+3), .states .state-item:nth-child(n+3) { border-top: 1px solid var(--line); }
-      .precis, .role-grid, .alignment, .reflection-grid { grid-template-columns: 1fr; }
-      .alignment { padding: 72px 28px; }
+    @media (max-width: 980px) {
+      .access-gate { grid-template-columns: 1fr; }
+      .gate-story, .gate-form-wrap { min-height: auto; }
+      .gate-story { min-height: 58svh; border-right: 0; border-bottom: 1px solid #45645d; }
+      .gate-form-wrap { min-height: 42svh; }
+      .facts { grid-template-columns: 1fr 1fr; }
+      .facts div:nth-child(3) { border-left: 0; }
+      .facts div:nth-child(n+3) { border-top: 1px solid var(--line); }
+      .demo-canvas, .origin-grid, .artifact-pair, .ownership { grid-template-columns: 1fr; }
+      .demo-canvas svg { border-right: 0; border-bottom: 1px solid #55736b; }
+      .artifact-pair .figure-frame { min-height: 0; }
+      .ownership article + article { border-top: 1px solid #527069; border-left: 0; }
+      .arc-grid { grid-template-columns: 1fr; }
+      .arc-title { padding: 58px 0 36px; border-right: 0; border-bottom: 2px solid var(--ink); }
+      .arc-steps { grid-template-columns: 1fr; }
+      .arc-step { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 30px 0; }
+      .arc-step + .arc-step { border-top: 1px solid rgba(16, 40, 35, .44); border-left: 0; }
+      .arc-step .year { margin: 0; }
+      .arc-step p { grid-column: 2; }
+      .flow-steps { grid-template-columns: 1fr; }
+      .flow-step { min-height: 0; padding: 20px 0; }
+      .flow-step + .flow-step { border-top: 1px solid rgba(16, 40, 35, .35); border-left: 0; }
+      .flow-step + .flow-step::before { display: none; }
     }
+
     @media (max-width: 720px) {
-      .shell, .reading, .wide-figure { width: min(100% - 32px, 1390px); }
-      .case-nav { align-items: flex-start; padding: 18px 0; }
-      h1 { font-size: clamp(3.2rem, 15vw, 5rem); }
+      .shell, .reading, .wide-figure, .artifact-pair { width: min(100% - 32px, var(--wide)); }
+      .case-nav { align-items: flex-start; padding: 13px 0; }
+      .case-nav > a { display: none; }
+      .nav-actions { width: 100%; justify-content: space-between; }
+      .case-control { padding-inline: 10px; font-size: .8rem; }
+      .hero { min-height: auto; }
+      .hero h1 { font-size: clamp(3.5rem, 18vw, 6.2rem); }
       .section-head, .chapter-head { grid-template-columns: 1fr; gap: 18px; }
       .section-head .eyebrow { padding-top: 0; }
-      .sequence li, .outcome-row { grid-template-columns: 58px 1fr; gap: 18px; }
-      .sequence li p, .outcome-row p { grid-column: 2; }
-      figcaption { grid-template-columns: 1fr; gap: 7px; }
-      .boundary div { grid-template-columns: 1fr; gap: 4px; }
-      .next { align-items: flex-start; flex-direction: column; }
-      .diagram-scroll {
-        position: relative;
-        overflow-x: auto;
-        border: 1px solid var(--ink);
-        border-radius: 18px;
-        background: var(--white);
-        overscroll-behavior-inline: contain;
-        scrollbar-color: var(--coral) var(--paper);
-      }
-      .hero-figure .diagram-scroll img, .wide-figure .diagram-scroll img {
-        width: 1000px;
-        max-width: none;
-        border: 0;
-        border-radius: 0;
-      }
-      .mobile-pan-hint {
-        position: sticky;
-        z-index: 2;
-        left: 0;
-        display: block;
-        width: max-content;
-        padding: 8px 10px;
-        background: var(--yellow);
-        color: var(--ink);
-        font-family: "DM Mono", ui-monospace, monospace;
-        font-size: .72rem;
-        font-weight: 500;
-        letter-spacing: .06em;
-        text-transform: uppercase;
-      }
+      .demo-toolbar { align-items: flex-start; flex-direction: column; }
+      .demo-toggle { width: 100%; }
+      .demo-canvas svg { min-height: 360px; padding: 12px; }
+      .diagram-frame { overflow-x: auto; overscroll-behavior-inline: contain; }
+      .diagram-frame img { width: 900px; max-width: none; }
+      .decision-row, .outcome-row, .lesson { grid-template-columns: 74px 1fr; gap: 18px; }
+      .decision-row p, .outcome-row p, .lesson p { grid-column: 2; }
+      .workflow-header { grid-template-columns: 1fr; gap: 10px; }
+      figcaption { grid-template-columns: 1fr; gap: 6px; }
+      .present-hint { display: none !important; }
     }
-    @media (max-width: 500px) {
-      .case-nav { flex-direction: column; gap: 4px; }
-      .facts, .states { grid-template-columns: 1fr; }
-      .facts div, .facts div + div, .states .state-item, .states .state-item + .state-item { min-height: 0; padding: 20px 0; border-left: 0; border-top: 1px solid var(--line); }
-      .facts div:first-child, .states .state-item:first-child { border-top: 0; }
-      .states .state-item + .state-item { border-color: #527069; }
+
+    @media (max-width: 520px) {
+      .gate-story, .gate-form-wrap { padding: 26px 22px; }
+      .gate-story { min-height: 52svh; }
+      .gate-title h1 { font-size: clamp(3.5rem, 19vw, 5.4rem); }
+      .facts { grid-template-columns: 1fr; }
+      .facts div, .facts div + div { min-height: 0; padding: 20px 0; border-top: 1px solid var(--line); border-left: 0; }
+      .facts div:first-child { border-top: 0; }
+      .arc-step { grid-template-columns: 1fr; gap: 8px; }
+      .arc-step p { grid-column: 1; }
+      .constraint-map div { grid-template-columns: 1fr; gap: 6px; }
+      .decision-row, .outcome-row, .lesson { grid-template-columns: 1fr; }
+      .decision-row p, .outcome-row p, .lesson p { grid-column: 1; }
+      .ownership article { padding: 26px 22px; }
     }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      html.presenting { scroll-snap-type: none; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+
+    @media print {
+      @page { size: auto; margin: 14mm; }
+      html, body { background: white; }
+      body.locked { overflow: visible; }
+      .access-gate, .case-topbar, .skip-link, .present-hint, .demo-toggle, footer { display: none !important; }
+      #case-content { display: block !important; }
+      .scene { min-height: 0 !important; break-after: auto; page-break-after: auto; }
+      .section, .chapter, .closing { padding: 12mm 0; }
+      .hero { min-height: 0; }
+      .hero h1 { font-size: 48pt; }
+      h2 { font-size: 30pt; }
+      a { text-decoration: none; }
+      .figure-frame, .slice-demo, .ownership { break-inside: avoid; }
+      .sources { break-after: auto; page-break-after: auto; }
+      .sources details > :not(summary) { display: block !important; }
+    }
   </style>
 </head>
-<body>
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  <header>
-    <nav class="case-nav shell" aria-label="Case study navigation">
-      <a class="wordmark" href="../../">Praneet Koppula</a>
-      <a class="back-link" href="../../#work">Back to selected work</a>
-    </nav>
-  </header>
-
-  <main id="main-content" tabindex="-1">
-    <section class="hero shell" aria-labelledby="page-title">
-      <div class="eyebrow">MathWorks · Model Slicer · 2014–2016</div>
-      <h1 id="page-title">Designing Model Slicer around <em>state, data, and time.</em></h1>
-      <p class="hero-lede">I helped make an early Model Slicer workflow more predictable by exposing the role a selected model object played, the behavioral data supporting a slice, and the time interval in which that data was valid.</p>
-    </section>
-
-    <div class="reading">
-      <dl class="facts" aria-label="Project at a glance">
-        <div><dt class="eyebrow">Company</dt><dd>MathWorks</dd></div>
-        <div><dt class="eyebrow">Role</dt><dd>UX design contributor</dd></div>
-        <div><dt class="eyebrow">Evidence period</dt><dd>2014–2016</dd></div>
-        <div><dt class="eyebrow">Scope</dt><dd>State logic, prototypes, product feedback, alignment</dd></div>
-      </dl>
-    </div>
-
-    <figure class="hero-figure shell">
-      <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram: a large model is narrowed to a focused slice">
-        <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
-        <img src="../../work/assets/model-slicer/assets/whole-model-to-focused-slice.svg" width="1200" height="720" alt="A complex model is narrowed by starting-point and exclusion criteria into a focused dependency slice.">
+<body class="locked">
+  <div class="access-gate" id="access-gate">
+    <section class="gate-story" aria-labelledby="gate-title">
+      <div class="gate-wordmark">Praneet Koppula</div>
+      <div class="gate-title">
+        <div class="eyebrow">Recruiting case study · MathWorks</div>
+        <h1 id="gate-title">Model<br>Slicer</h1>
+        <p>A product UX case about customer-driven productization, dynamic slicing, and the path from verification evidence to focused model behavior.</p>
       </div>
-      <figcaption><strong>From selection to focused slice</strong><span>Public-safe explanatory redraw of the core workflow. It abstracts the product problem I worked on and does not reproduce a proprietary model or interface.</span></figcaption>
-    </figure>
-
-    <section class="section reading" aria-labelledby="precis-title">
-      <div class="precis">
-        <div class="bottom-line">
-          <div class="eyebrow">Précis</div>
-          <p>Model Slicer turns dependency analysis into an interaction problem: users need to trust what is included, excluded, and supported by recorded behavior.</p>
-        </div>
-        <h2 class="pull-quote" id="precis-title">The design challenge was to make invisible system state legible before an engineer committed to an action.</h2>
-      </div>
+      <div class="gate-foot eyebrow">Product UX · Technical workflows · Model-Based Design</div>
     </section>
-
-    <section class="section stakes-band" aria-labelledby="context-title">
-      <div class="reading">
-        <div class="section-head">
-          <div class="eyebrow">01 · Context and stakes</div>
-          <div>
-            <h2 id="context-title">A focused result needs an explainable path.</h2>
-            <p>Model Slicer helps engineers isolate the portions of a Simulink model relevant to a design interest. MathWorks introduced the capability in R2015a with static dependencies, exclusions, constraints, simulation effects, and generation of a simplified model.</p>
-            <p>The interface had to preserve confidence in that result. A selected object might already be a starting point, an exclusion, or a constrained element. A dynamic slice added another dependency: valid simulation or coverage data for a meaningful time window.</p>
-          </div>
+    <section class="gate-form-wrap" aria-labelledby="access-title">
+      <form id="access-form">
+        <div class="eyebrow">Shared by Praneet</div>
+        <h2 id="access-title">Enter the access code.</h2>
+        <p>This case contains high-level product stories and approved historical design evidence.</p>
+        <label class="field-label" for="access-code">Access code</label>
+        <div class="password-row">
+          <input id="access-code" name="access-code" type="password" autocomplete="current-password" required aria-describedby="gate-status">
+          <button type="button" id="reveal-code" aria-label="Show access code">Show</button>
         </div>
-        <div class="states" aria-label="Four sources of workflow state">
-          <div class="state-item"><strong>Selection</strong><p>Which block or signal is the user acting on?</p></div>
-          <div class="state-item"><strong>Role</strong><p>Is it a starting point, exclusion, constraint, or none?</p></div>
-          <div class="state-item"><strong>Data</strong><p>Was behavior loaded from coverage or produced by simulation?</p></div>
-          <div class="state-item"><strong>Time</strong><p>Does the requested interval fit the recorded result?</p></div>
-        </div>
-      </div>
+        <button class="unlock-button" type="submit">Open case study</button>
+        <p class="gate-status" id="gate-status" aria-live="polite"></p>
+        <p class="gate-note">Need access? Contact Praneet through the portfolio home page.</p>
+        <noscript><p class="gate-status">JavaScript is required to open this case study.</p></noscript>
+      </form>
     </section>
+  </div>
 
-    <section class="section reading rule" aria-labelledby="role-title">
-      <div class="role-grid">
-        <div class="role-copy">
-          <div class="eyebrow">02 · Role and collaboration</div>
-          <h2 id="role-title">Hands-on interaction design inside a team product.</h2>
-          <p>I authored a 2014 interaction deck that mapped selection states to valid actions. In 2015, I authored dynamic-slicing prototypes that made data source, time range, validity, and recalculation visible.</p>
-          <p>I developed the detailed interaction logic with a development partner and used the prototypes to gather functional feedback from the primary team and adjacent product teams. A UX researcher authored the team usability plan, which I credit as shared evidence.</p>
+  <div id="case-content" hidden>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="case-topbar">
+      <nav class="case-nav shell" aria-label="Case study controls">
+        <a href="https://mphaxise.github.io/Praneet_Koppula/">Praneet Koppula</a>
+        <div class="nav-actions">
+          <button class="case-control" id="present-toggle" type="button" aria-pressed="false">Present case</button>
+          <a class="case-control" href="https://mphaxise.github.io/Praneet_Koppula/">Close case</a>
         </div>
-        <aside class="boundary" aria-labelledby="boundary-title">
-          <h3 id="boundary-title">Contribution boundary</h3>
-          <p>This case claims my specific design work. Product invention and later release history remain team-owned.</p>
-          <dl>
-            <div><dt class="eyebrow">Direct</dt><dd>Interaction deck and dynamic-slicing prototypes</dd></div>
-            <div><dt class="eyebrow">Collaborative</dt><dd>Behavior matrix, product feedback, team alignment</dd></div>
-            <div><dt class="eyebrow">Team-owned</dt><dd>Usability plan and shipped product</dd></div>
-            <div><dt class="eyebrow">Later context</dt><dd>R2020b–R2022a public product evolution</dd></div>
+      </nav>
+      <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="hero scene" id="opening" aria-labelledby="page-title">
+        <div class="shell">
+          <div class="eyebrow">MathWorks · Model Slicer · From launch to integration</div>
+          <h1 id="page-title">Make the model explain <em>the failure.</em></h1>
+          <p class="hero-lede">I helped productize Model Slicer for an early automotive partner and designed state-aware and dynamic-slicing workflows in 2014–2016. I also worked with teams on cross-product verification flows. MathWorks later shipped integrations across Test Manager and Design Verifier.</p>
+          <dl class="facts" aria-label="Project at a glance">
+            <div><dt class="eyebrow">Role</dt><dd>UX designer and cross-product workflow partner</dd></div>
+            <div><dt class="eyebrow">Arc</dt><dd>2014–2016 direct work · R2020b–R2022a product context</dd></div>
+            <div><dt class="eyebrow">Users</dt><dd>Control, test, and verification engineers</dd></div>
+            <div><dt class="eyebrow">Contribution</dt><dd>Usability, state logic, dynamic slicing, workflow integration</dd></div>
           </dl>
-        </aside>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section class="chapter" aria-labelledby="chapter-one-title">
-      <div class="reading">
-        <div class="chapter-head">
-          <div class="chapter-number">01 / STATE</div>
-          <div>
-            <h2 id="chapter-one-title">Make every selection state explicit.</h2>
-            <p>I mapped what Model Slicer should offer for an object with no current role, an existing point, a conditional block, a multi-selection, or a conflicting role.</p>
+      <section class="section explainer scene" id="why-slicing" aria-labelledby="why-title">
+        <div class="reading">
+          <div class="section-head">
+            <div class="eyebrow">01 · The idea</div>
+            <div>
+              <h2 id="why-title">As logic moved into diagrams, verification had to move with it.</h2>
+              <p>Simulink gives engineers an executable map of a system. Blocks represent components or equations; arrows carry signals between them. Teams can simulate that model, test it, and generate implementation code from it.</p>
+              <p>The visual map remains hard to reason about when it grows across deep hierarchies and many modes. Program slicing had long helped software engineers reduce code to the statements related to one behavior. Model Slicer applies a similar focusing idea to executable block diagrams.</p>
+              <p>The surrounding safety environment raised the standard for model-level evidence. FAA guidance recognizes DO-331 for model-based development and verification, while ISO 26262 covers software and system verification in road vehicles. These standards do not prescribe Model Slicer. They show why the model itself had become a verification artifact.</p>
+            </div>
+          </div>
+
+          <div class="slice-demo" id="slice-demo">
+            <div class="demo-toolbar">
+              <p><strong>Try the core idea:</strong> focus a large dependency network around one failing signal.</p>
+              <button class="demo-toggle" id="demo-toggle" type="button" aria-pressed="false">Focus on the failing signal</button>
+            </div>
+            <div class="demo-canvas">
+              <svg viewBox="0 0 760 430" role="img" aria-labelledby="demo-title demo-desc">
+                <title id="demo-title">Interactive model slicing explanation</title>
+                <desc id="demo-desc">A network of model blocks. Activating the button dims unrelated blocks and highlights the dependency path to a failing signal.</desc>
+                <g fill="none">
+                  <path class="model-edge relevant" d="M95 74H220L310 148H438L548 216H668"/>
+                  <path class="model-edge relevant" d="M95 200H220L310 148"/>
+                  <path class="model-edge relevant" d="M438 148V300H548"/>
+                  <path class="model-edge noise" d="M95 326H214L300 356H430"/>
+                  <path class="model-edge noise" d="M220 74V262H334"/>
+                  <path class="model-edge noise" d="M95 200V270H210"/>
+                  <path class="model-edge noise" d="M334 262H470L548 216"/>
+                  <path class="model-edge noise" d="M430 356H604"/>
+                  <path class="model-edge noise" d="M470 262V356"/>
+                  <path class="model-edge signal" d="M668 216h48" stroke-width="5"/>
+                </g>
+                <g class="model-node relevant" transform="translate(28 48)"><rect width="134" height="52" rx="5"/><text x="67" y="32" text-anchor="middle">Sensor input</text></g>
+                <g class="model-node relevant" transform="translate(28 174)"><rect width="134" height="52" rx="5"/><text x="67" y="32" text-anchor="middle">Reference</text></g>
+                <g class="model-node noise" transform="translate(28 300)"><rect width="134" height="52" rx="5"/><text x="67" y="32" text-anchor="middle">Auxiliary path</text></g>
+                <g class="model-node relevant" transform="translate(192 48)"><rect width="118" height="52" rx="5"/><text x="59" y="32" text-anchor="middle">Filter</text></g>
+                <g class="model-node noise" transform="translate(178 236)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Mode logic</text></g>
+                <g class="model-node relevant" transform="translate(278 122)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Controller</text></g>
+                <g class="model-node noise" transform="translate(304 330)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Diagnostics</text></g>
+                <g class="model-node noise" transform="translate(332 236)"><rect width="138" height="52" rx="5"/><text x="69" y="32" text-anchor="middle">State machine</text></g>
+                <g class="model-node relevant" transform="translate(406 122)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Actuator</text></g>
+                <g class="model-node relevant" transform="translate(406 274)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Constraint</text></g>
+                <g class="model-node relevant" transform="translate(536 190)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Output signal</text></g>
+                <g class="model-node noise" transform="translate(536 330)"><rect width="132" height="52" rx="5"/><text x="66" y="32" text-anchor="middle">Logging</text></g>
+              </svg>
+              <div class="demo-copy" aria-live="polite" aria-atomic="true">
+                <div class="eyebrow" id="demo-state">Whole model</div>
+                <strong id="demo-heading">The diagram is visible. The causal path is crowded.</strong>
+                <p id="demo-description">A slice keeps the blocks and dependencies relevant to one behavior so an engineer can inspect a smaller, explainable surface.</p>
+              </div>
+            </div>
+          </div>
+          <p class="source-note">Public framing: MathWorks describes Simulink models as block-diagram representations of systems and Model Slicer as a way to understand dependencies in large or complex models. Program slicing supplies the conceptual lineage. <a href="#sources">Sources are collected at the end.</a></p>
+        </div>
+      </section>
+
+      <section class="section scene" id="origin" aria-labelledby="origin-title">
+        <div class="reading origin-grid">
+          <div class="origin-claim">
+            <div class="eyebrow">The opening constraint</div>
+            <p>The customer needed to judge the engineering value soon. The interface had to get out of the way.</p>
+          </div>
+          <div class="origin-copy">
+            <h2 id="origin-title">The product arrived with a deadline.</h2>
+            <p>Engineering had invented a promising Model Slicer MVP. A major automotive partner had made the capability a priority, and the team planned to place an early build in their hands soon after I joined.</p>
+            <p>My first job was practical: understand the slicing model, find the usability failures that could obscure its value, and help the team ship a workflow the customer could actually evaluate.</p>
+            <dl class="constraint-map">
+              <div><dt class="eyebrow">Fixed</dt><dd>The analysis engine, the release window, and established Simulink interaction patterns.</dd></div>
+              <div><dt class="eyebrow">Open</dt><dd>How criteria, actions, feedback, conflicts, and navigation became understandable.</dd></div>
+              <div><dt class="eyebrow">Success</dt><dd>An engineer could validate the capability without known interaction problems blocking the task.</dd></div>
+            </dl>
+            <aside class="team-credit">
+              <div class="eyebrow">Built by a broad team</div>
+              <p>Engineering created and implemented the core capability. Product and program management shaped priorities. Research, quality engineering, documentation, marketing, account teams, and customers helped evaluate, explain, and bring it to market. My contribution centered on the user experience and the connections between workflows.</p>
+            </aside>
           </div>
         </div>
-        <div class="chapter-copy">
-          <p>The visible actions were straightforward: add a starting point, add an exclusion, add constraints, or remove a point. The harder design work sat behind those labels. The system needed rules for when each action was available and what happened when an object moved between roles.</p>
-          <p>I surfaced conflicts as product decisions. If an excluded block became a starting point, for example, the system needed a predictable precedence rule to prevent two apparently active states. The deck and enable/disable matrix turned that ambiguity into behavior the team could inspect and resolve.</p>
-        </div>
-      </div>
-      <figure class="wide-figure">
-        <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram: state-aware Model Slicer interactions">
-          <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
-          <img src="../../work/assets/model-slicer/assets/state-aware-interactions.svg" width="1200" height="760" alt="Three state panels show available actions for an object with no role, an existing starting point, and an incompatible-role conflict.">
-        </div>
-        <figcaption><strong>State-aware context actions</strong><span>Historical design exploration redrawn from my August 2014 interaction deck. It represents my state model and conflict framing; the final shipped interface remained team-owned.</span></figcaption>
-      </figure>
-    </section>
+      </section>
 
-    <section class="chapter" aria-labelledby="chapter-two-title">
-      <div class="reading">
-        <div class="chapter-head">
-          <div class="chapter-number">02 / DATA</div>
-          <div>
-            <h2 id="chapter-two-title">Turn dynamic slicing into a visible data contract.</h2>
-            <p>Dynamic slicing made the highlighted result depend on recorded behavior. I made provenance and validity visible in the interaction.</p>
+      <section class="arc scene" aria-labelledby="arc-title">
+        <div class="shell arc-grid">
+          <div class="arc-title">
+            <div class="eyebrow">The product arc</div>
+            <h2 id="arc-title">From launch to integration: six years, three design problems.</h2>
+          </div>
+          <div class="arc-steps">
+            <article class="arc-step"><span class="year">2014–2015</span><div><strong>Make the MVP usable.</strong><p>Resolve core interaction states so early users could test the capability.</p></div></article>
+            <article class="arc-step"><span class="year">2015–2016</span><div><strong>Make dynamic slices trustworthy.</strong><p>Expose the data, time range, and recalculation behind each result.</p></div></article>
+            <article class="arc-step"><span class="year">R2020b–R2022a</span><div><strong>Meet engineers inside verification.</strong><p>MathWorks ships Model Slicer entry points from test failures and formal-analysis results.</p></div></article>
           </div>
         </div>
-        <div class="chapter-copy">
-          <p>My 2015 prototypes explored two paths: load existing coverage data or run a simulation, then refine the highlighted slice within a selected time window. The concepts showed when data had been recorded, constrained the available interval, and surfaced an error when a requested endpoint exceeded the available result.</p>
-          <p>The prototypes also distinguished <strong>Refine</strong> from <strong>Simulate and refine</strong>. That distinction mattered when changed inputs or workspace variables required a new simulation before the highlighted slice could be trusted.</p>
+      </section>
+
+      <section class="chapter scene" id="phase-one" aria-labelledby="phase-one-title">
+        <div class="reading">
+          <div class="chapter-head">
+            <div class="chapter-number">01 / USABILITY</div>
+            <div>
+              <h2 id="phase-one-title">Make the MVP usable enough to evaluate.</h2>
+              <p>A small set of labels hid a large state machine. Starting points, exclusions, constraints, generated slices, and source navigation all needed predictable rules.</p>
+            </div>
+          </div>
+          <div class="chapter-copy">
+            <p>I mapped Model Slicer actions to the state of the selected block or signal. The interface had to know whether an object already played a role, whether multiple objects were selected, and whether a new action conflicted with the current configuration.</p>
+            <p>A context-menu deck and a detailed enable/disable matrix made those rules inspectable. I developed the interaction details with an engineering partner. Our team's usability plan covered real slicing tasks, including highlighting dependencies and generating a smaller model.</p>
+            <ul class="decision-list" aria-label="Productization design decisions">
+              <li class="decision-row"><div class="eyebrow">Selection</div><strong>Offer actions that fit the object.</strong><p>Blocks, signals, conditional elements, and multi-selections needed different valid choices.</p></li>
+              <li class="decision-row"><div class="eyebrow">Conflict</div><strong>Give roles a clear precedence.</strong><p>An object could not behave as both an exclusion and a starting point. The product needed a predictable resolution.</p></li>
+              <li class="decision-row"><div class="eyebrow">Recovery</div><strong>Keep a path back to the source.</strong><p>Users needed to move between the focused slice and the original model without losing context.</p></li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <figure class="wide-figure">
-        <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram: dynamic slicing with data and time">
-          <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
-          <img src="../../work/assets/model-slicer/assets/dynamic-slicing-workflow.svg" width="1200" height="760" alt="Coverage or simulation data supplies a recorded interval, a valid time window, and either refine or simulate-and-refine action.">
+        <figure class="wide-figure">
+          <div class="figure-frame diagram-frame" tabindex="0" aria-label="Scrollable state-aware interaction diagram"><img src="../../work/assets/model-slicer/assets/state-aware-interactions.svg" width="1200" height="760" alt="Three state panels show available actions for an object with no role, an existing starting point, and an incompatible-role conflict."></div>
+          <figcaption><strong>State-aware context actions</strong><span>Public-safe redraw of my August 2014 interaction work. It represents my state model and conflict framing; the shipped interface was team-owned.</span></figcaption>
+        </figure>
+      </section>
+
+      <section class="chapter scene" id="phase-two" aria-labelledby="phase-two-title">
+        <div class="reading">
+          <div class="chapter-head">
+            <div class="chapter-number">02 / DYNAMIC SLICING</div>
+            <div>
+              <h2 id="phase-two-title">Make a slice trustworthy over time.</h2>
+              <p>Static slicing asks which blocks could affect a result. Dynamic slicing asks which blocks affected it during a particular execution and time window.</p>
+            </div>
+          </div>
+          <div class="chapter-copy">
+            <p>My 2015 prototypes explored two paths: load existing coverage data or run a simulation, then refine the highlighted slice within a selected interval. The interaction had to expose where the data came from, when it was recorded, and whether the requested time window was valid.</p>
+            <p>I separated <strong>Refine</strong> from <strong>Simulate and refine</strong>. That choice told users when the current data could support an answer and when changed inputs or workspace variables required a fresh simulation.</p>
+            <ul class="decision-list" aria-label="Dynamic slicing design decisions">
+              <li class="decision-row"><div class="eyebrow">Data</div><strong>Show the source of behavior.</strong><p>Loaded coverage and a new simulation represented different evidence states.</p></li>
+              <li class="decision-row"><div class="eyebrow">Time</div><strong>Constrain the interval to recorded results.</strong><p>The product surfaced the available range and rejected a request beyond it.</p></li>
+              <li class="decision-row"><div class="eyebrow">Action</div><strong>Name when recalculation was required.</strong><p>Distinct actions made stale inputs and simulation state visible.</p></li>
+            </ul>
+          </div>
         </div>
-        <figcaption><strong>Dynamic slicing as a data-and-time workflow</strong><span>Historical prototype redrawn from my July–August 2015 decks. It exposes source, time range, validity, and recalculation. The shipped controls may differ from this exploration.</span></figcaption>
-      </figure>
-    </section>
-
-    <section class="alignment" aria-labelledby="alignment-title">
-      <div>
-        <div class="eyebrow">03 / ALIGNMENT</div>
-        <h2 id="alignment-title">Use prototypes to expose the decisions a team must make.</h2>
-      </div>
-      <div class="alignment-copy">
-        <p>The prototypes gave the team a shared object for discussing functional behavior before implementation details hardened.</p>
-        <div class="alignment-list">
-          <div class="alignment-item"><div class="eyebrow">01</div><p>Make selection conflicts concrete enough to resolve.</p></div>
-          <div class="alignment-item"><div class="eyebrow">02</div><p>Review loading, disabled, stale, and invalid states together.</p></div>
-          <div class="alignment-item"><div class="eyebrow">03</div><p>Coordinate the primary development team with upstream and downstream partners.</p></div>
+        <figure class="wide-figure">
+          <div class="figure-frame diagram-frame" tabindex="0" aria-label="Scrollable dynamic-slicing workflow diagram"><img src="../../work/assets/model-slicer/assets/dynamic-slicing-workflow.svg" width="1200" height="760" alt="Coverage or simulation data supplies a recorded interval, a valid time window, and either refine or simulate-and-refine action."></div>
+          <figcaption><strong>Dynamic slicing as a data-and-time contract</strong><span>Public-safe redraw of my July and August 2015 prototypes. The shipped controls may differ from this exploration.</span></figcaption>
+        </figure>
+        <div class="artifact-pair">
+          <figure>
+            <div class="figure-frame"><a href="../../work/assets/model-slicer/assets/prototype-capture-2015.png" target="_blank" rel="noopener" aria-label="Open the 2015 workflow prototype at full size"><img src="../../work/assets/model-slicer/assets/prototype-capture-2015.png" width="758" height="820" alt="Historical wireframe showing dynamic slicing with simulation-data and time-window controls."></a></div>
+            <figcaption><strong>The 2015 workflow prototype</strong><span>Historical artifact from my design decks. The wireframe made data source, timing, and action states concrete enough to critique.</span></figcaption>
+          </figure>
+          <figure>
+            <div class="figure-frame"><a href="../../work/assets/model-slicer/assets/slice-manager-time-window.png" target="_blank" rel="noopener" aria-label="Open the shipped time-window workflow at full size"><img src="../../work/assets/model-slicer/assets/slice-manager-time-window.png" width="1166" height="1120" alt="Historical shipped Model Slice Manager showing simulation time-window and constraint controls on a public demo model."></a></div>
+            <figcaption><strong>The shipped time-window workflow</strong><span>Historical capture from my working files, shown on a public demo model. Product implementation was shared team work.</span></figcaption>
+          </figure>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section reading" aria-labelledby="action-title">
-      <div class="section-head">
-        <div class="eyebrow">03 · Work in action</div>
-        <div><h2 id="action-title">Four decisions, one inspectable workflow.</h2><p>The sequence separated what the user selected, what role it played, which behavioral data supported the result, and whether that data was still valid.</p></div>
-      </div>
-      <ol class="sequence">
-        <li><strong>Select a model object</strong><p>Expose actions appropriate to the current block or signal and its existing Model Slicer role.</p></li>
-        <li><strong>Define the criteria</strong><p>Add a starting point, exclusion, or constraint while preventing incompatible states.</p></li>
-        <li><strong>Establish evidence</strong><p>Load coverage data or run a simulation, then show the available recorded interval.</p></li>
-        <li><strong>Refine with confidence</strong><p>Validate the requested time window and recalculate when inputs or variables have changed.</p></li>
-      </ol>
-    </section>
+      <section class="section integration scene" id="phase-three" aria-labelledby="phase-three-title">
+        <div class="reading">
+          <div class="section-head">
+            <div class="eyebrow">03 · Integration</div>
+            <div>
+              <h2 id="phase-three-title">Put slicing where failures already appeared.</h2>
+              <p>The early releases established the core interaction. The next product question was discoverability: how could engineers reach a focused slice from the verification result they were already trying to understand?</p>
+              <p>I worked with teams across Simulink Test, coverage, Simulink Design Verifier, and Model Slicer to shape those cross-product flows. Public documentation later records the team-owned integrations that shipped from R2020b through R2022a.</p>
+            </div>
+          </div>
 
-    <section class="section outcomes" aria-labelledby="outcomes-title">
-      <div class="reading">
-        <div class="section-head">
-          <div class="eyebrow">04 · Outcomes</div>
-          <div><h2 id="outcomes-title">A supported design outcome, with product context kept separate.</h2><p>The evidence supports clearer functional-design discussion and cross-team alignment. It does not support an adoption number, time-saved metric, or direct causal claim about later releases.</p></div>
+          <article class="workflow">
+            <div class="workflow-header"><div class="eyebrow">Workflow A</div><div><h3>From a failed test to the responsible model path.</h3><p>Test data from a rig, baseline, or earlier system state can reveal a mismatch. The integrated workflow carries that signal into Model Slicer.</p></div></div>
+            <ol class="flow-steps" aria-label="Test Manager to Model Slicer workflow">
+              <li class="flow-step"><div class="eyebrow">01</div><strong>Run model or code test</strong></li>
+              <li class="flow-step"><div class="eyebrow">02</div><strong>Select the failed signal</strong></li>
+              <li class="flow-step"><div class="eyebrow">03</div><strong>Launch Model Slicer</strong></li>
+              <li class="flow-step"><div class="eyebrow">04</div><strong>Trace the active dependencies</strong></li>
+              <li class="flow-step"><div class="eyebrow">05</div><strong>Fix the model and rerun</strong></li>
+            </ol>
+            <p class="workflow-note">MathWorks now documents this pattern in Test Manager: select a failed result, launch a slicer debugging session, move to the failure region, and inspect the highlighted dependency chain.</p>
+          </article>
+
+          <article class="workflow">
+            <div class="workflow-header"><div class="eyebrow">Workflow B</div><div><h3>From a generated objective to the logic that explains it.</h3><p>Design Verifier can detect conditions such as division by zero, dead logic, integer overflow, and array-access violations, then generate tests that exercise difficult behavior. Model Slicer makes the path to the result inspectable.</p></div></div>
+            <ol class="flow-steps" aria-label="Design Verifier to Model Slicer workflow">
+              <li class="flow-step"><div class="eyebrow">01</div><strong>Generate test objectives</strong></li>
+              <li class="flow-step"><div class="eyebrow">02</div><strong>Select an objective</strong></li>
+              <li class="flow-step"><div class="eyebrow">03</div><strong>Inspect using Slicer</strong></li>
+              <li class="flow-step"><div class="eyebrow">04</div><strong>Pause at observation time</strong></li>
+              <li class="flow-step"><div class="eyebrow">05</div><strong>Read values and paths</strong></li>
+            </ol>
+            <p class="workflow-note">The workflow turns a formal-analysis result into a focused explanation inside the model, close to the algorithm that needs attention.</p>
+          </article>
         </div>
-        <div class="outcome-list">
-          <div class="outcome-row"><div class="eyebrow">Verified product state</div><strong>Model Slicer shipped in R2015a.</strong><p>Public MathWorks material describes static dependencies, exclusions, constraints, dynamic dependencies, and slice generation. A time-window simulation API was introduced in R2015b.</p></div>
-          <div class="outcome-row"><div class="eyebrow">Supported contribution</div><strong>The team had explicit behavior to critique.</strong><p>Contemporaneous local evidence records that detailed prototypes helped generate actionable feedback early and align the primary team with adjacent teams.</p></div>
-          <div class="outcome-row"><div class="eyebrow">Later continuation</div><strong>The product expanded into testing and verification workflows.</strong><p>MathWorks documentation records Model Slicer integrations from R2020b through R2022a. Those milestones establish later product evolution, not causality from my earlier concepts.</p></div>
+        <figure class="wide-figure integration-timeline">
+          <div class="figure-frame diagram-frame" tabindex="0" aria-label="Scrollable Model Slicer product timeline"><img src="../../work/assets/model-slicer/assets/later-product-context.svg" width="1200" height="720" alt="Two timelines show Praneet's productization, dynamic-slicing, and cross-product workflow exploration alongside MathWorks milestones in R2015a, R2015b, R2020b, R2021a, and R2022a."></div>
+          <figcaption><strong>From productization to integrated debugging</strong><span>Official release milestones establish the product chronology. Each release was built by the broader MathWorks team across products.</span></figcaption>
+        </figure>
+      </section>
+
+      <section class="section outcomes scene" id="outcomes" aria-labelledby="outcomes-title">
+        <div class="reading">
+          <div class="section-head">
+            <div class="eyebrow">04 · Outcome</div>
+            <div>
+              <h2 id="outcomes-title">The product arc expanded where slicing could create value.</h2>
+              <p>Model Slicer progressed from a capability an expert had to find and configure into a workflow that could begin with a failed test or verification objective.</p>
+            </div>
+          </div>
+          <ul class="outcome-list" aria-label="Supported outcomes">
+            <li class="outcome-row"><div class="eyebrow">Early release</div><strong>A usable path toward customer validation.</strong><p>I addressed release-critical interaction issues to prepare the early automotive partner evaluation.</p></li>
+            <li class="outcome-row"><div class="eyebrow">Workflow depth</div><strong>A slice grounded in state, data, and time.</strong><p>Dynamic slicing exposed the evidence behind a highlighted result and the conditions that could invalidate it.</p></li>
+            <li class="outcome-row"><div class="eyebrow">Product reach</div><strong>A focused explanation at the moment of failure.</strong><p>Public R2020b–R2022a integrations place Model Slicer inside testing and formal-verification journeys across product boundaries.</p></li>
+          </ul>
+
+          <section class="ownership" aria-label="Contribution and team ownership">
+            <article>
+              <div class="eyebrow">My documented contribution</div>
+              <h3>User experience and workflow design</h3>
+              <ul>
+                <li>Release-focused usability work for the engineering MVP</li>
+                <li>State-aware interaction rules and conflict behavior</li>
+                <li>Dynamic-slicing and time-window prototypes</li>
+                <li>Cross-product verification and debugging workflow exploration</li>
+              </ul>
+            </article>
+            <article>
+              <div class="eyebrow">Shared team ownership</div>
+              <h3>The product, implementation, and market path</h3>
+              <p>Engineering, product and program management, research, quality engineering, documentation, marketing, sales and account teams, and customers all shaped the work. MathWorks owns the shipped product and later releases.</p>
+            </article>
+          </section>
+          <p class="evidence-boundary"><strong>Evidence boundary:</strong> this case uses dated interaction artifacts, workflow prototypes, a team usability plan, two approved historical images, and public MathWorks documentation. Later release milestones establish product context; they do not establish one-to-one causality from an earlier concept. I do not have a verified adoption number or time-saved metric, so the outcome remains qualitative.</p>
         </div>
-        <p class="evidence-note"><strong>Evidence boundary:</strong> original interaction decks, a behavior matrix, a usability plan, and contemporaneous review material were examined locally. Proprietary visuals and personnel records remain private; all visuals here are explanatory redraws.</p>
-      </div>
-    </section>
+      </section>
 
-    <section class="section reading" aria-labelledby="timeline-title">
-      <div class="section-head">
-        <div class="eyebrow">05 · Product chronology</div>
-        <div><h2 id="timeline-title">Keep contribution and continuation in different lanes.</h2><p>The timeline makes the case’s central attribution rule visible: my documented design work is in 2014–2015; later release milestones are official product context.</p></div>
-      </div>
-      <figure class="hero-figure">
-        <div class="diagram-scroll" tabindex="0" aria-label="Scrollable diagram: contribution and later product chronology">
-          <span class="mobile-pan-hint" aria-hidden="true">Swipe or use arrow keys to inspect →</span>
-          <img src="../../work/assets/model-slicer/assets/later-product-context.svg" width="1200" height="720" alt="Two timelines separate Praneet's 2014 and 2015 design work from MathWorks product milestones in R2015a, R2015b, R2020b, R2021a, and R2022a.">
+      <section class="section reflection scene" id="lessons" aria-labelledby="lessons-title">
+        <div class="reading">
+          <div class="section-head">
+            <div class="eyebrow">05 · What stayed with me</div>
+            <div><h2 id="lessons-title">Complex tools become clearer when the product exposes its reasoning.</h2></div>
+          </div>
+          <ol class="lessons">
+            <li class="lesson"><div class="eyebrow">01</div><strong>Discovery is a workflow decision.</strong><p>Place a specialist tool at the moment a user encounters the problem it can solve.</p></li>
+            <li class="lesson"><div class="eyebrow">02</div><strong>State is part of the interface.</strong><p>Data source, validity, timing, constraints, and recovery shape trust as much as the visible controls.</p></li>
+            <li class="lesson"><div class="eyebrow">03</div><strong>Prototype the disagreement.</strong><p>A useful prototype makes functional conflicts concrete while the team can still resolve them cheaply.</p></li>
+          </ol>
         </div>
-        <figcaption><strong>Public product evolution, 2015–2022</strong><span>Official release milestones provide chronology. They do not establish that my early prototypes caused later features or shipped unchanged.</span></figcaption>
-      </figure>
-    </section>
+      </section>
 
-    <section class="section reflection" aria-labelledby="reflection-title">
-      <div class="reading reflection-grid">
-        <h2 id="reflection-title">Technical UX often lives in state logic.</h2>
-        <div>
-          <p>When a result depends on selection roles, data provenance, simulation validity, and time, the interface has to expose those dependencies clearly.</p>
-          <p>The work also reinforced the value of detailed prototypes as alignment tools. <strong>A useful prototype reveals the conflicts a team must resolve and makes visual completeness secondary.</strong></p>
+      <section class="closing scene" aria-labelledby="closing-title">
+        <div class="reading">
+          <div class="eyebrow">The six-year shift</div>
+          <blockquote id="closing-title">A failed test became an entry point to the model behavior that explained it.</blockquote>
+          <p>The story began with a narrow release goal: help an early customer use a promising capability. It grew into a broader product pattern for connecting verification evidence to an understandable slice of a complex system.</p>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="sources reading" aria-label="Public source notes">
-      <details>
-        <summary>Public product sources and evidence notes</summary>
-        <p>Public sources establish product state and chronology. Local primary artifacts establish my contribution.</p>
-        <ul>
-          <li><a href="https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/solutions/automotive/files/jp-expo-2015/model-code-verification.pdf">MathWorks 2015 Model and Code Verification material</a>: R2015a Model Slicer capabilities.</li>
-          <li><a href="https://www.mathworks.com/help/slcheck/ref/slslicerapi.slslicer.simulate.html">MathWorks Model Slicer simulation API</a>: time-window behavior introduced in R2015b.</li>
-          <li><a href="https://www.mathworks.com/help/releases/r2025a/pdf_doc/sltest/rn.pdf">Simulink Test release notes</a>: later Model Slicer debugging integrations.</li>
-          <li><a href="https://www.mathworks.com/help/releases/r2025a/pdf_doc/sldv/rn.pdf">Simulink Design Verifier release notes</a>: later objective-inspection integrations.</li>
-          <li><a href="https://www.mathworks.com/help/sltest/ug/debugging-test-failures-using-model-slicer.html">Debug test failures using Model Slicer</a>: current public example of a later testing workflow.</li>
-          <li><a href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html">Inspect test-generation objectives using Model Slicer</a>: current public example of a later verification workflow.</li>
-        </ul>
-      </details>
-    </section>
+      <section class="sources reading scene" id="sources" aria-label="Sources and evidence notes">
+        <details>
+          <summary>Public sources and evidence notes</summary>
+          <p>Public sources establish the technical framing and product chronology. Dated local artifacts establish my contribution. Proprietary models, customer identity, participant information, and personnel records remain outside this page.</p>
+          <ol>
+            <li><a href="https://www.mathworks.com/help/simulink/slref/simulink-concepts-models.html" target="_blank" rel="noopener">Simulink Models</a>: block diagrams as visual representations of models.</li>
+            <li><a href="https://www.mathworks.com/help/simulink/gs/model-based-design.html" target="_blank" rel="noopener">Model-Based Design with Simulink</a>: models at the center of design, simulation, testing, and code generation.</li>
+            <li><a href="https://faculty.cc.gatech.edu/~harrold/6340/cs6340_fall2009/Readings/Weiser.Slicing.TSE.pdf" target="_blank" rel="noopener">Mark Weiser, Program Slicing</a>: foundational program-slicing concept and its debugging use.</li>
+            <li><a href="https://www.mathworks.com/help/slcheck/ug/analyzing-and-isolating-model-dependencies.html" target="_blank" rel="noopener">Workflow for Dependency Analysis</a>: Model Slicer for understanding dependencies in large or complex models.</li>
+            <li><a href="https://www.mathworks.com/help/slcheck/ug/isolate-dependencies-in-a-behaviorally-similar-model.html" target="_blank" rel="noopener">Create a Simplified Standalone Model</a>: using a highlighted slice for simulation, debugging, and analysis.</li>
+            <li><a href="https://www.mathworks.com/content/dam/mathworks/mathworks-dot-com/solutions/automotive/files/jp-expo-2015/model-code-verification.pdf" target="_blank" rel="noopener">MathWorks 2015 Model and Code Verification material</a>: public R2015a Model Slicer capabilities.</li>
+            <li><a href="https://www.mathworks.com/help/slcheck/ref/slslicerapi.slslicer.simulate.html" target="_blank" rel="noopener">Model Slicer simulation API</a>: selected-time-interval behavior introduced in R2015b.</li>
+            <li><a href="https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentID/1032046" target="_blank" rel="noopener">FAA Advisory Circular 20-115D</a>: recognition of DO-331 for model-based development and verification.</li>
+            <li><a href="https://www.iso.org/publication/PUB200262.html" target="_blank" rel="noopener">ISO 26262 road vehicles functional safety</a>: system and software verification context in automotive development.</li>
+            <li><a href="https://www.mathworks.com/help/sltest/ug/debugging-test-failures-using-model-slicer.html" target="_blank" rel="noopener">Debugging Baseline Test Failures Using Model Slicer</a>: the Test Manager failure-to-slice workflow.</li>
+            <li><a href="https://www.mathworks.com/help/sldv/ug/inspect-test-generation-objectives-using-slicer.html" target="_blank" rel="noopener">Inspect Test Generation Objectives Using Model Slicer</a>: the Design Verifier objective-to-slice workflow.</li>
+            <li><a href="https://www.mathworks.com/help/sldv/index.html" target="_blank" rel="noopener">Simulink Design Verifier</a>: formal analysis, design-error detection, and test-generation context.</li>
+            <li><a href="https://www.mathworks.com/help/releases/r2025a/pdf_doc/slcheck/rn.pdf" target="_blank" rel="noopener">Simulink Check release notes</a>: Model Slicer product milestones.</li>
+            <li><a href="https://www.mathworks.com/help/releases/r2025a/pdf_doc/sltest/rn.pdf" target="_blank" rel="noopener">Simulink Test release notes</a>: later Model Slicer debugging integrations.</li>
+            <li><a href="https://www.mathworks.com/help/releases/r2025a/pdf_doc/sldv/rn.pdf" target="_blank" rel="noopener">Simulink Design Verifier release notes</a>: later objective-inspection integrations.</li>
+          </ol>
+        </details>
+      </section>
+    </main>
 
-    <div class="next reading">
-      <h2>See the broader design practice behind the work.</h2>
-      <a href="../../#work">Return to selected work</a>
-    </div>
-  </main>
+    <div class="present-hint" role="status">Arrow keys navigate · Escape exits</div>
+    <footer><div class="reading">© 2026 Praneet Koppula · Case study prepared from public product sources and private primary evidence.</div></footer>
+  </div>
 
-  <footer>
-    <div class="reading">© 2026 Praneet Koppula · Case study prepared from public product sources and private primary evidence.</div>
-  </footer>
+  <script>
+    (() => {
+      const expectedHash = "638fb9e16324657cddfb6c0fbb0ce5d629a321566823fe778adccb61f58b5138";
+      const salt = "model-slicer-case-v1:";
+      const gate = document.getElementById("access-gate");
+      const caseContent = document.getElementById("case-content");
+      const form = document.getElementById("access-form");
+      const input = document.getElementById("access-code");
+      const status = document.getElementById("gate-status");
+      const reveal = document.getElementById("reveal-code");
+
+      async function hash(value) {
+        const bytes = new TextEncoder().encode(salt + value);
+        const digest = await crypto.subtle.digest("SHA-256", bytes);
+        return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      function unlock(remember = true) {
+        document.body.classList.remove("locked");
+        gate.hidden = true;
+        caseContent.hidden = false;
+        if (remember) sessionStorage.setItem("model-slicer-access", "granted");
+        document.getElementById("main-content").focus({ preventScroll: true });
+        requestAnimationFrame(updateProgress);
+      }
+
+      if (sessionStorage.getItem("model-slicer-access") === "granted") unlock(false);
+
+      form.addEventListener("submit", async event => {
+        event.preventDefault();
+        status.textContent = "Checking…";
+        try {
+          if (await hash(input.value.trim()) === expectedHash) {
+            status.textContent = "";
+            unlock();
+          } else {
+            status.textContent = "That code did not match. Check it and try again.";
+            input.select();
+          }
+        } catch (error) {
+          status.textContent = "This browser could not verify the code.";
+        }
+      });
+
+      reveal.addEventListener("click", () => {
+        const showing = input.type === "text";
+        input.type = showing ? "password" : "text";
+        reveal.textContent = showing ? "Show" : "Hide";
+        reveal.setAttribute("aria-label", showing ? "Show access code" : "Hide access code");
+        input.focus();
+      });
+
+      const demo = document.getElementById("slice-demo");
+      const demoToggle = document.getElementById("demo-toggle");
+      const demoState = document.getElementById("demo-state");
+      const demoHeading = document.getElementById("demo-heading");
+      const demoDescription = document.getElementById("demo-description");
+      demoToggle.addEventListener("click", () => {
+        const focused = demo.classList.toggle("is-focused");
+        demoToggle.setAttribute("aria-pressed", String(focused));
+        demoToggle.textContent = focused ? "Show the whole model" : "Focus on the failing signal";
+        demoState.textContent = focused ? "Focused slice" : "Whole model";
+        demoHeading.textContent = focused ? "One behavior. One relevant dependency path." : "The diagram is visible. The causal path is crowded.";
+        demoDescription.textContent = focused
+          ? "The slice preserves the model context that can explain the selected signal and removes unrelated branches from attention."
+          : "A slice keeps the blocks and dependencies relevant to one behavior so an engineer can inspect a smaller, explainable surface.";
+      });
+
+      const presentToggle = document.getElementById("present-toggle");
+      const scenes = Array.from(document.querySelectorAll(".scene"));
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let presenting = false;
+
+      function setPresentation(next) {
+        presenting = next;
+        document.documentElement.classList.toggle("presenting", presenting);
+        presentToggle.setAttribute("aria-pressed", String(presenting));
+        presentToggle.textContent = presenting ? "Exit presentation" : "Present case";
+        if (presenting) {
+          const current = Math.max(0, scenes.findIndex(scene => {
+            const rect = scene.getBoundingClientRect();
+            return rect.top <= 80 && rect.bottom > 80;
+          }));
+          scenes[current].scrollIntoView({ behavior: "auto", block: "start" });
+          document.documentElement.requestFullscreen?.().catch(() => {});
+        }
+        if (!presenting && document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+      }
+
+      presentToggle.addEventListener("click", () => setPresentation(!presenting));
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement && presenting) setPresentation(false);
+      });
+      document.addEventListener("keydown", event => {
+        if (!presenting) return;
+        if (event.key === "Escape") {
+          setPresentation(false);
+          return;
+        }
+        if (!["ArrowDown", "ArrowRight", "PageDown", "ArrowUp", "ArrowLeft", "PageUp"].includes(event.key)) return;
+        event.preventDefault();
+        const backwards = ["ArrowUp", "ArrowLeft", "PageUp"].includes(event.key);
+        const current = Math.max(0, scenes.findIndex(scene => {
+          const rect = scene.getBoundingClientRect();
+          return rect.top <= 80 && rect.bottom > 80;
+        }));
+        const activeRect = scenes[current].getBoundingClientRect();
+        if (!backwards && activeRect.bottom > innerHeight * 1.18) {
+          window.scrollBy({ top: innerHeight * .88, behavior: reducedMotion.matches ? "auto" : "smooth" });
+          return;
+        }
+        if (backwards && activeRect.top < -innerHeight * .18) {
+          window.scrollBy({ top: -innerHeight * .88, behavior: reducedMotion.matches ? "auto" : "smooth" });
+          return;
+        }
+        const next = Math.max(0, Math.min(scenes.length - 1, current + (backwards ? -1 : 1)));
+        scenes[next].scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+      });
+
+      const progressBar = document.getElementById("progress-bar");
+      function updateProgress() {
+        if (caseContent.hidden) return;
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? Math.min(100, Math.max(0, window.scrollY / scrollable * 100)) : 0;
+        progressBar.style.width = progress + "%";
+      }
+      document.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+    })();
+  </script>
 </body>
 </html>
